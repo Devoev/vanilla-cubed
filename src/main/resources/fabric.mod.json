@@ -19,7 +19,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.devoev.vanilla_cubed.VanillaCubedKt::init"
+      {
+        "adapter": "kotlin",
+        "value": "net.devoev.vanilla_cubed.VanillaCubed"
+      }
     ]
   },
   "mixins": [
