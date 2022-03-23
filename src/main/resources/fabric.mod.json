@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "vanilla_squared",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Vanilla squared",
+  "description": "A vanilla+ style mod",
   "authors": [
-    "Me!"
+    "Devoev"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
@@ -14,16 +14,16 @@
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/vanilla_squared/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleModKt::init"
+      "net.devoev.vanilla_squared.VanillaSquaredKt::init"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "vanilla_squared.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.8.7",

@@ -1,4 +1,4 @@
-package net.fabricmc.example.mixin;
+package net.devoev.vanilla_squared.mixin;
 
 import net.minecraft.client.gui.screen.TitleScreen;
 import org.spongepowered.asm.mixin.Mixin;
