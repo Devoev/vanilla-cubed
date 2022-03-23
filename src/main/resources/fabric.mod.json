@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "vanilla_squared",
+  "id": "vanilla_cubed",
   "version": "${version}",
 
-  "name": "Vanilla squared",
+  "name": "Vanilla cubed",
   "description": "A vanilla+ style mod",
   "authors": [
     "Devoev"
@@ -14,16 +14,16 @@
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/vanilla_squared/icon.png",
+  "icon": "assets/vanilla_cubed/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.devoev.vanilla_squared.VanillaSquaredKt::init"
+      "net.devoev.vanilla_cubed.VanillaCubedKt::init"
     ]
   },
   "mixins": [
-    "vanilla_squared.mixins.json"
+    "vanilla_cubed.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.8.7",

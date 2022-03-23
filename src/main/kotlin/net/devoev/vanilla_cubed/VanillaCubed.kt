@@ -1,4 +1,4 @@
-package net.devoev.vanilla_squared
+package net.devoev.vanilla_cubed
 
 // For support join https://discord.gg/v6v4pMv
 

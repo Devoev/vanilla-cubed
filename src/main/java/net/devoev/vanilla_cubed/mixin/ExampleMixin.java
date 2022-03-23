@@ -1,4 +1,4 @@
-package net.devoev.vanilla_squared.mixin;
+package net.devoev.vanilla_cubed.mixin;
 
 import net.minecraft.client.gui.screen.TitleScreen;
 import org.spongepowered.asm.mixin.Mixin;
