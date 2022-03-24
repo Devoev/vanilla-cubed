@@ -1,10 +1,8 @@
 package net.devoev.vanilla_cubed
 
+import net.devoev.vanilla_cubed.item.ElderGuardianShard
 import net.fabricmc.api.ModInitializer
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.block.Block
-import net.minecraft.item.Item
-import net.minecraft.item.ItemGroup
 import net.minecraft.util.Identifier
 import net.minecraft.util.registry.Registry
 
@@ -13,7 +11,7 @@ object VanillaCubed : ModInitializer {
     private const val MOD_ID = "vanilla_cubed"
 
     private val items = mapOf(
-        "donut" to Item(FabricItemSettings().group(ItemGroup.FOOD))
+        "elder_guardian_shard" to ElderGuardianShard()
     )
 
     private val blocks = mapOf<String, Block>()
