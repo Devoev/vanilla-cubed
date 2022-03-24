@@ -5,7 +5,9 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemGroup
 import net.minecraft.util.Rarity
 
-class ElderGuardianShard : Item(FabricItemSettings()
-    .group(ItemGroup.MATERIALS)
-    .rarity(Rarity.UNCOMMON)
-)
+class ElderGuardianShard : Item(FabricItemSettings().group(ItemGroup.MATERIALS).rarity(Rarity.UNCOMMON)) {
+
+    companion object {
+        const val ID = "elder_guardian_shard"
+    }
+}
