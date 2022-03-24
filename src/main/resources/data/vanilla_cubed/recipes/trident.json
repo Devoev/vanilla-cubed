@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " SS",
+    " HS",
+    "D  "
+  ],
+  "key": {
+    "S": {
+      "item": "vanilla_cubed:elder_guardian_shard"
+    },
+    "H": {
+      "item": "minecraft:heart_of_the_sea"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "result": {
+    "item": "minecraft:trident",
+    "count": 1
+  },
+  "group": "vanilla_cubed"
+}

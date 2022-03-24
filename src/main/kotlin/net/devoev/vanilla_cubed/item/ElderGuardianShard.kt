@@ -7,5 +7,5 @@ import net.minecraft.util.Rarity
 
 class ElderGuardianShard : Item(FabricItemSettings()
     .group(ItemGroup.MATERIALS)
-    .rarity(Rarity.RARE)
+    .rarity(Rarity.UNCOMMON)
 )
