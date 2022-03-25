@@ -1,7 +1,7 @@
 package net.devoev.vanilla_cubed
 
 import net.devoev.vanilla_cubed.item.ModItems
-import net.devoev.vanilla_cubed.loot.ModLootTables
+import net.devoev.vanilla_cubed.loot.ModLootTableCallbacks
 import net.fabricmc.api.ModInitializer
 
 object VanillaCubed : ModInitializer {
@@ -10,7 +10,7 @@ object VanillaCubed : ModInitializer {
 
     override fun onInitialize() {
         ModItems.init()
-        ModLootTables.init()
+        ModLootTableCallbacks.init()
     }
 }
 

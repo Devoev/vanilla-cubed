@@ -4,7 +4,10 @@ import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback
 import net.minecraft.util.Identifier
 
-abstract class ModLootTable(private val identifier: Identifier, private val builder: FabricLootPoolBuilder) {
+/**
+ * A modification of existing loot tables defined by [identifier].
+ */
+abstract class ModLootTableCallback(private val identifier: Identifier, private val builder: FabricLootPoolBuilder) {
 
     /**
      * Registers this loot table.
