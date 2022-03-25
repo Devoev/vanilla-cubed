@@ -2,6 +2,7 @@ package net.devoev.vanilla_cubed
 
 import net.devoev.vanilla_cubed.item.ElderGuardianShard
 import net.devoev.vanilla_cubed.item.ModItems
+import net.devoev.vanilla_cubed.loot.ModLootTables
 import net.devoev.vanilla_cubed.loot.initLoot
 import net.fabricmc.api.ModInitializer
 import net.minecraft.block.Block
@@ -15,7 +16,7 @@ object VanillaCubed : ModInitializer {
 
     override fun onInitialize() {
         ModItems
-        initLoot()
+        ModLootTables.init()
     }
 }
 
