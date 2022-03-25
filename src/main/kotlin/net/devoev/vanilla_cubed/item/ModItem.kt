@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.item.Item
 import net.minecraft.util.registry.Registry
 
-abstract class ModItem(settings: FabricItemSettings) : Item(settings), Identifiable<Item, ModItem> {
+abstract class ModItem(settings: FabricItemSettings) : Item(settings), Identifiable<Item> {
 
     override val type: Registry<Item> = Registry.ITEM
 

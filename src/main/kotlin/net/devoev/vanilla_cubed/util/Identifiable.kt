@@ -1,15 +1,14 @@
 package net.devoev.vanilla_cubed.util
 
 import net.devoev.vanilla_cubed.VanillaCubed
-import net.devoev.vanilla_cubed.item.ElderGuardianShard
 import net.minecraft.util.Identifier
 import net.minecraft.util.registry.Registry
 
-interface Identifiable<V, out T : V> {
+interface Identifiable<V> {
 
     val ID: String
 
-    val entry: T
+    val entry: V
 
     val type: Registry<V>
 
@@ -20,7 +19,7 @@ interface Identifiable<V, out T : V> {
      * Registers the [entry] of this.
      * @return The registered entry.
      */
-    fun register(): T = Registry.register(type, Identifier(VanillaCubed.MOD_ID, ID), entry)
+    fun register(): V = Registry.register(type, Identifier(VanillaCubed.MOD_ID, ID), entry)
 
     /**
      * Returns the registered [entry] of this.

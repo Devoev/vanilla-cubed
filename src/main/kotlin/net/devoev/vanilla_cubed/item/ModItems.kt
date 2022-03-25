@@ -1,6 +1,9 @@
 package net.devoev.vanilla_cubed.item
 
-object ModItems {
+import net.devoev.vanilla_cubed.util.RegistryManager
+import net.minecraft.item.Item
 
-    val ELDER_GUARDIAN_SHARD = ElderGuardianShard.register()
+object ModItems : RegistryManager<Item, ModItem>() {
+
+    val ELDER_GUARDIAN_SHARD = set(ElderGuardianShard)
 }
