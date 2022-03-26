@@ -1,17 +1,31 @@
 package net.devoev.vanilla_cubed.util
 
-abstract class RegistryManager<V, E : Identifiable<V>>(vararg elements: E) : MutableSet<E> by mutableSetOf(*elements) {
+import net.devoev.vanilla_cubed.VanillaCubed
+import net.minecraft.util.Identifier
+import net.minecraft.util.registry.Registry
+
+/**
+ * Manages pairs of [V]-[Identifier] which needs to be registered in a [Registry].
+ */
+abstract class RegistryManager<V>(private val registry: Registry<V>, vararg pairs: Pair<Identifier, V>)
+    : MutableMap<Identifier, V> by mutableMapOf(*pairs) {
 
     /**
-     * Adds the given [element] to this registry and returns it.
+     * Creates a new entry of the given [pair] to this registry and returns it.
      */
-    fun <T : E> set(element: T): T {
-        add(element)
+    fun <T : V> create(pair: Pair<Identifier, T>): T {
+        val (id, element) = pair
+        this[id] = element
         return element
     }
 
     /**
+     * Creates a new entry of the given [name] and [element] to this registry and returns it.
+     */
+    fun <T : V> create(name: String, element: T): T = create(Identifier(VanillaCubed.MOD_ID, name) to element)
+
+    /**
      * Initializes this registry by registering all entries.
      */
-    fun init() = forEach { it.register() }
+    fun init() = forEach { Registry.register(registry, it.key, it.value) }
 }
