@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "minecraft:gilded_blackstone"
+  },
+  "result": "vanilla_cubed:gilded_cluster"
+}
