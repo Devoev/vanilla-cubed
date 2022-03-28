@@ -1,4 +1,4 @@
-package net.devoev.vanilla_cubed.tool_materials
+package net.devoev.vanilla_cubed.materials
 
 import net.minecraft.item.Items
 import net.minecraft.item.ToolMaterial

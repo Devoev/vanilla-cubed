@@ -1,10 +1,10 @@
-package net.devoev.vanilla_cubed.tool_materials
+package net.devoev.vanilla_cubed.materials
 
 import net.devoev.vanilla_cubed.item.ModItems
 import net.minecraft.item.ToolMaterial
 import net.minecraft.recipe.Ingredient
 
-object AncientGold : ToolMaterial {
+object AncientGoldToolMaterial : ToolMaterial {
 
     override fun getDurability(): Int = 1561
 
