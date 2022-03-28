@@ -13,5 +13,6 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
 
     val ELDER_GUARDIAN_SHARD = create("elder_guardian_shard", Item(FabricItemSettings().group(ItemGroup.MATERIALS)))
     val GILDED_CLUSTER = create("gilded_cluster", Item(FabricItemSettings().group(ItemGroup.MATERIALS)))
-    val ANCIENT_GOLD = create("ancient_gold_ingot", Item(FabricItemSettings().group(ItemGroup.MATERIALS)))
+    val ANCIENT_GOLD_INGOT = create("ancient_gold_ingot", Item(FabricItemSettings().group(ItemGroup.MATERIALS)))
+    val ANCIENT_GOLD_PICKAXE = create("ancient_gold_pickaxe", AncientGoldPickaxe)
 }
