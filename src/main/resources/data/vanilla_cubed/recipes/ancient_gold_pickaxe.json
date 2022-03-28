@@ -1,0 +1,12 @@
+{
+  "type": "smithing",
+  "base": {
+    "item": "minecraft:diamond_pickaxe"
+  },
+  "addition": {
+    "item": "vanilla_cubed:ancient_gold_ingot"
+  },
+  "result": {
+    "item": "vanilla_cubed:ancient_gold_pickaxe"
+  }
+}
