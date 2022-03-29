@@ -22,6 +22,7 @@ enum class ModArmorMaterials(
     private val repairIngredient: Ingredient
 ) : ArmorMaterial {
 
+    AMETHYST("amethyst", 33, intArrayOf(3, 6, 8, 3), 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0f, 0.0f, ModItems.AMETHYST_CRYSTAL),
     ANCIENT_GOLD("ancient_gold", 33, intArrayOf(3, 6, 8, 3), 10, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 2.0f, 0.0f, ModItems.ANCIENT_GOLD_INGOT);
 
     constructor(name: String, durabilityMultiplier: Int, protectionAmounts: IntArray, enchantability: Int, equipSound: SoundEvent, toughness: Float, knockbackResistance: Float, vararg repairItems: Item)

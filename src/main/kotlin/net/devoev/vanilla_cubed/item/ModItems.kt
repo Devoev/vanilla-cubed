@@ -21,5 +21,6 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
     val ANCIENT_GOLD_PICKAXE = create("ancient_gold_pickaxe", AncientGoldPickaxe)
     val ANCIENT_GOLD_CHESTPLATE = create("ancient_gold_chestplate", ArmorItem(ModArmorMaterials.ANCIENT_GOLD, EquipmentSlot.CHEST, FabricItemSettings().group(ItemGroup.COMBAT)))
 
+    val AMETHYST_CRYSTAL = create("amethyst_crystal", Item(FabricItemSettings().group(ItemGroup.MATERIALS)))
     val AMETHYST_PICKAXE = create("amethyst_pickaxe", AmethystPickaxe)
 }

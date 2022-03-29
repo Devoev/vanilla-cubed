@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " A ",
+    "ADA",
+    " A "
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "A": {
+      "item": "minecraft:amethyst_shard"
+    }
+  },
+  "result": {
+    "item": "vanilla_cubed:amethyst_crystal",
+    "count": 1
+  },
+  "group": "vanilla_cubed"
+}

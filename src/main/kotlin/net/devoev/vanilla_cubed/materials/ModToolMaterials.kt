@@ -2,7 +2,6 @@ package net.devoev.vanilla_cubed.materials
 
 import net.devoev.vanilla_cubed.item.ModItems
 import net.minecraft.item.Item
-import net.minecraft.item.Items
 import net.minecraft.item.ToolMaterial
 import net.minecraft.recipe.Ingredient
 
@@ -18,7 +17,7 @@ enum class ModToolMaterials(
     private val repairIngredient: Ingredient
 ) : ToolMaterial {
 
-    AMETHYST(4, 1561, 6F, 3F, 10, Items.AMETHYST_SHARD),
+    AMETHYST(4, 1561, 6F, 3F, 10, ModItems.AMETHYST_CRYSTAL),
     ANCIENT_GOLD(4, 1561, 6F, 3F, 10, ModItems.ANCIENT_GOLD_INGOT);
 
     constructor(miningLevel: Int, itemDurability: Int, miningSpeed: Float, attackDamage: Float, enchantability: Int, vararg repairItems: Item)

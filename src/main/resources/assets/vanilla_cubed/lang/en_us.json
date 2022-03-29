@@ -1,7 +1,10 @@
 {
   "item.vanilla_cubed.elder_guardian_shard": "Elder Guardian Shard",
+
   "item.vanilla_cubed.gilded_cluster": "Gilded Cluster",
   "item.vanilla_cubed.ancient_gold_ingot": "Ancient Gold Ingot",
   "item.vanilla_cubed.ancient_gold_pickaxe": "Ancient Gold Pickaxe",
+
+  "item.vanilla_cubed.amethyst_crystal": "Amethyst Crystal",
   "item.vanilla_cubed.amethyst_pickaxe": "Amethyst Pickaxe"
 }
