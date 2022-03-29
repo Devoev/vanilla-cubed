@@ -8,6 +8,9 @@ import net.minecraft.recipe.Ingredient
 import net.minecraft.sound.SoundEvent
 import net.minecraft.sound.SoundEvents
 
+/**
+ * All modded armor materials.
+ */
 enum class ModArmorMaterials(
     private val materialName: String,
     private val durabilityMultiplier: Int,
@@ -41,6 +44,10 @@ enum class ModArmorMaterials(
     override fun getKnockbackResistance(): Float = knockbackResistance
 
     companion object {
+
+        /**
+         * The base durability values for helmet, chestplate, leggings and boots.
+         */
         private val BASE_DURABILITY: IntArray = intArrayOf(13, 15, 16, 11)
     }
 }
