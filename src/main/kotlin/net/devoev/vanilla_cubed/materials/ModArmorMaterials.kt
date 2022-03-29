@@ -4,13 +4,12 @@ import net.devoev.vanilla_cubed.item.ModItems
 import net.minecraft.entity.EquipmentSlot
 import net.minecraft.item.ArmorMaterial
 import net.minecraft.item.Item
-import net.minecraft.item.Items
 import net.minecraft.recipe.Ingredient
 import net.minecraft.sound.SoundEvent
 import net.minecraft.sound.SoundEvents
 
-enum class ArmorMaterials(
-    private val _name: String,
+enum class ModArmorMaterials(
+    private val materialName: String,
     private val durabilityMultiplier: Int,
     private val protectionAmounts: IntArray,
     private val enchantability: Int,
@@ -35,7 +34,7 @@ enum class ArmorMaterials(
 
     override fun getRepairIngredient(): Ingredient = repairIngredient
 
-    override fun getName(): String = _name
+    override fun getName(): String = materialName
 
     override fun getToughness(): Float = toughness
 
