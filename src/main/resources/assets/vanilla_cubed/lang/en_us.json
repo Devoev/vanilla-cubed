@@ -1,4 +1,7 @@
 {
+  "itemGroup.vanilla_cubed.materials": "Materials",
+  "itemGroup.vanilla_cubed.tools": "Tools",
+
   "item.vanilla_cubed.elder_guardian_shard": "Elder Guardian Shard",
 
   "item.vanilla_cubed.gilded_cluster": "Gilded Cluster",

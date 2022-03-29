@@ -22,7 +22,7 @@ abstract class RegistryManager<V>(private val registry: Registry<V>, vararg pair
     /**
      * Creates a new entry of the given [name] and [element] to this registry and returns it.
      */
-    fun <T : V> create(name: String, element: T): T = create(Identifier(VanillaCubed.MOD_ID, name) to element)
+    fun <T : V> create(name: String, element: T): T = create(VanillaCubed.id(name) to element)
 
     /**
      * Initializes this registry by registering all entries.

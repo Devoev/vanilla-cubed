@@ -10,17 +10,17 @@ import net.minecraft.item.ItemGroup
 import net.minecraft.util.registry.Registry
 
 /**
- * The set of all mod items.
+ * All modded items.
  */
 object ModItems : RegistryManager<Item>(Registry.ITEM) {
 
-    val ELDER_GUARDIAN_SHARD = create("elder_guardian_shard", Item(FabricItemSettings().group(ItemGroup.MATERIALS)))
+    val ELDER_GUARDIAN_SHARD = create("elder_guardian_shard", Item(FabricItemSettings().group(ModItemGroup.MATERIALS)))
 
-    val GILDED_CLUSTER = create("gilded_cluster", Item(FabricItemSettings().group(ItemGroup.MATERIALS)))
-    val ANCIENT_GOLD_INGOT = create("ancient_gold_ingot", Item(FabricItemSettings().group(ItemGroup.MATERIALS)))
+    val GILDED_CLUSTER = create("gilded_cluster", Item(FabricItemSettings().group(ModItemGroup.MATERIALS)))
+    val ANCIENT_GOLD_INGOT = create("ancient_gold_ingot", Item(FabricItemSettings().group(ModItemGroup.MATERIALS)))
     val ANCIENT_GOLD_PICKAXE = create("ancient_gold_pickaxe", AncientGoldPickaxe)
     val ANCIENT_GOLD_CHESTPLATE = create("ancient_gold_chestplate", ArmorItem(ModArmorMaterials.ANCIENT_GOLD, EquipmentSlot.CHEST, FabricItemSettings().group(ItemGroup.COMBAT)))
 
-    val AMETHYST_CRYSTAL = create("amethyst_crystal", Item(FabricItemSettings().group(ItemGroup.MATERIALS)))
+    val AMETHYST_CRYSTAL = create("amethyst_crystal", Item(FabricItemSettings().group(ModItemGroup.MATERIALS)))
     val AMETHYST_PICKAXE = create("amethyst_pickaxe", AmethystPickaxe)
 }
