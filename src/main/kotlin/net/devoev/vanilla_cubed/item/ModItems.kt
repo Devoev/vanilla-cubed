@@ -23,5 +23,8 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
 
     val AMETHYST_CRYSTAL = create("amethyst_crystal", Item(FabricItemSettings().group(ModItemGroup.MATERIALS)))
     val AMETHYST_PICKAXE = create("amethyst_pickaxe", ModPickaxe(ModToolMaterials.AMETHYST, 1, 1F, ModItemGroup.TOOLS.toSettings()))
+    val AMETHYST_HELMET= create("amethyst_helmet", ArmorItem(ModArmorMaterials.AMETHYST, EquipmentSlot.HEAD, ModItemGroup.COMBAT.toSettings()))
     val AMETHYST_CHESTPLATE = create("amethyst_chestplate", ArmorItem(ModArmorMaterials.AMETHYST, EquipmentSlot.CHEST, ModItemGroup.COMBAT.toSettings()))
+    val AMETHYST_LEGGINGS = create("amethyst_leggings", ArmorItem(ModArmorMaterials.AMETHYST, EquipmentSlot.LEGS, ModItemGroup.COMBAT.toSettings()))
+    val AMETHYST_BOOTS = create("amethyst_boots", ArmorItem(ModArmorMaterials.AMETHYST, EquipmentSlot.FEET, ModItemGroup.COMBAT.toSettings()))
 }

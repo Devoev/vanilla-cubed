@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.item.Item
 import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
-import net.minecraft.item.Items
 import java.util.function.Supplier
 
 /**
@@ -14,9 +13,9 @@ import java.util.function.Supplier
  */
 object ModItemGroup {
 
-    val MATERIALS: ItemGroup = create("materials") { ModItems.AMETHYST_CRYSTAL }
+    val MATERIALS: ItemGroup = create("materials") { ModItems.ELDER_GUARDIAN_SHARD }
     val TOOLS: ItemGroup = create("tools") { ModItems.AMETHYST_PICKAXE }
-    val COMBAT: ItemGroup = create("combat") { Items.DIAMOND_SWORD }
+    val COMBAT: ItemGroup = create("combat") { ModItems.AMETHYST_CHESTPLATE }
 
     /**
      * Creates a new modded [ItemGroup].
