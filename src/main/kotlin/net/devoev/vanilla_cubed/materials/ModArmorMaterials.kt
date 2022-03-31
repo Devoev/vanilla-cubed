@@ -3,6 +3,7 @@ package net.devoev.vanilla_cubed.materials
 import net.devoev.vanilla_cubed.item.ModItems
 import net.minecraft.entity.EquipmentSlot
 import net.minecraft.item.ArmorMaterial
+import net.minecraft.item.ArmorMaterials
 import net.minecraft.item.Item
 import net.minecraft.recipe.Ingredient
 import net.minecraft.sound.SoundEvent
@@ -22,11 +23,21 @@ enum class ModArmorMaterials(
     private val repairIngredient: Ingredient
 ) : ArmorMaterial {
 
-    AMETHYST("amethyst", 33, intArrayOf(3, 6, 8, 3), 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0f, 0.0f, ModItems.AMETHYST_CRYSTAL),
-    ANCIENT_GOLD("ancient_gold", 33, intArrayOf(3, 6, 8, 3), 10, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 2.0f, 0.0f, ModItems.ANCIENT_GOLD_INGOT);
+    AMETHYST(name = "amethyst", protectionAmounts = intArrayOf(4, 7, 9, 4), equipSound = SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, repairItem = ModItems.AMETHYST_CRYSTAL),
+    ANCIENT_GOLD(name = "ancient_gold", enchantability = 22, equipSound = SoundEvents.ITEM_ARMOR_EQUIP_GOLD, repairItem = ModItems.ANCIENT_GOLD_INGOT);
 
-    constructor(name: String, durabilityMultiplier: Int, protectionAmounts: IntArray, enchantability: Int, equipSound: SoundEvent, toughness: Float, knockbackResistance: Float, vararg repairItems: Item)
-        : this(name, durabilityMultiplier, protectionAmounts, enchantability, equipSound, toughness, knockbackResistance, Ingredient.ofItems(*repairItems))
+    /**
+     * Constructs a new [ArmorMaterial]. Default values are the stats of [ArmorMaterials.DIAMOND].
+     */
+    constructor(name: String,
+                durabilityMultiplier: Int = 33,
+                protectionAmounts: IntArray = intArrayOf(3, 6, 8, 3),
+                enchantability: Int = 10,
+                equipSound: SoundEvent,
+                toughness: Float = 2F,
+                knockbackResistance: Float = 0F,
+                repairItem: Item)
+        : this(name, durabilityMultiplier, protectionAmounts, enchantability, equipSound, toughness, knockbackResistance, Ingredient.ofItems(repairItem))
 
     override fun getDurability(slot: EquipmentSlot): Int = BASE_DURABILITY[slot.entitySlotId] * durabilityMultiplier
 
@@ -47,7 +58,7 @@ enum class ModArmorMaterials(
     companion object {
 
         /**
-         * The base durability values for helmet, chestplate, leggings and boots.
+         * The base durability values for boots, leggings, chestplate and helmet.
          */
         private val BASE_DURABILITY: IntArray = intArrayOf(13, 15, 16, 11)
     }

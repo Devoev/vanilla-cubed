@@ -3,6 +3,7 @@ package net.devoev.vanilla_cubed.materials
 import net.devoev.vanilla_cubed.item.ModItems
 import net.minecraft.item.Item
 import net.minecraft.item.ToolMaterial
+import net.minecraft.item.ToolMaterials
 import net.minecraft.recipe.Ingredient
 
 /**
@@ -17,11 +18,19 @@ enum class ModToolMaterials(
     private val repairIngredient: Ingredient
 ) : ToolMaterial {
 
-    AMETHYST(4, 1561, 6F, 3F, 10, ModItems.AMETHYST_CRYSTAL),
-    ANCIENT_GOLD(4, 1561, 6F, 3F, 10, ModItems.ANCIENT_GOLD_INGOT);
+    AMETHYST(miningLevel = 4, miningSpeed = 10F, repairItem = ModItems.AMETHYST_CRYSTAL),
+    ANCIENT_GOLD(miningLevel = 4, enchantability = 22, repairItem = ModItems.ANCIENT_GOLD_INGOT);
 
-    constructor(miningLevel: Int, itemDurability: Int, miningSpeed: Float, attackDamage: Float, enchantability: Int, vararg repairItems: Item)
-            : this(miningLevel, itemDurability, miningSpeed, attackDamage, enchantability, Ingredient.ofItems(*repairItems))
+    /**
+     * Constructs a new [ToolMaterial]. Default values are the stats of [ToolMaterials.DIAMOND].
+     */
+    constructor(miningLevel: Int = 3,
+                itemDurability: Int = 1561,
+                miningSpeed: Float = 8F,
+                attackDamage: Float = 3F,
+                enchantability: Int = 10,
+                repairItem: Item)
+            : this(miningLevel, itemDurability, miningSpeed, attackDamage, enchantability, Ingredient.ofItems(repairItem))
 
     override fun getDurability(): Int = itemDurability
 
