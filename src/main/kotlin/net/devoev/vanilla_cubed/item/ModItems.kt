@@ -1,13 +1,15 @@
 package net.devoev.vanilla_cubed.item
 
+import net.devoev.vanilla_cubed.block.ModBlocks
+import net.devoev.vanilla_cubed.item.ToolBuilder.ModPickaxe
 import net.devoev.vanilla_cubed.materials.ModArmorMaterials
 import net.devoev.vanilla_cubed.materials.ModToolMaterials
-import net.devoev.vanilla_cubed.item.ToolBuilder.ModPickaxe
 import net.devoev.vanilla_cubed.util.RegistryManager
 import net.minecraft.entity.EquipmentSlot
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.item.ArmorItem
+import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
 import net.minecraft.util.registry.Registry
 
@@ -39,4 +41,7 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
     val AMETHYST_CHESTPLATE = create("amethyst_chestplate", AMETHYST_ARMOR.chestplate)
     val AMETHYST_LEGGINGS = create("amethyst_leggings", AMETHYST_ARMOR.leggings)
     val AMETHYST_BOOTS = create("amethyst_boots", AMETHYST_ARMOR.boots)
+
+    //Enderite
+    val ENDERITE_ORE = create("enderite_ore", BlockItem(ModBlocks.ENDERITE_ORE, ModItemGroup.MATERIALS.toSettings()))
 }
