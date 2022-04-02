@@ -2,6 +2,7 @@ package net.devoev.vanilla_cubed.item
 
 import net.devoev.vanilla_cubed.materials.ModArmorMaterials
 import net.devoev.vanilla_cubed.materials.ModToolMaterials
+import net.devoev.vanilla_cubed.item.ToolBuilder.ModPickaxe
 import net.devoev.vanilla_cubed.util.RegistryManager
 import net.minecraft.entity.EquipmentSlot
 import net.minecraft.entity.effect.StatusEffectInstance
