@@ -18,7 +18,7 @@ enum class ModToolMaterials(
     private val repairIngredient: Ingredient
 ) : ToolMaterial {
 
-    AMETHYST(miningLevel = 4, miningSpeed = 10F, repairItem = ModItems.AMETHYST_CRYSTAL),
+    AMETHYST(miningLevel = 4, miningSpeed = 10F, repairItem = ModItems.CHARGED_AMETHYST_CRYSTAL),
     ANCIENT_GOLD(miningLevel = 4, enchantability = 22, repairItem = ModItems.ANCIENT_GOLD_INGOT);
 
     /**

@@ -4,7 +4,7 @@
     "item": "minecraft:diamond_pickaxe"
   },
   "addition": {
-    "item": "vanilla_cubed:amethyst_crystal"
+    "item": "vanilla_cubed:amethyst_crystal_charged"
   },
   "result": {
     "item": "vanilla_cubed:amethyst_pickaxe"
