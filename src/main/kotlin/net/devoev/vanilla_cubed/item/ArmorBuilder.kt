@@ -9,24 +9,17 @@ import net.minecraft.item.ArmorMaterial
 import net.minecraft.item.Item.Settings
 
 /**
- * Builds all 4 armor pieces for the given [material] and [settings].
+ * Builds all 4 armor pieces for given [ArmorMaterial] and [Settings].
  */
-class ArmorBuilder private constructor(private val material: ArmorMaterial, private val settings: Settings, builder: (EquipmentSlot) -> ArmorItem) {
+class ArmorBuilder private constructor(build: (EquipmentSlot) -> ArmorItem) {
 
-    val helmet: ArmorItem
-    val chestplate: ArmorItem
-    val leggings: ArmorItem
-    val boots: ArmorItem
+    val helmet: ArmorItem = build(EquipmentSlot.HEAD)
+    val chestplate: ArmorItem = build(EquipmentSlot.CHEST)
+    val leggings: ArmorItem = build(EquipmentSlot.LEGS)
+    val boots: ArmorItem = build(EquipmentSlot.FEET)
 
-    init {
-        helmet = builder(EquipmentSlot.HEAD)
-        chestplate = builder(EquipmentSlot.CHEST)
-        leggings = builder(EquipmentSlot.LEGS)
-        boots = builder(EquipmentSlot.FEET)
-    }
-
-    constructor(material: ArmorMaterial, settings: Settings) : this(material, settings, {slot -> ArmorItem(material, slot, settings) })
-    constructor(material: ArmorMaterial, settings: Settings, effect: StatusEffectInstance) : this(material, settings, {slot -> EffectArmor(material, slot, settings, effect)})
+    constructor(material: ArmorMaterial, settings: Settings) : this({ slot -> ArmorItem(material, slot, settings) })
+    constructor(material: ArmorMaterial, settings: Settings, effect: StatusEffectInstance) : this({ slot -> EffectArmor(material, slot, settings, effect) })
 
     /**
      * Armor that applies a [StatusEffect] as a full armor effect.
