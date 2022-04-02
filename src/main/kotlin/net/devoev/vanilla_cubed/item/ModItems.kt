@@ -4,6 +4,7 @@ import net.devoev.vanilla_cubed.materials.ModArmorMaterials
 import net.devoev.vanilla_cubed.materials.ModToolMaterials
 import net.devoev.vanilla_cubed.util.RegistryManager
 import net.minecraft.entity.EquipmentSlot
+import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.item.ArmorItem
 import net.minecraft.item.Item
 import net.minecraft.item.ShovelItem
@@ -32,7 +33,7 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
     val AMETHYST_AXE = create("amethyst_axe", ModAxe(ModToolMaterials.AMETHYST, 5.0F, -2.6F, ModItemGroup.TOOLS.toSettings()))
     val AMETHYST_HOE = create("amethyst_hoe", ModHoe(ModToolMaterials.AMETHYST, -3, 0F, ModItemGroup.TOOLS.toSettings()))
 
-    val AMETHYST_HELMET= create("amethyst_helmet", ArmorItem(ModArmorMaterials.AMETHYST, EquipmentSlot.HEAD, ModItemGroup.COMBAT.toSettings()))
+    val AMETHYST_HELMET= create("amethyst_helmet", ModArmor(ModArmorMaterials.AMETHYST, EquipmentSlot.HEAD, ModItemGroup.COMBAT.toSettings(), StatusEffects.HASTE))
     val AMETHYST_CHESTPLATE = create("amethyst_chestplate", ArmorItem(ModArmorMaterials.AMETHYST, EquipmentSlot.CHEST, ModItemGroup.COMBAT.toSettings()))
     val AMETHYST_LEGGINGS = create("amethyst_leggings", ArmorItem(ModArmorMaterials.AMETHYST, EquipmentSlot.LEGS, ModItemGroup.COMBAT.toSettings()))
     val AMETHYST_BOOTS = create("amethyst_boots", ArmorItem(ModArmorMaterials.AMETHYST, EquipmentSlot.FEET, ModItemGroup.COMBAT.toSettings()))
