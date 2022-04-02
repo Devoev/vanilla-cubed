@@ -1,12 +1,12 @@
 {
   "type": "minecraft:smithing",
   "base": {
-    "item": "minecraft:diamond_pickaxe"
+    "item": "minecraft:diamond_axe"
   },
   "addition": {
     "item": "vanilla_cubed:amethyst_crystal_charged"
   },
   "result": {
-    "item": "vanilla_cubed:amethyst_pickaxe"
+    "item": "vanilla_cubed:amethyst_axe"
   }
 }
