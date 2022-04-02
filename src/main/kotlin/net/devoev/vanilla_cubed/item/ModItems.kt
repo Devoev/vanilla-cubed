@@ -24,6 +24,7 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
 
     //Amethyst
     val AMETHYST_CRYSTAL = create("amethyst_crystal", Item(ModItemGroup.MATERIALS.toSettings()))
+    val CHARGED_AMETHYST_CRYSTAL = create("amethyst_crystal_charged", Item(ModItemGroup.MATERIALS.toSettings()))
 
     val AMETHYST_SWORD = create("amethyst_sword", SwordItem(ModToolMaterials.AMETHYST, 3, -2F, ModItemGroup.TOOLS.toSettings()))
     val AMETHYST_SHOVEL = create("amethyst_shovel", ShovelItem(ModToolMaterials.AMETHYST, 1.5F, -2.6F, ModItemGroup.TOOLS.toSettings()))
