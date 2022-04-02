@@ -11,5 +11,5 @@ import net.minecraft.util.registry.Registry
 object ModBlocks : RegistryManager<Block>(Registry.BLOCK) {
 
     val ENDERITE_ORE = create("enderite_ore", OreBlock(FabricBlockSettings.of(Material.METAL).requiresTool()
-        .strength(30.0f, 1200.0f).sounds(BlockSoundGroup.DEEPSLATE)))
+        .strength(15.0f, 6.0f).sounds(BlockSoundGroup.DEEPSLATE)))
 }
