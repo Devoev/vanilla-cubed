@@ -8,8 +8,6 @@ import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.item.ArmorItem
 import net.minecraft.item.Item
-import net.minecraft.item.ShovelItem
-import net.minecraft.item.SwordItem
 import net.minecraft.util.registry.Registry
 
 /**
@@ -28,11 +26,12 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
     val AMETHYST_CRYSTAL = create("amethyst_crystal", Item(ModItemGroup.MATERIALS.toSettings()))
     val CHARGED_AMETHYST_CRYSTAL = create("amethyst_crystal_charged", Item(ModItemGroup.MATERIALS.toSettings()))
 
-    val AMETHYST_SWORD = create("amethyst_sword", SwordItem(ModToolMaterials.AMETHYST, 3, -2F, ModItemGroup.TOOLS.toSettings()))
-    val AMETHYST_SHOVEL = create("amethyst_shovel", ShovelItem(ModToolMaterials.AMETHYST, 1.5F, -2.6F, ModItemGroup.TOOLS.toSettings()))
-    val AMETHYST_PICKAXE = create("amethyst_pickaxe", ModPickaxe(ModToolMaterials.AMETHYST, 1, -2.4F, ModItemGroup.TOOLS.toSettings()))
-    val AMETHYST_AXE = create("amethyst_axe", ModAxe(ModToolMaterials.AMETHYST, 5.0F, -2.6F, ModItemGroup.TOOLS.toSettings()))
-    val AMETHYST_HOE = create("amethyst_hoe", ModHoe(ModToolMaterials.AMETHYST, -3, 0F, ModItemGroup.TOOLS.toSettings()))
+    private val AMETHYST_TOOLS = ToolBuilder(ModToolMaterials.AMETHYST, ModItemGroup.TOOLS.toSettings(), attackSpeedAmounts = ToolBuilder.BASE_ATTACK_SPEED.map { it + 0.4F })
+    val AMETHYST_SWORD = create("amethyst_sword", AMETHYST_TOOLS.sword)
+    val AMETHYST_SHOVEL = create("amethyst_shovel", AMETHYST_TOOLS.shovel)
+    val AMETHYST_PICKAXE = create("amethyst_pickaxe", AMETHYST_TOOLS.pickaxe)
+    val AMETHYST_AXE = create("amethyst_axe", AMETHYST_TOOLS.axe)
+    val AMETHYST_HOE = create("amethyst_hoe", AMETHYST_TOOLS.hoe)
 
     private val AMETHYST_ARMOR = ArmorBuilder(ModArmorMaterials.AMETHYST, ModItemGroup.COMBAT.toSettings(), StatusEffectInstance(StatusEffects.HASTE))
     val AMETHYST_HELMET = create("amethyst_helmet", AMETHYST_ARMOR.helmet)
