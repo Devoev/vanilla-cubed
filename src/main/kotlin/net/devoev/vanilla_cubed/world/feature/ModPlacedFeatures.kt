@@ -8,6 +8,9 @@ import net.minecraft.world.gen.feature.ConfiguredFeature
 import net.minecraft.world.gen.feature.OrePlacedFeatures
 import net.minecraft.world.gen.feature.PlacedFeature
 
+/**
+ * All placed features.
+ */
 object ModPlacedFeatures : RegistryManager<PlacedFeature>(BuiltinRegistries.PLACED_FEATURE) {
 
     val ENDERITE_ORE = create("enderite_ore", ModConfiguredFeatures.ENDERITE_ORE,
