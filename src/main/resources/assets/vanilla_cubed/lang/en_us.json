@@ -7,7 +7,15 @@
 
   "item.vanilla_cubed.gilded_cluster": "Gilded Cluster",
   "item.vanilla_cubed.ancient_gold_ingot": "Ancient Gold Ingot",
+  "item.vanilla_cubed.ancient_gold_sword": "Ancient Gold Sword",
+  "item.vanilla_cubed.ancient_gold_shovel": "Ancient Gold Shovel",
   "item.vanilla_cubed.ancient_gold_pickaxe": "Ancient Gold Pickaxe",
+  "item.vanilla_cubed.ancient_gold_axe": "Ancient Gold Axe",
+  "item.vanilla_cubed.ancient_gold_hoe": "Ancient Gold Hoe",
+  "item.vanilla_cubed.ancient_gold_helmet": "Ancient Gold Helmet",
+  "item.vanilla_cubed.ancient_gold_chestplate": "Ancient Gold Chestplate",
+  "item.vanilla_cubed.ancient_gold_leggings": "Ancient Gold Leggings",
+  "item.vanilla_cubed.ancient_gold_boots": "Ancient Gold Boots",
 
   "item.vanilla_cubed.amethyst_crystal": "Amethyst Crystal",
   "item.vanilla_cubed.amethyst_crystal_charged": "Charged Amethyst Crystal",
@@ -28,5 +36,9 @@
   "item.vanilla_cubed.enderite_shovel": "Enderite Shovel",
   "item.vanilla_cubed.enderite_pickaxe": "Enderite Pickaxe",
   "item.vanilla_cubed.enderite_axe": "Enderite Axe",
-  "item.vanilla_cubed.enderite_hoe": "Enderite Hoe"
+  "item.vanilla_cubed.enderite_hoe": "Enderite Hoe",
+  "item.vanilla_cubed.enderite_helmet": "Enderite Helmet",
+  "item.vanilla_cubed.enderite_chestplate": "Enderite Chestplate",
+  "item.vanilla_cubed.enderite_leggings": "Enderite Leggings",
+  "item.vanilla_cubed.enderite_boots": "Enderite Boots"
 }

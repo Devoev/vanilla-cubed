@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:diamond_hoe"
+  },
+  "addition": {
+    "item": "vanilla_cubed:ancient_gold_ingot"
+  },
+  "result": {
+    "item": "vanilla_cubed:ancient_gold_hoe"
+  }
+}

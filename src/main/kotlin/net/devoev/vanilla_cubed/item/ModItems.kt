@@ -1,14 +1,11 @@
 package net.devoev.vanilla_cubed.item
 
 import net.devoev.vanilla_cubed.block.ModBlocks
-import net.devoev.vanilla_cubed.item.ToolBuilder.ModPickaxe
 import net.devoev.vanilla_cubed.materials.ModArmorMaterials
 import net.devoev.vanilla_cubed.materials.ModToolMaterials
 import net.devoev.vanilla_cubed.util.RegistryManager
-import net.minecraft.entity.EquipmentSlot
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.effect.StatusEffects
-import net.minecraft.item.ArmorItem
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
 import net.minecraft.util.registry.Registry
@@ -18,12 +15,25 @@ import net.minecraft.util.registry.Registry
  */
 object ModItems : RegistryManager<Item>(Registry.ITEM) {
 
+    //Tridents
     val ELDER_GUARDIAN_SHARD = create("elder_guardian_shard", Item(ModItemGroup.MATERIALS.toSettings()))
 
+    //Ancient Gold
     val GILDED_CLUSTER = create("gilded_cluster", Item(ModItemGroup.MATERIALS.toSettings()))
     val ANCIENT_GOLD_INGOT = create("ancient_gold_ingot", Item(ModItemGroup.MATERIALS.toSettings()))
-    val ANCIENT_GOLD_PICKAXE = create("ancient_gold_pickaxe", ModPickaxe(ModToolMaterials.ANCIENT_GOLD, 1, 1F, ModItemGroup.TOOLS.toSettings()))
-    val ANCIENT_GOLD_CHESTPLATE = create("ancient_gold_chestplate", ArmorItem(ModArmorMaterials.ANCIENT_GOLD, EquipmentSlot.CHEST, ModItemGroup.COMBAT.toSettings()))
+
+    private val ANCIENT_GOLD_TOOLS = ToolBuilder(ModToolMaterials.ANCIENT_GOLD, ModItemGroup.TOOLS.toSettings())
+    val ANCIENT_GOLD_SWORD = create("ancient_gold_sword", ANCIENT_GOLD_TOOLS.sword)
+    val ANCIENT_GOLD_SHOVEL = create("ancient_gold_shovel", ANCIENT_GOLD_TOOLS.shovel)
+    val ANCIENT_GOLD_PICKAXE = create("ancient_gold_pickaxe", ANCIENT_GOLD_TOOLS.pickaxe)
+    val ANCIENT_GOLD_AXE = create("ancient_gold_axe", ANCIENT_GOLD_TOOLS.axe)
+    val ANCIENT_GOLD_HOE = create("ancient_gold_hoe", ANCIENT_GOLD_TOOLS.hoe)
+
+    private val ANCIENT_GOLD_ARMOR = ArmorBuilder(ModArmorMaterials.ANCIENT_GOLD, ModItemGroup.COMBAT.toSettings(), StatusEffectInstance(StatusEffects.LUCK))
+    val ANCIENT_GOLD_HELMET = create("ancient_gold_helmet", ANCIENT_GOLD_ARMOR.helmet)
+    val ANCIENT_GOLD_CHESTPLATE = create("ancient_gold_chestplate", ANCIENT_GOLD_ARMOR.chestplate)
+    val ANCIENT_GOLD_LEGGINGS = create("ancient_gold_leggings", ANCIENT_GOLD_ARMOR.leggings)
+    val ANCIENT_GOLD_BOOTS = create("ancient_gold_boots", ANCIENT_GOLD_ARMOR.boots)
 
     //Amethyst
     val AMETHYST_CRYSTAL = create("amethyst_crystal", Item(ModItemGroup.MATERIALS.toSettings()))
@@ -53,4 +63,10 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
     val ENDERITE_PICKAXE = create("enderite_pickaxe", ENDERITE_TOOLS.pickaxe)
     val ENDERITE_AXE = create("enderite_axe", ENDERITE_TOOLS.axe)
     val ENDERITE_HOE = create("enderite_hoe", ENDERITE_TOOLS.hoe)
+
+    private val ENDERITE_ARMOR = ArmorBuilder(ModArmorMaterials.ENDERITE, ModItemGroup.COMBAT.toSettings())
+    val ENDERITE_HELMET = create("enderite_helmet", ENDERITE_ARMOR.helmet)
+    val ENDERITE_CHESTPLATE = create("enderite_chestplate", ENDERITE_ARMOR.chestplate)
+    val ENDERITE_LEGGINGS = create("enderite_leggings", ENDERITE_ARMOR.leggings)
+    val ENDERITE_BOOTS = create("enderite_boots", ENDERITE_ARMOR.boots)
 }
