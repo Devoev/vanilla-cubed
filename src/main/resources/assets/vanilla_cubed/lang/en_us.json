@@ -24,5 +24,9 @@
   "block.vanilla_cubed.enderite_ore": "Enderite Ore",
   "item.vanilla_cubed.enderite_shard": "Enderite Shard",
   "item.vanilla_cubed.enderite_ingot": "Enderite Ingot",
-  "item.vanilla_cubed.enderite_sword": "Enderite Sword"
+  "item.vanilla_cubed.enderite_sword": "Enderite Sword",
+  "item.vanilla_cubed.enderite_shovel": "Enderite Shovel",
+  "item.vanilla_cubed.enderite_pickaxe": "Enderite Pickaxe",
+  "item.vanilla_cubed.enderite_axe": "Enderite Axe",
+  "item.vanilla_cubed.enderite_hoe": "Enderite Hoe"
 }

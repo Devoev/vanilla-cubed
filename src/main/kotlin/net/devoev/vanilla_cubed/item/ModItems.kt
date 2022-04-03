@@ -49,4 +49,8 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
 
     private val ENDERITE_TOOLS = ToolBuilder(ModToolMaterials.ENDERITE, ModItemGroup.TOOLS.toSettings())
     val ENDERITE_SWORD = create("enderite_sword", ENDERITE_TOOLS.sword)
+    val ENDERITE_SHOVEL = create("enderite_shovel", ENDERITE_TOOLS.shovel)
+    val ENDERITE_PICKAXE = create("enderite_pickaxe", ENDERITE_TOOLS.pickaxe)
+    val ENDERITE_AXE = create("enderite_axe", ENDERITE_TOOLS.axe)
+    val ENDERITE_HOE = create("enderite_hoe", ENDERITE_TOOLS.hoe)
 }
