@@ -28,4 +28,14 @@ abstract class RegistryManager<V>(private val registry: Registry<V>, vararg pair
      * Initializes this registry by registering all entries.
      */
     fun init() = forEach { Registry.register(registry, it.key, it.value) }
+
+    /**
+     * The first [Identifier] key that matches the given [value].
+     */
+    fun getKey(value: V): Identifier = filterValues { it == value }.keys.first()
+
+    /**
+     * The first [Identifier] key that matches the given [value].
+     */
+    operator fun get(value: V): Identifier = getKey(value)
 }
