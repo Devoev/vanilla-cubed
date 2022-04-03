@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "vanilla_cubed:enderite_shard"
+    },
+    {
+      "item": "vanilla_cubed:enderite_shard"
+    },
+    {
+      "item": "vanilla_cubed:enderite_shard"
+    },
+    {
+      "item": "vanilla_cubed:enderite_shard"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    }
+  ],
+  "result": {
+    "item": "vanilla_cubed:enderite_ingot",
+    "count": 1
+  }
+}
