@@ -46,4 +46,7 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
     val ENDERITE_ORE = create("enderite_ore", BlockItem(ModBlocks.ENDERITE_ORE, ModItemGroup.MATERIALS.toSettings()))
     val ENDERITE_SHARD = create("enderite_shard", Item(ModItemGroup.MATERIALS.toSettings()))
     val ENDERITE_INGOT = create("enderite_ingot", Item(ModItemGroup.MATERIALS.toSettings()))
+
+    private val ENDERITE_TOOLS = ToolBuilder(ModToolMaterials.ENDERITE, ModItemGroup.TOOLS.toSettings())
+    val ENDERITE_SWORD = create("enderite_sword", ENDERITE_TOOLS.sword)
 }
