@@ -18,7 +18,7 @@ import java.util.Map.Entry;
  * A mixin for ancient gold armor and tools.
  */
 @Mixin(ExperienceOrbEntity.class)
-public class AncientGoldMixin {
+public class ExperienceOrbEntityMixin {
 
     @Inject(method = "repairPlayerGears", at = @At(value = "HEAD"))
     private void repairPlayerGears(PlayerEntity player, int amount, CallbackInfoReturnable info) {
