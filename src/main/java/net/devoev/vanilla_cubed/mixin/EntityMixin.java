@@ -15,13 +15,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * A mixin for the amethyst crystal.
  */
 @Mixin(Entity.class)
-public class AmethystCrystalMixin {
+public class EntityMixin {
 
     /**
      * Charges the amethyst crystal when struck by lightning.
      */
     @Inject(method = "onStruckByLightning", at = @At("HEAD"))
-    private void onStruckByLightning(ServerWorld world, LightningEntity lightning, CallbackInfo info) {
+    private void chargeAmethystCrystal(ServerWorld world, LightningEntity lightning, CallbackInfo info) {
         if (!( (Object) this instanceof ItemEntity item && item.getStack().getItem().equals(ModItems.INSTANCE.getAMETHYST_CRYSTAL()))) return;
 
         item.setStack(new ItemStack(ModItems.INSTANCE.getCHARGED_AMETHYST_CRYSTAL(), item.getStack().getCount()));

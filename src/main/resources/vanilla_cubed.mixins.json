@@ -3,8 +3,9 @@
   "package": "net.devoev.vanilla_cubed.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "AmethystCrystalMixin",
-    "AncientGoldMixin"
+    "EntityMixin",
+    "PlayerInventoryMixin",
+    "ServerPlayerEntityMixin"
   ],
   "client": [],
   "injectors": {
