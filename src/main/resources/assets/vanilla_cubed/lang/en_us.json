@@ -40,5 +40,8 @@
   "item.vanilla_cubed.enderite_helmet": "Enderite Helmet",
   "item.vanilla_cubed.enderite_chestplate": "Enderite Chestplate",
   "item.vanilla_cubed.enderite_leggings": "Enderite Leggings",
-  "item.vanilla_cubed.enderite_boots": "Enderite Boots"
+  "item.vanilla_cubed.enderite_boots": "Enderite Boots",
+
+  "item.vanilla_cubed.dragon_scale": "Dragon Scale",
+  "item.vanilla_cubed.dragon_scale_infused": "Infused Dragon Scale"
 }
