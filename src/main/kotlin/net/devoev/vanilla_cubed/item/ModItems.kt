@@ -3,7 +3,9 @@ package net.devoev.vanilla_cubed.item
 import net.devoev.vanilla_cubed.block.ModBlocks
 import net.devoev.vanilla_cubed.materials.ModArmorMaterials
 import net.devoev.vanilla_cubed.materials.ModToolMaterials
+import net.devoev.vanilla_cubed.util.ArmorBuilder
 import net.devoev.vanilla_cubed.util.RegistryManager
+import net.devoev.vanilla_cubed.util.ToolBuilder
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.item.BlockItem

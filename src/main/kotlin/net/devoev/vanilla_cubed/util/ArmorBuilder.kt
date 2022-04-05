@@ -1,5 +1,6 @@
-package net.devoev.vanilla_cubed.item
+package net.devoev.vanilla_cubed.util
 
+import net.devoev.vanilla_cubed.item.ModArmor
 import net.minecraft.entity.EquipmentSlot
 import net.minecraft.entity.effect.StatusEffect
 import net.minecraft.entity.effect.StatusEffectInstance

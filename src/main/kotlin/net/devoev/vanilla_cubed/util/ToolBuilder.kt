@@ -1,4 +1,4 @@
-package net.devoev.vanilla_cubed.item
+package net.devoev.vanilla_cubed.util
 
 import net.minecraft.item.*
 import net.minecraft.item.Item.Settings
