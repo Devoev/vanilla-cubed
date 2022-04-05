@@ -73,6 +73,6 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
     val ENDERITE_BOOTS = create("enderite_boots", ENDERITE_ARMOR.boots)
 
     //Dragon Scale
-    val DRAGON_SCALE = create("dragon_scale", Item(ModItemGroup.MATERIALS.toSettings()))
+    val DRAGON_SCALE = create("dragon_scale", DragonScale())
     val INFUSED_DRAGON_SCALE = create("dragon_scale_infused", Item(ModItemGroup.MATERIALS.toSettings()))
 }
