@@ -2,7 +2,7 @@ package net.devoev.vanilla_cubed
 
 import net.devoev.vanilla_cubed.block.ModBlocks
 import net.devoev.vanilla_cubed.item.ModItems
-import net.devoev.vanilla_cubed.loot.ModLootTableCallbacks
+import net.devoev.vanilla_cubed.loot.ModLootTables
 import net.devoev.vanilla_cubed.world.feature.ModConfiguredFeatures
 import net.devoev.vanilla_cubed.world.feature.ModPlacedFeatures
 import net.devoev.vanilla_cubed.world.gen.ModWorldGeneration
@@ -16,7 +16,7 @@ object VanillaCubed : ModInitializer {
     override fun onInitialize() {
         ModItems.init()
         ModBlocks.init()
-        ModLootTableCallbacks.init()
+        ModLootTables.init()
         ModConfiguredFeatures.init()
         ModPlacedFeatures.init()
         ModWorldGeneration.init()
