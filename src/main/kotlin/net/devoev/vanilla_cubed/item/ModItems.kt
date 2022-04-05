@@ -75,4 +75,17 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
     //Dragon Scale
     val DRAGON_SCALE = create("dragon_scale", DragonScale())
     val INFUSED_DRAGON_SCALE = create("dragon_scale_infused", Item(ModItemGroup.MATERIALS.toSettings()))
+
+    private val DRAGON_SCALE_TOOLS = ToolBuilder(ModToolMaterials.DRAGON_SCALE, ModItemGroup.TOOLS.toSettings())
+    val DRAGON_SCALE_SWORD = create("dragon_scale_sword", DRAGON_SCALE_TOOLS.sword)
+    val DRAGON_SCALE_SHOVEL = create("dragon_scale_shovel", DRAGON_SCALE_TOOLS.shovel)
+    val DRAGON_SCALE_PICKAXE = create("dragon_scale_pickaxe", DRAGON_SCALE_TOOLS.pickaxe)
+    val DRAGON_SCALE_AXE = create("dragon_scale_axe", DRAGON_SCALE_TOOLS.axe)
+    val DRAGON_SCALE_HOE = create("dragon_scale_hoe", DRAGON_SCALE_TOOLS.hoe)
+
+    private val DRAGON_SCALE_ARMOR = ArmorBuilder(ModArmorMaterials.DRAGON_SCALE, ModItemGroup.COMBAT.toSettings())
+    val DRAGON_SCALE_HELMET = create("dragon_scale_helmet", DRAGON_SCALE_ARMOR.helmet)
+    val DRAGON_SCALE_CHESTPLATE = create("dragon_scale_chestplate", DRAGON_SCALE_ARMOR.chestplate)
+    val DRAGON_SCALE_LEGGINGS = create("dragon_scale_leggings", DRAGON_SCALE_ARMOR.leggings)
+    val DRAGON_SCALE_BOOTS = create("dragon_scale_boots", DRAGON_SCALE_ARMOR.boots)
 }
