@@ -6,7 +6,8 @@
     "EntityMixin",
     "PlayerInventoryMixin",
     "ServerPlayerEntityMixin",
-    "EnchantmentHelperMixin"
+    "EnchantmentHelperMixin",
+    "ExperienceOrbEntityMixin"
   ],
   "client": [],
   "injectors": {

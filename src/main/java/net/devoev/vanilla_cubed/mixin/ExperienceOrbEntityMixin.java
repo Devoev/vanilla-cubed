@@ -1,18 +1,14 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.item.ModItems;
+import net.devoev.vanilla_cubed.util.ItemKt;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.Map.Entry;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 /**
  * A mixin for ancient gold armor and tools.
@@ -20,10 +16,12 @@ import java.util.Map.Entry;
 @Mixin(ExperienceOrbEntity.class)
 public class ExperienceOrbEntityMixin {
 
-    @Inject(method = "repairPlayerGears", at = @At(value = "HEAD"))
-    private void repairPlayerGears(PlayerEntity player, int amount, CallbackInfoReturnable info) {
-        Entry<EquipmentSlot, ItemStack> entry = EnchantmentHelper.chooseEquipmentWith(Enchantments.MENDING, player, ItemStack::isDamaged);
-        if (entry != null && entry.getValue().getItem().equals(ModItems.INSTANCE.getANCIENT_GOLD_PICKAXE()))
-            System.out.println("Found ancient gold pickaxe!");
+    /**
+     * Changes the repair amount of mending gear to be higher, when the item is made of ancient gold.
+     */
+    @ModifyVariable(method = "repairPlayerGears", at = @At(value = "STORE"), ordinal = 1)
+    private int repairFasterWithAncientGold(int i, PlayerEntity player) {
+        ItemStack stack = EnchantmentHelper.chooseEquipmentWith(Enchantments.MENDING, player, ItemStack::isDamaged).getValue();
+        return ItemKt.isAncientGold(stack.getItem()) ? 2*i : i;
     }
 }
