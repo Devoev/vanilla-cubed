@@ -13,9 +13,15 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.Iterator;
 
+/**
+ * A mixin to change the behavior of piglins.
+ */
 @Mixin(PiglinBrain.class)
 public class PiglinBrainMixin {
 
+    /**
+     * Piglins won't attack players wearing ancient gold armor.
+     */
     @Inject(method = "wearsGoldArmor", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/item/ItemStack;getItem()Lnet/minecraft/item/Item;"), cancellable = true, locals = LocalCapture.CAPTURE_FAILHARD)
     private static void wearsAncientGoldArmor(LivingEntity entity, CallbackInfoReturnable<Boolean> info, Iterable<ItemStack> iterable, Iterator iterator, ItemStack stack, Item item) {
         if (ItemKt.isAncientGold(item)) info.setReturnValue(true);
