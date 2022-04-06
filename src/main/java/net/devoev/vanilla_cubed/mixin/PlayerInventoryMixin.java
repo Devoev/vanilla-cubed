@@ -1,14 +1,11 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.materials.ModArmorMaterials;
-import net.devoev.vanilla_cubed.materials.ModToolMaterials;
+import net.devoev.vanilla_cubed.util.ItemKt;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ArmorItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -61,22 +58,11 @@ public class PlayerInventoryMixin {
     }
 
     /**
-     * @return Whether the given item is of enderite material.
-     */
-    private boolean isEnderite(Item item) {
-        if (item instanceof ToolItem)
-            return ((ToolItem) item).getMaterial().equals(ModToolMaterials.ENDERITE);
-        if (item instanceof ArmorItem)
-            return ((ArmorItem) item).getMaterial().equals(ModArmorMaterials.ENDERITE);
-        return false;
-    }
-
-    /**
      * Saves the given stack to the saveTo map. Removes the stack from the players inventory.
      * Only saves the stack, if item is of enderite material.
      */
     private <K> void saveStack(ItemStack stack, K key, PlayerInventory inventory, Map<K, ItemStack> saveTo) {
-        if (!isEnderite(stack.getItem())) return;
+        if (!ItemKt.isEnderite(stack.getItem())) return;
         saveTo.put(key, stack);
         inventory.removeOne(stack);
     }
