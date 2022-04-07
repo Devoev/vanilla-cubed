@@ -6,10 +6,8 @@ import net.devoev.vanilla_cubed.materials.ModToolMaterials
 import net.devoev.vanilla_cubed.util.ArmorBuilder
 import net.devoev.vanilla_cubed.util.RegistryManager
 import net.devoev.vanilla_cubed.util.ToolBuilder
-import net.minecraft.entity.EquipmentSlot
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.effect.StatusEffects
-import net.minecraft.item.ArmorItem
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
 import net.minecraft.util.registry.Registry
@@ -75,7 +73,7 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
     val ENDERITE_BOOTS = create("enderite_boots", ENDERITE_ARMOR.boots)
 
     //Dragon Scale
-    val DRAGON_SCALE = create("dragon_scale", DragonScale())
+    val DRAGON_SCALE = create("dragon_scale", DragonScale)
     val INFUSED_DRAGON_SCALE = create("dragon_scale_infused", Item(ModItemGroup.MATERIALS.toSettings()))
 
     private val DRAGON_SCALE_TOOLS = ToolBuilder(ModToolMaterials.DRAGON_SCALE, ModItemGroup.TOOLS.toSettings())
@@ -90,5 +88,5 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
     val DRAGON_SCALE_CHESTPLATE = create("dragon_scale_chestplate", DRAGON_SCALE_ARMOR.chestplate)
     val DRAGON_SCALE_LEGGINGS = create("dragon_scale_leggings", DRAGON_SCALE_ARMOR.leggings)
     val DRAGON_SCALE_BOOTS = create("dragon_scale_boots", DRAGON_SCALE_ARMOR.boots)
-    val WINGED_DRAGON_SCALE_CHESTPLATE = create("dragon_scale_chestplate_winged", ArmorItem(ModArmorMaterials.DRAGON_SCALE, EquipmentSlot.CHEST, ModItemGroup.COMBAT.toSettings()))
+    val WINGED_DRAGON_SCALE_CHESTPLATE = create("dragon_scale_chestplate_winged", WingedDragonScaleChestplate)
 }
