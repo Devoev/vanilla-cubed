@@ -1,5 +1,6 @@
 package net.devoev.vanilla_cubed.item
 
+import net.devoev.vanilla_cubed.util.isMadeOf
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EquipmentSlot
 import net.minecraft.entity.player.PlayerEntity
@@ -23,7 +24,7 @@ abstract class ModArmor(material: ArmorMaterial, slot: EquipmentSlot, settings: 
     /**
      * Returns true, if the given player has the full set of this armor equipped.
      */
-    private fun fullArmor(player: PlayerEntity): Boolean = player.armorItems.map { it.item }.all { it is ArmorItem && it.material == material }
+    private fun fullArmor(player: PlayerEntity): Boolean = player.armorItems.all { it.item.isMadeOf(material) }
 
     /**
      * A full armor effect.

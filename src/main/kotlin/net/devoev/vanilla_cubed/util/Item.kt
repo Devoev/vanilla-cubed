@@ -7,13 +7,17 @@ import net.minecraft.item.*
 /**
  * Returns true, if this [Item] is made of the [armorMaterial] or [toolMaterial].
  */
-fun Item.isMadeOf(armorMaterial: ArmorMaterial, toolMaterial: ToolMaterial): Boolean {
-    return when (this) {
-        is ToolItem -> material == toolMaterial
-        is ArmorItem -> material == armorMaterial
-        else -> false
-    }
-}
+fun Item.isMadeOf(armorMaterial: ArmorMaterial, toolMaterial: ToolMaterial): Boolean = isMadeOf(armorMaterial) || isMadeOf(toolMaterial)
+
+/**
+ * Returns true, if this [Item] is made of the [armorMaterial].
+ */
+fun Item.isMadeOf(armorMaterial: ArmorMaterial): Boolean = this is ArmorItem && material == armorMaterial
+
+/**
+ * Returns true, if this [Item] is made of the [toolMaterial].
+ */
+fun Item.isMadeOf(toolMaterial: ToolMaterial): Boolean = this is ToolItem && material == toolMaterial
 
 /**
  * Returns true, if this [Item] is made of enderite.
