@@ -2,11 +2,12 @@ package net.devoev.vanilla_cubed.item
 
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes
 import net.devoev.vanilla_cubed.block.ModBlocks
+import net.devoev.vanilla_cubed.item.armor.ArmorBuilder
+import net.devoev.vanilla_cubed.item.tool.ModSwordItem
+import net.devoev.vanilla_cubed.item.tool.ToolBuilder
 import net.devoev.vanilla_cubed.materials.ModArmorMaterials
 import net.devoev.vanilla_cubed.materials.ModToolMaterials
-import net.devoev.vanilla_cubed.util.ArmorBuilder
 import net.devoev.vanilla_cubed.util.RegistryManager
-import net.devoev.vanilla_cubed.util.ToolBuilder
 import net.minecraft.entity.attribute.EntityAttributeModifier
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.effect.StatusEffects
@@ -63,8 +64,9 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
 
     private val ENDERITE_TOOLS = ToolBuilder(ModToolMaterials.ENDERITE, ModItemGroup.TOOLS.toSettings())
     //val ENDERITE_SWORD = create("enderite_sword", ENDERITE_TOOLS.sword)
-    val ENDERITE_SWORD = create("enderite_sword", AttributeSwordItem(ModToolMaterials.ENDERITE, 1, 1F, ModItemGroup.TOOLS.toSettings(),
-        mapOf(ReachEntityAttributes.REACH to EntityAttributeModifier("modifier", 4.0, EntityAttributeModifier.Operation.ADDITION))))
+    val ENDERITE_SWORD = create("enderite_sword", ModSwordItem(ModToolMaterials.ENDERITE, 1, 1F, ModItemGroup.TOOLS.toSettings(),
+        mapOf(ReachEntityAttributes.REACH to EntityAttributeModifier("modifier", 4.0, EntityAttributeModifier.Operation.ADDITION)))
+    )
     val ENDERITE_SHOVEL = create("enderite_shovel", ENDERITE_TOOLS.shovel)
     val ENDERITE_PICKAXE = create("enderite_pickaxe", ENDERITE_TOOLS.pickaxe)
     val ENDERITE_AXE = create("enderite_axe", ENDERITE_TOOLS.axe)
