@@ -12,7 +12,7 @@ import net.minecraft.item.Item.Settings
 class ToolBuilder(material: ToolMaterial, settings: Settings,
                   attackDamageAmounts: List<Float> = BASE_ATTACK_DAMAGE,
                   attackSpeedAmounts: List<Float> = BASE_ATTACK_SPEED,
-                  modifiers: Map<EntityAttribute, EntityAttributeModifier> = mapOf()) {
+                  modifiers: Map<EntityAttribute, EntityAttributeModifier>? = null) {
 
     val sword: SwordItem = ModSwordItem(material, attackDamageAmounts[0].toInt(), attackSpeedAmounts[0], settings, modifiers)
     val shovel: ShovelItem = ModShovelItem(material, attackDamageAmounts[1], attackSpeedAmounts[1], settings, modifiers)
