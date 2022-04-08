@@ -32,9 +32,17 @@ interface AttributeToolItem {
 
             if (sel && !attributeInstance.hasModifier(modifier)) {
                 attributeInstance.addTemporaryModifier(modifier)
-            } else if (!sel && attributeInstance.hasModifier(modifier)) {
+            } else if (!sel && attributeInstance.hasModifier(modifier) && !selectedSameModifier(entity, attribute)) {
                 attributeInstance.removeModifier(modifier)
             }
         }
+    }
+
+    /**
+     * Returns whether the given [entity] has a [AttributeToolItem] selected, that changes the [attribute] value.
+     */
+    private fun selectedSameModifier(entity: LivingEntity, attribute: EntityAttribute): Boolean {
+        val item = entity.getStackInHand(entity.activeHand).item
+        return item is AttributeToolItem && item.modifiers!!.contains(attribute)
     }
 }
