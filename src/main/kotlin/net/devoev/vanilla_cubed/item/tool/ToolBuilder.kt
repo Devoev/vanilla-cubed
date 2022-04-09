@@ -9,16 +9,22 @@ import net.minecraft.item.Item.Settings
  * Builds all 5 [tools][ToolItem] for given parameters.
  * @param modifiers Modifiers that get applied when the tool is selected. See [AttributeToolItem].
  */
-class ToolBuilder(material: ToolMaterial, settings: Settings,
-                  attackDamageAmounts: List<Float> = BASE_ATTACK_DAMAGE,
-                  attackSpeedAmounts: List<Float> = BASE_ATTACK_SPEED,
-                  modifiers: Map<EntityAttribute, EntityAttributeModifier>? = null) {
+class ToolBuilder(private val material: ToolMaterial, private val settings: Settings,
+                  private val attackDamageAmounts: List<Float> = BASE_ATTACK_DAMAGE,
+                  private val attackSpeedAmounts: List<Float> = BASE_ATTACK_SPEED,
+                  private val modifiers: Map<EntityAttribute, EntityAttributeModifier>? = null) {
 
-    val sword: SwordItem = ModSwordItem(material, attackDamageAmounts[0].toInt(), attackSpeedAmounts[0], settings, modifiers)
-    val shovel: ShovelItem = ModShovelItem(material, attackDamageAmounts[1], attackSpeedAmounts[1], settings, modifiers)
-    val pickaxe: PickaxeItem = ModPickaxeItem(material, attackDamageAmounts[2].toInt(), attackSpeedAmounts[2], settings, modifiers)
-    val axe: AxeItem = ModAxeItem(material, attackDamageAmounts[3], attackSpeedAmounts[3], settings, modifiers)
-    val hoe: HoeItem = ModHoeItem(material, attackDamageAmounts[4].toInt(), attackSpeedAmounts[4], settings, modifiers)
+    val sword: SwordItem get() = ModSwordItem(material, attackDamageAmounts[0].toInt(), attackSpeedAmounts[0], settings, modifiers)
+    val shovel: ShovelItem get() = ModShovelItem(material, attackDamageAmounts[1], attackSpeedAmounts[1], settings, modifiers)
+    val pickaxe: PickaxeItem get() = ModPickaxeItem(material, attackDamageAmounts[2].toInt(), attackSpeedAmounts[2], settings, modifiers)
+    val axe: AxeItem get() = ModAxeItem(material, attackDamageAmounts[3], attackSpeedAmounts[3], settings, modifiers)
+    val hoe: HoeItem get() = ModHoeItem(material, attackDamageAmounts[4].toInt(), attackSpeedAmounts[4], settings, modifiers)
+
+    operator fun component1() = sword
+    operator fun component2() = shovel
+    operator fun component3() = pickaxe
+    operator fun component4() = axe
+    operator fun component5() = hoe
 
     companion object {
 
