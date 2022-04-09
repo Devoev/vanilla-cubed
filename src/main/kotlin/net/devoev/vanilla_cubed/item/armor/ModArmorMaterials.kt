@@ -1,4 +1,4 @@
-package net.devoev.vanilla_cubed.materials
+package net.devoev.vanilla_cubed.item.armor
 
 import net.devoev.vanilla_cubed.item.ModItems
 import net.minecraft.entity.EquipmentSlot

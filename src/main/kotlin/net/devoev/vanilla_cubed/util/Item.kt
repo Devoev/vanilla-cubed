@@ -1,7 +1,7 @@
 package net.devoev.vanilla_cubed.util
 
-import net.devoev.vanilla_cubed.materials.ModArmorMaterials
-import net.devoev.vanilla_cubed.materials.ModToolMaterials
+import net.devoev.vanilla_cubed.item.armor.ModArmorMaterials
+import net.devoev.vanilla_cubed.item.tool.ModToolMaterials
 import net.minecraft.item.*
 
 /**
