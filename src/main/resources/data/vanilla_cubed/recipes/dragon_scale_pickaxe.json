@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:diamond_pickaxe"
+  },
+  "addition": {
+    "item": "vanilla_cubed:dragon_scale_infused"
+  },
+  "result": {
+    "item": "vanilla_cubed:dragon_scale_pickaxe"
+  }
+}

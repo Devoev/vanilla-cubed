@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:diamond_hoe"
+  },
+  "addition": {
+    "item": "vanilla_cubed:dragon_scale_infused"
+  },
+  "result": {
+    "item": "vanilla_cubed:dragon_scale_hoe"
+  }
+}

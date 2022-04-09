@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "vanilla_cubed:dragon_scale_chestplate"
+  },
+  "addition": {
+    "item": "minecraft:elytra"
+  },
+  "result": {
+    "item": "vanilla_cubed:dragon_scale_chestplate_winged"
+  }
+}
