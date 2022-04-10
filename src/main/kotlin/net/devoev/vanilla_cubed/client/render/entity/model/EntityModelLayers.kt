@@ -1,12 +1,16 @@
 package net.devoev.vanilla_cubed.client.render.entity.model
 
 import net.devoev.vanilla_cubed.VanillaCubed
+import net.devoev.vanilla_cubed.util.MapInitializer
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry.TexturedModelDataProvider
 import net.minecraft.client.render.entity.model.ElytraEntityModel
 import net.minecraft.client.render.entity.model.EntityModelLayer
 
-object EntityModelLayers : MutableMap<EntityModelLayer, TexturedModelDataProvider> by mutableMapOf() {
+/**
+ * An object for initializing a custom [EntityModelLayer].
+ */
+object EntityModelLayers : MapInitializer<EntityModelLayer, TexturedModelDataProvider>() {
 
     init {
         this["dragon_scale_chestplate_winged"] = { ElytraEntityModel.getTexturedModelData() }
@@ -17,7 +21,5 @@ object EntityModelLayers : MutableMap<EntityModelLayer, TexturedModelDataProvide
     /**
      * Registers all model layers.
      */
-    fun init() {
-        EntityModelLayers.forEach {EntityModelLayerRegistry.registerModelLayer(it.key, it.value)}
-    }
+    override fun init() = forEach { EntityModelLayerRegistry.registerModelLayer(it.key, it.value) }
 }

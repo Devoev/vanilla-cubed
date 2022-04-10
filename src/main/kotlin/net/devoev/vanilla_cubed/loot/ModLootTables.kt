@@ -1,6 +1,7 @@
 package net.devoev.vanilla_cubed.loot
 
 import net.devoev.vanilla_cubed.item.ModItems
+import net.devoev.vanilla_cubed.util.MapInitializer
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback
 import net.minecraft.loot.LootPool
@@ -10,9 +11,9 @@ import net.minecraft.loot.provider.number.UniformLootNumberProvider
 import net.minecraft.util.Identifier
 
 /**
- * An object for initializing all custom loot tables.
+ * An object for initializing a custom loot table.
  */
-object ModLootTables : MutableMap<Identifier, LootPool.Builder> by mutableMapOf() {
+object ModLootTables : MapInitializer<Identifier, LootPool.Builder>() {
 
     init {
         this["entities/elder_guardian"] = FabricLootPoolBuilder.builder()
@@ -32,7 +33,7 @@ object ModLootTables : MutableMap<Identifier, LootPool.Builder> by mutableMapOf(
     /**
      * Registers all loot table callbacks.
      */
-    fun init() {
+    override fun init() {
         LootTableLoadingCallback.EVENT.register { _, _, id, table, _ ->
             if (contains(id)) table.pool(this[id])
         }

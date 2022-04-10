@@ -7,17 +7,7 @@ import net.minecraft.util.registry.Registry
 /**
  * Manages pairs of [V]-[Identifier] which needs to be registered in a [Registry].
  */
-abstract class RegistryManager<V>(private val registry: Registry<V>, vararg pairs: Pair<Identifier, V>)
-    : MutableMap<Identifier, V> by mutableMapOf(*pairs) {
-
-    /**
-     * Creates a new entry of the given [pair] to this registry and returns it.
-     */
-    fun <T : V> create(pair: Pair<Identifier, T>): T {
-        val (id, element) = pair
-        this[id] = element
-        return element
-    }
+abstract class RegistryManager<V>(private val registry: Registry<V>) : MapInitializer<Identifier, V>() {
 
     /**
      * Creates a new entry of the given [name] and [element] to this registry and returns it.
@@ -27,15 +17,5 @@ abstract class RegistryManager<V>(private val registry: Registry<V>, vararg pair
     /**
      * Initializes this registry by registering all entries.
      */
-    fun init() = forEach { Registry.register(registry, it.key, it.value) }
-
-    /**
-     * The first [Identifier] key that matches the given [value].
-     */
-    fun getKey(value: V): Identifier = filterValues { it == value }.keys.first()
-
-    /**
-     * The first [Identifier] key that matches the given [value].
-     */
-    operator fun get(value: V): Identifier = getKey(value)
+    override fun init() = forEach { Registry.register(registry, it.key, it.value) }
 }
