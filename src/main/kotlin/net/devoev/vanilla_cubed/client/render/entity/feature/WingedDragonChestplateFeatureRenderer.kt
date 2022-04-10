@@ -2,6 +2,8 @@ package net.devoev.vanilla_cubed.client.render.entity.feature
 
 import net.devoev.vanilla_cubed.VanillaCubed
 import net.devoev.vanilla_cubed.item.ModItems
+import net.fabricmc.api.EnvType
+import net.fabricmc.api.Environment
 import net.minecraft.client.render.OverlayTexture
 import net.minecraft.client.render.RenderLayer
 import net.minecraft.client.render.VertexConsumerProvider
@@ -16,7 +18,7 @@ import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.entity.EquipmentSlot
 import net.minecraft.entity.LivingEntity
 
-
+@Environment(value = EnvType.CLIENT)
 class WingedDragonChestplateFeatureRenderer<T : LivingEntity, M : EntityModel<T>>(
     context: FeatureRendererContext<T, M>, loader: EntityModelLoader) : FeatureRenderer<T, M>(context) {
 
@@ -24,7 +26,7 @@ class WingedDragonChestplateFeatureRenderer<T : LivingEntity, M : EntityModel<T>
 
     override fun render(matrixStack: MatrixStack, vertexConsumerProvider: VertexConsumerProvider?, i: Int, livingEntity: T, f: Float, g: Float, h: Float, j: Float, k: Float, l: Float) {
         val stack = livingEntity.getEquippedStack(EquipmentSlot.CHEST)
-        if (stack.item != ModItems.WINGED_DRAGON_SCALE_CHESTPLATE) return
+        if (!stack.isOf(ModItems.WINGED_DRAGON_SCALE_CHESTPLATE)) return
 
         matrixStack.push()
         matrixStack.translate(0.0, 0.0, 0.125)
