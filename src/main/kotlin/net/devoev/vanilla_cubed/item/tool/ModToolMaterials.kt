@@ -19,7 +19,7 @@ enum class ModToolMaterials(
 ) : ToolMaterial {
 
     AMETHYST(miningLevel = 4, miningSpeed = 11F, repairItem = ModItems.CHARGED_AMETHYST_CRYSTAL),
-    ANCIENT_GOLD(miningLevel = 4, miningSpeed = 10F, enchantability = 25, itemDurability = 1200, repairItem = ModItems.ANCIENT_GOLD_INGOT),
+    ANCIENT_GOLD(miningLevel = 4, miningSpeed = 10F, enchantability = 25, repairItem = ModItems.ANCIENT_GOLD_INGOT),
     ENDERITE(miningLevel = 4, attackDamage = 4F, miningSpeed = 9F, enchantability = 15, itemDurability = 2031, repairItem = ModItems.ENDERITE_INGOT),
     DRAGON_SCALE(miningLevel = 4, repairItem = ModItems.INFUSED_DRAGON_SCALE);
 
