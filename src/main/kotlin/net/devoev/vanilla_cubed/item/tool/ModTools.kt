@@ -15,8 +15,7 @@ object ModTools {
     val AMETHYST = ToolBuilder(
         ModToolMaterials.AMETHYST, ModItemGroup.TOOLS.toSettings(),
         attackSpeedAmounts = ToolBuilder.BASE_ATTACK_SPEED.map { it + 0.4F })
-    val ENDERITE = ToolBuilder(
-        ModToolMaterials.ENDERITE, ModItemGroup.TOOLS.toSettings(),
+    val ENDERITE = ToolBuilder(ModToolMaterials.ENDERITE, ModItemGroup.TOOLS.toSettings())
+    val DRAGON_SCALE = ToolBuilder(ModToolMaterials.DRAGON_SCALE, ModItemGroup.TOOLS.toSettings(),
         modifiers = mapOf(ReachEntityAttributes.REACH to EntityAttributeModifier("modifier", 1.5, EntityAttributeModifier.Operation.ADDITION)))
-    val DRAGON_SCALE = ToolBuilder(ModToolMaterials.DRAGON_SCALE, ModItemGroup.TOOLS.toSettings())
 }

@@ -43,6 +43,6 @@ interface AttributeToolItem {
      */
     private fun selectedSameModifier(entity: LivingEntity, attribute: EntityAttribute): Boolean {
         val item = entity.getStackInHand(entity.activeHand).item
-        return item is AttributeToolItem && item.modifiers!!.contains(attribute)
+        return item is AttributeToolItem && item.modifiers?.contains(attribute) ?: false
     }
 }
