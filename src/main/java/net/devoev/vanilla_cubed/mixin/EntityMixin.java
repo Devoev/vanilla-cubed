@@ -2,6 +2,7 @@ package net.devoev.vanilla_cubed.mixin;
 
 import net.devoev.vanilla_cubed.item.ModItems;
 import net.devoev.vanilla_cubed.util.ItemKt;
+import net.devoev.vanilla_cubed.util.PlayerEntityKt;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LightningEntity;
@@ -41,8 +42,9 @@ public class EntityMixin {
      */
     @Inject(method = "isInvulnerableTo", at = @At("HEAD"), cancellable = true)
     private void isInvulnerableToFallDamage(DamageSource damageSource, CallbackInfoReturnable<Boolean> info) {
-        if ((Object) this instanceof PlayerEntity player
-            && StreamSupport.stream(player.getArmorItems().spliterator(), false).allMatch(stack -> ItemKt.isDragonScale(stack.getItem())))
+        if (!((Object) this instanceof PlayerEntity player)) return;
+        if (PlayerEntityKt.wearsDragonScale(player) && player.isFallFlying()
+                && (damageSource.isFromFalling() || damageSource.equals(DamageSource.FLY_INTO_WALL)))
             info.setReturnValue(true);
     }
 }
