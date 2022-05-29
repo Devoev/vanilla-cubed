@@ -9,7 +9,8 @@
     "EnchantmentHelperMixin",
     "ExperienceOrbEntityMixin",
     "PiglinBrainMixin",
-    "EndermanEntityMixin"
+    "EndermanEntityMixin",
+    "ToolItemMixin"
   ],
   "client": [],
   "injectors": {
