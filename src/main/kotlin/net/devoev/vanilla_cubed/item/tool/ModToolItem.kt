@@ -7,47 +7,42 @@ import net.minecraft.item.*
 import net.minecraft.world.World
 
 
-class ModSwordItem(material: ToolMaterial, attackDamage: Int, attackSpeed: Float, settings: Settings,
-                   override val modifiers: Map<EntityAttribute, EntityAttributeModifier>? = null)
-    : SwordItem(material, attackDamage, attackSpeed, settings), AttributeToolItem {
+open class ModSwordItem(material: ToolMaterial, attackDamage: Int, attackSpeed: Float, settings: Settings)
+    : SwordItem(material, attackDamage, attackSpeed, settings) {
 
-    override fun inventoryTick(stack: ItemStack, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
-        super<AttributeToolItem>.inventoryTick(stack, entity, selected)
-    }
+    constructor(data: ToolData) : this(
+        data.material, data.swordData.attackDamage, data.swordData.attackSpeed, data.settings
+    )
 }
 
-class ModShovelItem(material: ToolMaterial, attackDamage: Float, attackSpeed: Float, settings: Settings,
-                    override val modifiers: Map<EntityAttribute, EntityAttributeModifier>? = null)
-    : ShovelItem(material, attackDamage, attackSpeed, settings), AttributeToolItem {
+open class ModShovelItem(material: ToolMaterial, attackDamage: Float, attackSpeed: Float, settings: Settings)
+    : ShovelItem(material, attackDamage, attackSpeed, settings) {
 
-    override fun inventoryTick(stack: ItemStack, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
-        super<AttributeToolItem>.inventoryTick(stack, entity, selected)
-    }
+    constructor(data: ToolData) : this(
+        data.material, data.shovelData.attackDamage, data.shovelData.attackSpeed, data.settings
+    )
 }
 
-class ModPickaxeItem(material: ToolMaterial, attackDamage: Int, attackSpeed: Float, settings: Settings,
-                     override val modifiers: Map<EntityAttribute, EntityAttributeModifier>? = null)
-    : PickaxeItem(material, attackDamage, attackSpeed, settings), AttributeToolItem {
+open class ModPickaxeItem(material: ToolMaterial, attackDamage: Int, attackSpeed: Float, settings: Settings)
+    : PickaxeItem(material, attackDamage, attackSpeed, settings) {
 
-    override fun inventoryTick(stack: ItemStack, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
-        super<AttributeToolItem>.inventoryTick(stack, entity, selected)
-    }
+    constructor(data: ToolData) : this(
+        data.material, data.pickaxeData.attackDamage, data.pickaxeData.attackSpeed, data.settings
+    )
 }
 
-class ModAxeItem(material: ToolMaterial, attackDamage: Float, attackSpeed: Float, settings: Settings,
-                 override val modifiers: Map<EntityAttribute, EntityAttributeModifier>? = null)
-    : AxeItem(material, attackDamage, attackSpeed, settings), AttributeToolItem {
+open class ModAxeItem(material: ToolMaterial, attackDamage: Float, attackSpeed: Float, settings: Settings)
+    : AxeItem(material, attackDamage, attackSpeed, settings) {
 
-    override fun inventoryTick(stack: ItemStack, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
-        super<AttributeToolItem>.inventoryTick(stack, entity, selected)
-    }
+    constructor(data: ToolData) : this(
+        data.material, data.axeData.attackDamage, data.axeData.attackSpeed, data.settings
+    )
 }
 
-class ModHoeItem(material: ToolMaterial, attackDamage: Int, attackSpeed: Float, settings: Settings,
-                 override val modifiers: Map<EntityAttribute, EntityAttributeModifier>? = null)
-    : HoeItem(material, attackDamage, attackSpeed, settings), AttributeToolItem {
+open class ModHoeItem(material: ToolMaterial, attackDamage: Int, attackSpeed: Float, settings: Settings)
+    : HoeItem(material, attackDamage, attackSpeed, settings) {
 
-    override fun inventoryTick(stack: ItemStack, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
-        super<AttributeToolItem>.inventoryTick(stack, entity, selected)
-    }
+    constructor(data: ToolData) : this(
+        data.material, data.hoeData.attackDamage, data.hoeData.attackSpeed, data.settings
+    )
 }
