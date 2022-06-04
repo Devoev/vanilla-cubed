@@ -14,11 +14,11 @@ class ToolBuilder(private val material: ToolMaterial, private val settings: Sett
                   private val attackSpeedAmounts: List<Float> = BASE_ATTACK_SPEED,
                   private val modifiers: Map<EntityAttribute, EntityAttributeModifier>? = null) {
 
-    val sword: SwordItem get() = ModSwordItem(material, attackDamageAmounts[0].toInt(), attackSpeedAmounts[0], settings, modifiers)
-    val shovel: ShovelItem get() = ModShovelItem(material, attackDamageAmounts[1], attackSpeedAmounts[1], settings, modifiers)
-    val pickaxe: PickaxeItem get() = ModPickaxeItem(material, attackDamageAmounts[2].toInt(), attackSpeedAmounts[2], settings, modifiers)
-    val axe: AxeItem get() = ModAxeItem(material, attackDamageAmounts[3], attackSpeedAmounts[3], settings, modifiers)
-    val hoe: HoeItem get() = ModHoeItem(material, attackDamageAmounts[4].toInt(), attackSpeedAmounts[4], settings, modifiers)
+    val sword: SwordItem get() = ModSwordItem(material, attackDamageAmounts[0].toInt(), attackSpeedAmounts[0], settings)
+    val shovel: ShovelItem get() = ModShovelItem(material, attackDamageAmounts[1], attackSpeedAmounts[1], settings)
+    val pickaxe: PickaxeItem get() = ModPickaxeItem(material, attackDamageAmounts[2].toInt(), attackSpeedAmounts[2], settings)
+    val axe: AxeItem get() = ModAxeItem(material, attackDamageAmounts[3], attackSpeedAmounts[3], settings)
+    val hoe: HoeItem get() = ModHoeItem(material, attackDamageAmounts[4].toInt(), attackSpeedAmounts[4], settings)
 
     operator fun component1() = sword
     operator fun component2() = shovel
