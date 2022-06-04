@@ -24,7 +24,7 @@ interface AttributeToolItem {
      */
     fun inventoryTick(stack: ItemStack, entity: Entity?, selected: Boolean) {
         if (entity !is LivingEntity || modifiers == null) return
-        val sel = selected && entity.getEquippedStack(EquipmentSlot.OFFHAND) != stack
+        val sel = selected && entity.offHandStack != stack
 
         for (entry in modifiers!!) {
             val (attribute, modifier) = entry

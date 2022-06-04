@@ -5,6 +5,7 @@ import net.devoev.vanilla_cubed.util.ItemKt;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -28,38 +29,31 @@ import java.util.stream.StreamSupport;
  * A mixin to change tool items.
  */
 @Mixin(Item.class)
-public class ToolItemMixin {
+public class ToolItemMixin implements Magnetic {
 
     /**
      * Makes netherite items magnetic, when held in main hand.
      */
     @Inject(method = "inventoryTick", at = @At("HEAD"))
     private void attractFromNetherite(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo info) {
-        if (!((Object) this instanceof ToolItem)) return;
+        if (!((Object) this instanceof ToolItem item)) return;
 
-        Stream<ItemStack> items = StreamSupport.stream(entity.getItemsHand().spliterator(), false);
-        if (items.anyMatch(v -> ItemKt.isMadeOf(v.getItem(), ToolMaterials.NETHERITE)))
-            this.attractItems(entity, 8, 0.5);
+        if (!ItemKt.isMadeOf(item, ToolMaterials.NETHERITE) || ! (entity instanceof LivingEntity livingEntity)) return;
+            inventoryTick(entity, selected || livingEntity.getOffHandStack().equals(stack));
     }
 
-    /**
-     * Attracts all items in range to the given entity.
-     */
-    public void attractItems(@NotNull Entity entity, double range, double speed) {
-        double x = entity.getX();
-        double y = entity.getY();
-        double z = entity.getZ();
+    @Override
+    public double getRange() {
+        return 5.5;
+    }
 
-        List<ItemEntity> items = entity.getEntityWorld().getEntitiesByType(
-                EntityType.ITEM,
-                new Box(x - range, y - range, z - range, x + range, y + range, z + range),
-                EntityPredicates.VALID_ENTITY);
+    @Override
+    public double getSpeed() {
+        return 0.5;
+    }
 
-        for (ItemEntity item : items) {
-            item.setPickupDelay(0);
-            Vec3d itemVector = new Vec3d(item.getX(), item.getY(), item.getZ());
-            Vec3d playerVector = new Vec3d(x, y + 0.75, z);
-            item.move(null, playerVector.subtract(itemVector).normalize().multiply(speed));
-        }
+    @Override
+    public void attractItems(@NotNull Entity entity) {
+        Magnetic.super.attractItems(entity);
     }
 }
