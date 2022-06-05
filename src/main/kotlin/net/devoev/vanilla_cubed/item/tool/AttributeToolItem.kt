@@ -1,7 +1,6 @@
 package net.devoev.vanilla_cubed.item.tool
 
 import net.minecraft.entity.Entity
-import net.minecraft.entity.EquipmentSlot
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.attribute.EntityAttribute
 import net.minecraft.entity.attribute.EntityAttributeInstance
@@ -22,7 +21,7 @@ interface AttributeToolItem {
     /**
      * Applies the [modifiers] to the [entity] each tick if tool is [selected].
      */
-    fun inventoryTick(stack: ItemStack, entity: Entity?, selected: Boolean) {
+    fun applyModifiers(stack: ItemStack?, entity: Entity?, selected: Boolean) {
         if (entity !is LivingEntity || modifiers == null) return
         val sel = selected && entity.offHandStack != stack
 

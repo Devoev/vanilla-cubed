@@ -2,7 +2,6 @@ package net.devoev.vanilla_cubed.item
 
 import net.devoev.vanilla_cubed.block.ModBlocks
 import net.devoev.vanilla_cubed.item.armor.ModArmor
-import net.devoev.vanilla_cubed.item.tool.AncientGoldSword
 import net.devoev.vanilla_cubed.item.tool.ModTools
 import net.devoev.vanilla_cubed.util.RegistryManager
 import net.minecraft.item.BlockItem
@@ -21,7 +20,7 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
     val GILDED_CLUSTER = create("gilded_cluster", Item(ModItemGroup.MATERIALS.toSettings()))
     val ANCIENT_GOLD_INGOT = create("ancient_gold_ingot", Item(ModItemGroup.MATERIALS.toSettings()))
 
-    val ANCIENT_GOLD_SWORD = create("ancient_gold_sword", AncientGoldSword)
+    val ANCIENT_GOLD_SWORD = create("ancient_gold_sword", ModTools.ANCIENT_GOLD.sword)
     val ANCIENT_GOLD_SHOVEL = create("ancient_gold_shovel", ModTools.ANCIENT_GOLD.shovel)
     val ANCIENT_GOLD_PICKAXE = create("ancient_gold_pickaxe", ModTools.ANCIENT_GOLD.pickaxe)
     val ANCIENT_GOLD_AXE = create("ancient_gold_axe", ModTools.ANCIENT_GOLD.axe)
