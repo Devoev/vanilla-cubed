@@ -1,23 +1,21 @@
 package net.devoev.vanilla_cubed.item.armor
 
 import net.minecraft.entity.EquipmentSlot
-import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.item.ArmorItem
 import net.minecraft.item.ArmorMaterial
 import net.minecraft.item.Item.Settings
 
 /**
- * Builds all 4 armor pieces for given [ArmorMaterial] and [Settings].
- * @param effect A status effect that gets applied when wearing a full set of armor.
+ * Builds all 4 armor pieces for given [material] and [settings].
  */
-class ArmorBuilder(private val material: ArmorMaterial,
-                   private val settings: Settings,
-                   private val effect: StatusEffectInstance? = null) {
+open class ArmorBuilder(protected val material: ArmorMaterial, protected val settings: Settings) {
 
-    val helmet: ArmorItem get() = ModArmorItem(material, EquipmentSlot.HEAD, settings, effect)
-    val chestplate: ArmorItem get() = ModArmorItem(material, EquipmentSlot.CHEST, settings, effect)
-    val leggings: ArmorItem get() = ModArmorItem(material, EquipmentSlot.LEGS, settings, effect)
-    val boots: ArmorItem get() = ModArmorItem(material, EquipmentSlot.FEET, settings, effect)
+    open val helmet: ArmorItem get() = buildArmorItem(EquipmentSlot.HEAD)
+    open val chestplate: ArmorItem get() = buildArmorItem(EquipmentSlot.CHEST)
+    open val leggings: ArmorItem get() = buildArmorItem(EquipmentSlot.LEGS)
+    open val boots: ArmorItem get() = buildArmorItem(EquipmentSlot.FEET)
+
+    protected open fun buildArmorItem(slot: EquipmentSlot) = ArmorItem(material, slot, settings)
 
     operator fun component1() = helmet
     operator fun component2() = chestplate

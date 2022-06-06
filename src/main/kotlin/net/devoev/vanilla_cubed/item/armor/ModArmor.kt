@@ -7,12 +7,12 @@ import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.item.ArmorItem
 
 /**
- * All used [modded armor items][ArmorItem] build using an [ArmorBuilder].
+ * All used [modded armor items][ArmorItem] built using an [ArmorBuilder].
  */
 object ModArmor {
 
-    val ANCIENT_GOLD = ArmorBuilder(ModArmorMaterials.ANCIENT_GOLD, ModItemGroup.COMBAT.toSettings(), StatusEffectInstance(StatusEffects.LUCK))
-    val AMETHYST = ArmorBuilder(ModArmorMaterials.AMETHYST, ModItemGroup.COMBAT.toSettings(), StatusEffectInstance(StatusEffects.HASTE))
+    val ANCIENT_GOLD = AncientGoldArmor
+    val AMETHYST = AmethystArmor
     val ENDERITE = ArmorBuilder(ModArmorMaterials.ENDERITE, ModItemGroup.COMBAT.toSettings())
     val DRAGON_SCALE = ArmorBuilder(ModArmorMaterials.DRAGON_SCALE, ModItemGroup.COMBAT.toSettings())
 }
