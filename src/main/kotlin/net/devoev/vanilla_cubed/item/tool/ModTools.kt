@@ -7,7 +7,7 @@ import net.minecraft.entity.attribute.EntityAttributeModifier
 import net.minecraft.item.ToolItem
 
 /**
- * All used [modded tool items][ToolItem] build using an [ToolBuilder].
+ * All modded [tool items][ToolItem] built using a [ToolBuilder].
  */
 object ModTools {
 

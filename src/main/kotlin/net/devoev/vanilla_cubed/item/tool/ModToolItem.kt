@@ -1,10 +1,6 @@
 package net.devoev.vanilla_cubed.item.tool
 
-import net.minecraft.entity.Entity
-import net.minecraft.entity.attribute.EntityAttribute
-import net.minecraft.entity.attribute.EntityAttributeModifier
 import net.minecraft.item.*
-import net.minecraft.world.World
 
 
 open class ModSwordItem(material: ToolMaterial, attackDamage: Int, attackSpeed: Float, settings: Settings)
