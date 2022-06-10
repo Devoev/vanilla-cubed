@@ -1,11 +1,11 @@
 package net.devoev.vanilla_cubed.mixin;
 
 import net.devoev.vanilla_cubed.item.ModItems;
-import net.devoev.vanilla_cubed.util.ItemKt;
-import net.devoev.vanilla_cubed.util.PlayerEntityKt;
+import net.devoev.vanilla_cubed.util.LivingEntityKt;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LightningEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -15,8 +15,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.stream.StreamSupport;
 
 /**
  * A mixin for the amethyst crystal.
@@ -42,8 +40,8 @@ public class EntityMixin {
      */
     @Inject(method = "isInvulnerableTo", at = @At("HEAD"), cancellable = true)
     private void isInvulnerableToFallDamage(DamageSource damageSource, CallbackInfoReturnable<Boolean> info) {
-        if (!((Object) this instanceof PlayerEntity player)) return;
-        if (PlayerEntityKt.wearsDragonScale(player) && player.isFallFlying()
+        if (!((Object) this instanceof LivingEntity entity)) return;
+        if (LivingEntityKt.wearsDragonScale(entity) && entity.isFallFlying()
                 && (damageSource.isFromFalling() || damageSource.equals(DamageSource.FLY_INTO_WALL)))
             info.setReturnValue(true);
     }
