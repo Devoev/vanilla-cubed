@@ -1,9 +1,8 @@
 package net.devoev.vanilla_cubed.item.tool
 
-import net.devoev.vanilla_cubed.item.ModItemGroup
-import net.minecraft.item.Item
-import net.minecraft.item.ToolMaterial
+import net.minecraft.item.Item.Settings
 import net.minecraft.item.ToolItem
+import net.minecraft.item.ToolMaterial
 
 /**
  * Data needed for the creation of a set of [tools][ToolItem].
@@ -12,7 +11,7 @@ data class ToolData(
     val material: ToolMaterial,
     val attackDamageAmounts: List<Float> = BASE_ATTACK_DAMAGE,
     val attackSpeedAmounts: List<Float> = BASE_ATTACK_SPEED,
-    val settings: Item.Settings
+    val settings: Settings
 ) {
     val swordData = SingleToolData(material, attackDamageAmounts[0].toInt(), attackSpeedAmounts[0], settings)
     val shovelData = SingleToolData(material, attackDamageAmounts[1], attackSpeedAmounts[1], settings)
@@ -27,7 +26,7 @@ data class ToolData(
         val material: ToolMaterial,
         val attackDamage: T1,
         val attackSpeed: T2,
-        val settings: Item.Settings
+        val settings: Settings
     )
 
     companion object {
