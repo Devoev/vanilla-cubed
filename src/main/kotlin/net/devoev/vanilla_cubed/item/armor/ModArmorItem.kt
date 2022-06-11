@@ -12,12 +12,12 @@ open class ModArmorItem(data: ArmorData, slot: EquipmentSlot, private val behavi
     : ArmorItem(data.material, slot, data.settings) {
 
     override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
-        behaviors.inventoryTickBehavior.inventoryTick(this, stack, world, entity, slot, selected)
+        behaviors.inventoryTickBehavior(this, stack, world, entity, slot, selected)
         super.inventoryTick(stack, world, entity, slot, selected)
     }
 
     override fun postHit(stack: ItemStack?, target: LivingEntity?, attacker: LivingEntity?): Boolean {
-        return behaviors.postHitBehavior.postHit(this, stack, target, attacker) or
+        return behaviors.postHitBehavior(this, stack, target, attacker) or
                 super.postHit(stack, target, attacker)
     }
 }

@@ -13,8 +13,9 @@ open class ArmorBuilder(protected val data: ArmorData, protected val behaviors: 
 
     constructor(
         material: ArmorMaterial,
-        settings: Settings
-    ) : this(ArmorData(material, settings), ItemBehaviors())
+        settings: Settings,
+        behaviors: ItemBehaviors<ArmorItem>
+    ) : this(ArmorData(material, settings), behaviors)
 
     open val helmet: ArmorItem get() = buildArmorItem(EquipmentSlot.HEAD)
     open val chestplate: ArmorItem get() = buildArmorItem(EquipmentSlot.CHEST)

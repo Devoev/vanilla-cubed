@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack
 
 fun interface PostHitBehavior<in T : Item> {
 
-    fun postHit(item: T, stack: ItemStack?, target: LivingEntity?, attacker: LivingEntity?): Boolean
+    operator fun invoke(item: T, stack: ItemStack?, target: LivingEntity?, attacker: LivingEntity?): Boolean
 
     companion object {
         val DEFAULT = PostHitBehavior<Item> { _,_,_,_ -> false }

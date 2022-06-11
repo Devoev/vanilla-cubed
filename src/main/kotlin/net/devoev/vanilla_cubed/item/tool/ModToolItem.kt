@@ -11,12 +11,12 @@ open class ModSwordItem(data: ToolData, private val behaviors: ItemBehaviors<Too
     : SwordItem(data.material, data.swordData.attackDamage, data.swordData.attackSpeed, data.settings) {
 
     override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
-        behaviors.inventoryTickBehavior.inventoryTick(this, stack, world, entity, slot, selected)
+        behaviors.inventoryTickBehavior(this, stack, world, entity, slot, selected)
         super.inventoryTick(stack, world, entity, slot, selected)
     }
 
     override fun postHit(stack: ItemStack?, target: LivingEntity?, attacker: LivingEntity?): Boolean {
-        behaviors.postHitBehavior.postHit(this, stack, target, attacker)
+        behaviors.postHitBehavior(this, stack, target, attacker)
         return super.postHit(stack, target, attacker)
     }
 }
@@ -25,12 +25,12 @@ open class ModShovelItem(data: ToolData, private val behaviors: ItemBehaviors<To
     : ShovelItem(data.material, data.shovelData.attackDamage, data.shovelData.attackSpeed, data.settings) {
 
     override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
-        behaviors.inventoryTickBehavior.inventoryTick(this, stack, world, entity, slot, selected)
+        behaviors.inventoryTickBehavior(this, stack, world, entity, slot, selected)
         super.inventoryTick(stack, world, entity, slot, selected)
     }
 
     override fun postHit(stack: ItemStack?, target: LivingEntity?, attacker: LivingEntity?): Boolean {
-        behaviors.postHitBehavior.postHit(this, stack, target, attacker)
+        behaviors.postHitBehavior(this, stack, target, attacker)
         return super.postHit(stack, target, attacker)
     }
 }
@@ -39,12 +39,12 @@ open class ModPickaxeItem(data: ToolData, private val behaviors: ItemBehaviors<T
     : PickaxeItem(data.material, data.pickaxeData.attackDamage, data.pickaxeData.attackSpeed, data.settings) {
 
     override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
-        behaviors.inventoryTickBehavior.inventoryTick(this, stack, world, entity, slot, selected)
+        behaviors.inventoryTickBehavior(this, stack, world, entity, slot, selected)
         super.inventoryTick(stack, world, entity, slot, selected)
     }
 
     override fun postHit(stack: ItemStack?, target: LivingEntity?, attacker: LivingEntity?): Boolean {
-        behaviors.postHitBehavior.postHit(this, stack, target, attacker)
+        behaviors.postHitBehavior(this, stack, target, attacker)
         return super.postHit(stack, target, attacker)
     }
 }
@@ -53,12 +53,12 @@ open class ModAxeItem(data: ToolData, private val behaviors: ItemBehaviors<ToolI
     : AxeItem(data.material, data.axeData.attackDamage, data.axeData.attackSpeed, data.settings) {
 
     override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
-        behaviors.inventoryTickBehavior.inventoryTick(this, stack, world, entity, slot, selected)
+        behaviors.inventoryTickBehavior(this, stack, world, entity, slot, selected)
         super.inventoryTick(stack, world, entity, slot, selected)
     }
 
     override fun postHit(stack: ItemStack?, target: LivingEntity?, attacker: LivingEntity?): Boolean {
-        behaviors.postHitBehavior.postHit(this, stack, target, attacker)
+        behaviors.postHitBehavior(this, stack, target, attacker)
         return super.postHit(stack, target, attacker)
     }
 }
@@ -67,12 +67,12 @@ open class ModHoeItem(data: ToolData, private val behaviors: ItemBehaviors<ToolI
     : HoeItem(data.material, data.hoeData.attackDamage, data.hoeData.attackSpeed, data.settings) {
 
     override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
-        behaviors.inventoryTickBehavior.inventoryTick(this, stack, world, entity, slot, selected)
+        behaviors.inventoryTickBehavior(this, stack, world, entity, slot, selected)
         super.inventoryTick(stack, world, entity, slot, selected)
     }
 
     override fun postHit(stack: ItemStack?, target: LivingEntity?, attacker: LivingEntity?): Boolean {
-        behaviors.postHitBehavior.postHit(this, stack, target, attacker)
+        behaviors.postHitBehavior(this, stack, target, attacker)
         return super.postHit(stack, target, attacker)
     }
 }
