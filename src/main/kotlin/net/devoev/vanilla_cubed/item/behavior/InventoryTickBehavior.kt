@@ -50,7 +50,7 @@ fun interface InventoryTickBehavior<in T : Item> {
                     return
                 }
 
-                val chance = 1e-4
+                val chance = 5e-4
                 if (!entity.wearsFullArmor(item.material) || !entity.armorItems.contains(stack) || Random.nextDouble() >= chance) return
 
                 val effect = StatusEffectHelper.randomBeneficial(1500..3000, 1..2)
@@ -67,7 +67,7 @@ fun interface InventoryTickBehavior<in T : Item> {
          * when the entity is wearing a full set of armor.
          * @see ModArmor.AMETHYST
          */
-        fun buildApplyEffect(effect: StatusEffect) = InventoryTickBehavior<ArmorItem> { item, stack, world, entity, slot, selected ->
+        fun buildApplyEffect(effect: StatusEffect) = InventoryTickBehavior<ArmorItem> { item, _, _, entity, _, _ ->
             if (entity is LivingEntity && entity.wearsFullArmor(item.material))
                 entity.addStatusEffect(StatusEffectInstance(effect))
         }

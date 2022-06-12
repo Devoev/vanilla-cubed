@@ -13,17 +13,12 @@ import net.minecraft.item.ArmorItem
  */
 object ModArmor {
 
-    //val ANCIENT_GOLD = ArmorBuilder(ModArmorMaterials.ANCIENT_GOLD, ModItemGroup.COMBAT.toSettings(),
-    //    ItemBehaviors(inventoryTickBehavior = InventoryTickBehavior.APPLY_BENEFICIAL_EFFECT)
-    //)
-    val ANCIENT_GOLD = object : ArmorBuilder(ModArmorMaterials.ANCIENT_GOLD, ModItemGroup.COMBAT.toSettings(), ItemBehaviors()) {
-        override val helmet: ArmorItem = ModArmorItem(data, EquipmentSlot.HEAD, ItemBehaviors(
-            inventoryTickBehavior = InventoryTickBehavior.APPLY_BENEFICIAL_EFFECT
-        ))
-    }
-    val AMETHYST = ArmorBuilder(ModArmorMaterials.AMETHYST, ModItemGroup.COMBAT.toSettings(),
-        ItemBehaviors(inventoryTickBehavior = InventoryTickBehavior.buildApplyEffect(StatusEffects.HASTE))
+    val ANCIENT_GOLD = ArmorBuilder(ModArmorMaterials.ANCIENT_GOLD, ModItemGroup.COMBAT.toSettings(),
+        inventoryTickBehavior = InventoryTickBehavior.APPLY_BENEFICIAL_EFFECT, onlyOne = true
     )
-    val ENDERITE = ArmorBuilder(ModArmorMaterials.ENDERITE, ModItemGroup.COMBAT.toSettings(), ItemBehaviors())
-    val DRAGON_SCALE = ArmorBuilder(ModArmorMaterials.DRAGON_SCALE, ModItemGroup.COMBAT.toSettings(), ItemBehaviors())
+    val AMETHYST = ArmorBuilder(ModArmorMaterials.AMETHYST, ModItemGroup.COMBAT.toSettings(),
+        inventoryTickBehavior = InventoryTickBehavior.buildApplyEffect(StatusEffects.HASTE)
+    )
+    val ENDERITE = ArmorBuilder(ModArmorMaterials.ENDERITE, ModItemGroup.COMBAT.toSettings())
+    val DRAGON_SCALE = ArmorBuilder(ModArmorMaterials.DRAGON_SCALE, ModItemGroup.COMBAT.toSettings())
 }

@@ -1,6 +1,8 @@
 package net.devoev.vanilla_cubed.item.tool
 
+import net.devoev.vanilla_cubed.item.behavior.InventoryTickBehavior
 import net.devoev.vanilla_cubed.item.behavior.ItemBehaviors
+import net.devoev.vanilla_cubed.item.behavior.PostHitBehavior
 import net.minecraft.item.*
 import net.minecraft.item.Item.Settings
 
@@ -14,8 +16,10 @@ open class ToolBuilder(protected val data: ToolData, protected val behaviors: It
         attackDamageAmounts: List<Float> = ToolData.BASE_ATTACK_DAMAGE,
         attackSpeedAmounts: List<Float> = ToolData.BASE_ATTACK_SPEED,
         settings: Settings,
-        behaviors: ItemBehaviors<ToolItem>
-    ) : this(ToolData(material, attackDamageAmounts, attackSpeedAmounts, settings), behaviors)
+        inventoryTickBehavior: InventoryTickBehavior<ToolItem> = InventoryTickBehavior.DEFAULT,
+        postHitBehavior: PostHitBehavior<ToolItem> = PostHitBehavior.DEFAULT,
+    ) : this(ToolData(material, attackDamageAmounts, attackSpeedAmounts, settings),
+        ItemBehaviors(inventoryTickBehavior, postHitBehavior))
 
     open val sword: SwordItem get() = ModSwordItem(data, behaviors)
     open val shovel: ShovelItem get() = ModShovelItem(data, behaviors)

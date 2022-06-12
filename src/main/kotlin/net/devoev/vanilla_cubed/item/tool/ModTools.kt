@@ -16,22 +16,20 @@ object ModTools {
 
     val ANCIENT_GOLD = ToolBuilder(material = ModToolMaterials.ANCIENT_GOLD,
         settings = ModItemGroup.TOOLS.toSettings(),
-        behaviors = ItemBehaviors(postHitBehavior = PostHitBehavior.APPLY_HARMFUL_EFFECT)
+        postHitBehavior = PostHitBehavior.APPLY_HARMFUL_EFFECT
     )
 
     val AMETHYST = ToolBuilder(
         material = ModToolMaterials.AMETHYST, settings = ModItemGroup.TOOLS.toSettings(),
-        attackSpeedAmounts = ToolData.BASE_ATTACK_SPEED.map { it + 0.4F }, behaviors = ItemBehaviors()
+        attackSpeedAmounts = ToolData.BASE_ATTACK_SPEED.map { it + 0.4F }
     )
 
-    val ENDERITE = ToolBuilder(material = ModToolMaterials.ENDERITE, settings = ModItemGroup.TOOLS.toSettings(),
-        behaviors = ItemBehaviors()
-    )
+    val ENDERITE = ToolBuilder(material = ModToolMaterials.ENDERITE, settings = ModItemGroup.TOOLS.toSettings())
 
     val DRAGON_SCALE = ToolBuilder(material = ModToolMaterials.DRAGON_SCALE, settings = ModItemGroup.TOOLS.toSettings(),
-        behaviors = ItemBehaviors(inventoryTickBehavior = InventoryTickBehavior.buildApplyAttribute(
+        inventoryTickBehavior = InventoryTickBehavior.buildApplyAttribute(
             ReachEntityAttributes.REACH,
             EntityAttributeModifier("modifier", 1.5, EntityAttributeModifier.Operation.ADDITION)
-        ))
+        )
     )
 }
