@@ -29,7 +29,6 @@ fun interface InventoryTickBehavior<in T : Item> {
         /**
          * Applies a random beneficial [StatusEffectInstance] to the player wearing full armor once in a time.
          * @see ModArmor.ANCIENT_GOLD
-         * TODO: Fix waitTicks bug
          */
         val APPLY_BENEFICIAL_EFFECT = object : InventoryTickBehavior<ArmorItem> {
 
