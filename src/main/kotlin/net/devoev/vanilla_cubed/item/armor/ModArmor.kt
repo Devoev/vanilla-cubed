@@ -1,6 +1,7 @@
 package net.devoev.vanilla_cubed.item.armor
 
 import net.devoev.vanilla_cubed.item.ModItemGroup
+import net.devoev.vanilla_cubed.item.behavior.ApplyEffectBehavior
 import net.devoev.vanilla_cubed.item.behavior.InventoryTickBehavior
 import net.devoev.vanilla_cubed.item.behavior.ItemBehaviors
 import net.devoev.vanilla_cubed.item.toSettings
@@ -17,7 +18,7 @@ object ModArmor {
         inventoryTickBehavior = InventoryTickBehavior.APPLY_BENEFICIAL_EFFECT, onlyOne = true
     )
     val AMETHYST = ArmorBuilder(ModArmorMaterials.AMETHYST, ModItemGroup.COMBAT.toSettings(),
-        inventoryTickBehavior = InventoryTickBehavior.buildApplyEffect(StatusEffects.HASTE)
+        inventoryTickBehavior = ApplyEffectBehavior(StatusEffects.HASTE)
     )
     val ENDERITE = ArmorBuilder(ModArmorMaterials.ENDERITE, ModItemGroup.COMBAT.toSettings())
     val DRAGON_SCALE = ArmorBuilder(ModArmorMaterials.DRAGON_SCALE, ModItemGroup.COMBAT.toSettings())

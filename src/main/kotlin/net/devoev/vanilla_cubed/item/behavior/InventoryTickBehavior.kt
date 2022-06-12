@@ -55,15 +55,5 @@ fun interface InventoryTickBehavior<in T : Item> {
             }
 
         }
-
-        /**
-         * Builds an [InventoryTickBehavior] that applies the given [effect],
-         * when the entity is wearing a full set of armor.
-         * @see ModArmor.AMETHYST
-         */
-        fun buildApplyEffect(effect: StatusEffect) = InventoryTickBehavior<ArmorItem> { item, _, _, entity, _, _ ->
-            if (entity is LivingEntity && entity.wearsFullArmor(item.material))
-                entity.addStatusEffect(StatusEffectInstance(effect))
-        }
     }
 }
