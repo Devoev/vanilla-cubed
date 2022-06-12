@@ -19,7 +19,7 @@ fun interface PostHitBehavior<in T : Item> {
         /**
          * Applies a random harmful [StatusEffectInstance] to the given target with a 10% probability.
          */
-        val APPLY_HARMFUL_EFFECT = PostHitBehavior<ToolItem> { item, stack, target, attacker ->
+        val APPLY_HARMFUL_EFFECT = PostHitBehavior<ToolItem> { _, _, target, _ ->
             val effect = StatusEffectHelper.randomHarmful(100..200, 0..2)
             if (Random.nextDouble() < 0.9 || effect.effectType.isInstant) return@PostHitBehavior false
 
