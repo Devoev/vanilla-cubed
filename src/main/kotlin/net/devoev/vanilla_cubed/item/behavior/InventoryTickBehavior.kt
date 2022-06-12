@@ -1,6 +1,7 @@
 package net.devoev.vanilla_cubed.item.behavior
 
 import net.devoev.vanilla_cubed.entity.effect.StatusEffectHelper
+import net.devoev.vanilla_cubed.item.armor.ModArmor
 import net.devoev.vanilla_cubed.util.wearsFullArmor
 import net.minecraft.entity.Entity
 import net.minecraft.entity.LivingEntity
@@ -11,12 +12,6 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.world.World
 import kotlin.random.Random
-import net.devoev.vanilla_cubed.item.armor.ModArmor
-import net.devoev.vanilla_cubed.item.tool.AttributeToolItem
-import net.minecraft.entity.attribute.EntityAttribute
-import net.minecraft.entity.attribute.EntityAttributeInstance
-import net.minecraft.entity.attribute.EntityAttributeModifier
-import net.minecraft.item.ToolItem
 
 fun interface InventoryTickBehavior<in T : Item> {
 
@@ -69,36 +64,6 @@ fun interface InventoryTickBehavior<in T : Item> {
         fun buildApplyEffect(effect: StatusEffect) = InventoryTickBehavior<ArmorItem> { item, _, _, entity, _, _ ->
             if (entity is LivingEntity && entity.wearsFullArmor(item.material))
                 entity.addStatusEffect(StatusEffectInstance(effect))
-        }
-
-        /**
-         * Builds an [InventoryTickBehavior] that applies the given [modifier],
-         * when the entity has the item selected.
-         * @see ModArmor.DRAGON_SCALE
-         * TODO: Fix bug when holding 2 tools
-         */
-        fun buildApplyAttribute(attribute: EntityAttribute, modifier: EntityAttributeModifier) = object : InventoryTickBehavior<ToolItem> {
-
-            override fun invoke(item: ToolItem, stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
-                if (entity !is LivingEntity) return
-                val sel = selected && entity.offHandStack != stack
-
-                val attributeInstance: EntityAttributeInstance = entity.getAttributeInstance(attribute) ?: return
-
-                if (sel && !attributeInstance.hasModifier(modifier)) {
-                    attributeInstance.addTemporaryModifier(modifier)
-                } else if (!sel && attributeInstance.hasModifier(modifier) && !selectedSameModifier(entity, attribute)) {
-                    attributeInstance.removeModifier(modifier)
-                }
-            }
-
-            /**
-             * Returns whether the given [entity] has a [AttributeToolItem] selected, that changes the [attribute] value.
-             */
-            private fun selectedSameModifier(entity: LivingEntity, attribute: EntityAttribute): Boolean {
-                val item = entity.getStackInHand(entity.activeHand).item
-                return item is AttributeToolItem && item.modifiers?.contains(attribute) ?: false
-            }
         }
     }
 }

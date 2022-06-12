@@ -2,6 +2,7 @@ package net.devoev.vanilla_cubed.item.tool
 
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes
 import net.devoev.vanilla_cubed.item.ModItemGroup
+import net.devoev.vanilla_cubed.item.behavior.ApplyAttributeBehavior
 import net.devoev.vanilla_cubed.item.behavior.InventoryTickBehavior
 import net.devoev.vanilla_cubed.item.behavior.ItemBehaviors
 import net.devoev.vanilla_cubed.item.behavior.PostHitBehavior
@@ -27,7 +28,7 @@ object ModTools {
     val ENDERITE = ToolBuilder(material = ModToolMaterials.ENDERITE, settings = ModItemGroup.TOOLS.toSettings())
 
     val DRAGON_SCALE = ToolBuilder(material = ModToolMaterials.DRAGON_SCALE, settings = ModItemGroup.TOOLS.toSettings(),
-        inventoryTickBehavior = InventoryTickBehavior.buildApplyAttribute(
+        inventoryTickBehavior = ApplyAttributeBehavior(
             ReachEntityAttributes.REACH,
             EntityAttributeModifier("modifier", 1.5, EntityAttributeModifier.Operation.ADDITION)
         )
