@@ -1,5 +1,6 @@
 package net.devoev.vanilla_cubed.item.tool
 
+import net.devoev.vanilla_cubed.item.behavior.BehaviorComposition
 import net.devoev.vanilla_cubed.item.behavior.ItemBehaviors
 import net.minecraft.entity.Entity
 import net.minecraft.entity.LivingEntity
@@ -7,8 +8,9 @@ import net.minecraft.item.*
 import net.minecraft.world.World
 
 
-open class ModSwordItem(data: ToolData, private val behaviors: ItemBehaviors<ToolItem>)
-    : SwordItem(data.material, data.swordData.attackDamage, data.swordData.attackSpeed, data.settings) {
+open class ModSwordItem(data: ToolData, override val behaviors: ItemBehaviors<ToolItem>)
+    : SwordItem(data.material, data.swordData.attackDamage, data.swordData.attackSpeed, data.settings),
+    BehaviorComposition<ToolItem> {
 
     override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
         behaviors.inventoryTickBehavior(this, stack, world, entity, slot, selected)
@@ -21,8 +23,9 @@ open class ModSwordItem(data: ToolData, private val behaviors: ItemBehaviors<Too
     }
 }
 
-open class ModShovelItem(data: ToolData, private val behaviors: ItemBehaviors<ToolItem>)
-    : ShovelItem(data.material, data.shovelData.attackDamage, data.shovelData.attackSpeed, data.settings) {
+open class ModShovelItem(data: ToolData, override val behaviors: ItemBehaviors<ToolItem>)
+    : ShovelItem(data.material, data.shovelData.attackDamage, data.shovelData.attackSpeed, data.settings),
+    BehaviorComposition<ToolItem> {
 
     override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
         behaviors.inventoryTickBehavior(this, stack, world, entity, slot, selected)
@@ -35,8 +38,9 @@ open class ModShovelItem(data: ToolData, private val behaviors: ItemBehaviors<To
     }
 }
 
-open class ModPickaxeItem(data: ToolData, private val behaviors: ItemBehaviors<ToolItem>)
-    : PickaxeItem(data.material, data.pickaxeData.attackDamage, data.pickaxeData.attackSpeed, data.settings) {
+open class ModPickaxeItem(data: ToolData, override val behaviors: ItemBehaviors<ToolItem>)
+    : PickaxeItem(data.material, data.pickaxeData.attackDamage, data.pickaxeData.attackSpeed, data.settings),
+    BehaviorComposition<ToolItem> {
 
     override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
         behaviors.inventoryTickBehavior(this, stack, world, entity, slot, selected)
@@ -49,8 +53,9 @@ open class ModPickaxeItem(data: ToolData, private val behaviors: ItemBehaviors<T
     }
 }
 
-open class ModAxeItem(data: ToolData, private val behaviors: ItemBehaviors<ToolItem>)
-    : AxeItem(data.material, data.axeData.attackDamage, data.axeData.attackSpeed, data.settings) {
+open class ModAxeItem(data: ToolData, override val behaviors: ItemBehaviors<ToolItem>)
+    : AxeItem(data.material, data.axeData.attackDamage, data.axeData.attackSpeed, data.settings),
+    BehaviorComposition<ToolItem> {
 
     override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
         behaviors.inventoryTickBehavior(this, stack, world, entity, slot, selected)
@@ -63,8 +68,9 @@ open class ModAxeItem(data: ToolData, private val behaviors: ItemBehaviors<ToolI
     }
 }
 
-open class ModHoeItem(data: ToolData, private val behaviors: ItemBehaviors<ToolItem>)
-    : HoeItem(data.material, data.hoeData.attackDamage, data.hoeData.attackSpeed, data.settings) {
+open class ModHoeItem(data: ToolData, override val behaviors: ItemBehaviors<ToolItem>)
+    : HoeItem(data.material, data.hoeData.attackDamage, data.hoeData.attackSpeed, data.settings),
+    BehaviorComposition<ToolItem> {
 
     override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
         behaviors.inventoryTickBehavior(this, stack, world, entity, slot, selected)

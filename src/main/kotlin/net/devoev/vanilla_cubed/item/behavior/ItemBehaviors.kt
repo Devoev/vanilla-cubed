@@ -5,7 +5,7 @@ import net.minecraft.item.Item
 /**
  * Data to modify the behavior of [items][Item].
  */
-data class ItemBehaviors<T : Item> (
+data class ItemBehaviors<in T : Item> (
     val inventoryTickBehavior: InventoryTickBehavior<T> = InventoryTickBehavior.DEFAULT,
     val postHitBehavior: PostHitBehavior<T> = PostHitBehavior.DEFAULT
 )
