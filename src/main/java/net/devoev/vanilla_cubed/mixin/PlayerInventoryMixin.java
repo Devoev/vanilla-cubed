@@ -1,10 +1,14 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.item.tool.AttributeToolItem;
+import net.devoev.vanilla_cubed.item.behavior.ApplyAttributeBehavior;
+import net.devoev.vanilla_cubed.item.behavior.BehaviorComposition;
+import net.devoev.vanilla_cubed.item.behavior.InventoryTickBehavior;
 import net.devoev.vanilla_cubed.util.ItemKt;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
@@ -87,12 +91,16 @@ public class PlayerInventoryMixin {
     private void removeAttributeModifiersOnDrop(boolean entireStack, CallbackInfoReturnable<ItemStack> info) {
         PlayerInventory inventory = (PlayerInventory) (Object) this;
         Item item = inventory.getMainHandStack().getItem();
-        if (item instanceof AttributeToolItem tool && tool.getModifiers() != null) {
-            tool.getModifiers().forEach((attribute, modifier) -> {
-                EntityAttributeInstance instance = inventory.player.getAttributeInstance(attribute);
-                if (instance != null && instance.hasModifier(modifier))
-                    instance.removeModifier(modifier);
-            });
-        }
+        if (!(item instanceof BehaviorComposition<?> tool)) return;
+
+        InventoryTickBehavior<?> behavior = tool.getBehaviors().getInventoryTickBehavior();
+        if (!(behavior instanceof ApplyAttributeBehavior attributeBehavior)) return;
+
+        EntityAttribute attribute = attributeBehavior.getAttribute();
+        EntityAttributeModifier modifier = attributeBehavior.getModifier();
+        EntityAttributeInstance instance = inventory.player.getAttributeInstance(attribute);
+
+        if (instance != null && instance.hasModifier(modifier))
+            instance.removeModifier(modifier);
     }
 }
