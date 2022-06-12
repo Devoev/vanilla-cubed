@@ -33,26 +33,30 @@ fun interface InventoryTickBehavior<in T : Item> {
          */
         val APPLY_BENEFICIAL_EFFECT = object : InventoryTickBehavior<ArmorItem> {
 
+            private val waitTimeMap = mutableMapOf<LivingEntity, Int>()
+
             /**
              * The time in ticks that needs to be waited, until another effect can be applied.
              */
-            private var waitTicks = 0
+            var LivingEntity.waitTime: Int
+                get() = waitTimeMap[this] ?: 0
+                set(value) = waitTimeMap.set(this, value)
 
             override fun invoke(item: ArmorItem, stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
                 if (entity !is LivingEntity) return
 
-                if (waitTicks > 0) {
-                    waitTicks--
+                if (entity.waitTime > 0) {
+                    entity.waitTime--
                     return
                 }
 
-                val chance = 3e-3
+                val chance = 1e-4
                 if (!entity.wearsFullArmor(item.material) || !entity.armorItems.contains(stack) || Random.nextDouble() >= chance) return
 
                 val effect = StatusEffectHelper.randomBeneficial(1500..3000, 1..2)
                 if (effect.effectType.isInstant) return
 
-                waitTicks = effect.duration * 3
+                entity.waitTime = effect.duration * 3
                 entity.addStatusEffect(effect)
             }
 

@@ -4,6 +4,7 @@ import net.devoev.vanilla_cubed.item.ModItemGroup
 import net.devoev.vanilla_cubed.item.behavior.InventoryTickBehavior
 import net.devoev.vanilla_cubed.item.behavior.ItemBehaviors
 import net.devoev.vanilla_cubed.item.toSettings
+import net.minecraft.entity.EquipmentSlot
 import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.item.ArmorItem
 
@@ -12,9 +13,14 @@ import net.minecraft.item.ArmorItem
  */
 object ModArmor {
 
-    val ANCIENT_GOLD = ArmorBuilder(ModArmorMaterials.ANCIENT_GOLD, ModItemGroup.COMBAT.toSettings(),
-        ItemBehaviors(inventoryTickBehavior = InventoryTickBehavior.APPLY_BENEFICIAL_EFFECT)
-    )
+    //val ANCIENT_GOLD = ArmorBuilder(ModArmorMaterials.ANCIENT_GOLD, ModItemGroup.COMBAT.toSettings(),
+    //    ItemBehaviors(inventoryTickBehavior = InventoryTickBehavior.APPLY_BENEFICIAL_EFFECT)
+    //)
+    val ANCIENT_GOLD = object : ArmorBuilder(ModArmorMaterials.ANCIENT_GOLD, ModItemGroup.COMBAT.toSettings(), ItemBehaviors()) {
+        override val helmet: ArmorItem = ModArmorItem(data, EquipmentSlot.HEAD, ItemBehaviors(
+            inventoryTickBehavior = InventoryTickBehavior.APPLY_BENEFICIAL_EFFECT
+        ))
+    }
     val AMETHYST = ArmorBuilder(ModArmorMaterials.AMETHYST, ModItemGroup.COMBAT.toSettings(),
         ItemBehaviors(inventoryTickBehavior = InventoryTickBehavior.buildApplyEffect(StatusEffects.HASTE))
     )
