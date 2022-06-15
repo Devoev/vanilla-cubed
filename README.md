@@ -26,7 +26,7 @@ the upgrade mechanics of the smithing table. The new types of gear are:
 Each type of armor and each toolset has an advantage over the over ones, so there's no best one! Additionally, most gear
 sets have special effects like increased attack range.
 
-### Improves Tridents
+### Improved Tridents
 
 Tridents are obtained as a random drop from a Drowned. Because this mechanic is not that great, *Vanilla Cubed* improves 
 this. Tridents can be crafted using *Elder Guardian Shards*, which are obtained as a drop from Elder Guardians.
