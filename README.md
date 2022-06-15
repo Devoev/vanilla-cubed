@@ -2,20 +2,11 @@
     <img src="https://user-images.githubusercontent.com/28957846/164294157-1a190ef9-7f34-402f-b740-edc957da7ad9.png">
 </p>
 
-<style>
-    titles {
-        font-size: x-large;
-        font-weight: bold;
-        font-style: italic;
-    }
-</style>
-
-
 <p align="center">
-    <titles>
+    <font size=5>
         A vanilla+ style mod, that improves already existing features of the game and expands them through new 
-        mechanics! 
-    </titles>
+        mechanics!
+    </font>
 </p>
 
 
