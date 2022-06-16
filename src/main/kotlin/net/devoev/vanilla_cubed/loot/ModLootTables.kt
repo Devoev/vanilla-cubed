@@ -2,7 +2,6 @@ package net.devoev.vanilla_cubed.loot
 
 import net.devoev.vanilla_cubed.item.ModItems
 import net.devoev.vanilla_cubed.util.MapInitializer
-import net.fabricmc.fabric.api.loot.v2.FabricLootPoolBuilder
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents
 import net.minecraft.loot.LootPool
 import net.minecraft.loot.entry.ItemEntry
