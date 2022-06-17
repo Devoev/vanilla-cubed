@@ -2,10 +2,7 @@ package net.devoev.vanilla_cubed.item.tool
 
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes
 import net.devoev.vanilla_cubed.item.ModItemGroup
-import net.devoev.vanilla_cubed.item.behavior.ApplyAttributeBehavior
-import net.devoev.vanilla_cubed.item.behavior.InventoryTickBehavior
-import net.devoev.vanilla_cubed.item.behavior.ItemBehaviors
-import net.devoev.vanilla_cubed.item.behavior.PostHitBehavior
+import net.devoev.vanilla_cubed.item.behavior.*
 import net.devoev.vanilla_cubed.item.toSettings
 import net.minecraft.entity.attribute.EntityAttributeModifier
 import net.minecraft.item.ToolItem
@@ -17,7 +14,7 @@ object ModTools {
 
     val ANCIENT_GOLD = ToolBuilder(material = ModToolMaterials.ANCIENT_GOLD,
         settings = ModItemGroup.TOOLS.toSettings(),
-        postHitBehavior = PostHitBehavior.APPLY_HARMFUL_EFFECT
+        postHitBehavior = ApplyHarmfulEffectBehavior(0.1, 100..200, 0..2)
     )
 
     val AMETHYST = ToolBuilder(
