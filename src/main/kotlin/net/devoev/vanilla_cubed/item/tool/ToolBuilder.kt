@@ -1,15 +1,13 @@
 package net.devoev.vanilla_cubed.item.tool
 
-import net.devoev.vanilla_cubed.item.behavior.InventoryTickBehavior
-import net.devoev.vanilla_cubed.item.behavior.ItemBehaviors
-import net.devoev.vanilla_cubed.item.behavior.PostHitBehavior
+import net.devoev.vanilla_cubed.item.behavior.*
 import net.minecraft.item.*
 import net.minecraft.item.Item.Settings
 
 /**
  * Builds all 5 [tools][ToolItem] for the given [data].
  */
-open class ToolBuilder(protected val data: ToolData, protected val behaviors: ItemBehaviors<ToolItem>) {
+open class ToolBuilder(private val data: ToolData, private val behaviors: Behaviors<ToolItem>) {
 
     constructor(
         material: ToolMaterial,
@@ -19,7 +17,8 @@ open class ToolBuilder(protected val data: ToolData, protected val behaviors: It
         inventoryTickBehavior: InventoryTickBehavior<ToolItem> = InventoryTickBehavior.DEFAULT,
         postHitBehavior: PostHitBehavior<ToolItem> = PostHitBehavior.DEFAULT,
     ) : this(ToolData(material, attackDamageAmounts, attackSpeedAmounts, settings),
-        ItemBehaviors(inventoryTickBehavior, postHitBehavior))
+        DataBehaviors(inventoryTickBehavior, postHitBehavior)
+    )
 
     open val sword: SwordItem get() = ModSwordItem(data, behaviors)
     open val shovel: ShovelItem get() = ModShovelItem(data, behaviors)

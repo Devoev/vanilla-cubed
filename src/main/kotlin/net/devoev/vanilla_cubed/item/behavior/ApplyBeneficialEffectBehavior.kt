@@ -29,7 +29,7 @@ class ApplyBeneficialEffectBehavior(private val probability: Double,
         get() = waitTimeMap[this] ?: 0
         set(value) = waitTimeMap.set(this, value)
 
-    override fun invoke(item: ArmorItem, stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
+    override fun inventoryTick(item: ArmorItem, stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
         if (entity !is LivingEntity) return
 
         if (entity.waitTime > 0) {

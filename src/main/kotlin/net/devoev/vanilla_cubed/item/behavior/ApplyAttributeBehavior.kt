@@ -15,7 +15,7 @@ import net.minecraft.world.World
 class ApplyAttributeBehavior(val attribute: EntityAttribute, val modifier: EntityAttributeModifier)
     : InventoryTickBehavior<ToolItem> {
 
-    override fun invoke(item: ToolItem, stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
+    override fun inventoryTick(item: ToolItem, stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
         if (entity !is LivingEntity) return
         val sel = selected && entity.offHandStack != stack
 
@@ -33,10 +33,9 @@ class ApplyAttributeBehavior(val attribute: EntityAttribute, val modifier: Entit
      */
     private fun selectedSameModifier(entity: LivingEntity, attribute: EntityAttribute): Boolean {
         val item = entity.getStackInHand(entity.activeHand).item
-        if (item !is BehaviorComposition<*>) return false
+        if (item !is Behaviors<*>) return false
 
-        val behavior = item.behaviors.inventoryTickBehavior
+        val behavior = item.inventoryTickBehavior
         return behavior is ApplyAttributeBehavior && behavior.attribute == attribute
-        // return item is AttributeToolItem && item.modifiers?.contains(attribute) ?: false
     }
 }

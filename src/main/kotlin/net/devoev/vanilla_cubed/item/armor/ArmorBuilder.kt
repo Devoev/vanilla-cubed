@@ -1,21 +1,22 @@
 package net.devoev.vanilla_cubed.item.armor
 
+import net.devoev.vanilla_cubed.item.behavior.Behaviors
+import net.devoev.vanilla_cubed.item.behavior.DataBehaviors
 import net.devoev.vanilla_cubed.item.behavior.InventoryTickBehavior
-import net.devoev.vanilla_cubed.item.behavior.ItemBehaviors
 import net.devoev.vanilla_cubed.item.behavior.PostHitBehavior
 import net.minecraft.entity.EquipmentSlot
 import net.minecraft.item.ArmorItem
 import net.minecraft.item.ArmorMaterial
-import net.minecraft.item.Item
 import net.minecraft.item.Item.Settings
 
 /**
  * Builds all 4 armor pieces for given [data].
  * @param onlyOne Whether the [behaviors] should only applied to one armor item (helmet).
  */
-open class ArmorBuilder(protected val data: ArmorData,
-                        protected val behaviors: ItemBehaviors<ArmorItem>,
-                        protected val onlyOne: Boolean) {
+open class ArmorBuilder(
+    private val data: ArmorData,
+    private val behaviors: Behaviors<ArmorItem>,
+    private val onlyOne: Boolean) {
 
     constructor(
         material: ArmorMaterial,
@@ -24,7 +25,7 @@ open class ArmorBuilder(protected val data: ArmorData,
         postHitBehavior: PostHitBehavior<ArmorItem> = PostHitBehavior.DEFAULT,
         onlyOne: Boolean = false
     ) : this(ArmorData(material, settings),
-        ItemBehaviors(inventoryTickBehavior, postHitBehavior),
+        DataBehaviors(inventoryTickBehavior, postHitBehavior),
         onlyOne)
 
     open val helmet: ArmorItem get() = buildArmorItem(EquipmentSlot.HEAD)
@@ -33,7 +34,7 @@ open class ArmorBuilder(protected val data: ArmorData,
     open val boots: ArmorItem get() = buildArmorItem(EquipmentSlot.FEET)
 
     protected open fun buildArmorItem(slot: EquipmentSlot) =
-        ModArmorItem(data, slot, if (!onlyOne || slot == EquipmentSlot.HEAD) behaviors else ItemBehaviors())
+        ModArmorItem(data, slot, if (!onlyOne || slot == EquipmentSlot.HEAD) behaviors else DataBehaviors())
 
     operator fun component1() = helmet
     operator fun component2() = chestplate

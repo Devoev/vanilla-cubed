@@ -15,7 +15,7 @@ import net.minecraft.world.World
  * @see ModArmor.AMETHYST
  */
 class ApplyEffectBehavior(val effect: StatusEffect) : InventoryTickBehavior<ArmorItem> {
-    override fun invoke(item: ArmorItem, stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
+    override fun inventoryTick(item: ArmorItem, stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
         if (entity is LivingEntity && entity.wearsFullArmor(item.material))
             entity.addStatusEffect(StatusEffectInstance(effect))
     }

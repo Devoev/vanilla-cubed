@@ -16,7 +16,7 @@ class ApplyHarmfulEffectBehavior(private val probability: Double,
                                  private val durationRange: IntRange,
                                  private val amplifierRange: IntRange) : PostHitBehavior<ToolItem> {
 
-    override fun invoke(item: ToolItem, stack: ItemStack?, target: LivingEntity?, attacker: LivingEntity?): Boolean {
+    override fun postHit(item: ToolItem, stack: ItemStack?, target: LivingEntity?, attacker: LivingEntity?): Boolean {
         val effect = StatusEffectHelper.randomHarmful(durationRange, amplifierRange)
         if (Random.nextDouble() < 1 - probability || effect.effectType.isInstant) return false
 
