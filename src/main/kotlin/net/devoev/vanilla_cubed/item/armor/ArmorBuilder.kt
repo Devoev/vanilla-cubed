@@ -14,8 +14,8 @@ import net.minecraft.item.Item.Settings
  * @param onlyOne Whether the [behaviors] should only applied to one armor item (helmet).
  */
 open class ArmorBuilder(
-    private val data: ArmorData,
-    private val behaviors: Behaviors<ArmorItem>,
+    protected val data: ArmorData,
+    protected val behaviors: Behaviors<ArmorItem>,
     private val onlyOne: Boolean) {
 
     constructor(

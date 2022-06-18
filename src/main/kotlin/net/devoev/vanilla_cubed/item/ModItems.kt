@@ -76,5 +76,5 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
     val DRAGON_SCALE_CHESTPLATE = create("dragon_scale_chestplate", ModArmor.DRAGON_SCALE.chestplate)
     val DRAGON_SCALE_LEGGINGS = create("dragon_scale_leggings", ModArmor.DRAGON_SCALE.leggings)
     val DRAGON_SCALE_BOOTS = create("dragon_scale_boots", ModArmor.DRAGON_SCALE.boots)
-    val WINGED_DRAGON_SCALE_CHESTPLATE = create("dragon_scale_chestplate_winged", WingedDragonScaleChestplate)
+    val WINGED_DRAGON_SCALE_CHESTPLATE = create("dragon_scale_chestplate_winged", ModArmor.DRAGON_SCALE.elytra)
 }
