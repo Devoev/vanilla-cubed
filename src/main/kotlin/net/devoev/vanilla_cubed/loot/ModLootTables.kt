@@ -2,8 +2,7 @@ package net.devoev.vanilla_cubed.loot
 
 import net.devoev.vanilla_cubed.item.ModItems
 import net.devoev.vanilla_cubed.util.MapInitializer
-import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder
-import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents
 import net.minecraft.loot.LootPool
 import net.minecraft.loot.entry.ItemEntry
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider
@@ -16,11 +15,11 @@ import net.minecraft.util.Identifier
 object ModLootTables : MapInitializer<Identifier, LootPool.Builder>() {
 
     init {
-        this["entities/elder_guardian"] = FabricLootPoolBuilder.builder()
+        this["entities/elder_guardian"] = LootPool.builder()
             .rolls(ConstantLootNumberProvider.create(1F))
             .with(ItemEntry.builder(ModItems.ELDER_GUARDIAN_SHARD))
 
-        this["entities/ender_dragon"] = FabricLootPoolBuilder.builder()
+        this["entities/ender_dragon"] = LootPool.builder()
             .rolls(UniformLootNumberProvider.create(1F, 3F))
             .with(ItemEntry.builder(ModItems.DRAGON_SCALE))
     }
@@ -34,7 +33,7 @@ object ModLootTables : MapInitializer<Identifier, LootPool.Builder>() {
      * Registers all loot table callbacks.
      */
     override fun init() {
-        LootTableLoadingCallback.EVENT.register { _, _, id, table, _ ->
+        LootTableEvents.MODIFY.register { _, _, id, table, _ ->
             if (contains(id)) table.pool(this[id])
         }
     }
