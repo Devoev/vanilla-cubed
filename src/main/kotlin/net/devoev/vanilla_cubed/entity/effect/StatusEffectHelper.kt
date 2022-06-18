@@ -8,6 +8,7 @@ import java.time.Duration
 import kotlin.random.Random
 import kotlin.random.nextInt
 import kotlin.random.nextUInt
+import kotlin.reflect.KVisibility
 import kotlin.reflect.full.staticProperties
 
 /**
@@ -18,8 +19,10 @@ object StatusEffectHelper {
     /**
      * A list of all [StatusEffects][StatusEffect].
      */
-    val all: List<StatusEffect> =
-        StatusEffects::class.staticProperties.map { it.get() }.filterIsInstance<StatusEffect>()
+    val all: List<StatusEffect> = StatusEffects::class.staticProperties
+        .filter { it.visibility == KVisibility.PUBLIC }
+        .map { it.get() }
+        .filterIsInstance<StatusEffect>()
 
     val harmful = all.filter { it.category == StatusEffectCategory.HARMFUL }
     val beneficial = all.filter { it.category == StatusEffectCategory.BENEFICIAL }
