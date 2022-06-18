@@ -4,12 +4,12 @@
   "version": "${version}",
 
   "name": "Vanilla cubed",
-  "description": "A vanilla+ style mod",
+  "description": "A vanilla+ style mod, that improves already existing features of the game and expands them through new mechanics!",
   "authors": [
     "Devoev"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/vanilla-cubed",
     "sources": "https://github.com/Devoev/vanilla-cubed.git"
   },
 
@@ -29,10 +29,11 @@
     "vanilla_cubed.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.8.7",
+    "fabricloader": ">=0.14.6",
     "fabric": "*",
     "fabric-language-kotlin": "*",
-    "minecraft": "1.18.x"
+    "minecraft": "~1.19",
+    "java": ">=17"
   },
   "suggests": {
     "flamingo": "*"
