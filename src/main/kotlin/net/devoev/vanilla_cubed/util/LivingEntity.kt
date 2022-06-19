@@ -3,6 +3,7 @@ package net.devoev.vanilla_cubed.util
 import net.devoev.vanilla_cubed.item.armor.ModArmorMaterials
 import net.minecraft.entity.LivingEntity
 import net.minecraft.item.ArmorMaterial
+import net.minecraft.item.ArmorMaterials
 
 /**
  * Returns true, if the entity wears a full set of armor of the given [armorMaterial].
@@ -28,3 +29,8 @@ fun LivingEntity.wearsDragonScale() = wearsFullArmor(ModArmorMaterials.DRAGON_SC
  * Returns true, if the entity wears a full set of [ModArmorMaterials.AMETHYST] armor.
  */
 fun LivingEntity.wearsAmethyst() = wearsFullArmor(ModArmorMaterials.AMETHYST)
+
+/**
+ * Returns true, if the entity wears a full set of [ArmorMaterials.NETHERITE] armor.
+ */
+fun LivingEntity.wearsNetherite() = wearsFullArmor(ArmorMaterials.NETHERITE)

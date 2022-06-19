@@ -1,5 +1,6 @@
 package net.devoev.vanilla_cubed.mixin;
 
+import net.devoev.vanilla_cubed.entity.effect.StatusEffectHelper;
 import net.devoev.vanilla_cubed.item.ModItems;
 import net.devoev.vanilla_cubed.util.LivingEntityKt;
 import net.minecraft.entity.Entity;
@@ -7,7 +8,8 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;
@@ -36,13 +38,25 @@ public class EntityMixin {
     }
 
     /**
-     * Full set of dragon scale armor negates all fall damage.
+     * Full set of dragon scale armor negates all flying collision damage.
      */
     @Inject(method = "isInvulnerableTo", at = @At("HEAD"), cancellable = true)
-    private void isInvulnerableToFallDamage(DamageSource damageSource, CallbackInfoReturnable<Boolean> info) {
+    private void isInvulnerableToFlyingDamage(DamageSource damageSource, CallbackInfoReturnable<Boolean> info) {
         if (!((Object) this instanceof LivingEntity entity)) return;
         if (LivingEntityKt.wearsDragonScale(entity) && entity.isFallFlying()
                 && (damageSource.isFromFalling() || damageSource.equals(DamageSource.FLY_INTO_WALL)))
             info.setReturnValue(true);
+    }
+
+    /**
+     * Full set of netherite armor grants regeneration and strength, when player is on fire.
+     */
+    @Inject(method = "baseTick", at = @At("HEAD"))
+    private void applyEffectsWhenOnFire(CallbackInfo info) {
+        if (!((Object) this instanceof LivingEntity entity)) return;
+        if (!entity.isOnFire() || !LivingEntityKt.wearsNetherite(entity)) return;
+
+        entity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 300, 1));
+        entity.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 300, 1));
     }
 }

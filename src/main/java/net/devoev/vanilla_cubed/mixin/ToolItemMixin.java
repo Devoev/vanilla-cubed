@@ -38,7 +38,7 @@ public class ToolItemMixin implements Magnetic {
     private void attractFromNetherite(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo info) {
         if (!((Object) this instanceof ToolItem item)) return;
 
-        if (!ItemKt.isMadeOf(item, ToolMaterials.NETHERITE) || ! (entity instanceof LivingEntity livingEntity)) return;
+        if (!ItemKt.isNetherite(item) || ! (entity instanceof LivingEntity livingEntity)) return;
             inventoryTick(entity, selected || livingEntity.getOffHandStack().equals(stack));
     }
 

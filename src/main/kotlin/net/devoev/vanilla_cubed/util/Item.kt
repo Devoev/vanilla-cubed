@@ -25,16 +25,21 @@ fun Item.isMadeOf(toolMaterial: ToolMaterial): Boolean = this is ToolItem && mat
 fun Item.isEnderite(): Boolean = isMadeOf(ModArmorMaterials.ENDERITE, ModToolMaterials.ENDERITE)
 
 /**
- * Returns true, if this [Item] is made of enderite.
+ * Returns true, if this [Item] is made of ancient gold.
  */
 fun Item.isAncientGold(): Boolean = isMadeOf(ModArmorMaterials.ANCIENT_GOLD, ModToolMaterials.ANCIENT_GOLD)
 
 /**
- * Returns true, if this [Item] is made of enderite.
+ * Returns true, if this [Item] is made of dragon scale.
  */
 fun Item.isDragonScale(): Boolean = isMadeOf(ModArmorMaterials.DRAGON_SCALE, ModToolMaterials.DRAGON_SCALE)
 
 /**
- * Returns true, if this [Item] is made of enderite.
+ * Returns true, if this [Item] is made of amethyst.
  */
 fun Item.isAmethyst(): Boolean = isMadeOf(ModArmorMaterials.AMETHYST, ModToolMaterials.AMETHYST)
+
+/**
+ * Returns true, if this [Item] is made of netherite.
+ */
+fun Item.isNetherite(): Boolean = isMadeOf(ArmorMaterials.NETHERITE, ToolMaterials.NETHERITE)
