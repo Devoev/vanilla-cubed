@@ -7,7 +7,7 @@ import net.minecraft.world.biome.Biome
 import net.minecraft.world.biome.BiomeKeys
 
 /**
- * Returns true, if the entity currently is in the given [biome].
+ * Returns true, if the entity currently is in the biome specified by the [biomeKey].
  */
 fun Entity.isInBiome(biomeKey: RegistryKey<Biome>): Boolean {
     return entityWorld.getBiome(blockPos) == biomeKey
