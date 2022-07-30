@@ -2,9 +2,8 @@ package net.devoev.vanilla_cubed.item.armor
 
 import net.devoev.vanilla_cubed.item.ModItemGroup
 import net.devoev.vanilla_cubed.item.behavior.ApplyBeneficialEffectBehavior
-import net.devoev.vanilla_cubed.item.behavior.ApplyEffectBehavior
+import net.devoev.vanilla_cubed.item.behavior.MiningBonusBehavior
 import net.devoev.vanilla_cubed.item.toSettings
-import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.item.ArmorItem
 
 /**
@@ -17,7 +16,7 @@ object ModArmor {
         onlyOne = true
     )
     val AMETHYST = ArmorBuilder(ModArmorMaterials.AMETHYST, ModItemGroup.COMBAT.toSettings(),
-        inventoryTickBehavior = ApplyEffectBehavior(StatusEffects.HASTE)
+        inventoryTickBehavior = MiningBonusBehavior
     )
     val ENDERITE = ArmorBuilder(ModArmorMaterials.ENDERITE, ModItemGroup.COMBAT.toSettings())
     val DRAGON_SCALE = ElytraArmorBuilder(ModArmorMaterials.DRAGON_SCALE, ModItemGroup.COMBAT.toSettings())
