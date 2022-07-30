@@ -3,11 +3,9 @@ package net.devoev.vanilla_cubed.item.behavior
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityType
 import net.minecraft.item.Item
-import net.minecraft.item.ItemStack
 import net.minecraft.predicate.entity.EntityPredicates
 import net.minecraft.util.math.Box
 import net.minecraft.util.math.Vec3d
-import net.minecraft.world.World
 
 /**
  * Attracts all items in [range] to the player holding the item.
@@ -15,9 +13,8 @@ import net.minecraft.world.World
  */
 class MagneticBehavior(private val range: Double, private val delta: Double) : InventoryTickBehavior<Item> {
 
-    override fun inventoryTick(item: Item, stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
-        if (!selected) return
-        entity?.attractItems(range, delta)
+    override fun apply(item: Item, params: InventoryTickBehavior.Params) {
+        if (params.selected) params.entity?.attractItems(range, delta)
     }
 
     /**

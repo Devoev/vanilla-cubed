@@ -1,19 +1,34 @@
 package net.devoev.vanilla_cubed.item.behavior
 
-import net.minecraft.entity.Entity
 import net.minecraft.item.Item
-import net.minecraft.item.ItemStack
-import net.minecraft.world.World
 
 /**
- * A conditional [InventoryTickBehavior]. If the [condition] is fulfilled, this behavior acts as the given [behavior].
+ * A conditional [BehaviorModifier]. If the [condition] is fulfilled, this behavior acts as the given [behavior].
  */
-abstract class ConditionalBehavior<in T : Item>(private val behavior: InventoryTickBehavior<T>) : InventoryTickBehavior<T> {
+abstract class ConditionalBehavior<in T : Item, in P, out R>(private val behavior: BehaviorModifier<T, P, R>) : BehaviorModifier<T, P, R> {
 
-    abstract fun condition(item: T, stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean): Boolean
+    /**
+     * Returns true, if the condition is fulfilled.
+     */
+    abstract fun condition(item: T, params: P): Boolean
 
-    override fun inventoryTick(item: T, stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
-        if (condition(item, stack, world, entity, slot, selected))
-            behavior.inventoryTick(item, stack, world, entity, slot, selected)
+    /**
+     * The default return value, if the condition evaluates to false.
+     */
+    abstract val default: R
+
+    override fun apply(item: T, params: P): R = if (condition(item, params)) behavior(item, params) else default
+
+    companion object {
+
+        /**
+         * Builds a [ConditionalBehavior] with return type [Unit] from the given [behavior].
+         */
+        fun <T : Item, P> build(behavior: BehaviorModifier<T, P, Unit>, condition: (T, P) -> Boolean) = object : ConditionalBehavior<T, P, Unit>(behavior) {
+
+            override val default: Unit = Unit
+
+            override fun condition(item: T, params: P): Boolean = condition(item, params)
+        }
     }
 }

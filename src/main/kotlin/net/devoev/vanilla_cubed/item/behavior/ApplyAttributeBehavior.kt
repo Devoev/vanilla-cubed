@@ -1,13 +1,10 @@
 package net.devoev.vanilla_cubed.item.behavior
 
-import net.minecraft.entity.Entity
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.attribute.EntityAttribute
 import net.minecraft.entity.attribute.EntityAttributeInstance
 import net.minecraft.entity.attribute.EntityAttributeModifier
-import net.minecraft.item.ItemStack
 import net.minecraft.item.ToolItem
-import net.minecraft.world.World
 
 /**
  * An [InventoryTickBehavior] that applies the [modifier] to the [attribute] of the entity holding the specified item.
@@ -15,7 +12,9 @@ import net.minecraft.world.World
 class ApplyAttributeBehavior(val attribute: EntityAttribute, val modifier: EntityAttributeModifier)
     : InventoryTickBehavior<ToolItem> {
 
-    override fun inventoryTick(item: ToolItem, stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
+    override fun apply(item: ToolItem, params: InventoryTickBehavior.Params) {
+        val (stack,_,entity,_,selected) = params
+
         if (entity !is LivingEntity) return
         val sel = selected && entity.offHandStack != stack
 

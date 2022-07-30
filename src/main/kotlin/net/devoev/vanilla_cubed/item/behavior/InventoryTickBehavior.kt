@@ -8,11 +8,17 @@ import net.minecraft.world.World
 /**
  * Modifies the [Item.inventoryTick] method.
  */
-fun interface InventoryTickBehavior<in T : Item> {
-
-    fun inventoryTick(item: T, stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean)
+fun interface InventoryTickBehavior<in T : Item> : BehaviorModifier<T, InventoryTickBehavior.Params, Unit> {
 
     companion object {
-        val DEFAULT = InventoryTickBehavior<Item> { _, _, _, _, _, _ ->  }
+        val DEFAULT = InventoryTickBehavior<Item> { _,_ ->  }
     }
+
+    data class Params(
+        val stack: ItemStack?,
+        val world: World?,
+        val entity: Entity?,
+        val slot: Int,
+        val selected: Boolean
+    )
 }

@@ -1,14 +1,21 @@
 package net.devoev.vanilla_cubed.item.behavior
 
+import net.devoev.vanilla_cubed.item.armor.ModArmor
 import net.devoev.vanilla_cubed.util.isInCave
-import net.minecraft.entity.Entity
+import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.item.ArmorItem
-import net.minecraft.item.ItemStack
-import net.minecraft.world.World
 
-object MiningBonusBehavior : ConditionalBehavior<ArmorItem>(ApplyEffectBehavior(StatusEffects.HASTE)) {
-
-    override fun condition(item: ArmorItem, stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean): Boolean
-        = entity?.isInCave() ?: false
-}
+/**
+ * Applies useful [effects][StatusEffectInstance] when underground.
+ * @see ModArmor.AMETHYST
+ */
+object MiningBonusBehavior : InventoryTickBehavior<ArmorItem>, DelegateBehavior<ArmorItem, InventoryTickBehavior.Params, Unit>(
+    ConditionalBehavior.build(
+        CompositionalBehavior.build(
+            ApplyEffectBehavior(StatusEffects.HASTE),
+            ApplyEffectBehavior(StatusEffects.NIGHT_VISION),
+            ApplyEffectBehavior(StatusEffects.SATURATION)
+        )
+    ) { _, params -> params.entity?.isInCave() ?: false }
+)

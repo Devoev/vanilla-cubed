@@ -3,12 +3,9 @@ package net.devoev.vanilla_cubed.item.behavior
 import net.devoev.vanilla_cubed.entity.effect.StatusEffectHelper
 import net.devoev.vanilla_cubed.item.armor.ModArmor
 import net.devoev.vanilla_cubed.util.wearsFullArmor
-import net.minecraft.entity.Entity
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.item.ArmorItem
-import net.minecraft.item.ItemStack
-import net.minecraft.world.World
 import kotlin.random.Random
 
 /**
@@ -29,7 +26,9 @@ class ApplyBeneficialEffectBehavior(private val probability: Double,
         get() = waitTimeMap[this] ?: 0
         set(value) = waitTimeMap.set(this, value)
 
-    override fun inventoryTick(item: ArmorItem, stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
+    override fun apply(item: ArmorItem, params: InventoryTickBehavior.Params) {
+        val (stack,_,entity,_,_) = params
+
         if (entity !is LivingEntity) return
 
         if (entity.waitTime > 0) {

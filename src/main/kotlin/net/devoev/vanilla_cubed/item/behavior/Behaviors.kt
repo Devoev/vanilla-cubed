@@ -3,11 +3,10 @@ package net.devoev.vanilla_cubed.item.behavior
 import net.minecraft.item.Item
 
 /**
- * Modifies [Item] trough composition.
+ * A [Set] of [behavior modifiers][BehaviorModifier].
  */
-interface Behaviors<in T : Item> : InventoryTickBehavior<T>, PostHitBehavior<T> {
+interface Behaviors<in T : Item> {
 
-    //TODO: Remove properties
     val inventoryTickBehavior: InventoryTickBehavior<T>
     val postHitBehavior: PostHitBehavior<T>
 }
