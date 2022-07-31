@@ -16,8 +16,9 @@ open class ToolBuilder(private val data: ToolData, private val behaviors: Behavi
         settings: Settings,
         inventoryTickBehavior: InventoryTickBehavior<ToolItem> = InventoryTickBehavior.DEFAULT,
         postHitBehavior: PostHitBehavior<ToolItem> = PostHitBehavior.DEFAULT,
+        postMineBehavior: PostMineBehavior<ToolItem> = PostMineBehavior.DEFAULT,
     ) : this(ToolData(material, attackDamageAmounts, attackSpeedAmounts, settings),
-        DataBehaviors(inventoryTickBehavior, postHitBehavior)
+        DataBehaviors(inventoryTickBehavior, postHitBehavior, postMineBehavior)
     )
 
     open val sword: SwordItem get() = ModSwordItem(data, behaviors)

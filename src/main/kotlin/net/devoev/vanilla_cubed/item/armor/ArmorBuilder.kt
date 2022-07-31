@@ -1,9 +1,6 @@
 package net.devoev.vanilla_cubed.item.armor
 
-import net.devoev.vanilla_cubed.item.behavior.Behaviors
-import net.devoev.vanilla_cubed.item.behavior.DataBehaviors
-import net.devoev.vanilla_cubed.item.behavior.InventoryTickBehavior
-import net.devoev.vanilla_cubed.item.behavior.PostHitBehavior
+import net.devoev.vanilla_cubed.item.behavior.*
 import net.minecraft.entity.EquipmentSlot
 import net.minecraft.item.ArmorItem
 import net.minecraft.item.ArmorMaterial
@@ -23,9 +20,10 @@ open class ArmorBuilder(
         settings: Settings,
         inventoryTickBehavior: InventoryTickBehavior<ArmorItem> = InventoryTickBehavior.DEFAULT,
         postHitBehavior: PostHitBehavior<ArmorItem> = PostHitBehavior.DEFAULT,
+        postMineBehavior: PostMineBehavior<ArmorItem> = PostMineBehavior.DEFAULT,
         onlyOne: Boolean = false
     ) : this(ArmorData(material, settings),
-        DataBehaviors(inventoryTickBehavior, postHitBehavior),
+        DataBehaviors(inventoryTickBehavior, postHitBehavior, postMineBehavior),
         onlyOne)
 
     open val helmet: ArmorItem get() = buildArmorItem(EquipmentSlot.HEAD)

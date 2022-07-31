@@ -3,9 +3,12 @@ package net.devoev.vanilla_cubed.item.tool
 import net.devoev.vanilla_cubed.item.behavior.Behaviors
 import net.devoev.vanilla_cubed.item.behavior.InventoryTickBehavior
 import net.devoev.vanilla_cubed.item.behavior.PostHitBehavior
+import net.devoev.vanilla_cubed.item.behavior.PostMineBehavior
+import net.minecraft.block.BlockState
 import net.minecraft.entity.Entity
 import net.minecraft.entity.LivingEntity
 import net.minecraft.item.*
+import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
 
@@ -22,6 +25,11 @@ open class ModSwordItem(data: ToolData, behaviors: Behaviors<ToolItem>)
         return postHitBehavior(this, PostHitBehavior.Params(stack, target, attacker)) or
                 super.postHit(stack, target, attacker)
     }
+
+    override fun postMine(stack: ItemStack?, world: World?, state: BlockState?, pos: BlockPos?, miner: LivingEntity?): Boolean {
+        return postMineBehavior(this, PostMineBehavior.Params(stack, world, state, pos, miner)) or
+                super.postMine(stack, world, state, pos, miner)
+    }
 }
 
 open class ModShovelItem(data: ToolData, behaviors: Behaviors<ToolItem>)
@@ -36,6 +44,11 @@ open class ModShovelItem(data: ToolData, behaviors: Behaviors<ToolItem>)
     override fun postHit(stack: ItemStack?, target: LivingEntity?, attacker: LivingEntity?): Boolean {
         return postHitBehavior(this, PostHitBehavior.Params(stack, target, attacker)) or
                 super.postHit(stack, target, attacker)
+    }
+
+    override fun postMine(stack: ItemStack?, world: World?, state: BlockState?, pos: BlockPos?, miner: LivingEntity?): Boolean {
+        return postMineBehavior(this, PostMineBehavior.Params(stack, world, state, pos, miner)) or
+                super.postMine(stack, world, state, pos, miner)
     }
 }
 
@@ -52,6 +65,11 @@ open class ModPickaxeItem(data: ToolData, behaviors: Behaviors<ToolItem>)
         return postHitBehavior(this, PostHitBehavior.Params(stack, target, attacker)) or
                 super.postHit(stack, target, attacker)
     }
+
+    override fun postMine(stack: ItemStack?, world: World?, state: BlockState?, pos: BlockPos?, miner: LivingEntity?): Boolean {
+        return postMineBehavior(this, PostMineBehavior.Params(stack, world, state, pos, miner)) or
+                super.postMine(stack, world, state, pos, miner)
+    }
 }
 
 open class ModAxeItem(data: ToolData, behaviors: Behaviors<ToolItem>)
@@ -67,6 +85,11 @@ open class ModAxeItem(data: ToolData, behaviors: Behaviors<ToolItem>)
         return postHitBehavior(this, PostHitBehavior.Params(stack, target, attacker)) or
                 super.postHit(stack, target, attacker)
     }
+
+    override fun postMine(stack: ItemStack?, world: World?, state: BlockState?, pos: BlockPos?, miner: LivingEntity?): Boolean {
+        return postMineBehavior(this, PostMineBehavior.Params(stack, world, state, pos, miner)) or
+                super.postMine(stack, world, state, pos, miner)
+    }
 }
 
 open class ModHoeItem(data: ToolData, behaviors: Behaviors<ToolItem>)
@@ -81,5 +104,10 @@ open class ModHoeItem(data: ToolData, behaviors: Behaviors<ToolItem>)
     override fun postHit(stack: ItemStack?, target: LivingEntity?, attacker: LivingEntity?): Boolean {
         return postHitBehavior(this, PostHitBehavior.Params(stack, target, attacker)) or
                 super.postHit(stack, target, attacker)
+    }
+
+    override fun postMine(stack: ItemStack?, world: World?, state: BlockState?, pos: BlockPos?, miner: LivingEntity?): Boolean {
+        return postMineBehavior(this, PostMineBehavior.Params(stack, world, state, pos, miner)) or
+                super.postMine(stack, world, state, pos, miner)
     }
 }

@@ -7,5 +7,6 @@ import net.minecraft.item.Item
  */
 data class DataBehaviors<in T : Item> (
     override val inventoryTickBehavior: InventoryTickBehavior<T> = InventoryTickBehavior.DEFAULT,
-    override val postHitBehavior: PostHitBehavior<T> = PostHitBehavior.DEFAULT
+    override val postHitBehavior: PostHitBehavior<T> = PostHitBehavior.DEFAULT,
+    override val postMineBehavior: PostMineBehavior<T> = PostMineBehavior.DEFAULT
 ) : Behaviors<T>

@@ -9,4 +9,5 @@ interface Behaviors<in T : Item> {
 
     val inventoryTickBehavior: InventoryTickBehavior<T>
     val postHitBehavior: PostHitBehavior<T>
+    val postMineBehavior: PostMineBehavior<T>
 }
