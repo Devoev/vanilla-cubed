@@ -19,7 +19,8 @@ object ModTools {
 
     val AMETHYST = ToolBuilder(
         material = ModToolMaterials.AMETHYST, settings = ModItemGroup.TOOLS.toSettings(),
-        attackSpeedAmounts = ToolData.BASE_ATTACK_SPEED.map { it + 0.4F }
+        attackSpeedAmounts = ToolData.BASE_ATTACK_SPEED.map { it + 0.4F },
+        postMineBehavior = DetectOresBehavior(3)
     )
 
     val ENDERITE = ToolBuilder(material = ModToolMaterials.ENDERITE, settings = ModItemGroup.TOOLS.toSettings())
