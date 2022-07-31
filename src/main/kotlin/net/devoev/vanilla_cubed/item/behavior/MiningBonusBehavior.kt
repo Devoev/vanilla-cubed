@@ -13,9 +13,9 @@ import net.minecraft.item.ArmorItem
 object MiningBonusBehavior : InventoryTickBehavior<ArmorItem>, DelegateBehavior<ArmorItem, InventoryTickBehavior.Params, Unit>(
     ConditionalBehavior.build(
         CompositionalBehavior.build(
-            ApplyEffectBehavior(StatusEffects.HASTE),
-            ApplyEffectBehavior(StatusEffects.NIGHT_VISION),
-            ApplyEffectBehavior(StatusEffects.SATURATION)
+            ApplyEffectBehavior(StatusEffects.HASTE, 300),
+            ApplyEffectBehavior(StatusEffects.NIGHT_VISION, 300),
+            ApplyEffectBehavior(StatusEffects.SATURATION, 300)
         )
     ) { _, params -> params.entity?.isInCave() ?: false }
 )

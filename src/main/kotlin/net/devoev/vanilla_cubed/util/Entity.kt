@@ -25,7 +25,7 @@ fun Entity.isInCave(): Boolean {
         }
     }
 
-    val underground = pos.y < world.seaLevel - 15
+    val underground = pos.y < world.seaLevel - 10
     val caveBiome = isInBiome(BiomeKeys.DRIPSTONE_CAVES) || isInBiome(BiomeKeys.LUSH_CAVES)
     return (caveBiome || underground) && noSky
 }
