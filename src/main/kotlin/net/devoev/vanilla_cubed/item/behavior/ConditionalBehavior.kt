@@ -1,34 +1,24 @@
 package net.devoev.vanilla_cubed.item.behavior
 
 import net.minecraft.item.Item
+import java.util.function.Predicate
 
 /**
- * A conditional [BehaviorModifier]. If the [condition] is fulfilled, this behavior acts as the given [behavior].
+ * A conditional [BehaviorModifier]. If the [predicate] is fulfilled, this behavior acts as the given [behavior].
  */
-abstract class ConditionalBehavior<in T : Item, in P, out R>(private val behavior: BehaviorModifier<T, P, R>) : BehaviorModifier<T, P, R> {
+class ConditionalBehavior<in T : Item, in P, out R>(
+    private val behavior: BehaviorModifier<T, P, R>,
+    private val default: R,
+    private val predicate: Predicate<P>) : BehaviorModifier<T, P, R> {
 
-    /**
-     * Returns true, if the condition is fulfilled.
-     */
-    abstract fun condition(item: T, params: P): Boolean
-
-    /**
-     * The default return value, if the condition evaluates to false.
-     */
-    abstract val default: R
-
-    override fun apply(item: T, params: P): R = if (condition(item, params)) behavior(item, params) else default
+    override fun apply(item: T, params: P): R = if (predicate.test(params)) behavior(item, params) else default
 
     companion object {
 
         /**
          * Builds a [ConditionalBehavior] with return type [Unit] from the given [behavior].
          */
-        fun <T : Item, P> build(behavior: BehaviorModifier<T, P, Unit>, condition: (T, P) -> Boolean) = object : ConditionalBehavior<T, P, Unit>(behavior) {
-
-            override val default: Unit = Unit
-
-            override fun condition(item: T, params: P): Boolean = condition(item, params)
-        }
+        fun <T : Item, P> build(behavior: BehaviorModifier<T, P, Unit>, predicate: Predicate<P>)
+            = ConditionalBehavior(behavior, Unit, predicate)
     }
 }

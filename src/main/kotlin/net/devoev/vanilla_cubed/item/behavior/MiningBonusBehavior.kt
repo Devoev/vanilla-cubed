@@ -17,5 +17,5 @@ object MiningBonusBehavior : InventoryTickBehavior<ArmorItem>, DelegateBehavior<
             ApplyEffectBehavior(StatusEffects.NIGHT_VISION, 300),
             ApplyEffectBehavior(StatusEffects.SATURATION, 300)
         )
-    ) { _, params -> params.entity?.isInCave() ?: false }
+    ) { params -> params.entity?.isInCave() ?: false }
 )
