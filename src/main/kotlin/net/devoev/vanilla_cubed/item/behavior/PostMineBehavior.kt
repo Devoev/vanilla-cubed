@@ -10,10 +10,10 @@ import net.minecraft.world.World
 /**
  * Modifies the [Item.postHit] method.
  */
-fun interface PostMineBehavior<in T : Item> : BehaviorModifier<T, PostMineBehavior.Params, Boolean> {
+fun interface PostMineBehavior<in T : Item> : BehaviorModifier<T, PostMineBehavior.Params> {
 
     companion object {
-        val DEFAULT = PostMineBehavior<Item> { _, _ -> false }
+        val DEFAULT = PostMineBehavior<Item> { _, _ -> }
     }
 
     data class Params(

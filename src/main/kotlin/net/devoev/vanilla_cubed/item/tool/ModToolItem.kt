@@ -22,13 +22,13 @@ open class ModSwordItem(data: ToolData, behaviors: Behaviors<ToolItem>)
     }
 
     override fun postHit(stack: ItemStack?, target: LivingEntity?, attacker: LivingEntity?): Boolean {
-        return postHitBehavior(this, PostHitBehavior.Params(stack, target, attacker)) or
-                super.postHit(stack, target, attacker)
+        postHitBehavior(this, PostHitBehavior.Params(stack, target, attacker))
+        return super.postHit(stack, target, attacker)
     }
 
     override fun postMine(stack: ItemStack?, world: World?, state: BlockState?, pos: BlockPos?, miner: LivingEntity?): Boolean {
-        return postMineBehavior(this, PostMineBehavior.Params(stack, world, state, pos, miner)) or
-                super.postMine(stack, world, state, pos, miner)
+        postMineBehavior(this, PostMineBehavior.Params(stack, world, state, pos, miner))
+        return super.postMine(stack, world, state, pos, miner)
     }
 }
 
@@ -42,13 +42,13 @@ open class ModShovelItem(data: ToolData, behaviors: Behaviors<ToolItem>)
     }
 
     override fun postHit(stack: ItemStack?, target: LivingEntity?, attacker: LivingEntity?): Boolean {
-        return postHitBehavior(this, PostHitBehavior.Params(stack, target, attacker)) or
-                super.postHit(stack, target, attacker)
+        postHitBehavior(this, PostHitBehavior.Params(stack, target, attacker))
+        return super.postHit(stack, target, attacker)
     }
 
     override fun postMine(stack: ItemStack?, world: World?, state: BlockState?, pos: BlockPos?, miner: LivingEntity?): Boolean {
-        return postMineBehavior(this, PostMineBehavior.Params(stack, world, state, pos, miner)) or
-                super.postMine(stack, world, state, pos, miner)
+        postMineBehavior(this, PostMineBehavior.Params(stack, world, state, pos, miner))
+        return super.postMine(stack, world, state, pos, miner)
     }
 }
 
@@ -62,13 +62,13 @@ open class ModPickaxeItem(data: ToolData, behaviors: Behaviors<ToolItem>)
     }
 
     override fun postHit(stack: ItemStack?, target: LivingEntity?, attacker: LivingEntity?): Boolean {
-        return postHitBehavior(this, PostHitBehavior.Params(stack, target, attacker)) or
-                super.postHit(stack, target, attacker)
+        postHitBehavior(this, PostHitBehavior.Params(stack, target, attacker))
+        return super.postHit(stack, target, attacker)
     }
 
     override fun postMine(stack: ItemStack?, world: World?, state: BlockState?, pos: BlockPos?, miner: LivingEntity?): Boolean {
-        return postMineBehavior(this, PostMineBehavior.Params(stack, world, state, pos, miner)) or
-                super.postMine(stack, world, state, pos, miner)
+        postMineBehavior(this, PostMineBehavior.Params(stack, world, state, pos, miner))
+        return super.postMine(stack, world, state, pos, miner)
     }
 }
 
@@ -82,13 +82,13 @@ open class ModAxeItem(data: ToolData, behaviors: Behaviors<ToolItem>)
     }
 
     override fun postHit(stack: ItemStack?, target: LivingEntity?, attacker: LivingEntity?): Boolean {
-        return postHitBehavior(this, PostHitBehavior.Params(stack, target, attacker)) or
-                super.postHit(stack, target, attacker)
+        postHitBehavior(this, PostHitBehavior.Params(stack, target, attacker))
+        return super.postHit(stack, target, attacker)
     }
 
     override fun postMine(stack: ItemStack?, world: World?, state: BlockState?, pos: BlockPos?, miner: LivingEntity?): Boolean {
-        return postMineBehavior(this, PostMineBehavior.Params(stack, world, state, pos, miner)) or
-                super.postMine(stack, world, state, pos, miner)
+        postMineBehavior(this, PostMineBehavior.Params(stack, world, state, pos, miner))
+        return super.postMine(stack, world, state, pos, miner)
     }
 }
 
@@ -102,12 +102,12 @@ open class ModHoeItem(data: ToolData, behaviors: Behaviors<ToolItem>)
     }
 
     override fun postHit(stack: ItemStack?, target: LivingEntity?, attacker: LivingEntity?): Boolean {
-        return postHitBehavior(this, PostHitBehavior.Params(stack, target, attacker)) or
-                super.postHit(stack, target, attacker)
+        postHitBehavior(this, PostHitBehavior.Params(stack, target, attacker))
+        return super.postHit(stack, target, attacker)
     }
 
     override fun postMine(stack: ItemStack?, world: World?, state: BlockState?, pos: BlockPos?, miner: LivingEntity?): Boolean {
-        return postMineBehavior(this, PostMineBehavior.Params(stack, world, state, pos, miner)) or
-                super.postMine(stack, world, state, pos, miner)
+        postMineBehavior(this, PostMineBehavior.Params(stack, world, state, pos, miner))
+        return super.postMine(stack, world, state, pos, miner)
     }
 }

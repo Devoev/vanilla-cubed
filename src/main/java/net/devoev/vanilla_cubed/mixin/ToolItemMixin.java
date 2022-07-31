@@ -31,6 +31,6 @@ public class ToolItemMixin {
         if (!ItemKt.isNetherite(item) || ! (entity instanceof LivingEntity livingEntity)) return;
 
         boolean selectedOrOffHand = selected || livingEntity.getOffHandStack().equals(stack);
-        magneticBehavior.apply(item, new InventoryTickBehavior.Params(stack, world, entity, slot, selectedOrOffHand));
+        magneticBehavior.accept(item, new InventoryTickBehavior.Params(stack, world, entity, slot, selectedOrOffHand));
     }
 }

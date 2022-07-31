@@ -12,7 +12,7 @@ import net.minecraft.item.ToolItem
 class ApplyAttributeBehavior(val attribute: EntityAttribute, val modifier: EntityAttributeModifier)
     : InventoryTickBehavior<ToolItem> {
 
-    override fun apply(item: ToolItem, params: InventoryTickBehavior.Params) {
+    override fun accept(item: ToolItem, params: InventoryTickBehavior.Params) {
         val (stack,_,entity,_,selected) = params
 
         if (entity !is LivingEntity) return

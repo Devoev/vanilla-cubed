@@ -13,7 +13,7 @@ import net.minecraft.util.math.Vec3d
  */
 class MagneticBehavior(private val range: Double, private val delta: Double) : InventoryTickBehavior<Item> {
 
-    override fun apply(item: Item, params: InventoryTickBehavior.Params) {
+    override fun accept(item: Item, params: InventoryTickBehavior.Params) {
         if (params.selected) params.entity?.attractItems(range, delta)
     }
 

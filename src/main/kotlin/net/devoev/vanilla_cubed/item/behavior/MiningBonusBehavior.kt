@@ -10,12 +10,9 @@ import net.minecraft.item.ArmorItem
  * Applies useful [effects][StatusEffectInstance] when underground.
  * @see ModArmor.AMETHYST
  */
-object MiningBonusBehavior : InventoryTickBehavior<ArmorItem>, DelegateBehavior<ArmorItem, InventoryTickBehavior.Params, Unit>(
-    ConditionalBehavior.build(
-        CompositionalBehavior.build(
-            ApplyEffectBehavior(StatusEffects.HASTE, 300),
-            ApplyEffectBehavior(StatusEffects.NIGHT_VISION, 300),
-            ApplyEffectBehavior(StatusEffects.SATURATION, 300)
-        )
-    ) { params -> params.entity?.isInCave() ?: false }
+val MiningBonusBehavior = InventoryTickBehavior.from(
+    ApplyEffectBehavior(StatusEffects.HASTE, 300)
+        .andThen(ApplyEffectBehavior(StatusEffects.NIGHT_VISION, 300))
+        .andThen(ApplyEffectBehavior(StatusEffects.SATURATION, 300))
+        .runIf { params -> params.entity?.isInCave() ?: false }
 )

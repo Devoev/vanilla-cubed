@@ -7,10 +7,10 @@ import net.minecraft.item.ItemStack
 /**
  * Modifies the [Item.postHit] method.
  */
-fun interface PostHitBehavior<in T : Item> : BehaviorModifier<T, PostHitBehavior.Params, Boolean> {
+fun interface PostHitBehavior<in T : Item> : BehaviorModifier<T, PostHitBehavior.Params> {
 
     companion object {
-        val DEFAULT = PostHitBehavior<Item> { _,_ -> false }
+        val DEFAULT = PostHitBehavior<Item> { _,_ -> }
     }
 
     data class Params(

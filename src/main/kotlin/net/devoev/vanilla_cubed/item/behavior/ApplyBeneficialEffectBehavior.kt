@@ -26,7 +26,7 @@ class ApplyBeneficialEffectBehavior(private val probability: Double,
         get() = waitTimeMap[this] ?: 0
         set(value) = waitTimeMap.set(this, value)
 
-    override fun apply(item: ArmorItem, params: InventoryTickBehavior.Params) {
+    override fun accept(item: ArmorItem, params: InventoryTickBehavior.Params) {
         val (stack,_,entity,_,_) = params
 
         if (entity !is LivingEntity) return
