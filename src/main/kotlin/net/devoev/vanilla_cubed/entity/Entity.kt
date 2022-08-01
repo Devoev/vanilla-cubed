@@ -1,4 +1,4 @@
-package net.devoev.vanilla_cubed.util
+package net.devoev.vanilla_cubed.entity
 
 import net.minecraft.entity.Entity
 import net.minecraft.util.math.BlockPos
@@ -17,15 +17,10 @@ fun Entity.isInBiome(biomeKey: RegistryKey<Biome>): Boolean {
  * Returns true, if the entity is underground or in a cave.
  */
 fun Entity.isInCave(): Boolean {
-    var noSky = false
-    for (y in pos.y.toInt()..world.topY) {
-        if (world.getBlockState(BlockPos(x.toInt(),y,z.toInt())).isOpaque) {
-            noSky = true
-            break
-        }
-    }
+    val blocks = BlockPos.iterate(BlockPos(pos), BlockPos(pos).withY(world.topY))
+    val blockOverhead = blocks.any { world.getBlockState(it).isOpaque }
 
     val underground = pos.y < world.seaLevel - 10
     val caveBiome = isInBiome(BiomeKeys.DRIPSTONE_CAVES) || isInBiome(BiomeKeys.LUSH_CAVES)
-    return (caveBiome || underground) && noSky
+    return (caveBiome || underground) && blockOverhead
 }

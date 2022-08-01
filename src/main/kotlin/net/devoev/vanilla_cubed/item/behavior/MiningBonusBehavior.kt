@@ -1,7 +1,7 @@
 package net.devoev.vanilla_cubed.item.behavior
 
 import net.devoev.vanilla_cubed.item.armor.ModArmor
-import net.devoev.vanilla_cubed.util.isInCave
+import net.devoev.vanilla_cubed.entity.isInCave
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.item.ArmorItem
