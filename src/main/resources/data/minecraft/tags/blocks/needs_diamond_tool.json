@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "vanilla_cubed:enderite_ore"
+    "vanilla_cubed:enderite_ore",
+    "vanilla_cubed:enderite_block"
   ]
 }

@@ -15,7 +15,7 @@ import net.minecraft.world.gen.placementmodifier.*
 object ModPlacedFeatures : RegistryManager<PlacedFeature>(BuiltinRegistries.PLACED_FEATURE) {
 
     val ENDERITE_ORE = create("enderite_ore", ModConfiguredFeatures.ENDERITE_ORE,
-        ORE.modifiersWithCount(10, HeightRangePlacementModifier.trapezoid(YOffset.aboveBottom(-80), YOffset.aboveBottom(80))))
+        ORE.modifiersWithCount(15, HeightRangePlacementModifier.uniform(YOffset.aboveBottom(0), YOffset.aboveBottom(70))))
 
     /**
      * Creates a [PlacedFeature] for ores.
