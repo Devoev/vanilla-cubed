@@ -18,10 +18,6 @@ object ModLootTables : MapInitializer<Identifier, LootPool.Builder>() {
         this["entities/elder_guardian"] = LootPool.builder()
             .rolls(ConstantLootNumberProvider.create(1F))
             .with(ItemEntry.builder(ModItems.ELDER_GUARDIAN_SHARD))
-
-        this["entities/ender_dragon"] = LootPool.builder()
-            .rolls(UniformLootNumberProvider.create(1F, 3F))
-            .with(ItemEntry.builder(ModItems.DRAGON_SCALE))
     }
 
     /**

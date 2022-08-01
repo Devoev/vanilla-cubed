@@ -10,7 +10,8 @@
     "ExperienceOrbEntityMixin",
     "PiglinBrainMixin",
     "EndermanEntityMixin",
-    "ToolItemMixin"
+    "ToolItemMixin",
+    "EnderDragonEntityMixin"
   ],
   "client": [],
   "injectors": {
