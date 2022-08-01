@@ -1,9 +1,6 @@
 package net.devoev.vanilla_cubed.item.armor
 
-import net.devoev.vanilla_cubed.item.behavior.Behaviors
-import net.devoev.vanilla_cubed.item.behavior.DataBehaviors
-import net.devoev.vanilla_cubed.item.behavior.InventoryTickBehavior
-import net.devoev.vanilla_cubed.item.behavior.PostHitBehavior
+import net.devoev.vanilla_cubed.item.behavior.*
 import net.fabricmc.fabric.api.entity.event.v1.FabricElytraItem
 import net.minecraft.entity.EquipmentSlot
 import net.minecraft.item.ArmorItem
@@ -19,8 +16,8 @@ open class ElytraArmorBuilder(data: ArmorData, behaviors: Behaviors<ArmorItem>, 
     constructor(
         material: ArmorMaterial,
         settings: Item.Settings,
-        inventoryTickBehavior: InventoryTickBehavior<ArmorItem> = InventoryTickBehavior.DEFAULT,
-        postHitBehavior: PostHitBehavior<ArmorItem> = PostHitBehavior.DEFAULT,
+        inventoryTickBehavior: InventoryTickBehavior<ArmorItem> = INVENTORY_TICK_DEFAULT,
+        postHitBehavior: PostHitBehavior<ArmorItem> = POST_HIT_DEFAULT,
         onlyOne: Boolean = false
     ) : this(ArmorData(material, settings),
         DataBehaviors(inventoryTickBehavior, postHitBehavior),

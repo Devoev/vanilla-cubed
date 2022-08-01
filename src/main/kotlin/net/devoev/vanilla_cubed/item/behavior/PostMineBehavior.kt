@@ -8,19 +8,19 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
 /**
- * Modifies the [Item.postHit] method.
+ * Modifies the [Item.postMine] method.
  */
-fun interface PostMineBehavior<in T : Item> : BehaviorModifier<T, PostMineBehavior.Params> {
+typealias PostMineBehavior<T> = BehaviorModifier<T, PostMineParams>
 
-    companion object {
-        val DEFAULT = PostMineBehavior<Item> { _, _ -> }
-    }
+val POST_MINE_DEFAULT = PostMineBehavior<Item> { _,_ ->  }
 
-    data class Params(
-        val stack: ItemStack?,
-        val world: World?,
-        val state: BlockState?,
-        val pos: BlockPos?,
-        val miner: LivingEntity?
-    )
-}
+/**
+ * Parameters for [Item.postMine].
+ */
+data class PostMineParams(
+    val stack: ItemStack?,
+    val world: World?,
+    val state: BlockState?,
+    val pos: BlockPos?,
+    val miner: LivingEntity?
+)

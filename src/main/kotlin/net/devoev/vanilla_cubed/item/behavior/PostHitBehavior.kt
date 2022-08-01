@@ -7,15 +7,15 @@ import net.minecraft.item.ItemStack
 /**
  * Modifies the [Item.postHit] method.
  */
-fun interface PostHitBehavior<in T : Item> : BehaviorModifier<T, PostHitBehavior.Params> {
+typealias PostHitBehavior<T> = BehaviorModifier<T, PostHitParams>
 
-    companion object {
-        val DEFAULT = PostHitBehavior<Item> { _,_ -> }
-    }
+val POST_HIT_DEFAULT = PostHitBehavior<Item> { _,_ ->  }
 
-    data class Params(
-        val stack: ItemStack?,
-        val target: LivingEntity?,
-        val attacker: LivingEntity?
-    )
-}
+/**
+ * Parameters for [Item.postHit].
+ */
+data class PostHitParams(
+    val stack: ItemStack?,
+    val target: LivingEntity?,
+    val attacker: LivingEntity?
+)

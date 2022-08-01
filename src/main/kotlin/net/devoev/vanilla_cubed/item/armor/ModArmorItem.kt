@@ -1,9 +1,6 @@
 package net.devoev.vanilla_cubed.item.armor
 
-import net.devoev.vanilla_cubed.item.behavior.Behaviors
-import net.devoev.vanilla_cubed.item.behavior.InventoryTickBehavior
-import net.devoev.vanilla_cubed.item.behavior.PostHitBehavior
-import net.devoev.vanilla_cubed.item.behavior.PostMineBehavior
+import net.devoev.vanilla_cubed.item.behavior.*
 import net.minecraft.block.BlockState
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EquipmentSlot
@@ -17,17 +14,17 @@ open class ModArmorItem(data: ArmorData, slot: EquipmentSlot, behaviors: Behavio
     : ArmorItem(data.material, slot, data.settings), Behaviors<ArmorItem> by behaviors {
 
     override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
-        inventoryTickBehavior(this, InventoryTickBehavior.Params(stack, world, entity, slot, selected))
+        inventoryTickBehavior(this, InventoryTickParams(stack, world, entity, slot, selected))
         super.inventoryTick(stack, world, entity, slot, selected)
     }
 
     override fun postHit(stack: ItemStack?, target: LivingEntity?, attacker: LivingEntity?): Boolean {
-        postHitBehavior(this, PostHitBehavior.Params(stack, target, attacker))
+        postHitBehavior(this, PostHitParams(stack, target, attacker))
         return super.postHit(stack, target, attacker)
     }
 
     override fun postMine(stack: ItemStack?, world: World?, state: BlockState?, pos: BlockPos?, miner: LivingEntity?): Boolean {
-        postMineBehavior(this, PostMineBehavior.Params(stack, world, state, pos, miner))
+        postMineBehavior(this, PostMineParams(stack, world, state, pos, miner))
         return super.postMine(stack, world, state, pos, miner)
     }
 }

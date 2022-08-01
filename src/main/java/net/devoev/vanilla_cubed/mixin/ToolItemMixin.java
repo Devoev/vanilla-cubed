@@ -1,6 +1,7 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.item.behavior.InventoryTickBehavior;
+import net.devoev.vanilla_cubed.item.behavior.BehaviorModifier;
+import net.devoev.vanilla_cubed.item.behavior.InventoryTickParams;
 import net.devoev.vanilla_cubed.item.behavior.MagneticBehavior;
 import net.devoev.vanilla_cubed.util.ItemKt;
 import net.minecraft.entity.Entity;
@@ -20,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Item.class)
 public class ToolItemMixin {
 
-    private final InventoryTickBehavior<Item> magneticBehavior = new MagneticBehavior(5.5, 0.5);
+    private final MagneticBehavior magneticBehavior = new MagneticBehavior(5.5, 0.5);
 
     /**
      * Makes netherite items magnetic, when held in main hand.
@@ -31,6 +32,6 @@ public class ToolItemMixin {
         if (!ItemKt.isNetherite(item) || ! (entity instanceof LivingEntity livingEntity)) return;
 
         boolean selectedOrOffHand = selected || livingEntity.getOffHandStack().equals(stack);
-        magneticBehavior.accept(item, new InventoryTickBehavior.Params(stack, world, entity, slot, selectedOrOffHand));
+        magneticBehavior.accept(item, new InventoryTickParams(stack, world, entity, slot, selectedOrOffHand));
     }
 }

@@ -1,6 +1,10 @@
 package net.devoev.vanilla_cubed.item.behavior
 
+import net.devoev.vanilla_cubed.item.ModItems
+import net.minecraft.item.ArmorItem
 import net.minecraft.item.Item
+import net.minecraft.item.Items
+import net.minecraft.item.ToolItem
 import java.util.function.BiConsumer
 import java.util.function.Predicate
 
@@ -18,12 +22,8 @@ fun interface BehaviorModifier<in T : Item, P> : BiConsumer<@UnsafeVariance T, P
      * @return A composed [BehaviorModifier].
      */
     fun runIf(predicate: Predicate<P>): BehaviorModifier<T, P>
-        = BehaviorModifier { t, p -> if (predicate.test(p)) accept(t,p) else Unit }
+        = BehaviorModifier { t, p -> if (predicate.test(p)) accept(t,p) }
 
-    /**
-     * Returns a composed [BehaviorModifier] that performs, in sequence, this operation followed by the after operation.
-     * @see BiConsumer.andThen
-     */
-    fun andThen(after: BehaviorModifier<@UnsafeVariance T, P>): BehaviorModifier<T, P>
-        = BehaviorModifier { t, p -> accept(t,p); after.accept(t,p) }
+    override fun andThen(after: BiConsumer<in @UnsafeVariance T, in P>): BehaviorModifier<T, P>
+            = BehaviorModifier { t, p -> super.andThen(after).accept(t,p) }
 }

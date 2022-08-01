@@ -14,9 +14,9 @@ open class ToolBuilder(private val data: ToolData, private val behaviors: Behavi
         attackDamageAmounts: List<Float> = ToolData.BASE_ATTACK_DAMAGE,
         attackSpeedAmounts: List<Float> = ToolData.BASE_ATTACK_SPEED,
         settings: Settings,
-        inventoryTickBehavior: InventoryTickBehavior<ToolItem> = InventoryTickBehavior.DEFAULT,
-        postHitBehavior: PostHitBehavior<ToolItem> = PostHitBehavior.DEFAULT,
-        postMineBehavior: PostMineBehavior<ToolItem> = PostMineBehavior.DEFAULT,
+        inventoryTickBehavior: InventoryTickBehavior<ToolItem> = INVENTORY_TICK_DEFAULT,
+        postHitBehavior: PostHitBehavior<ToolItem> = POST_HIT_DEFAULT,
+        postMineBehavior: PostMineBehavior<ToolItem> = POST_MINE_DEFAULT,
     ) : this(ToolData(material, attackDamageAmounts, attackSpeedAmounts, settings),
         DataBehaviors(inventoryTickBehavior, postHitBehavior, postMineBehavior)
     )

@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos
  */
 class DetectOresBehavior(private val range: Int) : PostMineBehavior<Item> {
 
-    override fun accept(item: Item, params: PostMineBehavior.Params) {
+    override fun accept(item: Item, params: PostMineParams) {
         val blocks = BlockPos.iterateOutwards(params.pos, range, range, range).map { params.world?.getBlockState(it) }
         if (blocks.any { it?.isIn(ORES) == true })
             params.world?.playSound(

@@ -18,9 +18,9 @@ open class ArmorBuilder(
     constructor(
         material: ArmorMaterial,
         settings: Settings,
-        inventoryTickBehavior: InventoryTickBehavior<ArmorItem> = InventoryTickBehavior.DEFAULT,
-        postHitBehavior: PostHitBehavior<ArmorItem> = PostHitBehavior.DEFAULT,
-        postMineBehavior: PostMineBehavior<ArmorItem> = PostMineBehavior.DEFAULT,
+        inventoryTickBehavior: InventoryTickBehavior<ArmorItem> = INVENTORY_TICK_DEFAULT,
+        postHitBehavior: PostHitBehavior<ArmorItem> = POST_HIT_DEFAULT,
+        postMineBehavior: PostMineBehavior<ArmorItem> = POST_MINE_DEFAULT,
         onlyOne: Boolean = false
     ) : this(ArmorData(material, settings),
         DataBehaviors(inventoryTickBehavior, postHitBehavior, postMineBehavior),
