@@ -1,0 +1,37 @@
+{
+  "parent": "vanilla_cubed:adventure/find_geode",
+  "criteria": {
+    "charge_crystal": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "vanilla_cubed:amethyst_crystal_charged"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.adventure.charge_crystal.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "vanilla_cubed:amethyst_crystal_charged"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.adventure.charge_crystal.title"
+    }
+  },
+  "requirements": [
+    [
+      "charge_crystal"
+    ]
+  ]
+}

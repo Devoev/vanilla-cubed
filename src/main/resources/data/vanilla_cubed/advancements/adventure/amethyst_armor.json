@@ -1,0 +1,56 @@
+{
+  "parent": "vanilla_cubed:adventure/charge_crystal",
+  "criteria": {
+    "amethyst_armor": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "vanilla_cubed:amethyst_helmet"
+            ]
+          },
+          {
+            "items": [
+              "vanilla_cubed:amethyst_chestplate"
+            ]
+          },
+          {
+            "items": [
+              "vanilla_cubed:amethyst_leggings"
+            ]
+          },
+          {
+            "items": [
+              "vanilla_cubed:amethyst_boots"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.adventure.amethyst_armor.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "vanilla_cubed:amethyst_chestplate",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.adventure.amethyst_armor.title"
+    }
+  },
+  "requirements": [
+    [
+      "amethyst_armor"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  }
+}

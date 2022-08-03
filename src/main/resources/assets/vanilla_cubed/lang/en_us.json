@@ -30,6 +30,12 @@
   "item.vanilla_cubed.amethyst_chestplate": "Amethyst Chestplate",
   "item.vanilla_cubed.amethyst_leggings": "Amethyst Leggings",
   "item.vanilla_cubed.amethyst_boots": "Amethyst Boots",
+  "advancements.adventure.find_geode.title": "Buried Crystals",
+  "advancements.adventure.find_geode.description": "Find a Geode and mine some Amethyst",
+  "advancements.adventure.charge_crystal.title": "It's chargin' time",
+  "advancements.adventure.charge_crystal.description": "Store the power of a lightning inside an Amethyst Crystal",
+  "advancements.adventure.amethyst_armor.title": "Cover me in Amethyst",
+  "advancements.adventure.amethyst_armor.description": "Get a full suit of Amethyst armor",
 
   "block.vanilla_cubed.enderite_ore": "Enderite Ore",
   "block.vanilla_cubed.enderite_block": "Block of Enderite",
