@@ -17,8 +17,8 @@ fun Entity.isInBiome(biomeKey: RegistryKey<Biome>): Boolean {
  * Returns true, if the entity is underground or in a cave.
  */
 fun Entity.isInCave(): Boolean {
-    val blocks = BlockPos.iterate(BlockPos(pos), BlockPos(pos).withY(world.topY))
-    val blockOverhead = blocks.any { world.getBlockState(it).isOpaque }
+    val blocks = BlockPos.iterate(blockPos.add(0,2,0), blockPos.withY(world.topY)).map { world.getBlockState(it) }
+    val blockOverhead = blocks.any { it.isSolidBlock(world, blockPos) && it.isOpaqueFullCube(world, blockPos) }
 
     val underground = pos.y < world.seaLevel - 10
     val caveBiome = isInBiome(BiomeKeys.DRIPSTONE_CAVES) || isInBiome(BiomeKeys.LUSH_CAVES)

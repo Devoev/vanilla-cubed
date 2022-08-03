@@ -20,7 +20,7 @@ object ModBlocks : RegistryManager<Block>(Registry.BLOCK) {
         )
     )
 
-    val ENDERITE_BLOCK = create("enderite_block.json",
+    val ENDERITE_BLOCK = create("enderite_block",
         Block(FabricBlockSettings.of(Material.METAL, MapColor.DARK_AQUA)
             .requiresTool()
             .strength(50.0f, 1200.0f)

@@ -12,5 +12,5 @@ import net.minecraft.item.ArmorItem
  */
 val MiningBonusBehavior: InventoryTickBehavior<ArmorItem> = ApplyEffectBehavior(StatusEffects.HASTE, 300)
     .andThen(ApplyEffectBehavior(StatusEffects.NIGHT_VISION, 300))
-    .andThen(ApplyEffectBehavior(StatusEffects.SATURATION, 300))
+    .andThen(ApplyEffectBehavior(StatusEffects.SPEED, 300))
     .runIf { params -> params.entity?.isInCave() ?: false }
