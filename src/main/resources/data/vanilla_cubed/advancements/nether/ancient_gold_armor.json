@@ -1,0 +1,56 @@
+{
+  "parent": "minecraft:nether/find_bastion",
+  "criteria": {
+    "ancient_gold_armor": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "vanilla_cubed:ancient_gold_helmet"
+            ]
+          },
+          {
+            "items": [
+              "vanilla_cubed:ancient_gold_chestplate"
+            ]
+          },
+          {
+            "items": [
+              "vanilla_cubed:ancient_gold_leggings"
+            ]
+          },
+          {
+            "items": [
+              "vanilla_cubed:ancient_gold_boots"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.nether.ancient_gold_armor.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "vanilla_cubed:ancient_gold_chestplate",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.nether.ancient_gold_armor.title"
+    }
+  },
+  "requirements": [
+    [
+      "ancient_gold_armor"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  }
+}

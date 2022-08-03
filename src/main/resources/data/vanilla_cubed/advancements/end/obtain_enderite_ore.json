@@ -1,0 +1,37 @@
+{
+  "parent": "minecraft:end/root",
+  "criteria": {
+    "enderite_ore": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "vanilla_cubed:enderite_ore"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.end.obtain_enderite_ore.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "vanilla_cubed:enderite_ore"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.end.obtain_enderite_ore.title"
+    }
+  },
+  "requirements": [
+    [
+      "enderite_ore"
+    ]
+  ]
+}

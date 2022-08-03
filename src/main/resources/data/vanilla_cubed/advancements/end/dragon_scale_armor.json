@@ -1,0 +1,56 @@
+{
+  "parent": "minecraft:end/elytra",
+  "criteria": {
+    "dragon_scale_armor": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "vanilla_cubed:dragon_scale_helmet"
+            ]
+          },
+          {
+            "items": [
+              "vanilla_cubed:dragon_scale_chestplate_winged"
+            ]
+          },
+          {
+            "items": [
+              "vanilla_cubed:dragon_scale_leggings"
+            ]
+          },
+          {
+            "items": [
+              "vanilla_cubed:dragon_scale_boots"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.end.dragon_scale_armor.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "vanilla_cubed:dragon_scale_chestplate_winged",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.end.dragon_scale_armor.title"
+    }
+  },
+  "requirements": [
+    [
+      "dragon_scale_armor"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  }
+}

@@ -16,6 +16,8 @@
   "item.vanilla_cubed.ancient_gold_chestplate": "Ancient Gold Chestplate",
   "item.vanilla_cubed.ancient_gold_leggings": "Ancient Gold Leggings",
   "item.vanilla_cubed.ancient_gold_boots": "Ancient Gold Boots",
+  "advancements.nether.ancient_gold_armor.title": "Gold armor, but useful",
+  "advancements.nether.ancient_gold_armor.description": "Get a full suit of ancient gold armor",
 
   "item.vanilla_cubed.amethyst_crystal": "Amethyst Crystal",
   "item.vanilla_cubed.amethyst_crystal_charged": "Charged Amethyst Crystal",
@@ -42,6 +44,12 @@
   "item.vanilla_cubed.enderite_chestplate": "Enderite Chestplate",
   "item.vanilla_cubed.enderite_leggings": "Enderite Leggings",
   "item.vanilla_cubed.enderite_boots": "Enderite Boots",
+  "advancements.end.obtain_enderite_ore.title": "Netherite, in the end?",
+  "advancements.end.obtain_enderite_ore.description": "Obtain enderite ore",
+  "advancements.end.enderite_armor.title": "Cover me in Enderite",
+  "advancements.end.enderite_armor.description": "Get a full suit of Enderite armor",
+  "advancements.end.dragon_scale_armor.title": "Dragon Elytra",
+  "advancements.end.dragon_scale_armor.description": "Get a full suit of Dragon Scale armor, upgraded with an Elytra",
 
   "item.vanilla_cubed.dragon_scale": "Dragon Scale",
   "item.vanilla_cubed.dragon_scale_infused": "Infused Dragon Scale",

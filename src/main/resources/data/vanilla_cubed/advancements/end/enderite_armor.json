@@ -1,0 +1,56 @@
+{
+  "parent": "vanilla_cubed:end/obtain_enderite_ore",
+  "criteria": {
+    "enderite_armor": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "vanilla_cubed:enderite_helmet"
+            ]
+          },
+          {
+            "items": [
+              "vanilla_cubed:enderite_chestplate"
+            ]
+          },
+          {
+            "items": [
+              "vanilla_cubed:enderite_leggings"
+            ]
+          },
+          {
+            "items": [
+              "vanilla_cubed:enderite_boots"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.end.enderite_armor.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "vanilla_cubed:enderite_chestplate",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.end.enderite_armor.title"
+    }
+  },
+  "requirements": [
+    [
+      "enderite_armor"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  }
+}
