@@ -10,7 +10,7 @@ import net.minecraft.util.Identifier
 object ModModelPredicateProvider : ListInitializer<ModelPredicate>() {
 
     init {
-        create(ModItems.AMETHYST_COMPASS, "angle", CompassAnglePredicateProvider(AmethystCompassTarget))
+        create(ModItems.AMETHYST_COMPASS, "angle", CompassAnglePredicateProvider(AmethystCompass.compassTarget))
     }
 
     fun create(item: Item, predicateName: String, predicateProvider: UnclampedModelPredicateProvider)

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "#": {
-      "item": "minecraft:enderite_ingot"
+      "item": "vanilla_cubed:enderite_ingot"
     }
   },
   "pattern": [
@@ -11,6 +11,6 @@
     "###"
   ],
   "result": {
-    "item": "minecraft:enderite_block"
+    "item": "vanilla_cubed:enderite_block"
   }
 }
