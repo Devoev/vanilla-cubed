@@ -4,6 +4,7 @@ import net.devoev.vanilla_cubed.block.ModBlocks
 import net.devoev.vanilla_cubed.client.render.entity.feature.LivingEntityFeatureRenderer
 import net.devoev.vanilla_cubed.client.render.entity.model.EntityModelLayers
 import net.devoev.vanilla_cubed.item.ModItems
+import net.devoev.vanilla_cubed.item.ModModelPredicateProvider
 import net.devoev.vanilla_cubed.loot.ModLootTables
 import net.devoev.vanilla_cubed.world.feature.ModConfiguredFeatures
 import net.devoev.vanilla_cubed.world.feature.ModPlacedFeatures
@@ -24,6 +25,7 @@ object VanillaCubed : ModInitializer {
         ModWorldGeneration.init()
         EntityModelLayers.init()
         LivingEntityFeatureRenderer.init()
+        ModModelPredicateProvider.init()
     }
 
     /**

@@ -13,7 +13,7 @@ abstract class MapInitializer<K, V> : MutableMap<K, V> by mutableMapOf() {
     /**
      * Creates a new entry of the given [pair] to this and returns it.
      */
-    fun <T : V> create(pair: Pair<K, T>): T {
+    protected fun <T : V> create(pair: Pair<K, T>): T {
         val (id, element) = pair
         this[id] = element
         return element
@@ -22,7 +22,7 @@ abstract class MapInitializer<K, V> : MutableMap<K, V> by mutableMapOf() {
     /**
      * Creates a new entry of the given [key] and [value] to this and returns it.
      */
-    fun <T : V> create(key: K, value: T) = create(key to value)
+    protected fun <T : V> create(key: K, value: T) = create(key to value)
 
     /**
      * The first key that matches the given [value].
