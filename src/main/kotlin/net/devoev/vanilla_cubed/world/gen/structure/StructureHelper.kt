@@ -1,6 +1,5 @@
 package net.devoev.vanilla_cubed.world.gen.structure
 
-import net.minecraft.entity.effect.StatusEffect
 import net.minecraft.tag.TagKey
 import net.minecraft.util.registry.Registry
 import net.minecraft.util.registry.RegistryKey
