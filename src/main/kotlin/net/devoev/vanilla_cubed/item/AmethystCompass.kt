@@ -13,7 +13,8 @@ import net.minecraft.util.Hand
 import net.minecraft.util.TypedActionResult
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.GlobalPos
-import net.minecraft.util.math.Vec3d
+import net.minecraft.util.registry.Registry
+import net.minecraft.util.registry.RegistryEntryList
 import net.minecraft.world.World
 import net.minecraft.world.gen.structure.Structure
 
@@ -51,15 +52,20 @@ object AmethystCompass : Item(FabricItemSettings().maxDamage(25).group(ModItemGr
     private fun setTargetPos(world: ServerWorld, user: PlayerEntity, stack: ItemStack) {
         if (stack.item !is AmethystCompass) error("${stack.item} must be of type $AmethystCompass")
 
-        val positions = StructureHelper.tagKeys
-            .mapNotNull { world.locateStructure(it, user.blockPos, 15, false) }
+//        val positions = StructureHelper.tagKeys
+//            .mapNotNull { world.locateStructure(it, user.blockPos, 15, false) }
+//
+//        val distances = positions
+//            .map { Vec3d(it.x.toDouble(), it.y.toDouble(), it.z.toDouble()) }
+//            .map { user.pos.subtract(it).length() }
+//
+//        val pos = (positions zip distances).minBy { it.second }.first
 
-        val distances = positions
-            .map { Vec3d(it.x.toDouble(), it.y.toDouble(), it.z.toDouble()) }
-            .map { user.pos.subtract(it).length() }
+        val entries = StructureHelper.keys.map { world.registryManager.get(Registry.STRUCTURE_KEY).getEntry(it).get() }
+        val list = RegistryEntryList.of(entries)
+        val pos = world.chunkManager.chunkGenerator.locateStructure(world, list, user.blockPos, 15, false)?.first
 
-        val pos = (positions zip distances).minBy { it.second }.first
-        stack.nbt?.putIntArray(TARGET_POS_KEY, listOf(pos.x, pos.y, pos.z))
+        stack.nbt?.putIntArray(TARGET_POS_KEY, if (pos != null) listOf(pos.x, pos.y, pos.z) else null)
     }
 
     /**

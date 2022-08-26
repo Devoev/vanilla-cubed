@@ -25,5 +25,6 @@ object StructureHelper {
     /**
      * A [Set] of all unique structure tag keys.
      */
+    @Deprecated("Generating TagKeys not working properly")
     val tagKeys: Set<TagKey<Structure>> = keys.map { TagKey.of(Registry.STRUCTURE_KEY, it.value) }.toSet()
 }
