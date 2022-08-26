@@ -88,7 +88,7 @@ object AmethystCompass : Item(FabricItemSettings().maxDamage(25).group(ModItemGr
     /**
      * Returns true, if the [stack] is charged. A compass is charged, if it has at least 2 damege points left.
      */
-    private fun isCharged(stack: ItemStack): Boolean {
+    fun isCharged(stack: ItemStack): Boolean {
         if (stack.item !is AmethystCompass) error("${stack.item} must be of type $AmethystCompass")
         return stack.maxDamage - stack.damage > 1
     }

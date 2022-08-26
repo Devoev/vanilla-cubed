@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.entity.effect.StatusEffectHelper;
+import net.devoev.vanilla_cubed.item.AmethystCompass;
 import net.devoev.vanilla_cubed.item.ModItems;
 import net.devoev.vanilla_cubed.util.LivingEntityKt;
 import net.minecraft.entity.Entity;
@@ -25,16 +25,26 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class EntityMixin {
 
     /**
-     * Charges the amethyst crystal when struck by lightning.
+     * Charges the amethyst crystal or amethyst compass when struck by lightning.
      */
     @Inject(method = "onStruckByLightning", at = @At("HEAD"))
     private void chargeAmethystCrystal(ServerWorld world, LightningEntity lightning, CallbackInfo info) {
-        if (!( (Object) this instanceof ItemEntity item && item.getStack().getItem().equals(ModItems.INSTANCE.getAMETHYST_CRYSTAL()))) return;
+        if (!((Object) this instanceof ItemEntity item)) return;
 
-        item.setStack(new ItemStack(ModItems.INSTANCE.getCHARGED_AMETHYST_CRYSTAL(), item.getStack().getCount()));
-        item.setInvulnerable(true);
-        item.setInvisible(false);
-        item.setOnFire(false);
+        if (item.getStack().getItem().equals(ModItems.INSTANCE.getAMETHYST_CRYSTAL())) {
+            item.setStack(new ItemStack(ModItems.INSTANCE.getCHARGED_AMETHYST_CRYSTAL(), item.getStack().getCount()));
+            item.setInvulnerable(true);
+            item.setInvisible(false);
+            item.setOnFire(false);
+        }
+
+        if (item.getStack().getItem().equals(ModItems.INSTANCE.getAMETHYST_COMPASS()) && !AmethystCompass.INSTANCE.isCharged(item.getStack())) {
+            item.setStack(new ItemStack(ModItems.INSTANCE.getAMETHYST_COMPASS(), item.getStack().getCount()));
+            item.setInvulnerable(true);
+            item.setInvisible(false);
+            item.setOnFire(false);
+        }
+
     }
 
     /**
