@@ -4,7 +4,6 @@ import net.devoev.vanilla_cubed.world.gen.structure.StructureHelper
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.client.item.CompassAnglePredicateProvider
 import net.minecraft.client.item.UnclampedModelPredicateProvider
-import net.minecraft.entity.Entity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
@@ -32,11 +31,6 @@ object AmethystCompass : Item(FabricItemSettings().maxDamage(25).group(ModItemGr
     private const val TARGET_POS_KEY = "target_pos"
 
     /**
-     * The key for the NBT data, that indicates, that the compass is charged.
-     */
-    private const val CHARGED_KEY = "charged"
-
-    /**
      * The predicate provider for this compasses angle.
      */
     val anglePredicateProvider = CompassAnglePredicateProvider { world, stack, _ -> targetPos(stack, world) }
@@ -46,21 +40,16 @@ object AmethystCompass : Item(FabricItemSettings().maxDamage(25).group(ModItemGr
      */
     val chargedPredicateProvider = UnclampedModelPredicateProvider { stack, _, _, _ -> if (isCharged(stack)) 1f else 0f }
 
-    override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
-        if (stack != null) setCharged(stack, stack.maxDamage - stack.damage > 1)
-        super.inventoryTick(stack, world, entity, slot, selected)
-    }
-
     override fun use(world: World?, user: PlayerEntity?, hand: Hand?): TypedActionResult<ItemStack> {
         val stack = user?.getStackInHand(hand)
-        val nbt = stack?.nbt?.getBoolean(CHARGED_KEY)
 
         if (world !is ServerWorld || user == null || stack == null || !isCharged(stack)) return TypedActionResult.pass(stack)
 
         setTargetPos(world, user, stack)
         user.itemCooldownManager[this] = 100
-        world.playSound(null, user.blockPos, SoundEvents.BLOCK_AMETHYST_BLOCK_FALL, SoundCategory.PLAYERS, 25f, 1f)
-        if(isCharged(stack)) stack.damage(1, user) { player -> println("broken?") }
+        if (isCharged(stack)) stack.damage(1, user) {}
+        if (isCharged(stack)) world.playSound(null, user.blockPos, SoundEvents.BLOCK_AMETHYST_BLOCK_FALL, SoundCategory.PLAYERS, 35f, 3f)
+        else world.playSound(null, user.blockPos, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.PLAYERS, 0.5f, -1f)
         return TypedActionResult.success(stack, world.isClient)
     }
 
@@ -97,9 +86,10 @@ object AmethystCompass : Item(FabricItemSettings().maxDamage(25).group(ModItemGr
     }
 
     /**
-     * Sets the NBT data with the key [CHARGED_KEY] for the given [stack] to the [charged] value.
+     * Returns true, if the [stack] is charged. A compass is charged, if it has at least 2 damege points left.
      */
-    private fun setCharged(stack: ItemStack, charged: Boolean) = stack.nbt?.putBoolean(CHARGED_KEY, charged)
-
-    private fun isCharged(stack: ItemStack): Boolean = stack.nbt?.getBoolean(CHARGED_KEY) == true
+    private fun isCharged(stack: ItemStack): Boolean {
+        if (stack.item !is AmethystCompass) error("${stack.item} must be of type $AmethystCompass")
+        return stack.maxDamage - stack.damage > 1
+    }
 }
