@@ -50,6 +50,7 @@ object AmethystCompass : Item(FabricItemSettings().maxDamage(25).group(ModItemGr
         if (isCharged(stack)) stack.damage(1, user) {}
         if (isCharged(stack)) world.playSound(null, user.blockPos, SoundEvents.BLOCK_AMETHYST_BLOCK_FALL, SoundCategory.PLAYERS, 35f, 3f)
         else world.playSound(null, user.blockPos, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.PLAYERS, 0.5f, -1f)
+
         return TypedActionResult.success(stack, world.isClient)
     }
 
