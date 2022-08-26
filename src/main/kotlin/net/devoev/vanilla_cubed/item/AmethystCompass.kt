@@ -2,7 +2,9 @@ package net.devoev.vanilla_cubed.item
 
 import net.devoev.vanilla_cubed.world.gen.structure.StructureHelper
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
-import net.minecraft.client.item.CompassAnglePredicateProvider.CompassTarget
+import net.minecraft.client.item.CompassAnglePredicateProvider
+import net.minecraft.client.item.UnclampedModelPredicateProvider
+import net.minecraft.entity.Entity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
@@ -30,19 +32,35 @@ object AmethystCompass : Item(FabricItemSettings().maxDamage(25).group(ModItemGr
     private const val TARGET_POS_KEY = "target_pos"
 
     /**
-     * The predicate provider for this compasses target.
+     * The key for the NBT data, that indicates, that the compass is charged.
      */
-    val compassTarget = CompassTarget { world, stack, _ -> targetPos(stack, world) }
+    private const val CHARGED_KEY = "charged"
+
+    /**
+     * The predicate provider for this compasses angle.
+     */
+    val anglePredicateProvider = CompassAnglePredicateProvider { world, stack, _ -> targetPos(stack, world) }
+
+    /**
+     * The predicate provider for indicate, whether the compass is charged.
+     */
+    val chargedPredicateProvider = UnclampedModelPredicateProvider { stack, _, _, _ -> if (isCharged(stack)) 1f else 0f }
+
+    override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
+        if (stack != null) setCharged(stack, stack.maxDamage - stack.damage > 1)
+        super.inventoryTick(stack, world, entity, slot, selected)
+    }
 
     override fun use(world: World?, user: PlayerEntity?, hand: Hand?): TypedActionResult<ItemStack> {
         val stack = user?.getStackInHand(hand)
+        val nbt = stack?.nbt?.getBoolean(CHARGED_KEY)
 
-        if (world !is ServerWorld || user == null || stack == null) return TypedActionResult.pass(stack)
+        if (world !is ServerWorld || user == null || stack == null || !isCharged(stack)) return TypedActionResult.pass(stack)
 
         setTargetPos(world, user, stack)
         user.itemCooldownManager[this] = 100
         world.playSound(null, user.blockPos, SoundEvents.BLOCK_AMETHYST_BLOCK_FALL, SoundCategory.PLAYERS, 25f, 1f)
-        stack.damage(1, user) { TODO("Replace with uncharged compass") }
+        if(isCharged(stack)) stack.damage(1, user) { player -> println("broken?") }
         return TypedActionResult.success(stack, world.isClient)
     }
 
@@ -77,4 +95,11 @@ object AmethystCompass : Item(FabricItemSettings().maxDamage(25).group(ModItemGr
         if (list.size != 3) return null
         return GlobalPos.create(world.registryKey, BlockPos(list[0],list[1],list[2]))
     }
+
+    /**
+     * Sets the NBT data with the key [CHARGED_KEY] for the given [stack] to the [charged] value.
+     */
+    private fun setCharged(stack: ItemStack, charged: Boolean) = stack.nbt?.putBoolean(CHARGED_KEY, charged)
+
+    private fun isCharged(stack: ItemStack): Boolean = stack.nbt?.getBoolean(CHARGED_KEY) == true
 }
