@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "vanilla_cubed:enderite_shard"
+    }
+  ],
+  "result": {
+    "item": "vanilla_cubed:enderite_powder",
+    "count": 3
+  }
+}

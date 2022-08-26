@@ -6,6 +6,8 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.server.world.ServerWorld
+import net.minecraft.sound.SoundCategory
+import net.minecraft.sound.SoundEvents
 import net.minecraft.util.Hand
 import net.minecraft.util.TypedActionResult
 import net.minecraft.world.World
@@ -25,7 +27,10 @@ object EnderitePowder : Item(ModItemGroup.TOOLS.toSettings()) {
 
         if (vec == null) vec = world.spawnPos.toVec3d()
 
-        user.teleport(vec.x, vec.y, vec.z)
+        user.itemCooldownManager[this] = 20
+        user.teleport(vec.x, vec.y, vec.z, true)
+        world.playSound(null, user.blockPos, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 3f, -0.5f)
+        stack.decrement(1)
         return TypedActionResult.success(stack, world.isClient)
     }
 }
