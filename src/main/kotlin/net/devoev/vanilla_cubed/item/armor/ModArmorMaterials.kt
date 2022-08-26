@@ -24,7 +24,7 @@ enum class ModArmorMaterials(
 ) : ArmorMaterial {
 
     AMETHYST(name = "amethyst", protectionAmounts = intArrayOf(4, 7, 9, 4), equipSound = SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, repairItem = ModItems.CHARGED_AMETHYST_CRYSTAL),
-    ANCIENT_GOLD(name = "ancient_gold", enchantability = 25, equipSound = SoundEvents.ITEM_ARMOR_EQUIP_GOLD, repairItem = ModItems.ANCIENT_GOLD_INGOT),
+    ANCIENT_GOLD(name = "ancient_gold", enchantability = 50, equipSound = SoundEvents.ITEM_ARMOR_EQUIP_GOLD, repairItem = ModItems.ANCIENT_GOLD_INGOT),
     ENDERITE(name = "enderite", toughness = 3F, knockbackResistance = 0.1F, enchantability = 15, durabilityMultiplier = 37, equipSound = SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, repairItem = ModItems.ENDERITE_INGOT),
     DRAGON_SCALE(name = "dragon_scale", equipSound = SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, repairItem = ModItems.INFUSED_DRAGON_SCALE);
 
