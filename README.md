@@ -37,3 +37,4 @@ this. Tridents can be crafted using *Elder Guardian Shards*, which are obtained 
 - More Trident types
 - Better Phantoms
 - More uses for Copper
+- Sculk Armor
