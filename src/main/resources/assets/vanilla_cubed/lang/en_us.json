@@ -7,6 +7,7 @@
 
   "item.vanilla_cubed.gilded_cluster": "Gilded Cluster",
   "item.vanilla_cubed.ancient_gold_ingot": "Ancient Gold Ingot",
+  "block.vanilla_cubed.ancient_gold_block": "Block of Ancient Gold",
   "item.vanilla_cubed.ancient_gold_sword": "Ancient Gold Sword",
   "item.vanilla_cubed.ancient_gold_shovel": "Ancient Gold Shovel",
   "item.vanilla_cubed.ancient_gold_pickaxe": "Ancient Gold Pickaxe",
@@ -21,6 +22,7 @@
 
   "item.vanilla_cubed.amethyst_crystal": "Amethyst Crystal",
   "item.vanilla_cubed.amethyst_crystal_charged": "Charged Amethyst Crystal",
+  "block.vanilla_cubed.amethyst_crystal_block": "Block of Amethyst Crystal",
   "item.vanilla_cubed.amethyst_compass": "Amethyst Compass",
   "item.vanilla_cubed.amethyst_sword": "Amethyst Sword",
   "item.vanilla_cubed.amethyst_shovel": "Amethyst Shovel",

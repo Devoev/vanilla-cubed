@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "vanilla_cubed:amethyst_crystal_block"
+    }
+  ],
+  "result": {
+    "item": "vanilla_cubed:amethyst_crystal",
+    "count": 9
+  }
+}

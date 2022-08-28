@@ -19,6 +19,7 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
     //Ancient Gold
     val GILDED_CLUSTER = create("gilded_cluster", Item(ModItemGroup.MATERIALS.toSettings()))
     val ANCIENT_GOLD_INGOT = create("ancient_gold_ingot", Item(ModItemGroup.MATERIALS.toSettings()))
+    val ANCIENT_GOLD_BLOCK = create("ancient_gold_block", BlockItem(ModBlocks.ANCIENT_GOLD_BLOCK, ModItemGroup.MATERIALS.toSettings()))
 
     val ANCIENT_GOLD_SWORD = create("ancient_gold_sword", ModTools.ANCIENT_GOLD.sword)
     val ANCIENT_GOLD_SHOVEL = create("ancient_gold_shovel", ModTools.ANCIENT_GOLD.shovel)
@@ -34,6 +35,7 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
     //Amethyst
     val AMETHYST_CRYSTAL = create("amethyst_crystal", Item(ModItemGroup.MATERIALS.toSettings()))
     val CHARGED_AMETHYST_CRYSTAL = create("amethyst_crystal_charged", Item(ModItemGroup.MATERIALS.toSettings()))
+    val AMETHYST_CRYSTAL_BLOCK = create("amethyst_crystal_block", BlockItem(ModBlocks.AMETHYST_CRYSTAL_BLOCK, ModItemGroup.MATERIALS.toSettings()))
     val AMETHYST_COMPASS = create("amethyst_compass", AmethystCompass)
 
     val AMETHYST_SWORD = create("amethyst_sword", ModTools.AMETHYST.sword)
