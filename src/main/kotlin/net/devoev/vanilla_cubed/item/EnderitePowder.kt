@@ -33,8 +33,6 @@ object EnderitePowder : Item(ModItemGroup.TOOLS.toSettings()) {
 
         user.itemCooldownManager[this] = 40
         world.sendEntityStatus(user, EntityStatuses.ADD_PORTAL_PARTICLES)
-        Thread.sleep(2000)
-
         FabricDimensions.teleport(user, world.server.overworld, target)
         world.playSound(null, user.blockPos, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 3f, -0.5f)
         stack.decrement(1)
