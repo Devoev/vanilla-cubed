@@ -11,7 +11,8 @@
     "PiglinBrainMixin",
     "EndermanEntityMixin",
     "ToolItemMixin",
-    "EnderDragonEntityMixin"
+    "EnderDragonEntityMixin",
+    "EnchantmentScreenHandlerMixin"
   ],
   "client": [],
   "injectors": {

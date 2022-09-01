@@ -1,5 +1,6 @@
 package net.devoev.vanilla_cubed.mixin;
 
+import net.devoev.vanilla_cubed.item.ModItems;
 import net.devoev.vanilla_cubed.util.ItemKt;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentLevelEntry;
@@ -34,5 +35,29 @@ public class EnchantmentHelperMixin {
     private static void removeCurses(Random random, ItemStack stack, int level, boolean treasureAllowed, CallbackInfoReturnable<List<EnchantmentLevelEntry>> info) {
         if (ItemKt.isAncientGold(stack.getItem()))
             info.setReturnValue(info.getReturnValue().stream().filter(entry -> !entry.enchantment.isCursed()).toList());
+    }
+
+    /**
+     * Allows gilded books to be enchanted, by setting the local bl variable to true.
+     */
+    @ModifyVariable(method = "getPossibleEntries", at = @At("STORE"), ordinal = 1)
+    private static boolean allowGildedBooks(boolean bl, int power, ItemStack stack) {
+        return stack.isOf(ModItems.INSTANCE.getGILDED_BOOK()) || bl;
+    }
+
+    /**
+     * Replaces an enchanted gilded book with a normal enchanted book.
+     */
+    @ModifyVariable(method = "enchant", at = @At("STORE"), ordinal = 1)
+    private static boolean replaceGildedBooksWithEnchantedBooks(boolean bl, Random random, ItemStack target) {
+        return target.isOf(ModItems.INSTANCE.getGILDED_BOOK()) || bl;
+    }
+
+    /**
+     * Allows gilded books to be enchanted, by setting the local bl variable to true.
+     */
+    @Inject(method = "enchant", at = @At("HEAD"))
+    private static void test(CallbackInfoReturnable<ItemStack> info) {
+        System.out.println("test mixin enchant");
     }
 }
