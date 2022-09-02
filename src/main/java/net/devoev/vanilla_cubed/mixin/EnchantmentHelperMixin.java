@@ -44,20 +44,4 @@ public class EnchantmentHelperMixin {
     private static boolean allowGildedBooks(boolean bl, int power, ItemStack stack) {
         return stack.isOf(ModItems.INSTANCE.getGILDED_BOOK()) || bl;
     }
-
-    /**
-     * Replaces an enchanted gilded book with a normal enchanted book.
-     */
-    @ModifyVariable(method = "enchant", at = @At("STORE"), ordinal = 1)
-    private static boolean replaceGildedBooksWithEnchantedBooks(boolean bl, Random random, ItemStack target) {
-        return target.isOf(ModItems.INSTANCE.getGILDED_BOOK()) || bl;
-    }
-
-    /**
-     * Allows gilded books to be enchanted, by setting the local bl variable to true.
-     */
-    @Inject(method = "enchant", at = @At("HEAD"))
-    private static void test(CallbackInfoReturnable<ItemStack> info) {
-        System.out.println("test mixin enchant");
-    }
 }
