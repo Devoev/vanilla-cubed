@@ -35,16 +35,17 @@ public abstract class EnchantmentScreenHandlerMixin extends ScreenHandler {
 
     @Inject(method = "onButtonClick", at = @At("RETURN"))
     public void test(CallbackInfoReturnable<Boolean> info) {
-        System.out.println("test mixin onButtonClick");
-        ItemStack stack = this.inventory.getStack(0);
+        ItemStack stack = inventory.getStack(0);
         if (!stack.isOf(ModItems.INSTANCE.getGILDED_BOOK())) return;
 
         NbtCompound nbtCompound = stack.getNbt();
-        stack = new ItemStack(Items.ENCHANTED_BOOK);
-        if (nbtCompound != null) {
-            stack.setNbt(nbtCompound.copy());
-        }
+        if (nbtCompound == null) nbtCompound = new NbtCompound();
 
-        this.inventory.setStack(0, stack);
+        nbtCompound.putBoolean("gilded", true);
+
+        stack = new ItemStack(Items.ENCHANTED_BOOK);
+        stack.setNbt(nbtCompound.copy());
+
+        inventory.setStack(0, stack);
     }
 }
