@@ -33,8 +33,13 @@ public abstract class EnchantmentScreenHandlerMixin extends ScreenHandler {
 //        return stack.isOf(ModItems.INSTANCE.getGILDED_BOOK()) || bl;
 //    }
 
+    /**
+     * Makes it possible to enchant gilded books, by replacing the enchanted ones with Enchanted Book items.
+     * Also sets the "gilded" NBT tag to true, for the custom texture to work.
+     * TODO: Won't correctly work: line 178 bl variable
+     */
     @Inject(method = "onButtonClick", at = @At("RETURN"))
-    public void test(CallbackInfoReturnable<Boolean> info) {
+    public void replaceGildedBooksWithEnchantedBooks(CallbackInfoReturnable<Boolean> info) {
         ItemStack stack = inventory.getStack(0);
         if (!stack.isOf(ModItems.INSTANCE.getGILDED_BOOK())) return;
 
