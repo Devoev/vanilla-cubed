@@ -14,7 +14,7 @@ object ModTools {
 
     val ANCIENT_GOLD = ToolBuilder(material = ModToolMaterials.ANCIENT_GOLD,
         settings = ModItemGroup.TOOLS.toSettings(),
-        postHitBehavior = ApplyHarmfulEffectBehavior(0.1, 100..200, 0..2)
+        postHitBehavior = ApplyHarmfulEffectBehavior(0.3, 100..200, 0..2)
     )
 
     val AMETHYST = ToolBuilder(

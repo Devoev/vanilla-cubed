@@ -12,7 +12,8 @@
     "EndermanEntityMixin",
     "ToolItemMixin",
     "EnderDragonEntityMixin",
-    "EnchantmentScreenHandlerMixin"
+    "EnchantmentScreenHandlerMixin",
+    "GrindstoneScreenHandlerMixin"
   ],
   "client": [],
   "injectors": {
