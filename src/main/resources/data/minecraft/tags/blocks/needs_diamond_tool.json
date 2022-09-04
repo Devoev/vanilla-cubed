@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "vanilla_cubed:enderite_ore",
-    "vanilla_cubed:enderite_block"
+    "vanilla_cubed:enderite_block",
+    "vanilla_cubed:ancient_gold_block",
+    "vanilla_cubed:amethyst_crystal_block"
   ]
 }
