@@ -1,10 +1,9 @@
 package net.devoev.vanilla_cubed.item.behavior
 
-import net.devoev.vanilla_cubed.block.isIn
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags.ORES
 import net.minecraft.item.Item
 import net.minecraft.sound.SoundCategory
 import net.minecraft.sound.SoundEvents
-import net.minecraft.tag.BlockTags
 import net.minecraft.util.math.BlockPos
 
 /**
@@ -22,10 +21,5 @@ class DetectOresBehavior(private val range: Int) : PostMineBehavior<Item> {
                 SoundCategory.AMBIENT,
                 25f,
                 1f)
-    }
-
-    companion object {
-        val ORES = listOf(BlockTags.DIAMOND_ORES, BlockTags.COAL_ORES, BlockTags.COPPER_ORES, BlockTags.EMERALD_ORES,
-            BlockTags.GOLD_ORES, BlockTags.IRON_ORES, BlockTags.LAPIS_ORES, BlockTags.REDSTONE_ORES)
     }
 }
