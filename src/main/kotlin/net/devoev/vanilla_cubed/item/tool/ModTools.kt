@@ -2,7 +2,9 @@ package net.devoev.vanilla_cubed.item.tool
 
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes
 import net.devoev.vanilla_cubed.item.ModItemGroup
-import net.devoev.vanilla_cubed.item.behavior.*
+import net.devoev.vanilla_cubed.item.behavior.ApplyAttributeBehavior
+import net.devoev.vanilla_cubed.item.behavior.ApplyHarmfulEffectBehavior
+import net.devoev.vanilla_cubed.item.behavior.DetectOresBehavior
 import net.devoev.vanilla_cubed.item.toSettings
 import net.minecraft.entity.attribute.EntityAttributeModifier
 import net.minecraft.item.ToolItem
@@ -20,7 +22,7 @@ object ModTools {
     val AMETHYST = ToolBuilder(
         material = ModToolMaterials.AMETHYST, settings = ModItemGroup.TOOLS.toSettings(),
         attackSpeedAmounts = ToolData.BASE_ATTACK_SPEED.map { it + 0.4F },
-        postMineBehavior = DetectOresBehavior(3)
+        postMineBehavior = DetectOresBehavior(3, 1)
     )
 
     val ENDERITE = ToolBuilder(material = ModToolMaterials.ENDERITE, settings = ModItemGroup.TOOLS.toSettings())
