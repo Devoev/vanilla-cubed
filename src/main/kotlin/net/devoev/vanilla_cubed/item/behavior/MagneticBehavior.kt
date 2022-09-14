@@ -9,16 +9,17 @@ import net.minecraft.util.math.Vec3d
 
 /**
  * Attracts all items in [range] to the player holding the item.
- * The speed of attraction is determined by [delta] blocks each tick.
+ * The speed of attraction is determined by the [speed] parameter.
+ * The speed scales according to the inverse square law.
  */
-class MagneticBehavior(private val range: Double, private val delta: Double) : InventoryTickBehavior<Item> {
+class MagneticBehavior(private val range: Double, private val speed: Double) : InventoryTickBehavior<Item> {
 
     override fun accept(item: Item, params: InventoryTickParams) {
-        if (params.selected) params.entity?.attractItems(range, delta)
+        if (params.selected && !params.world!!.isClient) params.entity?.attractItems(range, speed)
     }
 
     /**
-     * Attracts items to this player.
+     * Attracts items to this entity.
      */
     private fun Entity.attractItems(range: Double, delta: Double) {
         val items = entityWorld.getEntitiesByType(
@@ -31,7 +32,8 @@ class MagneticBehavior(private val range: Double, private val delta: Double) : I
             item.setPickupDelay(0)
             val itemVector = Vec3d(item.x, item.y, item.z)
             val playerVector = Vec3d(x, y + 0.75, z)
-            item.move(null, playerVector.subtract(itemVector).normalize().multiply(delta))
+            val vec = playerVector.subtract(itemVector)
+            item.move(null, vec.multiply(delta / vec.lengthSquared()))
         }
     }
 }

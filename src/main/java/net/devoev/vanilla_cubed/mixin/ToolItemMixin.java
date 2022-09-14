@@ -1,6 +1,5 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.item.behavior.BehaviorModifier;
 import net.devoev.vanilla_cubed.item.behavior.InventoryTickParams;
 import net.devoev.vanilla_cubed.item.behavior.MagneticBehavior;
 import net.devoev.vanilla_cubed.util.ItemKt;
@@ -21,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Item.class)
 public class ToolItemMixin {
 
-    private final MagneticBehavior magneticBehavior = new MagneticBehavior(5.5, 0.5);
+    private final MagneticBehavior magneticBehavior = new MagneticBehavior(5.5, 0.4);
 
     /**
      * Makes netherite items magnetic, when held in main hand.
