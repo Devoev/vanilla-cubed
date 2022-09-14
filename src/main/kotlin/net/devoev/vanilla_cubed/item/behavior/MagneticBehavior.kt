@@ -1,16 +1,21 @@
 package net.devoev.vanilla_cubed.item.behavior
 
+import net.devoev.vanilla_cubed.entity.addVelocity
+import net.devoev.vanilla_cubed.util.math.minus
+import net.devoev.vanilla_cubed.util.math.times
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityType
+import net.minecraft.entity.MovementType
 import net.minecraft.item.Item
 import net.minecraft.predicate.entity.EntityPredicates
 import net.minecraft.util.math.Box
 import net.minecraft.util.math.Vec3d
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 /**
  * Attracts all items in [range] to the player holding the item.
  * The speed of attraction is determined by the [speed] parameter.
- * The speed scales according to the inverse square law.
  * Only items that have a smaller age value than [ageLimit] get attracted. A value of 0 disables this limit.
  */
 class MagneticBehavior(private val range: Double, private val speed: Double, private val ageLimit: Int) : InventoryTickBehavior<Item> {
@@ -22,19 +27,20 @@ class MagneticBehavior(private val range: Double, private val speed: Double, pri
     /**
      * Attracts items to this entity.
      */
-    private fun Entity.attractItems(range: Double, delta: Double) {
+    private fun Entity.attractItems(range: Double, speed: Double) {
         val items = entityWorld.getEntitiesByType(
             EntityType.ITEM,
             Box(x - range, y - range, z - range, x + range, y + range, z + range),
             EntityPredicates.VALID_ENTITY
         ).filter { ageLimit == 0 || it.itemAge < ageLimit }
 
+        val maxDistance = sqrt(2f)*range // Corner point of box
         for (item in items) {
             item.setPickupDelay(0)
-            val itemVector = Vec3d(item.x, item.y, item.z)
-            val playerVector = Vec3d(x, y + 0.75, z)
-            val vec = playerVector.subtract(itemVector)
-            item.move(null, vec.multiply(delta / vec.lengthSquared()))
+            val vec = Vec3d(x, y + standingEyeHeight/2, z) - Vec3d(item.x, item.y, item.z)
+            val velocity = (1 - vec.length() / maxDistance).pow(2) * speed
+            item.addVelocity(vec.normalize() * velocity)
+            item.move(MovementType.SELF, item.velocity)
         }
     }
 }
