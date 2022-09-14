@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Item.class)
 public class ToolItemMixin {
 
-    private final MagneticBehavior magneticBehavior = new MagneticBehavior(5.5, 0.4);
+    private final MagneticBehavior magneticBehavior = new MagneticBehavior(5.5, 0.4, 200);
 
     /**
      * Makes netherite items magnetic, when held in main hand.

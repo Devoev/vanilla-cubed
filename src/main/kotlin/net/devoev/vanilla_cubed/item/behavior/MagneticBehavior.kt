@@ -11,8 +11,9 @@ import net.minecraft.util.math.Vec3d
  * Attracts all items in [range] to the player holding the item.
  * The speed of attraction is determined by the [speed] parameter.
  * The speed scales according to the inverse square law.
+ * Only items that have a smaller age value than [ageLimit] get attracted. A value of 0 disables this limit.
  */
-class MagneticBehavior(private val range: Double, private val speed: Double) : InventoryTickBehavior<Item> {
+class MagneticBehavior(private val range: Double, private val speed: Double, private val ageLimit: Int) : InventoryTickBehavior<Item> {
 
     override fun accept(item: Item, params: InventoryTickParams) {
         if (params.selected && !params.world!!.isClient) params.entity?.attractItems(range, speed)
@@ -26,7 +27,7 @@ class MagneticBehavior(private val range: Double, private val speed: Double) : I
             EntityType.ITEM,
             Box(x - range, y - range, z - range, x + range, y + range, z + range),
             EntityPredicates.VALID_ENTITY
-        )
+        ).filter { ageLimit == 0 || it.itemAge < ageLimit }
 
         for (item in items) {
             item.setPickupDelay(0)
