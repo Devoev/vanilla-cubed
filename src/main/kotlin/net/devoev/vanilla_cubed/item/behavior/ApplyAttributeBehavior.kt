@@ -13,6 +13,7 @@ class ApplyAttributeBehavior(val attribute: EntityAttribute, val modifier: Entit
     : InventoryTickBehavior<ToolItem> {
 
     override fun accept(item: ToolItem, params: InventoryTickParams) {
+        if (params.world!!.isClient) return
         val (stack,_,entity,_,selected) = params
 
         if (entity !is LivingEntity) return

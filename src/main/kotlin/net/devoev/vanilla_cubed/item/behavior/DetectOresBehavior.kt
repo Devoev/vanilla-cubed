@@ -15,11 +15,13 @@ class DetectOresBehavior(private val rangeXZ: Int, private val rangeY: Int) : Po
 
     @OptIn(ExperimentalStdlibApi::class)
     override fun accept(item: Item, params: PostMineParams) {
-        val closest = BlockPos.findClosest(params.pos, rangeXZ, rangeY) { params.world?.getBlockState(it)?.isIn(ORES) == true }
+        if (params.world!!.isClient) return
+
+        val closest = BlockPos.findClosest(params.pos, rangeXZ, rangeY) { params.world.getBlockState(it)?.isIn(ORES) == true }
         val orePos: BlockPos = closest.getOrNull() ?: return
         val distance = sqrt(orePos.getSquaredDistance(params.pos))
 
-        params.world?.playSound(
+        params.world.playSound(
             null,
             params.pos,
             SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME,

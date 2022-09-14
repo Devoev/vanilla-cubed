@@ -27,6 +27,7 @@ class ApplyBeneficialEffectBehavior(private val probability: Double,
         set(value) = waitTimeMap.set(this, value)
 
     override fun accept(item: ArmorItem, params: InventoryTickParams) {
+        if (params.world!!.isClient) return
         val (stack,_,entity,_,_) = params
 
         if (entity !is LivingEntity) return
@@ -42,6 +43,6 @@ class ApplyBeneficialEffectBehavior(private val probability: Double,
         if (effect.effectType.isInstant) return
 
         entity.waitTime = effect.duration * 3
-        entity.addStatusEffect(effect)
+        entity.addStatusEffect(effect, entity)
     }
 }

@@ -16,7 +16,9 @@ class ApplyEffectBehavior(private val effect: StatusEffect,
                           private val amplifier: Int = 0) : InventoryTickBehavior<ArmorItem> {
 
     override fun accept(item: ArmorItem, params: InventoryTickParams) {
+        if (params.world!!.isClient) return
         val entity = params.entity
+
         if (entity is LivingEntity && entity.wearsFullArmor(item.material))
             entity.addStatusEffect(StatusEffectInstance(effect, duration, amplifier))
     }

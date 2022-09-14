@@ -1,10 +1,6 @@
 package net.devoev.vanilla_cubed.item.behavior
 
-import net.devoev.vanilla_cubed.item.ModItems
-import net.minecraft.item.ArmorItem
 import net.minecraft.item.Item
-import net.minecraft.item.Items
-import net.minecraft.item.ToolItem
 import java.util.function.BiConsumer
 import java.util.function.Predicate
 
@@ -19,7 +15,7 @@ fun interface BehaviorModifier<in T : Item, P> : BiConsumer<@UnsafeVariance T, P
 
     /**
      * Creates a conditional [BehaviorModifier], that runs this function if [predicate] evaluates to true.
-     * @return A composed [BehaviorModifier].
+     * @return A conditional [BehaviorModifier].
      */
     fun runIf(predicate: Predicate<P>): BehaviorModifier<T, P>
         = BehaviorModifier { t, p -> if (predicate.test(p)) accept(t,p) }

@@ -15,9 +15,10 @@ class ApplyHarmfulEffectBehavior(private val probability: Double,
                                  private val amplifierRange: IntRange) : PostHitBehavior<ToolItem> {
 
     override fun accept(item: ToolItem, params: PostHitParams) {
+        if (params.attacker!!.world.isClient) return
         val effect = StatusEffectHelper.randomHarmful(durationRange, amplifierRange)
-        if (Random.nextDouble() < 1 - probability || effect.effectType.isInstant) return
 
-        params.target?.addStatusEffect(effect)
+        if (Random.nextDouble() < 1 - probability || effect.effectType.isInstant) return
+        params.target?.addStatusEffect(effect, params.attacker)
     }
 }
