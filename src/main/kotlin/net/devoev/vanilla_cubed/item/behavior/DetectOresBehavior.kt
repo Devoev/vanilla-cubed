@@ -24,7 +24,7 @@ class DetectOresBehavior(private val rangeXZ: Int, private val rangeY: Int) : Po
             params.pos,
             SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME,
             SoundCategory.AMBIENT,
-            (20 - 5*distance).toFloat(),
+            (20 - 5*distance).toFloat(), //TODO: More general formula
             1f)
     }
 }
