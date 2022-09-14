@@ -2,7 +2,10 @@ package net.devoev.vanilla_cubed.mixin;
 
 import net.devoev.vanilla_cubed.item.AmethystCompass;
 import net.devoev.vanilla_cubed.item.ModItems;
+import net.devoev.vanilla_cubed.item.tool.NetheriteKt;
+import net.devoev.vanilla_cubed.util.ItemKt;
 import net.devoev.vanilla_cubed.util.LivingEntityKt;
+import net.minecraft.client.sound.Sound;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LightningEntity;
@@ -11,12 +14,19 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.ParticleEffect;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.Stack;
 
 /**
  * A mixin for the amethyst crystal.
@@ -68,5 +78,24 @@ public class EntityMixin {
 
         entity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 300, 1));
         entity.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 300, 1));
+    }
+
+    @Inject(method = "baseTick", at = @At("HEAD"))
+    private void demagnetizeNetherite(CallbackInfo info) {
+        if (!((Object) this instanceof ItemEntity item)) return;
+        ItemStack stack = item.getStack();
+        if (!ItemKt.isNetherite(stack.getItem()) || item.world.isClient) return;
+
+        if (NetheriteKt.isMagnetic(stack) && item.isInLava()) {
+            NetheriteKt.setMagnetic(stack, false);
+            item.world.playSound(null,
+                    item.getBlockPos(),
+                    SoundEvents.BLOCK_FIRE_EXTINGUISH,
+                    SoundCategory.AMBIENT,
+                    10f,
+                    1f
+            );
+            //TODO: Add particles for client side
+        }
     }
 }
