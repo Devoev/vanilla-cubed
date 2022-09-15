@@ -11,13 +11,13 @@ import net.minecraft.item.ArmorItem
  */
 object ModArmor {
 
-    val ANCIENT_GOLD = ArmorBuilder(ModArmorMaterials.ANCIENT_GOLD, ModItemGroup.COMBAT.toSettings(),
+    val ANCIENT_GOLD = ArmorBuilder(ModArmorMaterials.ANCIENT_GOLD, ModItemGroup.VANILLA_CUBED.toSettings(),
         inventoryTickBehavior = ApplyBeneficialEffectBehavior(5e-4, 1500..3000, 1..2),
         onlyOne = true
     )
-    val AMETHYST = ArmorBuilder(ModArmorMaterials.AMETHYST, ModItemGroup.COMBAT.toSettings(),
+    val AMETHYST = ArmorBuilder(ModArmorMaterials.AMETHYST, ModItemGroup.VANILLA_CUBED.toSettings(),
         inventoryTickBehavior = MiningBonusBehavior
     )
-    val ENDERITE = ArmorBuilder(ModArmorMaterials.ENDERITE, ModItemGroup.COMBAT.toSettings())
-    val DRAGON_SCALE = ElytraArmorBuilder(ModArmorMaterials.DRAGON_SCALE, ModItemGroup.COMBAT.toSettings())
+    val ENDERITE = ArmorBuilder(ModArmorMaterials.ENDERITE, ModItemGroup.VANILLA_CUBED.toSettings())
+    val DRAGON_SCALE = ElytraArmorBuilder(ModArmorMaterials.DRAGON_SCALE, ModItemGroup.VANILLA_CUBED.toSettings())
 }

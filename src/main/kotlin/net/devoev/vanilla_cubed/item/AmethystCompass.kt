@@ -23,7 +23,7 @@ import net.minecraft.world.gen.structure.Structure
 /**
  * A compass, that searches for nearby [structures][Structure].
  */
-object AmethystCompass : Item(FabricItemSettings().maxDamage(25).group(ModItemGroup.TOOLS)) {
+object AmethystCompass : Item(FabricItemSettings().maxDamage(25).group(ModItemGroup.VANILLA_CUBED)) {
 
     /**
      * The key for the NBT data, that stores the coordinates of the target position.

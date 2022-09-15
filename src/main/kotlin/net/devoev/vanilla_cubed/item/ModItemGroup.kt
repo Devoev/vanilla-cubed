@@ -13,9 +13,10 @@ import java.util.function.Supplier
  */
 object ModItemGroup {
 
-    val MATERIALS: ItemGroup = create("materials") { ModItems.ELDER_GUARDIAN_SHARD }
-    val TOOLS: ItemGroup = create("tools") { ModItems.AMETHYST_PICKAXE }
-    val COMBAT: ItemGroup = create("combat") { ModItems.AMETHYST_CHESTPLATE }
+//    val MATERIALS: ItemGroup = create("materials") { ModItems.ELDER_GUARDIAN_SHARD }
+//    val TOOLS: ItemGroup = create("tools") { ModItems.AMETHYST_PICKAXE }
+//    val COMBAT: ItemGroup = create("combat") { ModItems.AMETHYST_CHESTPLATE }
+    val VANILLA_CUBED: ItemGroup = create("vanilla_cubed") { ModItems.GILDED_BOOK }
 
     /**
      * Creates a new modded [ItemGroup].

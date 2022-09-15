@@ -15,19 +15,19 @@ import net.minecraft.item.ToolItem
 object ModTools {
 
     val ANCIENT_GOLD = ToolBuilder(material = ModToolMaterials.ANCIENT_GOLD,
-        settings = ModItemGroup.TOOLS.toSettings(),
+        settings = ModItemGroup.VANILLA_CUBED.toSettings(),
         postHitBehavior = ApplyHarmfulEffectBehavior(0.3, 100..200, 0..2)
     )
 
     val AMETHYST = ToolBuilder(
-        material = ModToolMaterials.AMETHYST, settings = ModItemGroup.TOOLS.toSettings(),
+        material = ModToolMaterials.AMETHYST, settings = ModItemGroup.VANILLA_CUBED.toSettings(),
         attackSpeedAmounts = ToolData.BASE_ATTACK_SPEED.map { it + 0.4F },
         postMineBehavior = DetectOresBehavior(3, 1)
     )
 
-    val ENDERITE = ToolBuilder(material = ModToolMaterials.ENDERITE, settings = ModItemGroup.TOOLS.toSettings())
+    val ENDERITE = ToolBuilder(material = ModToolMaterials.ENDERITE, settings = ModItemGroup.VANILLA_CUBED.toSettings())
 
-    val DRAGON_SCALE = ToolBuilder(material = ModToolMaterials.DRAGON_SCALE, settings = ModItemGroup.TOOLS.toSettings(),
+    val DRAGON_SCALE = ToolBuilder(material = ModToolMaterials.DRAGON_SCALE, settings = ModItemGroup.VANILLA_CUBED.toSettings(),
         inventoryTickBehavior = ApplyAttributeBehavior(
             ReachEntityAttributes.REACH,
             EntityAttributeModifier("modifier", 1.5, EntityAttributeModifier.Operation.ADDITION)

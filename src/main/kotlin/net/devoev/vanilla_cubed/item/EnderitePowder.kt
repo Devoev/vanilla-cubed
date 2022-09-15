@@ -22,7 +22,7 @@ import net.minecraft.world.TeleportTarget
 import net.minecraft.world.World
 import kotlin.jvm.optionals.getOrNull
 
-object EnderitePowder : Item(ModItemGroup.TOOLS.toSettings()) {
+object EnderitePowder : Item(ModItemGroup.VANILLA_CUBED.toSettings()) {
 
     /**
      * The key for the NBT data, that indicates how many ticks have passed since the powder has been used.
