@@ -33,7 +33,8 @@
     "fabric": "*",
     "fabric-language-kotlin": "*",
     "minecraft": "~1.19.2",
-    "java": ">=17"
+    "java": ">=17",
+    "nbtcrafting": "*"
   },
   "suggests": {
     "flamingo": "*"

@@ -1,0 +1,26 @@
+{
+  "type": "nbtcrafting:smithing",
+  "base": {
+    "item": "minecraft:netherite_sword",
+    "data": {
+      "require": {
+        "demagnetized": true
+      }
+    }
+  },
+  "ingredient": {
+    "item": "minecraft:netherite_scrap"
+  },
+  "result": {
+    "item": "minecraft:netherite_sword",
+    "data": {
+      "$": {
+        "value": "base",
+        "paths": {
+          "demagnetized": "keep"
+        }
+      },
+      "demagnetized": false
+    }
+  }
+}
