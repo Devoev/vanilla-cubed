@@ -1,10 +1,12 @@
 package net.devoev.vanilla_cubed.mixin;
 
+import kotlin.jvm.internal.Intrinsics;
 import net.devoev.vanilla_cubed.item.AmethystCompass;
 import net.devoev.vanilla_cubed.item.ModItems;
 import net.devoev.vanilla_cubed.item.tool.NetheriteKt;
 import net.devoev.vanilla_cubed.util.ItemKt;
 import net.devoev.vanilla_cubed.util.LivingEntityKt;
+import net.minecraft.client.particle.LavaEmberParticle;
 import net.minecraft.client.sound.Sound;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
@@ -16,6 +18,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -27,6 +30,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Stack;
+import java.util.stream.IntStream;
 
 /**
  * A mixin for the amethyst crystal.
@@ -84,10 +88,10 @@ public class EntityMixin {
     private void demagnetizeNetherite(CallbackInfo info) {
         if (!((Object) this instanceof ItemEntity item)) return;
         ItemStack stack = item.getStack();
-        if (!ItemKt.isNetherite(stack.getItem()) || item.world.isClient) return;
+        if (!ItemKt.isNetherite(stack.getItem()) || !NetheriteKt.isMagnetic(stack) || !item.isInLava()) return;
 
-        if (NetheriteKt.isMagnetic(stack) && item.isInLava()) {
-            NetheriteKt.setMagnetic(stack, false);
+        NetheriteKt.setMagnetic(stack, false);
+        if (!item.world.isClient) {
             item.world.playSound(null,
                     item.getBlockPos(),
                     SoundEvents.BLOCK_FIRE_EXTINGUISH,
@@ -95,7 +99,18 @@ public class EntityMixin {
                     10f,
                     1f
             );
-            //TODO: Add particles for client side
+        }
+        else {
+            IntStream.rangeClosed(1,5).forEach(i -> {
+                item.world.addParticle(ParticleTypes.LAVA,
+                        item.getX(),
+                        item.getY(),
+                        item.getZ(),
+                        1,
+                        1,
+                        1
+                );
+            });
         }
     }
 }
