@@ -1,9 +1,12 @@
 package net.devoev.vanilla_cubed.item
 
+import net.devoev.vanilla_cubed.entity.falling
 import net.devoev.vanilla_cubed.util.math.toVec3d
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityStatuses
+import net.minecraft.entity.effect.StatusEffectInstance
+import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
@@ -28,23 +31,31 @@ object EnderitePowder : Item(ModItemGroup.TOOLS.toSettings()) {
     /**
      * The time in ticks the teleportation needs.
      */
-    private const val INITIAL_TICKS = 60
+    private const val TICK_DURATION = 50
 
     override fun use(world: World?, user: PlayerEntity?, hand: Hand?): TypedActionResult<ItemStack> {
         val stack = user?.getStackInHand(hand)
 
-        if (stack == null || world == null || world.isClient)
+        if (stack == null || world == null || world.isClient || user.fallDistance != 0f)
             return TypedActionResult.pass(stack)
 
         world.sendEntityStatus(user, EntityStatuses.ADD_PORTAL_PARTICLES)
-        user.itemCooldownManager[this] = INITIAL_TICKS
-        setTeleportingTicks(stack, INITIAL_TICKS)
+        user.addStatusEffect(StatusEffectInstance(
+            StatusEffects.SLOWNESS, TICK_DURATION,
+            10, false,
+            false,
+            false
+        ))
+        user.itemCooldownManager[this] = TICK_DURATION
+        setTeleportingTicks(stack, TICK_DURATION)
         return TypedActionResult.success(stack, world.isClient)
     }
 
     override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
         if (stack == null || entity !is ServerPlayerEntity || world !is ServerWorld) return
 
+        if (teleportingTicks(stack) > 0 && entity.falling)
+            return cancelTeleport(stack, entity, world)
         if (teleportingTicks(stack) == 1)
             doTeleport(stack, entity, world)
         if (!stack.isEmpty)
@@ -92,8 +103,21 @@ object EnderitePowder : Item(ModItemGroup.TOOLS.toSettings()) {
             user.blockPos,
             SoundEvents.ENTITY_ENDERMAN_TELEPORT,
             SoundCategory.PLAYERS,
-            3f,
+            10f,
             -0.5f
+        )
+    }
+
+    private fun cancelTeleport(stack: ItemStack, user: PlayerEntity, world: World) {
+        setTeleportingTicks(stack, 0)
+        user.itemCooldownManager[this] = 0
+        user.removeStatusEffect(StatusEffects.SLOWNESS)
+        world.playSound(null,
+            user.blockPos,
+            SoundEvents.BLOCK_CANDLE_EXTINGUISH,
+            SoundCategory.PLAYERS,
+            10f,
+            -3f
         )
     }
 }
