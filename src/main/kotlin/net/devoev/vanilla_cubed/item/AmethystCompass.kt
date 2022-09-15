@@ -60,15 +60,6 @@ object AmethystCompass : Item(FabricItemSettings().maxDamage(25).group(ModItemGr
     private fun setTargetPos(world: ServerWorld, user: PlayerEntity, stack: ItemStack) {
         if (stack.item !is AmethystCompass) error("${stack.item} must be of type $AmethystCompass")
 
-//        val positions = StructureHelper.tagKeys
-//            .mapNotNull { world.locateStructure(it, user.blockPos, 15, false) }
-//
-//        val distances = positions
-//            .map { Vec3d(it.x.toDouble(), it.y.toDouble(), it.z.toDouble()) }
-//            .map { user.pos.subtract(it).length() }
-//
-//        val pos = (positions zip distances).minBy { it.second }.first
-
         val entries = StructureHelper.keys.map { world.registryManager.get(Registry.STRUCTURE_KEY).getEntry(it).get() }
         val list = RegistryEntryList.of(entries)
         val pos = world.chunkManager.chunkGenerator.locateStructure(world, list, user.blockPos, 15, false)?.first
