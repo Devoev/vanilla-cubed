@@ -52,7 +52,7 @@ public class EntityMixin {
             item.setOnFire(false);
         }
 
-        if (item.getStack().getItem().equals(ModItems.INSTANCE.getAMETHYST_COMPASS()) && !AmethystCompass.INSTANCE.isCharged(item.getStack())) {
+        if (item.getStack().getItem().equals(ModItems.INSTANCE.getAMETHYST_COMPASS()) && !AmethystCompass.INSTANCE.getCharged(item.getStack())) {
             item.setStack(new ItemStack(ModItems.INSTANCE.getAMETHYST_COMPASS(), item.getStack().getCount()));
             item.setInvulnerable(true);
             item.setInvisible(false);
@@ -88,7 +88,7 @@ public class EntityMixin {
     private void demagnetizeNetherite(CallbackInfo info) {
         if (!((Object) this instanceof ItemEntity item)) return;
         ItemStack stack = item.getStack();
-        if (!ItemKt.isNetherite(stack.getItem()) || !NetheriteKt.isMagnetic(stack) || !item.isInLava()) return;
+        if (!ItemKt.isNetherite(stack.getItem()) || !NetheriteKt.getMagnetic(stack) || !item.isInLava()) return;
 
         NetheriteKt.setMagnetic(stack, false);
         if (!item.world.isClient) {

@@ -26,7 +26,7 @@ public class ToolItemMixin {
 
     private final BehaviorModifier<Item, InventoryTickParams> modifier =
             new MagneticBehavior(5.5, 0.4, 200)
-                    .runIf(params -> NetheriteKt.isMagnetic(Objects.requireNonNull(params.getStack())));
+                    .runIf(params -> NetheriteKt.getMagnetic(Objects.requireNonNull(params.getStack())));
 
     /**
      * Makes netherite items magnetic, when held in main hand.

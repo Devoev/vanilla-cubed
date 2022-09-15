@@ -1,6 +1,7 @@
 package net.devoev.vanilla_cubed.item
 
 import net.devoev.vanilla_cubed.entity.falling
+import net.devoev.vanilla_cubed.item.tool.NETHERITE_DEMAGNETIZED_KEY
 import net.devoev.vanilla_cubed.util.math.toVec3d
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions
 import net.minecraft.entity.Entity
@@ -47,41 +48,43 @@ object EnderitePowder : Item(ModItemGroup.TOOLS.toSettings()) {
             false
         ))
         user.itemCooldownManager[this] = TICK_DURATION
-        setTeleportingTicks(stack, TICK_DURATION)
+        stack.teleportTicks = TICK_DURATION
         return TypedActionResult.success(stack, world.isClient)
     }
 
     override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
         if (stack == null || entity !is ServerPlayerEntity || world !is ServerWorld) return
 
-        if (teleportingTicks(stack) > 0 && entity.falling)
+        if (stack.teleportTicks > 0 && entity.falling)
             return cancelTeleport(stack, entity, world)
-        if (teleportingTicks(stack) == 1)
+        if (stack.teleportTicks == 1)
             doTeleport(stack, entity, world)
         if (!stack.isEmpty)
             tickTeleport(stack)
     }
 
     /**
-     * Returns the remaining ticks until the teleportation using [stack] can be performed.
-     * Value stored in the NBT value of the key [ENDERITE_POWDER_TICK_KEY].
+     * The remaining ticks until the teleportation can be performed.
+     * Value stored in the [ENDERITE_POWDER_TICK_KEY] nbt tag.
      */
-    private fun teleportingTicks(stack: ItemStack): Int {
-        if (stack.item !is EnderitePowder) error("${stack.item} must be of type $EnderitePowder")
-        return stack.nbt?.getInt(ENDERITE_POWDER_TICK_KEY) ?: 0
-    }
+    private var ItemStack.teleportTicks: Int
 
-    private fun setTeleportingTicks(stack: ItemStack, value: Int) {
-        if (stack.item !is EnderitePowder) error("${stack.item} must be of type $EnderitePowder")
-        stack.orCreateNbt.putInt(ENDERITE_POWDER_TICK_KEY, value)
-    }
+        get() {
+            if (item !is EnderitePowder) error("$item must be of type $EnderitePowder")
+            return nbt?.getInt(ENDERITE_POWDER_TICK_KEY) ?: 0
+        }
+
+        set(value) {
+            if (item !is EnderitePowder) error("$item must be of type $EnderitePowder")
+            orCreateNbt.putInt(ENDERITE_POWDER_TICK_KEY, value)
+        }
 
     /**
      * Reduces the teleporting ticks by 1, if the value is greater than 0.
      */
     private fun tickTeleport(stack: ItemStack) {
-        if (teleportingTicks(stack) > 0)
-        setTeleportingTicks(stack, teleportingTicks(stack)-1)
+        if (stack.teleportTicks > 0)
+            stack.teleportTicks -= 1
     }
 
     /**
@@ -109,7 +112,7 @@ object EnderitePowder : Item(ModItemGroup.TOOLS.toSettings()) {
     }
 
     private fun cancelTeleport(stack: ItemStack, user: PlayerEntity, world: World) {
-        setTeleportingTicks(stack, 0)
+        stack.teleportTicks = 0
         user.itemCooldownManager[this] = 0
         user.removeStatusEffect(StatusEffects.SLOWNESS)
         world.playSound(null,

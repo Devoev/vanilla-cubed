@@ -38,17 +38,17 @@ object AmethystCompass : Item(FabricItemSettings().maxDamage(25).group(ModItemGr
     /**
      * The predicate provider for indicate, whether the compass is charged.
      */
-    val chargedPredicateProvider = UnclampedModelPredicateProvider { stack, _, _, _ -> if (isCharged(stack)) 1f else 0f }
+    val chargedPredicateProvider = UnclampedModelPredicateProvider { stack, _, _, _ -> if (stack.charged) 1f else 0f }
 
     override fun use(world: World?, user: PlayerEntity?, hand: Hand?): TypedActionResult<ItemStack> {
         val stack = user?.getStackInHand(hand)
 
-        if (world !is ServerWorld || user == null || stack == null || !isCharged(stack)) return TypedActionResult.pass(stack)
+        if (world !is ServerWorld || user == null || stack == null || !stack.charged) return TypedActionResult.pass(stack)
 
         setTargetPos(world, user, stack)
         user.itemCooldownManager[this] = 100
-        if (isCharged(stack)) stack.damage(1, user) {}
-        if (isCharged(stack)) world.playSound(null, user.blockPos, SoundEvents.BLOCK_AMETHYST_BLOCK_FALL, SoundCategory.PLAYERS, 35f, 3f)
+        if (stack.charged) stack.damage(1, user) {}
+        if (stack.charged) world.playSound(null, user.blockPos, SoundEvents.BLOCK_AMETHYST_BLOCK_FALL, SoundCategory.PLAYERS, 35f, 3f)
         else world.playSound(null, user.blockPos, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.PLAYERS, 0.5f, -1f)
 
         return TypedActionResult.success(stack, world.isClient)
@@ -78,10 +78,10 @@ object AmethystCompass : Item(FabricItemSettings().maxDamage(25).group(ModItemGr
     }
 
     /**
-     * Returns true, if the [stack] is charged. A compass is charged, if it has at least 2 damege points left.
+     * Whether this [ItemStack] is charged. A compass is charged, if it has at least 2 damege points left.
      */
-    fun isCharged(stack: ItemStack): Boolean {
-        if (stack.item !is AmethystCompass) error("${stack.item} must be of type $AmethystCompass")
-        return stack.maxDamage - stack.damage > 1
+    val ItemStack.charged: Boolean get() {
+        if (item !is AmethystCompass) error("$item must be of type $AmethystCompass")
+        return maxDamage - damage > 1
     }
 }

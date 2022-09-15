@@ -9,17 +9,16 @@ import net.minecraft.item.ItemStack
 const val NETHERITE_DEMAGNETIZED_KEY = "demagnetized"
 
 /**
- * Returns true, if the netherite [stack] is magnetic.
+ * Whether this netherite item is magnetic. Value stored in the [NETHERITE_DEMAGNETIZED_KEY] nbt tag.
  */
-fun isMagnetic(stack: ItemStack): Boolean {
-    if (!stack.item.isNetherite()) error("${stack.item} must be a netherite tool")
-    return stack.nbt?.getBoolean(NETHERITE_DEMAGNETIZED_KEY) == false
-}
+var ItemStack.magnetic: Boolean
 
-/**
- * Sets the [NETHERITE_DEMAGNETIZED_KEY] to the negation of the [magnetic] value for the given [stack].
- */
-fun setMagnetic(stack: ItemStack, magnetic: Boolean) {
-    if (!stack.item.isNetherite()) error("${stack.item} must be a netherite tool")
-    stack.nbt?.putBoolean(NETHERITE_DEMAGNETIZED_KEY, !magnetic)
-}
+    get() {
+        if (!item.isNetherite()) error("$item must be a netherite tool")
+        return nbt?.getBoolean(NETHERITE_DEMAGNETIZED_KEY) == false
+    }
+
+    set(value) {
+        if (!item.isNetherite()) error("$item must be a netherite tool")
+        nbt?.putBoolean(NETHERITE_DEMAGNETIZED_KEY, !value)
+    }
