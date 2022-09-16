@@ -23,6 +23,12 @@
         "adapter": "kotlin",
         "value": "net.devoev.vanilla_cubed.VanillaCubed"
       }
+    ],
+    "client": [
+      {
+        "adapter": "kotlin",
+        "value": "net.devoev.vanilla_cubed.VanillaCubedClient"
+      }
     ]
   },
   "mixins": [

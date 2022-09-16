@@ -13,7 +13,7 @@ import net.minecraft.entity.LivingEntity
 /**
  * An object for initializing a custom [LivingEntityRenderer].
  */
-object LivingEntityFeatureRenderer : MapInitializer<EntityType<*>, FeatureRendererGenerator>() {
+object ModLivingEntityFeatureRenderer : MapInitializer<EntityType<*>, FeatureRendererGenerator>() {
 
     init {
         this[EntityType.PLAYER] = { context, loader -> WingedDragonChestplateFeatureRenderer(context, loader) }

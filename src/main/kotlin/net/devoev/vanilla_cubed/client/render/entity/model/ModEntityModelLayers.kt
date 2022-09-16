@@ -1,22 +1,29 @@
 package net.devoev.vanilla_cubed.client.render.entity.model
 
 import net.devoev.vanilla_cubed.VanillaCubed
+import net.devoev.vanilla_cubed.item.ModItems
 import net.devoev.vanilla_cubed.util.MapInitializer
+import net.devoev.vanilla_cubed.util.id
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry.TexturedModelDataProvider
 import net.minecraft.client.render.entity.model.ElytraEntityModel
 import net.minecraft.client.render.entity.model.EntityModelLayer
+import net.minecraft.client.render.entity.model.TridentEntityModel
+import net.minecraft.util.Identifier
 
 /**
  * An object for initializing a custom [EntityModelLayer].
  */
-object EntityModelLayers : MapInitializer<EntityModelLayer, TexturedModelDataProvider>() {
+object ModEntityModelLayers : MapInitializer<EntityModelLayer, TexturedModelDataProvider>() {
 
     init {
-        this["dragon_scale_chestplate_winged"] = { ElytraEntityModel.getTexturedModelData() }
+        this[ModItems.WINGED_DRAGON_SCALE_CHESTPLATE.id] = { ElytraEntityModel.getTexturedModelData() }
+        this[ModItems.ENDERITE_TRIDENT.id] = { TridentEntityModel.getTexturedModelData() }
     }
 
     operator fun set(name: String, provider: TexturedModelDataProvider) = put(EntityModelLayer(VanillaCubed.id(name), name), provider)
+
+    operator fun set(id: Identifier, provider: TexturedModelDataProvider) = put(EntityModelLayer(id, id.path), provider)
 
     /**
      * Registers all model layers.

@@ -3,6 +3,7 @@ package net.devoev.vanilla_cubed.item
 import net.devoev.vanilla_cubed.block.ModBlocks
 import net.devoev.vanilla_cubed.item.armor.ModArmor
 import net.devoev.vanilla_cubed.item.tool.ModTools
+import net.devoev.vanilla_cubed.item.trident.EnderiteTrident
 import net.devoev.vanilla_cubed.util.RegistryManager
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
@@ -62,6 +63,7 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
     val ENDERITE_PICKAXE = create("enderite_pickaxe", ModTools.ENDERITE.pickaxe)
     val ENDERITE_AXE = create("enderite_axe", ModTools.ENDERITE.axe)
     val ENDERITE_HOE = create("enderite_hoe", ModTools.ENDERITE.hoe)
+    val ENDERITE_TRIDENT = create("enderite_trident", EnderiteTrident)
 
     val ENDERITE_HELMET = create("enderite_helmet", ModArmor.ENDERITE.helmet)
     val ENDERITE_CHESTPLATE = create("enderite_chestplate", ModArmor.ENDERITE.chestplate)
