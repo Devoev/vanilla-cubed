@@ -40,7 +40,7 @@ public abstract class EnchantmentScreenHandlerMixin extends ScreenHandler {
         if (!stack.isOf(ModItems.INSTANCE.getGILDED_BOOK())) return;
 
         ItemStack res = new ItemStack(Items.ENCHANTED_BOOK);
-        ItemStackKt.setGilded(res);
+        ItemStackKt.setGilded(res, true);
         if (stack.hasCustomName())
             res.setCustomName(stack.getName());
 

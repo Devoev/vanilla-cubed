@@ -1,7 +1,6 @@
 package net.devoev.vanilla_cubed.item
 
 import net.devoev.vanilla_cubed.entity.falling
-import net.devoev.vanilla_cubed.item.tool.NETHERITE_DEMAGNETIZED_KEY
 import net.devoev.vanilla_cubed.util.math.toVec3d
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions
 import net.minecraft.entity.Entity

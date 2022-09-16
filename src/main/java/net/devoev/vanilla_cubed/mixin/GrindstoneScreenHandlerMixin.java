@@ -18,7 +18,7 @@ public class GrindstoneScreenHandlerMixin {
     @Inject(method = "grind", at = @At("RETURN"), cancellable = true)
     private void grindGildedBooks(ItemStack item, int damage, int amount, CallbackInfoReturnable<ItemStack> info) {
         ItemStack stack = info.getReturnValue();
-        if (!ItemStackKt.isGilded(item)) return;
+        if (!ItemStackKt.getGilded(item)) return;
 
         ItemStack res = new ItemStack(ModItems.INSTANCE.getGILDED_BOOK(), stack.getCount());
         res.setNbt(stack.getNbt());
