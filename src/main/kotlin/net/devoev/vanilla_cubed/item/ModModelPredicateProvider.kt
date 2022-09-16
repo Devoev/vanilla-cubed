@@ -12,8 +12,8 @@ import net.minecraft.util.Identifier
 object ModModelPredicateProvider : ListInitializer<ModelPredicate>() {
 
     init {
-        create(ModItems.AMETHYST_COMPASS, "angle", AmethystCompass.anglePredicateProvider)
-        create(ModItems.AMETHYST_COMPASS, "charged", AmethystCompass.chargedPredicateProvider)
+        create(ModItems.AMETHYST_COMPASS, "angle", AmethystCompass.ANGLE_PREDICATE_PROVIDER)
+        create(ModItems.AMETHYST_COMPASS, "charged", AmethystCompass.CHARGED_PREDICATE_PROVIDER)
         create(Items.ENCHANTED_BOOK, "gilded") { stack,_,_,_ -> stack.gilded.toFloat() }
         create(ModItems.ENDERITE_TRIDENT, "throwing", EnderiteTrident.THROWING_PREDICATE_PROVIDER)
     }
