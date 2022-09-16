@@ -4,6 +4,7 @@ import net.devoev.vanilla_cubed.block.ModBlocks
 import net.devoev.vanilla_cubed.client.render.entity.ModEntityRenderer
 import net.devoev.vanilla_cubed.client.render.entity.feature.ModLivingEntityFeatureRenderer
 import net.devoev.vanilla_cubed.client.render.entity.model.ModEntityModelLayers
+import net.devoev.vanilla_cubed.enchantment.ModEnchantments
 import net.devoev.vanilla_cubed.entity.ModEntityTypes
 import net.devoev.vanilla_cubed.item.ModItems
 import net.devoev.vanilla_cubed.item.ModModelPredicateProvider
@@ -22,6 +23,7 @@ object VanillaCubed : ModInitializer {
     override fun onInitialize() {
         ModItems.init()
         ModBlocks.init()
+        ModEnchantments.init()
         ModLootTables.init()
         ModConfiguredFeatures.init()
         ModPlacedFeatures.init()
