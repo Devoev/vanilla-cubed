@@ -18,7 +18,7 @@ import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.entity.EquipmentSlot
 import net.minecraft.entity.LivingEntity
 
-@Environment(value = EnvType.CLIENT)
+@Environment(EnvType.CLIENT)
 class WingedDragonChestplateFeatureRenderer<T : LivingEntity, M : EntityModel<T>>(
     context: FeatureRendererContext<T, M>, loader: EntityModelLoader) : FeatureRenderer<T, M>(context) {
 

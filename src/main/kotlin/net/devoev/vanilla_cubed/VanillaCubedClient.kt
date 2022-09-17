@@ -1,9 +1,11 @@
 package net.devoev.vanilla_cubed
 
 import net.devoev.vanilla_cubed.client.render.entity.ModEntityRenderer
+import net.devoev.vanilla_cubed.client.render.entity.feature.ModLivingEntityFeatureRenderer
 import net.devoev.vanilla_cubed.client.render.entity.model.ModEntityModelLayers
 import net.devoev.vanilla_cubed.client.render.entity.model.ModModelProviders
 import net.devoev.vanilla_cubed.client.render.item.ModItemRenderer
+import net.devoev.vanilla_cubed.item.ModModelPredicateProvider
 import net.devoev.vanilla_cubed.resource.ModResourceReloadListeners
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.api.EnvType
@@ -18,5 +20,7 @@ object VanillaCubedClient : ClientModInitializer {
         ModItemRenderer.init()
         ModEntityRenderer.init()
         ModModelProviders.init()
+        ModModelPredicateProvider.init()
+        ModLivingEntityFeatureRenderer.init()
     }
 }

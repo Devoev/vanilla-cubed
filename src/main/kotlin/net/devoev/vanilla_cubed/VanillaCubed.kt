@@ -29,8 +29,6 @@ object VanillaCubed : ModInitializer {
         ModPlacedFeatures.init()
         ModWorldGeneration.init()
         ModEntityTypes.init()
-        ModLivingEntityFeatureRenderer.init()
-        ModModelPredicateProvider.init()
     }
 
     /**
