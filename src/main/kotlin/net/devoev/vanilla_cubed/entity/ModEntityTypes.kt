@@ -1,7 +1,7 @@
 package net.devoev.vanilla_cubed.entity
 
 import net.devoev.vanilla_cubed.entity.projectile.EnderiteTridentEntity
-import net.devoev.vanilla_cubed.item.trident.EnderiteTrident
+import net.devoev.vanilla_cubed.entity.projectile.ModTridentEntity
 import net.devoev.vanilla_cubed.util.RegistryManager
 import net.fabricmc.fabric.api.`object`.builder.v1.entity.FabricEntityTypeBuilder
 import net.minecraft.entity.Entity

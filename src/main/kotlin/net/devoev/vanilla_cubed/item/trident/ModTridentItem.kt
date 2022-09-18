@@ -1,7 +1,5 @@
 package net.devoev.vanilla_cubed.item.trident
 
-import net.devoev.vanilla_cubed.entity.ModEntityTypes
-import net.devoev.vanilla_cubed.entity.projectile.EnderiteTridentEntity
 import net.devoev.vanilla_cubed.item.ModItemGroup
 import net.devoev.vanilla_cubed.util.math.toFloat
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
@@ -11,6 +9,7 @@ import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.MovementType
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.projectile.PersistentProjectileEntity
+import net.minecraft.entity.projectile.TridentEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.item.TridentItem
 import net.minecraft.sound.SoundCategory
@@ -23,15 +22,14 @@ import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
 
-object EnderiteTrident : TridentItem(FabricItemSettings().group(ModItemGroup.VANILLA_CUBED).maxDamage(1000)) {
+/**
+ * A custom [TridentItem].
+ * @param entityProvider A function that creates the corresponding [TridentEntity].
+ */
+class ModTridentItem(private val entityProvider: (World, LivingEntity, ItemStack) -> TridentEntity)
+    : TridentItem(FabricItemSettings().group(ModItemGroup.VANILLA_CUBED).maxDamage(1000)) {
 
-    val THROWING_PREDICATE_PROVIDER = UnclampedModelPredicateProvider { stack, _, entity, _ ->
-        (entity != null && entity.isUsingItem && entity.activeItem == stack).toFloat()
-    }
-
-    override fun getUseAction(stack: ItemStack?): UseAction {
-        return UseAction.SPEAR
-    }
+    override fun getUseAction(stack: ItemStack?): UseAction = UseAction.SPEAR
 
     override fun onStoppedUsing(stack: ItemStack?, world: World?, user: LivingEntity?, remainingUseTicks: Int) {
         if (stack == null || world == null || user !is PlayerEntity) return
@@ -43,9 +41,8 @@ object EnderiteTrident : TridentItem(FabricItemSettings().group(ModItemGroup.VAN
         if (!world.isClient) {
             stack.damage(1, user) { it.sendToolBreakStatus(user.activeHand) }
             if (j == 0) {
-                val tridentEntity = EnderiteTridentEntity(world, user, stack, ModEntityTypes.ENDERITE_TRIDENT)
-                //val tridentEntity = TridentEntity(world, user, stack)
-                tridentEntity.setVelocity(user, user.pitch, user.yaw, 0f, 2f + j * 0.5f, 1f)
+                val tridentEntity = entityProvider(world, user, stack)
+                tridentEntity.setVelocity(user, user.pitch, user.yaw, 0f, 2f, 1f)
                 if (user.abilities.creativeMode)
                     tridentEntity.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY
 
@@ -97,6 +94,12 @@ object EnderiteTrident : TridentItem(FabricItemSettings().group(ModItemGroup.VAN
                 1.0f,
                 1.0f
             )
+        }
+    }
+
+    companion object {
+        val THROWING_PREDICATE_PROVIDER = UnclampedModelPredicateProvider { stack, _, entity, _ ->
+            (entity != null && entity.isUsingItem && entity.activeItem == stack).toFloat()
         }
     }
 }

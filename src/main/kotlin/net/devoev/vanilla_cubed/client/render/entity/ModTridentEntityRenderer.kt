@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.client.render.entity
 
-import net.devoev.vanilla_cubed.entity.projectile.EnderiteTridentEntity
+import net.devoev.vanilla_cubed.entity.projectile.ModTridentEntity
 import net.devoev.vanilla_cubed.item.ModItems
 import net.devoev.vanilla_cubed.util.id
 import net.devoev.vanilla_cubed.util.texture
@@ -16,14 +16,14 @@ import net.minecraft.util.Identifier
 import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.Vec3f
 
-class EnderiteTridentEntityRenderer(ctx: EntityRendererFactory.Context) : EntityRenderer<EnderiteTridentEntity>(ctx) {
+class ModTridentEntityRenderer(ctx: EntityRendererFactory.Context) : EntityRenderer<ModTridentEntity>(ctx) {
 
     private val model = TridentEntityModel(ctx.getPart(EntityModelLayers.TRIDENT))
 
-    override fun getTexture(entity: EnderiteTridentEntity): Identifier = TEXTURE
+    override fun getTexture(entity: ModTridentEntity): Identifier = entity.texture
 
     override fun render(
-        entity: EnderiteTridentEntity,
+        entity: ModTridentEntity,
         yaw: Float,
         tickDelta: Float,
         matrices: MatrixStack,
