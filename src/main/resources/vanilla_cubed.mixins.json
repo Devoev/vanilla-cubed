@@ -14,7 +14,8 @@
     "EnderDragonEntityMixin",
     "EnchantmentScreenHandlerMixin",
     "GrindstoneScreenHandlerMixin",
-    "TridentEntityMixin"
+    "TridentEntityMixin",
+    "TridentEntityAccessor"
   ],
   "client": [],
   "injectors": {

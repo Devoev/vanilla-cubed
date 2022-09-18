@@ -1,7 +1,7 @@
 package net.devoev.vanilla_cubed.client.render.entity
 
+import net.devoev.vanilla_cubed.entity.projectile.EnderiteTridentEntity
 import net.devoev.vanilla_cubed.item.ModItems
-import net.devoev.vanilla_cubed.item.trident.EnderiteTridentEntity
 import net.devoev.vanilla_cubed.util.id
 import net.devoev.vanilla_cubed.util.texture
 import net.minecraft.client.render.OverlayTexture

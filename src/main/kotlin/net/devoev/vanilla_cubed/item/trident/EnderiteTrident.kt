@@ -3,17 +3,14 @@ package net.devoev.vanilla_cubed.item.trident
 import net.devoev.vanilla_cubed.entity.ModEntityTypes
 import net.devoev.vanilla_cubed.entity.projectile.EnderiteTridentEntity
 import net.devoev.vanilla_cubed.item.ModItemGroup
-import net.devoev.vanilla_cubed.item.toSettings
 import net.devoev.vanilla_cubed.util.math.toFloat
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.client.item.UnclampedModelPredicateProvider
 import net.minecraft.enchantment.EnchantmentHelper
-import net.minecraft.entity.EntityType
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.MovementType
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.projectile.PersistentProjectileEntity
-import net.minecraft.entity.projectile.TridentEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.item.TridentItem
 import net.minecraft.sound.SoundCategory
@@ -46,7 +43,7 @@ object EnderiteTrident : TridentItem(FabricItemSettings().group(ModItemGroup.VAN
         if (!world.isClient) {
             stack.damage(1, user) { it.sendToolBreakStatus(user.activeHand) }
             if (j == 0) {
-                val tridentEntity = EnderiteTridentEntity(world, user, stack)
+                val tridentEntity = EnderiteTridentEntity(world, user, stack, ModEntityTypes.ENDERITE_TRIDENT)
                 //val tridentEntity = TridentEntity(world, user, stack)
                 tridentEntity.setVelocity(user, user.pitch, user.yaw, 0f, 2f + j * 0.5f, 1f)
                 if (user.abilities.creativeMode)
