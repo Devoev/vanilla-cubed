@@ -31,23 +31,29 @@ class TridentItemRenderer(private val itemId: Identifier, private val texture: I
     private lateinit var tridentEntityModel: TridentEntityModel
     private lateinit var tridentItemModel: BakedModel
 
+    /**
+     * Whether the lateinit vars are initialized.
+     */
+    private val initialized get() = this::itemRenderer.isInitialized
+            && this::tridentEntityModel.isInitialized
+            && this::tridentItemModel.isInitialized
+
     override fun getFabricId(): Identifier = id
 
     override fun getFabricDependencies(): Collection<Identifier> = listOf(ResourceReloadListenerKeys.MODELS)
 
-    override fun reload(manager: ResourceManager?) {
-        val mc: MinecraftClient = MinecraftClient.getInstance()
-        itemRenderer = mc.itemRenderer
-        tridentEntityModel = TridentEntityModel(mc.entityModelLoader.getModelPart(modelLayer))
-        tridentItemModel = mc.bakedModelManager.getModel(
-            ModelIdentifier(itemId.toString() + "_in_inventory", "inventory")
-        )
-        itemRendererGl = mc.itemRenderer
-        tridentEntityModelGl = TridentEntityModel(mc.entityModelLoader.getModelPart(modelLayer))
-        tridentItemModelGl = mc.bakedModelManager.getModel(
+    fun init() {
+        if (initialized) return
+
+        val client: MinecraftClient = MinecraftClient.getInstance()
+        itemRenderer = client.itemRenderer
+        tridentEntityModel = TridentEntityModel(client.entityModelLoader.getModelPart(modelLayer))
+        tridentItemModel = client.bakedModelManager.getModel(
             ModelIdentifier(itemId.toString() + "_in_inventory", "inventory")
         )
     }
+
+    override fun reload(manager: ResourceManager?) = init()
 
     override fun render(
         stack: ItemStack,
@@ -57,34 +63,25 @@ class TridentItemRenderer(private val itemId: Identifier, private val texture: I
         light: Int,
         overlay: Int
     ) {
-        //assert(tridentEntityModel != null)
-        assert(tridentEntityModelGl != null)
-        //if (!this::tridentEntityModel.isInitialized) return
-        //if (tridentEntityModel == null) return
+        init()
 
         if (renderMode == ModelTransformation.Mode.GUI || renderMode == ModelTransformation.Mode.GROUND || renderMode == ModelTransformation.Mode.FIXED) {
-            println("Item branch!!!!!!!!!!!!!!!!")
             matrices.pop()
             matrices.push()
-            itemRendererGl?.renderItem(
+            itemRenderer.renderItem(
                 stack, renderMode, false, matrices, vertexConsumers, light, overlay,
-                tridentItemModelGl
+                tridentItemModel
             )
         } else {
-            println("Entity branch!!!!!!!!!!!!!!!!")
             matrices.push()
             matrices.scale(1.0f, -1.0f, -1.0f)
             val vertexConsumer = ItemRenderer.getDirectItemGlintConsumer(
-                vertexConsumers, tridentEntityModelGl?.getLayer(
+                vertexConsumers, tridentEntityModel.getLayer(
                     texture
                 ), false, stack.hasGlint()
             )
-            tridentEntityModelGl?.render(matrices, vertexConsumer, light, overlay, 1.0f, 1.0f, 1.0f, 1.0f)
+            tridentEntityModel.render(matrices, vertexConsumer, light, overlay, 1.0f, 1.0f, 1.0f, 1.0f)
             matrices.pop()
         }
     }
 }
-
-var itemRendererGl: ItemRenderer? = null
-var tridentEntityModelGl: TridentEntityModel? = null
-var tridentItemModelGl: BakedModel? = null
