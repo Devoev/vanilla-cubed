@@ -1,6 +1,9 @@
 package net.devoev.vanilla_cubed.entity.projectile
 
+import net.devoev.vanilla_cubed.entity.entityTexture
 import net.devoev.vanilla_cubed.mixin.TridentEntityAccessor
+import net.devoev.vanilla_cubed.util.id
+import net.devoev.vanilla_cubed.util.entityTexture
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.LivingEntity
@@ -13,15 +16,17 @@ import net.minecraft.world.World
  * A custom [TridentEntity].
  */
 open class ModTridentEntity(entityType: EntityType<out TridentEntity>,
-                            world: World,
-                            val texture: Identifier) : TridentEntity(entityType, world) {
+                            world: World) : TridentEntity(entityType, world) {
 
     private var tridentStack: ItemStack
         get() = (this as TridentEntityAccessor).tridentStack
         set(value) { (this as TridentEntityAccessor).tridentStack = value }
 
-    constructor(world: World, owner: LivingEntity, stack: ItemStack, entityType: EntityType<out TridentEntity>, texture: Identifier)
-            : this(entityType, world, texture) {
+    val texture: Identifier
+        get() = type.entityTexture
+
+    constructor(world: World, owner: LivingEntity, stack: ItemStack, entityType: EntityType<out TridentEntity>)
+            : this(entityType, world) {
         this.owner = owner
         tridentStack = stack.copy()
         setPosition(owner.eyePos)

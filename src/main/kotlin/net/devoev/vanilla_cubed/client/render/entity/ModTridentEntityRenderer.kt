@@ -3,7 +3,7 @@ package net.devoev.vanilla_cubed.client.render.entity
 import net.devoev.vanilla_cubed.entity.projectile.ModTridentEntity
 import net.devoev.vanilla_cubed.item.ModItems
 import net.devoev.vanilla_cubed.util.id
-import net.devoev.vanilla_cubed.util.texture
+import net.devoev.vanilla_cubed.util.entityTexture
 import net.minecraft.client.render.OverlayTexture
 import net.minecraft.client.render.VertexConsumerProvider
 import net.minecraft.client.render.entity.EntityRenderer
@@ -48,6 +48,6 @@ class ModTridentEntityRenderer(ctx: EntityRendererFactory.Context) : EntityRende
     }
 
     companion object {
-        val TEXTURE = ModItems.ENDERITE_TRIDENT.id.texture
+        val TEXTURE = ModItems.ENDERITE_TRIDENT.id.entityTexture
     }
 }

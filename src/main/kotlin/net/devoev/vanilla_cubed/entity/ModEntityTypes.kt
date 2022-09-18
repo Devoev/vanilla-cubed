@@ -1,6 +1,5 @@
 package net.devoev.vanilla_cubed.entity
 
-import net.devoev.vanilla_cubed.entity.projectile.EnderiteTridentEntity
 import net.devoev.vanilla_cubed.entity.projectile.ModTridentEntity
 import net.devoev.vanilla_cubed.util.RegistryManager
 import net.fabricmc.fabric.api.`object`.builder.v1.entity.FabricEntityTypeBuilder
@@ -12,7 +11,7 @@ import net.minecraft.util.registry.Registry
 
 object ModEntityTypes : RegistryManager<EntityType<out Entity>>(Registry.ENTITY_TYPE) {
 
-    val ENDERITE_TRIDENT = create("enderite_trident", ::EnderiteTridentEntity)
+    val ENDERITE_TRIDENT = create("enderite_trident", ::ModTridentEntity)
 
     fun <T : Entity> create(name: String, factory: EntityFactory<T>)
         = create(name, entityTypeFrom(factory))
