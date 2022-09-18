@@ -5,7 +5,7 @@ import net.devoev.vanilla_cubed.world.gen.ModWorldGeneration
 /**
  * An initializer object for initializing objects of type [T].
  */
-abstract class ListInitializer<T> : MutableList<T> by mutableListOf<T>() {
+abstract class ListInitializer<T> : MutableList<T> by mutableListOf() {
 
     /**
      * Initializes all stored entries.
