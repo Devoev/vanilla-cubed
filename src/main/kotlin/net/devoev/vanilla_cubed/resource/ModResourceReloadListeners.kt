@@ -6,6 +6,7 @@ import net.devoev.vanilla_cubed.item.ModItems
 import net.devoev.vanilla_cubed.util.ListInitializer
 import net.devoev.vanilla_cubed.util.MapInitializer
 import net.devoev.vanilla_cubed.util.id
+import net.devoev.vanilla_cubed.util.texture
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper
 import net.fabricmc.fabric.impl.resource.loader.ResourceManagerHelperImpl
@@ -14,14 +15,7 @@ import net.minecraft.util.Identifier
 
 object ModResourceReloadListeners : ListInitializer<IdentifiableResourceReloadListener>() {
 
-    init {
-//        val tridentId: Identifier = ModItems.ENDERITE_TRIDENT.id
-//        val texture = Identifier(tridentId.namespace, "textures/entity/" + tridentId.path + ".png")
-        val id = Identifier(VanillaCubed.MOD_ID, "enderite_trident")
-        val texture = Identifier(VanillaCubed.MOD_ID, "textures/entity/enderite_trident.png")
-        val renderer = TridentItemRenderer(id, texture)
-        create(renderer)
-    }
+    val ENDERITE_TRIDENT = create(TridentItemRenderer(ModItems.ENDERITE_TRIDENT.id, ModItems.ENDERITE_TRIDENT.id.texture))
 
     override fun init() = forEach { ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(it) }
 }

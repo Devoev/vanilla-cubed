@@ -17,7 +17,7 @@ import net.minecraft.entity.EntityType
 object ModEntityRenderer : MapInitializer<EntityType<out Entity>, EntityRendererFactory<Entity>>() {
 
     init {
-        this[ModEntityTypes.ENDERITE_TRIDENT] = ::TridentEntityRenderer
+        this[ModEntityTypes.ENDERITE_TRIDENT] = ::EnderiteTridentEntityRenderer
     }
 
     operator fun <T : Entity> set(type: EntityType<out T>, rendererProvider: (Context) -> EntityRenderer<T>)

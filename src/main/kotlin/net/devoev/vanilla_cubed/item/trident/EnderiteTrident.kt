@@ -1,6 +1,7 @@
 package net.devoev.vanilla_cubed.item.trident
 
 import net.devoev.vanilla_cubed.entity.ModEntityTypes
+import net.devoev.vanilla_cubed.entity.projectile.EnderiteTridentEntity
 import net.devoev.vanilla_cubed.item.ModItemGroup
 import net.devoev.vanilla_cubed.item.toSettings
 import net.devoev.vanilla_cubed.util.math.toFloat
@@ -45,8 +46,8 @@ object EnderiteTrident : TridentItem(FabricItemSettings().group(ModItemGroup.VAN
         if (!world.isClient) {
             stack.damage(1, user) { it.sendToolBreakStatus(user.activeHand) }
             if (j == 0) {
-                //val tridentEntity = EnderiteTridentEntity(world, user, stack)
-                val tridentEntity = TridentEntity(world, user, stack)
+                val tridentEntity = EnderiteTridentEntity(world, user, stack)
+                //val tridentEntity = TridentEntity(world, user, stack)
                 tridentEntity.setVelocity(user, user.pitch, user.yaw, 0f, 2f + j * 0.5f, 1f)
                 if (user.abilities.creativeMode)
                     tridentEntity.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY
@@ -101,9 +102,4 @@ object EnderiteTrident : TridentItem(FabricItemSettings().group(ModItemGroup.VAN
             )
         }
     }
-}
-
-class EnderiteTridentEntity(entityType: EntityType<out TridentEntity>, world: World) : TridentEntity(entityType, world) {
-
-    constructor(world: World, owner: LivingEntity, stack: ItemStack) : this(ModEntityTypes.ENDERITE_TRIDENT, world)
 }

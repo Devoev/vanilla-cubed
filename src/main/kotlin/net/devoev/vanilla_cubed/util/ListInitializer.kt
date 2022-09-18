@@ -12,7 +12,7 @@ abstract class ListInitializer<T> : MutableList<T> by mutableListOf() {
      */
     abstract fun init()
 
-    protected fun create(value: T): T {
+    protected fun <E : T> create(value: E): E {
         add(value)
         return value
     }

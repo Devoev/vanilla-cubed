@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry.D
 import net.fabricmc.fabric.api.resource.ResourceReloadListenerKeys
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener
 import net.minecraft.client.MinecraftClient
+import net.minecraft.client.model.Model
 import net.minecraft.client.render.VertexConsumerProvider
 import net.minecraft.client.render.entity.model.EntityModelLayer
 import net.minecraft.client.render.entity.model.EntityModelLayers
@@ -28,7 +29,7 @@ class TridentItemRenderer(private val itemId: Identifier, private val texture: I
     private val modelLayer: EntityModelLayer = EntityModelLayers.TRIDENT
 
     private lateinit var itemRenderer: ItemRenderer
-    private lateinit var tridentEntityModel: TridentEntityModel
+    private lateinit var tridentEntityModel: Model
     private lateinit var tridentItemModel: BakedModel
 
     /**

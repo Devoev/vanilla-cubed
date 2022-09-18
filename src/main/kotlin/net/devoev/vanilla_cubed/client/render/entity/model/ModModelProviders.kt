@@ -12,8 +12,9 @@ import net.minecraft.util.Identifier
 object ModModelProviders : ListInitializer<ExtraModelProvider>() {
 
     init {
-        val tridentId: Identifier = ModItems.ENDERITE_TRIDENT.id
-        create(ExtraModelProvider { _, out -> out.accept(ModelIdentifier(tridentId.toString() + "_in_inventory", "inventory")) })
+        create(ExtraModelProvider { _, out -> out.accept(
+            ModelIdentifier(ModItems.ENDERITE_TRIDENT.id.toString() + "_in_inventory", "inventory")
+        ) })
     }
 
     override fun init() = forEach { ModelLoadingRegistry.INSTANCE.registerModelProvider(it) }
