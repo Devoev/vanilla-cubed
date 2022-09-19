@@ -60,7 +60,7 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
     val ENDERITE_BLOCK = create("enderite_block", BlockItem(ModBlocks.ENDERITE_BLOCK, ModItemGroup.VANILLA_CUBED.toSettings()))
     val ENDERITE_SHARD = create("enderite_shard", Item(ModItemGroup.VANILLA_CUBED.toSettings()))
     val ENDERITE_INGOT = create("enderite_ingot", Item(ModItemGroup.VANILLA_CUBED.toSettings()))
-    val ENDERITE_POWDER = create("enderite_powder", EnderitePowder)
+    val ENDERITE_POWDER = create("enderite_powder", EnderitePowder())
 
     val ENDERITE_SWORD = create("enderite_sword", ModTools.ENDERITE.sword)
     val ENDERITE_SHOVEL = create("enderite_shovel", ModTools.ENDERITE.shovel)
@@ -75,7 +75,7 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
     val ENDERITE_BOOTS = create("enderite_boots", ModArmor.ENDERITE.boots)
 
     //Dragon Scale
-    val DRAGON_SCALE = create("dragon_scale", DragonScale)
+    val DRAGON_SCALE = create("dragon_scale", DragonScale())
     val INFUSED_DRAGON_SCALE = create("dragon_scale_infused", Item(ModItemGroup.VANILLA_CUBED.toSettings()))
 
     val DRAGON_SCALE_SWORD = create("dragon_scale_sword", ModTools.DRAGON_SCALE.sword)

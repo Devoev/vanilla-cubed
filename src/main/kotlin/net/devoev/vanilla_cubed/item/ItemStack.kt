@@ -1,16 +1,14 @@
 package net.devoev.vanilla_cubed.item
 
 import net.devoev.vanilla_cubed.util.isNetherite
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.GlobalPos
 
 /**
  * The key for the NBT data, that indices whether an [Items.ENCHANTED_BOOK] is gilded.
  */
-const val ENCHANTED_BOOK_GILDED_KEY = "gilded"
+private const val ENCHANTED_BOOK_GILDED_KEY = "gilded"
 
 /**
  * Whether this [Items.ENCHANTED_BOOK] item is gilded. Value stored in the [ENCHANTED_BOOK_GILDED_KEY] nbt tag.
@@ -27,7 +25,7 @@ var ItemStack.gilded: Boolean
 /**
  * The key for the NBT data, that indices whether a netherite tool is demagnetized.
  */
-const val NETHERITE_DEMAGNETIZED_KEY = "demagnetized"
+private const val NETHERITE_DEMAGNETIZED_KEY = "demagnetized"
 
 /**
  * Whether this netherite item is magnetic. Value stored in the [NETHERITE_DEMAGNETIZED_KEY] nbt tag.
@@ -55,7 +53,7 @@ val ItemStack.charged: Boolean get() {
 /**
  * The key for the NBT data, that stores the coordinates of the target position.
  */
-const val TARGET_POS_KEY = "target_pos"
+private const val AMETHYST_COMPASS_TARGET_POS_KEY = "target_pos"
 
 /**
  * The targeted position of this [ModItems.AMETHYST_COMPASS].
@@ -64,12 +62,33 @@ var ItemStack.targetPos: BlockPos?
 
     get() {
         if (item !is AmethystCompass) error("$item must be of type $AmethystCompass")
-        val list = nbt?.getIntArray(TARGET_POS_KEY) ?: return null
+        val list = nbt?.getIntArray(AMETHYST_COMPASS_TARGET_POS_KEY) ?: return null
         if (list.size != 3) return null
         return BlockPos(list[0],list[1],list[2])
     }
 
     set(value) {
         if (item !is AmethystCompass) error("$item must be of type $AmethystCompass")
-        nbt?.putIntArray(TARGET_POS_KEY, if (value != null) listOf(value.x, value.y, value.z) else null)
+        nbt?.putIntArray(AMETHYST_COMPASS_TARGET_POS_KEY, if (value != null) listOf(value.x, value.y, value.z) else null)
+    }
+
+/**
+ * The key for the NBT data, that indicates how many ticks have passed since the powder has been used.
+ */
+private const val ENDERITE_POWDER_TICK_KEY = "enderite_powder_ticks"
+
+/**
+ * The remaining ticks until the teleportation can be performed.
+ * Value stored in the [ENDERITE_POWDER_TICK_KEY] nbt tag.
+ */
+var ItemStack.teleportTicks: Int
+
+    get() {
+        if (item !is EnderitePowder) error("$item must be of type $EnderitePowder")
+        return nbt?.getInt(ENDERITE_POWDER_TICK_KEY) ?: 0
+    }
+
+    set(value) {
+        if (item !is EnderitePowder) error("$item must be of type $EnderitePowder")
+        orCreateNbt.putInt(ENDERITE_POWDER_TICK_KEY, value)
     }

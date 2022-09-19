@@ -21,17 +21,7 @@ import net.minecraft.world.TeleportTarget
 import net.minecraft.world.World
 import kotlin.jvm.optionals.getOrNull
 
-object EnderitePowder : Item(ModItemGroup.VANILLA_CUBED.toSettings()) {
-
-    /**
-     * The key for the NBT data, that indicates how many ticks have passed since the powder has been used.
-     */
-    private const val ENDERITE_POWDER_TICK_KEY = "enderite_powder_ticks"
-
-    /**
-     * The time in ticks the teleportation needs.
-     */
-    private const val TICK_DURATION = 50
+class EnderitePowder : Item(ModItemGroup.VANILLA_CUBED.toSettings()) {
 
     override fun use(world: World?, user: PlayerEntity?, hand: Hand?): TypedActionResult<ItemStack> {
         val stack = user?.getStackInHand(hand)
@@ -63,22 +53,6 @@ object EnderitePowder : Item(ModItemGroup.VANILLA_CUBED.toSettings()) {
     }
 
     /**
-     * The remaining ticks until the teleportation can be performed.
-     * Value stored in the [ENDERITE_POWDER_TICK_KEY] nbt tag.
-     */
-    private var ItemStack.teleportTicks: Int
-
-        get() {
-            if (item !is EnderitePowder) error("$item must be of type $EnderitePowder")
-            return nbt?.getInt(ENDERITE_POWDER_TICK_KEY) ?: 0
-        }
-
-        set(value) {
-            if (item !is EnderitePowder) error("$item must be of type $EnderitePowder")
-            orCreateNbt.putInt(ENDERITE_POWDER_TICK_KEY, value)
-        }
-
-    /**
      * Reduces the teleporting ticks by 1, if the value is greater than 0.
      */
     private fun tickTeleport(stack: ItemStack) {
@@ -99,7 +73,7 @@ object EnderitePowder : Item(ModItemGroup.VANILLA_CUBED.toSettings()) {
     }
 
     private fun doTeleport(stack: ItemStack, user: ServerPlayerEntity, world: ServerWorld) {
-        stack.decrement(1)
+        if (!user.isCreative) stack.decrement(1)
         FabricDimensions.teleport(user, world.server.overworld, teleportTarget(user, world))
         world.playSound(null,
             user.blockPos,
@@ -121,5 +95,13 @@ object EnderitePowder : Item(ModItemGroup.VANILLA_CUBED.toSettings()) {
             10f,
             -3f
         )
+    }
+
+    companion object {
+
+        /**
+         * The time in ticks the teleportation needs.
+         */
+        private const val TICK_DURATION = 50
     }
 }

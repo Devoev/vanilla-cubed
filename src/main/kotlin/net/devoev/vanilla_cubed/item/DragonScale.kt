@@ -14,7 +14,7 @@ import net.minecraft.util.TypedActionResult
 import net.minecraft.world.World
 import net.minecraft.world.event.GameEvent
 
-object DragonScale : Item(ModItemGroup.VANILLA_CUBED.toSettings()) {
+class DragonScale : Item(ModItemGroup.VANILLA_CUBED.toSettings()) {
 
     /**
      * A dragon scale can be infused when right-clicked on a dragon breath.
