@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.enchantment.ForceEnchantment;
+import net.devoev.vanilla_cubed.enchantment.HurlingEnchantment;
 import net.minecraft.entity.projectile.TridentEntity;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,6 +19,6 @@ public class TridentEntityMixin {
      */
     @ModifyVariable(method = "onEntityHit", at = @At(value = "STORE"), ordinal = 0)
     private float applyForceEnchantment(float f) {
-        return f + ForceEnchantment.INSTANCE.damage(tridentStack);
+        return f + HurlingEnchantment.INSTANCE.damage(tridentStack);
     }
 }

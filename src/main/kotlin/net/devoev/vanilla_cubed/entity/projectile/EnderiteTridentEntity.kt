@@ -14,12 +14,11 @@ import net.minecraft.world.World
 class EnderiteTridentEntity(world: World, owner: LivingEntity, stack: ItemStack)
     : ModTridentEntity(world, owner, stack, ModEntityTypes.ENDERITE_TRIDENT) {
 
-    private val range: Number = 10
-
     override fun tick() {
         super.tick()
         if (isOnGround || targetHit) return
 
+        val range = 10
         val interpolationFactor = 0.3
         val min = 0.7
 

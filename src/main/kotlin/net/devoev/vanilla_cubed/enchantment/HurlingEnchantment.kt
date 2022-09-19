@@ -10,7 +10,7 @@ import net.minecraft.item.TridentItem
 /**
  * An [Enchantment] that increases the damage of thrown [tridents][TridentItem].
  */
-object ForceEnchantment : Enchantment(Rarity.UNCOMMON, EnchantmentTarget.TRIDENT, arrayOf(EquipmentSlot.MAINHAND)) {
+object HurlingEnchantment : Enchantment(Rarity.UNCOMMON, EnchantmentTarget.TRIDENT, arrayOf(EquipmentSlot.MAINHAND)) {
 
     override fun getMinPower(level: Int): Int = 5 + level * 7
 
