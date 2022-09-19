@@ -1,5 +1,7 @@
 package net.devoev.vanilla_cubed.item
 
+import net.devoev.vanilla_cubed.util.math.toFloat
+import net.devoev.vanilla_cubed.util.math.toGlobalPos
 import net.devoev.vanilla_cubed.world.gen.structure.StructureHelper
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.client.item.CompassAnglePredicateProvider
@@ -12,8 +14,6 @@ import net.minecraft.sound.SoundCategory
 import net.minecraft.sound.SoundEvents
 import net.minecraft.util.Hand
 import net.minecraft.util.TypedActionResult
-import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.GlobalPos
 import net.minecraft.util.registry.Registry
 import net.minecraft.util.registry.RegistryEntryList
 import net.minecraft.world.World
@@ -23,29 +23,14 @@ import net.minecraft.world.gen.structure.Structure
 /**
  * A compass, that searches for nearby [structures][Structure].
  */
-object AmethystCompass : Item(FabricItemSettings().maxDamage(25).group(ModItemGroup.VANILLA_CUBED)) {
-
-    /**
-     * The key for the NBT data, that stores the coordinates of the target position.
-     */
-    private const val TARGET_POS_KEY = "target_pos"
-
-    /**
-     * The predicate provider for this compasses angle.
-     */
-    val ANGLE_PREDICATE_PROVIDER = CompassAnglePredicateProvider { world, stack, _ -> targetPos(stack, world) }
-
-    /**
-     * The predicate provider for indicate, whether the compass is charged.
-     */
-    val CHARGED_PREDICATE_PROVIDER = UnclampedModelPredicateProvider { stack, _, _, _ -> if (stack.charged) 1f else 0f }
+class AmethystCompass : Item(FabricItemSettings().maxDamage(25).group(ModItemGroup.VANILLA_CUBED)) {
 
     override fun use(world: World?, user: PlayerEntity?, hand: Hand?): TypedActionResult<ItemStack> {
         val stack = user?.getStackInHand(hand)
 
         if (world !is ServerWorld || user == null || stack == null || !stack.charged) return TypedActionResult.pass(stack)
 
-        setTargetPos(world, user, stack)
+        generateTargetPos(world, user, stack)
         user.itemCooldownManager[this] = 100
         if (stack.charged) stack.damage(1, user) {}
         if (stack.charged) world.playSound(null, user.blockPos, SoundEvents.BLOCK_AMETHYST_BLOCK_FALL, SoundCategory.PLAYERS, 35f, 3f)
@@ -55,33 +40,28 @@ object AmethystCompass : Item(FabricItemSettings().maxDamage(25).group(ModItemGr
     }
 
     /**
-     * Sets the NBT data with key [TARGET_POS_KEY] for the given item.
+     * Generates a new target pos and sets the value of the given [stack].
      */
-    private fun setTargetPos(world: ServerWorld, user: PlayerEntity, stack: ItemStack) {
+    private fun generateTargetPos(world: ServerWorld, user: PlayerEntity, stack: ItemStack) {
         if (stack.item !is AmethystCompass) error("${stack.item} must be of type $AmethystCompass")
 
         val entries = StructureHelper.keys.map { world.registryManager.get(Registry.STRUCTURE_KEY).getEntry(it).get() }
         val list = RegistryEntryList.of(entries)
-        val pos = world.chunkManager.chunkGenerator.locateStructure(world, list, user.blockPos, 15, false)?.first
-
-        stack.nbt?.putIntArray(TARGET_POS_KEY, if (pos != null) listOf(pos.x, pos.y, pos.z) else null)
+        stack.targetPos = world.chunkManager.chunkGenerator.locateStructure(
+            world, list, user.blockPos, 15, false
+        )?.first
     }
 
-    /**
-     * Returns the targeted position of the given [stack].
-     */
-    private fun targetPos(stack: ItemStack, world: World): GlobalPos? {
-        if (stack.item !is AmethystCompass) error("${stack.item} must be of type $AmethystCompass")
-        val list = stack.nbt?.getIntArray(TARGET_POS_KEY) ?: return null
-        if (list.size != 3) return null
-        return GlobalPos.create(world.registryKey, BlockPos(list[0],list[1],list[2]))
-    }
+    companion object {
 
-    /**
-     * Whether this [ItemStack] is charged. A compass is charged, if it has at least 2 damege points left.
-     */
-    val ItemStack.charged: Boolean get() {
-        if (item !is AmethystCompass) error("$item must be of type $AmethystCompass")
-        return maxDamage - damage > 1
+        /**
+         * The predicate provider for this compasses angle.
+         */
+        val ANGLE_PREDICATE_PROVIDER = CompassAnglePredicateProvider { world, stack, _ -> stack.targetPos?.toGlobalPos(world) }
+
+        /**
+         * The predicate provider for indicate, whether the compass is charged.
+         */
+        val CHARGED_PREDICATE_PROVIDER = UnclampedModelPredicateProvider { stack, _, _, _ -> stack.charged.toFloat() }
     }
 }
