@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.entity.projectile
 
-import net.devoev.vanilla_cubed.entity.entityTexture
+import net.devoev.vanilla_cubed.entity.texture
 import net.devoev.vanilla_cubed.mixin.TridentEntityAccessor
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.EntityType
@@ -29,7 +29,7 @@ open class ModTridentEntity(entityType: EntityType<out TridentEntity>,
         set(value) { (this as TridentEntityAccessor).dealtDamage = value }
 
     val texture: Identifier
-        get() = type.entityTexture
+        get() = type.texture
 
     constructor(world: World, owner: LivingEntity, stack: ItemStack, entityType: EntityType<out TridentEntity>)
             : this(entityType, world) {

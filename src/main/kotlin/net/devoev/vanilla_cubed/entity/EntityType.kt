@@ -8,5 +8,5 @@ import net.minecraft.util.registry.Registry
 val EntityType<*>.id: Identifier
     get() = Registry.ENTITY_TYPE.getId(this)
 
-val EntityType<*>.entityTexture: Identifier
+val EntityType<*>.texture: Identifier
     get() = id.entityTexture

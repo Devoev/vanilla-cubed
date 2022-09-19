@@ -3,6 +3,7 @@ package net.devoev.vanilla_cubed.client.render.entity.model
 import net.devoev.vanilla_cubed.item.ModItems
 import net.devoev.vanilla_cubed.util.ListInitializer
 import net.devoev.vanilla_cubed.util.id
+import net.devoev.vanilla_cubed.util.model
 import net.fabricmc.fabric.api.client.model.ExtraModelProvider
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry
 import net.minecraft.client.util.ModelIdentifier
@@ -13,11 +14,11 @@ object ModModelProviders : ListInitializer<ExtraModelProvider>() {
 
     init {
         create(ExtraModelProvider { _, out -> out.accept(
-            ModelIdentifier(ModItems.ENDERITE_TRIDENT.id.toString() + "_in_inventory", "inventory")
+            ModItems.ENDERITE_TRIDENT.model("_in_inventory", "inventory")
         ) })
 
         create(ExtraModelProvider { _, out -> out.accept(
-            ModelIdentifier(ModItems.NETHERITE_TRIDENT.id.toString() + "_in_inventory", "inventory")
+            ModItems.NETHERITE_TRIDENT.model("_in_inventory", "inventory")
         ) })
     }
 
