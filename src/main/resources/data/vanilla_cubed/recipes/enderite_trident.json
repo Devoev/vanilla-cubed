@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:trident"
+  },
+  "addition": {
+    "item": "vanilla_cubed:enderite_ingot"
+  },
+  "result": {
+    "item": "vanilla_cubed:enderite_trident"
+  }
+}

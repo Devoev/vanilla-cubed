@@ -5,6 +5,9 @@
   "itemGroup.vanilla_cubed.vanilla_cubed": "Vanilla Cubed",
 
   "item.vanilla_cubed.elder_guardian_shard": "Elder Guardian Shard",
+  "enchantment.vanilla_cubed.hurling": "Hurling",
+
+  "item.vanilla_cubed.netherite_trident": "Netherite Trident",
 
   "item.vanilla_cubed.gilded_cluster": "Gilded Cluster",
   "item.vanilla_cubed.ancient_gold_ingot": "Ancient Gold Ingot",
@@ -52,6 +55,7 @@
   "item.vanilla_cubed.enderite_pickaxe": "Enderite Pickaxe",
   "item.vanilla_cubed.enderite_axe": "Enderite Axe",
   "item.vanilla_cubed.enderite_hoe": "Enderite Hoe",
+  "item.vanilla_cubed.enderite_trident": "Enderite Trident",
   "item.vanilla_cubed.enderite_helmet": "Enderite Helmet",
   "item.vanilla_cubed.enderite_chestplate": "Enderite Chestplate",
   "item.vanilla_cubed.enderite_leggings": "Enderite Leggings",

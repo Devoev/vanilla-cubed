@@ -33,12 +33,12 @@ object AmethystCompass : Item(FabricItemSettings().maxDamage(25).group(ModItemGr
     /**
      * The predicate provider for this compasses angle.
      */
-    val anglePredicateProvider = CompassAnglePredicateProvider { world, stack, _ -> targetPos(stack, world) }
+    val ANGLE_PREDICATE_PROVIDER = CompassAnglePredicateProvider { world, stack, _ -> targetPos(stack, world) }
 
     /**
      * The predicate provider for indicate, whether the compass is charged.
      */
-    val chargedPredicateProvider = UnclampedModelPredicateProvider { stack, _, _, _ -> if (stack.charged) 1f else 0f }
+    val CHARGED_PREDICATE_PROVIDER = UnclampedModelPredicateProvider { stack, _, _, _ -> if (stack.charged) 1f else 0f }
 
     override fun use(world: World?, user: PlayerEntity?, hand: Hand?): TypedActionResult<ItemStack> {
         val stack = user?.getStackInHand(hand)

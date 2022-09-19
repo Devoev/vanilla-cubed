@@ -2,6 +2,7 @@ package net.devoev.vanilla_cubed.util
 
 import net.devoev.vanilla_cubed.item.armor.ModArmorMaterials
 import net.devoev.vanilla_cubed.item.tool.ModToolMaterials
+import net.minecraft.client.util.ModelIdentifier
 import net.minecraft.item.*
 import net.minecraft.util.Identifier
 import net.minecraft.util.registry.Registry
@@ -10,6 +11,17 @@ import net.minecraft.util.registry.Registry
  * The [id][Identifier] of the item.
  */
 val Item.id: Identifier get() = Registry.ITEM.getId(this)
+
+/**
+ * Creates a [ModelIdentifier] from [id]. Appends the [append] string to [id.path][Identifier.path].
+ * The string [variant] is the variant model.
+ */
+fun Item.model(append: String, variant: String) = ModelIdentifier(id.toString() + append, variant)
+
+/**
+ * Creates a [ModelIdentifier] from [id]. The string [variant] is the variant model.
+ */
+fun Item.model(variant: String) = model("", variant)
 
 /**
  * Returns true, if this [Item] is made of the [armorMaterial] or [toolMaterial].
