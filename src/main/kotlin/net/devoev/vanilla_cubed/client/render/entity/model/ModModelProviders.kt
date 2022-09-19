@@ -15,6 +15,10 @@ object ModModelProviders : ListInitializer<ExtraModelProvider>() {
         create(ExtraModelProvider { _, out -> out.accept(
             ModelIdentifier(ModItems.ENDERITE_TRIDENT.id.toString() + "_in_inventory", "inventory")
         ) })
+
+        create(ExtraModelProvider { _, out -> out.accept(
+            ModelIdentifier(ModItems.NETHERITE_TRIDENT.id.toString() + "_in_inventory", "inventory")
+        ) })
     }
 
     override fun init() = forEach { ModelLoadingRegistry.INSTANCE.registerModelProvider(it) }

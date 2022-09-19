@@ -16,6 +16,7 @@ object ModEntityRenderer : MapInitializer<EntityType<out Entity>, EntityRenderer
 
     init {
         this[ModEntityTypes.ENDERITE_TRIDENT] = ::ModTridentEntityRenderer
+        this[ModEntityTypes.NETHERITE_TRIDENT] = ::ModTridentEntityRenderer
     }
 
     operator fun <T : Entity> set(type: EntityType<out T>, rendererProvider: (Context) -> EntityRenderer<T>)

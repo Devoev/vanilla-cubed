@@ -2,6 +2,8 @@ package net.devoev.vanilla_cubed.item
 
 import net.devoev.vanilla_cubed.block.ModBlocks
 import net.devoev.vanilla_cubed.entity.projectile.EnderiteTridentEntity
+import net.devoev.vanilla_cubed.entity.projectile.ModTridentEntity
+import net.devoev.vanilla_cubed.entity.projectile.NetheriteTridentEntity
 import net.devoev.vanilla_cubed.item.armor.ModArmor
 import net.devoev.vanilla_cubed.item.tool.ModTools
 import net.devoev.vanilla_cubed.item.trident.ModTridentItem
@@ -17,6 +19,7 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
 
     //Tridents
     val ELDER_GUARDIAN_SHARD = create("elder_guardian_shard", Item(ModItemGroup.VANILLA_CUBED.toSettings()))
+    val NETHERITE_TRIDENT = create("netherite_trident", ModTridentItem(::NetheriteTridentEntity))
 
     //Ancient Gold
     val GILDED_CLUSTER = create("gilded_cluster", Item(ModItemGroup.VANILLA_CUBED.toSettings()))

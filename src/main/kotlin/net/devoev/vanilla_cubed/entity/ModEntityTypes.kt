@@ -12,6 +12,7 @@ import net.minecraft.util.registry.Registry
 object ModEntityTypes : RegistryManager<EntityType<out Entity>>(Registry.ENTITY_TYPE) {
 
     val ENDERITE_TRIDENT = create("enderite_trident", ::ModTridentEntity)
+    val NETHERITE_TRIDENT = create("netherite_trident", ::ModTridentEntity)
 
     fun <T : Entity> create(name: String, factory: EntityFactory<T>)
         = create(name, entityTypeFrom(factory))
