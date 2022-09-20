@@ -4,15 +4,16 @@ import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.attribute.EntityAttribute
 import net.minecraft.entity.attribute.EntityAttributeInstance
 import net.minecraft.entity.attribute.EntityAttributeModifier
+import net.minecraft.item.Item
 import net.minecraft.item.ToolItem
 
 /**
  * An [InventoryTickBehavior] that applies the [modifier] to the [attribute] of the entity holding the specified item.
  */
 class ApplyAttributeBehavior(val attribute: EntityAttribute, val modifier: EntityAttributeModifier)
-    : InventoryTickBehavior<ToolItem> {
+    : InventoryTickBehavior<Item> {
 
-    override fun accept(item: ToolItem, params: InventoryTickParams) {
+    override fun accept(item: Item, params: InventoryTickParams) {
         if (params.world!!.isClient) return
         val (stack,_,entity,_,selected) = params
 

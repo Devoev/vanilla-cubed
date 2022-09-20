@@ -22,7 +22,7 @@ import java.util.Objects;
  * A mixin to change tool items.
  */
 @Mixin(Item.class)
-public class ToolItemMixin {
+public class ItemMixin {
 
     private final BehaviorModifier<Item, InventoryTickParams> modifier =
             new MagneticBehavior(5.5, 0.4, 200)
@@ -33,7 +33,7 @@ public class ToolItemMixin {
      */
     @Inject(method = "inventoryTick", at = @At("HEAD"))
     private void attractFromNetherite(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo info) {
-        if (!((Object) this instanceof ToolItem item)) return;
+        if (!((Object) this instanceof Item item)) return;
         if (!ItemKt.isNetherite(item) || ! (entity instanceof LivingEntity livingEntity)) return;
 
         boolean selectedOrOffHand = selected || livingEntity.getOffHandStack().equals(stack);

@@ -10,7 +10,7 @@
     "ExperienceOrbEntityMixin",
     "PiglinBrainMixin",
     "EndermanEntityMixin",
-    "ToolItemMixin",
+    "ItemMixin",
     "EnderDragonEntityMixin",
     "EnchantmentScreenHandlerMixin",
     "GrindstoneScreenHandlerMixin",

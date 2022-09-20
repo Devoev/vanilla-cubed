@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.item
 
-import net.devoev.vanilla_cubed.item.trident.ModTridentItem
+import net.devoev.vanilla_cubed.item.tool.ModTridentItem
 import net.devoev.vanilla_cubed.util.SetInitializer
 import net.devoev.vanilla_cubed.util.math.toFloat
 import net.minecraft.client.item.ModelPredicateProviderRegistry

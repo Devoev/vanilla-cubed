@@ -2,14 +2,16 @@ package net.devoev.vanilla_cubed.item
 
 import net.devoev.vanilla_cubed.block.ModBlocks
 import net.devoev.vanilla_cubed.entity.projectile.EnderiteTridentEntity
-import net.devoev.vanilla_cubed.entity.projectile.ModTridentEntity
 import net.devoev.vanilla_cubed.entity.projectile.NetheriteTridentEntity
 import net.devoev.vanilla_cubed.item.armor.ModArmor
+import net.devoev.vanilla_cubed.item.tool.ModToolMaterials
 import net.devoev.vanilla_cubed.item.tool.ModTools
-import net.devoev.vanilla_cubed.item.trident.ModTridentItem
+import net.devoev.vanilla_cubed.item.tool.ModTridentItem
 import net.devoev.vanilla_cubed.util.RegistryManager
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
+import net.minecraft.item.ToolMaterials
 import net.minecraft.util.registry.Registry
 
 /**
@@ -19,7 +21,7 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
 
     //Tridents
     val ELDER_GUARDIAN_SHARD = create("elder_guardian_shard", Item(ModItemGroup.VANILLA_CUBED.toSettings()))
-    val NETHERITE_TRIDENT = create("netherite_trident", ModTridentItem(::NetheriteTridentEntity))
+    val NETHERITE_TRIDENT = create("netherite_trident", ModTridentItem(::NetheriteTridentEntity, ToolMaterials.NETHERITE, FabricItemSettings().maxDamage(250)))
 
     //Ancient Gold
     val GILDED_CLUSTER = create("gilded_cluster", Item(ModItemGroup.VANILLA_CUBED.toSettings()))
@@ -67,7 +69,8 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
     val ENDERITE_PICKAXE = create("enderite_pickaxe", ModTools.ENDERITE.pickaxe)
     val ENDERITE_AXE = create("enderite_axe", ModTools.ENDERITE.axe)
     val ENDERITE_HOE = create("enderite_hoe", ModTools.ENDERITE.hoe)
-    val ENDERITE_TRIDENT = create("enderite_trident", ModTridentItem(::EnderiteTridentEntity))
+    val ENDERITE_TRIDENT = create("enderite_trident", ModTools.ENDERITE.trident)
+    //val ENDERITE_TRIDENT = create("enderite_trident", ModTridentItem(::EnderiteTridentEntity, ModToolMaterials.ENDERITE))
 
     val ENDERITE_HELMET = create("enderite_helmet", ModArmor.ENDERITE.helmet)
     val ENDERITE_CHESTPLATE = create("enderite_chestplate", ModArmor.ENDERITE.chestplate)

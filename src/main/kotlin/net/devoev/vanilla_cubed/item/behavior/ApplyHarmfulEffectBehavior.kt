@@ -3,6 +3,7 @@ package net.devoev.vanilla_cubed.item.behavior
 import net.devoev.vanilla_cubed.entity.effect.StatusEffectHelper
 import net.devoev.vanilla_cubed.item.tool.ModTools
 import net.minecraft.entity.effect.StatusEffectInstance
+import net.minecraft.item.Item
 import net.minecraft.item.ToolItem
 import kotlin.random.Random
 
@@ -12,9 +13,9 @@ import kotlin.random.Random
  */
 class ApplyHarmfulEffectBehavior(private val probability: Double,
                                  private val durationRange: IntRange,
-                                 private val amplifierRange: IntRange) : PostHitBehavior<ToolItem> {
+                                 private val amplifierRange: IntRange) : PostHitBehavior<Item> {
 
-    override fun accept(item: ToolItem, params: PostHitParams) {
+    override fun accept(item: Item, params: PostHitParams) {
         if (params.attacker!!.world.isClient) return
         val effect = StatusEffectHelper.randomHarmful(durationRange, amplifierRange)
 

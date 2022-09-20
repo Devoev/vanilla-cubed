@@ -1,6 +1,8 @@
 package net.devoev.vanilla_cubed.item.tool
 
 import net.devoev.vanilla_cubed.item.behavior.*
+import net.devoev.vanilla_cubed.item.tool.data.ToolData
+import net.devoev.vanilla_cubed.item.tool.data.ToolParams
 import net.minecraft.block.BlockState
 import net.minecraft.entity.Entity
 import net.minecraft.entity.LivingEntity
@@ -9,8 +11,8 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
 
-open class ModSwordItem(data: ToolData, behaviors: Behaviors<ToolItem>)
-    : SwordItem(data.material, data.swordData.attackDamage, data.swordData.attackSpeed, data.settings),
+open class ModSwordItem(data: ToolData<Int, Float>, behaviors: Behaviors<ToolItem>)
+    : SwordItem(data.material, data.attackDamage, data.attackSpeed, data.settings),
     Behaviors<ToolItem> by behaviors {
 
     override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
@@ -29,8 +31,8 @@ open class ModSwordItem(data: ToolData, behaviors: Behaviors<ToolItem>)
     }
 }
 
-open class ModShovelItem(data: ToolData, behaviors: Behaviors<ToolItem>)
-    : ShovelItem(data.material, data.shovelData.attackDamage, data.shovelData.attackSpeed, data.settings),
+open class ModShovelItem(data: ToolData<Float, Float>, behaviors: Behaviors<ToolItem>)
+    : ShovelItem(data.material, data.attackDamage, data.attackSpeed, data.settings),
     Behaviors<ToolItem> by behaviors {
 
     override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
@@ -49,8 +51,8 @@ open class ModShovelItem(data: ToolData, behaviors: Behaviors<ToolItem>)
     }
 }
 
-open class ModPickaxeItem(data: ToolData, behaviors: Behaviors<ToolItem>)
-    : PickaxeItem(data.material, data.pickaxeData.attackDamage, data.pickaxeData.attackSpeed, data.settings),
+open class ModPickaxeItem(data: ToolData<Int, Float>, behaviors: Behaviors<ToolItem>)
+    : PickaxeItem(data.material, data.attackDamage, data.attackSpeed, data.settings),
     Behaviors<ToolItem> by behaviors {
 
     override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
@@ -69,8 +71,8 @@ open class ModPickaxeItem(data: ToolData, behaviors: Behaviors<ToolItem>)
     }
 }
 
-open class ModAxeItem(data: ToolData, behaviors: Behaviors<ToolItem>)
-    : AxeItem(data.material, data.axeData.attackDamage, data.axeData.attackSpeed, data.settings),
+open class ModAxeItem(data: ToolData<Float, Float>, behaviors: Behaviors<ToolItem>)
+    : AxeItem(data.material, data.attackDamage, data.attackSpeed, data.settings),
     Behaviors<ToolItem> by behaviors {
 
     override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
@@ -89,8 +91,8 @@ open class ModAxeItem(data: ToolData, behaviors: Behaviors<ToolItem>)
     }
 }
 
-open class ModHoeItem(data: ToolData, behaviors: Behaviors<ToolItem>)
-    : HoeItem(data.material, data.hoeData.attackDamage, data.hoeData.attackSpeed, data.settings),
+open class ModHoeItem(data: ToolData<Int, Float>, behaviors: Behaviors<ToolItem>)
+    : HoeItem(data.material, data.attackDamage, data.attackSpeed, data.settings),
     Behaviors<ToolItem> by behaviors {
 
     override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {

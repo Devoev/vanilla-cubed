@@ -2,6 +2,7 @@ package net.devoev.vanilla_cubed.util
 
 import net.devoev.vanilla_cubed.item.armor.ModArmorMaterials
 import net.devoev.vanilla_cubed.item.tool.ModToolMaterials
+import net.devoev.vanilla_cubed.item.tool.ToolMaterialItem
 import net.minecraft.client.util.ModelIdentifier
 import net.minecraft.item.*
 import net.minecraft.util.Identifier
@@ -36,7 +37,8 @@ fun Item.isMadeOf(armorMaterial: ArmorMaterial): Boolean = this is ArmorItem && 
 /**
  * Returns true, if this [Item] is made of the [toolMaterial].
  */
-fun Item.isMadeOf(toolMaterial: ToolMaterial): Boolean = this is ToolItem && material == toolMaterial
+fun Item.isMadeOf(toolMaterial: ToolMaterial): Boolean
+    = ((this is ToolItem) && (material == toolMaterial)) || ((this is ToolMaterialItem) && (material == toolMaterial))
 
 /**
  * Returns true, if this [Item] is made of enderite.

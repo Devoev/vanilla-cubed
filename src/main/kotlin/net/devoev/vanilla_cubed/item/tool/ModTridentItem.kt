@@ -1,21 +1,25 @@
-package net.devoev.vanilla_cubed.item.trident
+package net.devoev.vanilla_cubed.item.tool
 
 import net.devoev.vanilla_cubed.item.ModItemGroup
+import net.devoev.vanilla_cubed.item.behavior.*
+import net.devoev.vanilla_cubed.item.tool.data.ToolData
 import net.devoev.vanilla_cubed.util.math.toFloat
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
+import net.minecraft.block.BlockState
 import net.minecraft.client.item.UnclampedModelPredicateProvider
 import net.minecraft.enchantment.EnchantmentHelper
+import net.minecraft.entity.Entity
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.MovementType
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.projectile.PersistentProjectileEntity
 import net.minecraft.entity.projectile.TridentEntity
-import net.minecraft.item.ItemStack
-import net.minecraft.item.TridentItem
+import net.minecraft.item.*
 import net.minecraft.sound.SoundCategory
 import net.minecraft.sound.SoundEvents
 import net.minecraft.stat.Stats
 import net.minecraft.util.UseAction
+import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import kotlin.math.cos
@@ -26,10 +30,40 @@ import kotlin.math.sqrt
  * A custom [TridentItem].
  * @param entityProvider A function that creates the corresponding [TridentEntity].
  */
-class ModTridentItem(private val entityProvider: (World, LivingEntity, ItemStack) -> TridentEntity)
-    : TridentItem(FabricItemSettings().group(ModItemGroup.VANILLA_CUBED).maxDamage(1000)) {
+class ModTridentItem(private val entityProvider: (World, LivingEntity, ItemStack) -> TridentEntity,
+                     data: ToolData<Number?, Number?>, behaviors: Behaviors<Item>)
+    : TridentItem(data.settings), ToolMaterialItem, Behaviors<Item> by behaviors {
+
+    init {
+        if (maxDamage == 0) error("$maxDamage must be greater than 0!")
+        data.settings.maxDamageIfAbsent((data.material.durability * 0.16).toInt())
+    }
+
+    constructor(
+        entityProvider: (World, LivingEntity, ItemStack) -> TridentEntity,
+        material: ToolMaterial,
+        settings: Settings,
+        behaviors: Behaviors<Item> = DataBehaviors()
+    ) : this(entityProvider, ToolData(material, null, null, settings), behaviors)
+
+    override val material: ToolMaterial = data.material
 
     override fun getUseAction(stack: ItemStack?): UseAction = UseAction.SPEAR
+
+    override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
+        inventoryTickBehavior(this, InventoryTickParams(stack, world, entity, slot, selected))
+        super.inventoryTick(stack, world, entity, slot, selected)
+    }
+
+    override fun postHit(stack: ItemStack?, target: LivingEntity?, attacker: LivingEntity?): Boolean {
+        postHitBehavior(this, PostHitParams(stack, target, attacker))
+        return super.postHit(stack, target, attacker)
+    }
+
+    override fun postMine(stack: ItemStack?, world: World?, state: BlockState?, pos: BlockPos?, miner: LivingEntity?): Boolean {
+        postMineBehavior(this, PostMineParams(stack, world, state, pos, miner))
+        return super.postMine(stack, world, state, pos, miner)
+    }
 
     override fun onStoppedUsing(stack: ItemStack?, world: World?, user: LivingEntity?, remainingUseTicks: Int) {
         if (stack == null || world == null || user !is PlayerEntity) return
@@ -98,6 +132,7 @@ class ModTridentItem(private val entityProvider: (World, LivingEntity, ItemStack
     }
 
     companion object {
+
         val THROWING_PREDICATE_PROVIDER = UnclampedModelPredicateProvider { stack, _, entity, _ ->
             (entity != null && entity.isUsingItem && entity.activeItem == stack).toFloat()
         }

@@ -1,4 +1,4 @@
-package net.devoev.vanilla_cubed.item.tool
+package net.devoev.vanilla_cubed.item.tool.data
 
 import net.minecraft.item.Item.Settings
 import net.minecraft.item.ToolItem
@@ -7,7 +7,7 @@ import net.minecraft.item.ToolMaterial
 /**
  * Data needed for the creation of a set of [tools][ToolItem].
  */
-data class ToolData(
+data class ToolParams(
     val material: ToolMaterial,
     val attackDamageAmounts: List<Float> = BASE_ATTACK_DAMAGE,
     val attackSpeedAmounts: List<Float> = BASE_ATTACK_SPEED,
