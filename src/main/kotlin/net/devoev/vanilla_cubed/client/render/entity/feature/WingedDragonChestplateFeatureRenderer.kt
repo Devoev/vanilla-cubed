@@ -44,5 +44,8 @@ class WingedDragonChestplateFeatureRenderer<T : LivingEntity, M : EntityModel<T>
 
     companion object {
         val TEXTURE = VanillaCubed.id("textures/entity/dragon_scale_chestplate_winged.png")
+
+        val featureRendererProvider: FeatureRendererProvider<*>
+            get() = { context, loader -> WingedDragonChestplateFeatureRenderer(context, loader)}
     }
 }
