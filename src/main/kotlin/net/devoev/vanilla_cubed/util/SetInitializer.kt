@@ -1,11 +1,9 @@
 package net.devoev.vanilla_cubed.util
 
-import net.devoev.vanilla_cubed.world.gen.ModWorldGeneration
-
 /**
  * An initializer object for initializing objects of type [T].
  */
-abstract class ListInitializer<T> : MutableList<T> by mutableListOf() {
+abstract class SetInitializer<T> : MutableSet<T> by mutableSetOf() {
 
     /**
      * Initializes all stored entries.

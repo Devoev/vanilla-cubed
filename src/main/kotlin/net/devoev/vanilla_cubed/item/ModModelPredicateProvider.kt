@@ -1,7 +1,7 @@
 package net.devoev.vanilla_cubed.item
 
 import net.devoev.vanilla_cubed.item.trident.ModTridentItem
-import net.devoev.vanilla_cubed.util.ListInitializer
+import net.devoev.vanilla_cubed.util.SetInitializer
 import net.devoev.vanilla_cubed.util.math.toFloat
 import net.minecraft.client.item.ModelPredicateProviderRegistry
 import net.minecraft.client.item.UnclampedModelPredicateProvider
@@ -9,7 +9,7 @@ import net.minecraft.item.Item
 import net.minecraft.item.Items
 import net.minecraft.util.Identifier
 
-object ModModelPredicateProvider : ListInitializer<ModelPredicate>() {
+object ModModelPredicateProvider : SetInitializer<ModelPredicate>() {
 
     init {
         create(ModItems.AMETHYST_COMPASS, "angle", AmethystCompass.ANGLE_PREDICATE_PROVIDER)

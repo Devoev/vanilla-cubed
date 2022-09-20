@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.world.gen
 
-import net.devoev.vanilla_cubed.util.ListInitializer
+import net.devoev.vanilla_cubed.util.SetInitializer
 import net.devoev.vanilla_cubed.world.feature.ModPlacedFeatures
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext
@@ -14,7 +14,7 @@ import java.util.function.Predicate
 /**
  * All world generation features.
  */
-object ModWorldGeneration : ListInitializer<GenerationFeature>() {
+object ModWorldGeneration : SetInitializer<GenerationFeature>() {
 
     init {
         create(BiomeSelectors.foundInTheEnd(), GenerationStep.Feature.UNDERGROUND_ORES, ModPlacedFeatures.ENDERITE_ORE)
