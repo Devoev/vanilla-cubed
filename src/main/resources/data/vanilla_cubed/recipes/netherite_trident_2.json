@@ -1,0 +1,26 @@
+{
+  "type": "nbtcrafting:smithing",
+  "base": {
+    "item": "vanilla_cubed:netherite_trident",
+    "data": {
+      "require": {
+        "demagnetized": true
+      }
+    }
+  },
+  "ingredient": {
+    "item": "minecraft:netherite_scrap"
+  },
+  "result": {
+    "item": "vanilla_cubed:netherite_trident",
+    "data": {
+      "$": {
+        "value": "base",
+        "paths": {
+          "demagnetized": "keep"
+        }
+      },
+      "demagnetized": false
+    }
+  }
+}

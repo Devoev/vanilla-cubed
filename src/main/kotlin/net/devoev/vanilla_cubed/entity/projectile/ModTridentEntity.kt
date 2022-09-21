@@ -16,7 +16,10 @@ import net.minecraft.world.World
 open class ModTridentEntity(entityType: EntityType<out TridentEntity>,
                             world: World) : TridentEntity(entityType, world) {
 
-    private var tridentStack: ItemStack
+    /**
+     * The trident [ItemStack] of this entity. Value equal to [TridentEntity.tridentStack].
+     */
+    protected var itemStack: ItemStack
         get() = (this as TridentEntityAccessor).tridentStack
         set(value) { (this as TridentEntityAccessor).tridentStack = value }
 
@@ -34,7 +37,7 @@ open class ModTridentEntity(entityType: EntityType<out TridentEntity>,
     constructor(world: World, owner: LivingEntity, stack: ItemStack, entityType: EntityType<out TridentEntity>)
             : this(entityType, world) {
         this.owner = owner
-        tridentStack = stack.copy()
+        itemStack = stack.copy()
         setPosition(owner.eyePos)
         dataTracker[TridentEntityAccessor.getLoyalty()] = EnchantmentHelper.getLoyalty(stack).toByte()
         dataTracker[TridentEntityAccessor.getEnchanted()] = stack.hasGlint()

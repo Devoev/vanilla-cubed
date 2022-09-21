@@ -29,7 +29,7 @@ interface TridentToolDataSet : ToolDataSet {
          */
         fun tridentSettings(settings: Settings, durability: Int): Settings
             = settings.copy().maxDamageIfAbsent((durability * 0.16).toInt())
-            //= settings.maxDamageIfAbsent(durability)
+
     }
 
     data class TridentToolDataImpl(

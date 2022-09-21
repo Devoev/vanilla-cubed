@@ -1,6 +1,8 @@
 package net.devoev.vanilla_cubed.entity.projectile
 
 import net.devoev.vanilla_cubed.entity.ModEntityTypes
+import net.devoev.vanilla_cubed.item.magnetic
+import net.devoev.vanilla_cubed.util.isNetherite
 import net.devoev.vanilla_cubed.util.math.Vec3d
 import net.devoev.vanilla_cubed.util.math.minus
 import net.devoev.vanilla_cubed.util.math.plus
@@ -20,7 +22,7 @@ class NetheriteTridentEntity(world: World, owner: LivingEntity, stack: ItemStack
 
     override fun tick() {
         super.tick()
-
+        if (itemStack.item.isNetherite() && !itemStack.magnetic || inGroundTime > 40) return
         val range = 2.5
 
         items.addAll(entityWorld.getEntitiesByType(

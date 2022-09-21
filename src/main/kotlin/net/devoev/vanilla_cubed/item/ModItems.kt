@@ -21,7 +21,7 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
 
     //Tridents
     val ELDER_GUARDIAN_SHARD = create("elder_guardian_shard", Item(ModItemGroup.VANILLA_CUBED.toSettings()))
-    val NETHERITE_TRIDENT = create("netherite_trident", ModTridentItem(::NetheriteTridentEntity, ToolMaterials.NETHERITE, FabricItemSettings().maxDamage(250)))
+    val NETHERITE_TRIDENT = create("netherite_trident", ModTridentItem(::NetheriteTridentEntity, ToolMaterials.NETHERITE, FabricItemSettings().maxDamage(324).group(ModItemGroup.VANILLA_CUBED).fireproof()))
 
     //Ancient Gold
     val GILDED_CLUSTER = create("gilded_cluster", Item(ModItemGroup.VANILLA_CUBED.toSettings()))
@@ -70,7 +70,6 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
     val ENDERITE_AXE = create("enderite_axe", ModTools.ENDERITE.axe)
     val ENDERITE_HOE = create("enderite_hoe", ModTools.ENDERITE.hoe)
     val ENDERITE_TRIDENT = create("enderite_trident", ModTools.ENDERITE.trident)
-    //val ENDERITE_TRIDENT = create("enderite_trident", ModTridentItem(::EnderiteTridentEntity, ModToolMaterials.ENDERITE))
 
     val ENDERITE_HELMET = create("enderite_helmet", ModArmor.ENDERITE.helmet)
     val ENDERITE_CHESTPLATE = create("enderite_chestplate", ModArmor.ENDERITE.chestplate)
