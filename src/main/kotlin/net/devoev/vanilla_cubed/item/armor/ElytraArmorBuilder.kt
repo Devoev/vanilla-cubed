@@ -10,18 +10,18 @@ import net.minecraft.item.Item
 /**
  * An [ArmorBuilder] that also constructs a [FabricElytraItem] for the chestplate slot.
  */
-open class ElytraArmorBuilder(data: ArmorData, behaviors: Behaviors<ArmorItem>, onlyOne: Boolean) :
-    ArmorBuilder(data, behaviors, onlyOne) {
+open class ElytraArmorBuilder(data: ArmorData, behaviors: Behaviors<ArmorItem>) :
+    ArmorBuilder(data, behaviors) {
 
     constructor(
         material: ArmorMaterial,
         settings: Item.Settings,
         inventoryTickBehavior: InventoryTickBehavior<ArmorItem> = INVENTORY_TICK_DEFAULT,
-        postHitBehavior: PostHitBehavior<ArmorItem> = POST_HIT_DEFAULT,
-        onlyOne: Boolean = false
-    ) : this(ArmorData(material, settings),
-        DataBehaviors(inventoryTickBehavior, postHitBehavior),
-        onlyOne)
+        postHitBehavior: PostHitBehavior<ArmorItem> = POST_HIT_DEFAULT
+    ) : this(
+        ArmorData(material, settings),
+        DataBehaviors(inventoryTickBehavior, postHitBehavior)
+    )
 
     open val elytra: ArmorItem = object : ModArmorItem(data, EquipmentSlot.CHEST, behaviors), FabricElytraItem {}
 

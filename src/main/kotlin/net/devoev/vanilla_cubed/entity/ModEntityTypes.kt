@@ -12,11 +12,17 @@ import net.minecraft.util.registry.Registry
 object ModEntityTypes : RegistryManager<EntityType<out Entity>>(Registry.ENTITY_TYPE) {
 
     val ENDERITE_TRIDENT = create("enderite_trident", ::ModTridentEntity)
-    val NETHERITE_TRIDENT = create("netherite_trident", ::ModTridentEntity)
+    val NETHERITE_TRIDENT = create("netherite_trident", ::ModTridentEntity) { it.fireImmune() }
 
-    fun <T : Entity> create(name: String, factory: EntityFactory<T>)
-        = create(name, entityTypeFrom(factory))
+    fun <T : Entity> create(name: String, factory: EntityFactory<T>,
+                            block: (FabricEntityTypeBuilder<T>) -> FabricEntityTypeBuilder<T> = {builder -> builder})
+        = create(name, entityTypeFrom(factory, block))
 
-    private fun <T : Entity> entityTypeFrom(factory: EntityFactory<T>): EntityType<T>
-        = FabricEntityTypeBuilder.create(SpawnGroup.MISC, factory).build()
+    /**
+     * Creates a new [EntityType] from the given [factory].
+     * The created type can be modified using the [block] function.
+     */
+    private fun <T : Entity> entityTypeFrom(
+        factory: EntityFactory<T>, block: (FabricEntityTypeBuilder<T>) -> FabricEntityTypeBuilder<T>): EntityType<T>
+        = FabricEntityTypeBuilder.create(SpawnGroup.MISC, factory).let(block).build()
 }
