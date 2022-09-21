@@ -42,4 +42,12 @@ object ModBlocks : RegistryManager<Block>(Registry.BLOCK) {
             .sounds(BlockSoundGroup.AMETHYST_BLOCK)
         )
     )
+
+    val CHARGED_AMETHYST_CRYSTAL_BLOCK = create("amethyst_crystal_block_charged",
+        Block(FabricBlockSettings.of(Material.AMETHYST, MapColor.PURPLE)
+            .requiresTool()
+            .strength(5f, 6f)
+            .sounds(BlockSoundGroup.AMETHYST_BLOCK)
+        )
+    )
 }

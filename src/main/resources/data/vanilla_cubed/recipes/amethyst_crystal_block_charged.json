@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "vanilla_cubed:amethyst_crystal_charged"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "item": "vanilla_cubed:amethyst_crystal_block_charged"
+  }
+}

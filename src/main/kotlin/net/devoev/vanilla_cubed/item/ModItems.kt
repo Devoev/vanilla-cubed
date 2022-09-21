@@ -44,6 +44,7 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
     val AMETHYST_CRYSTAL = create("amethyst_crystal", Item(ModItemGroup.VANILLA_CUBED.toSettings()))
     val CHARGED_AMETHYST_CRYSTAL = create("amethyst_crystal_charged", Item(ModItemGroup.VANILLA_CUBED.toSettings()))
     val AMETHYST_CRYSTAL_BLOCK = create("amethyst_crystal_block", BlockItem(ModBlocks.AMETHYST_CRYSTAL_BLOCK, ModItemGroup.VANILLA_CUBED.toSettings()))
+    val CHARGED_AMETHYST_CRYSTAL_BLOCK = create("amethyst_crystal_block_charged", BlockItem(ModBlocks.CHARGED_AMETHYST_CRYSTAL_BLOCK, ModItemGroup.VANILLA_CUBED.toSettings()))
     val AMETHYST_COMPASS = create("amethyst_compass", AmethystCompass())
 
     val AMETHYST_SWORD = create("amethyst_sword", ModTools.AMETHYST.sword)
