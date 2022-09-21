@@ -7,6 +7,7 @@ import net.devoev.vanilla_cubed.item.behavior.MagneticBehavior;
 import net.devoev.vanilla_cubed.util.ItemKt;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
@@ -34,7 +35,7 @@ public class ItemMixin {
     @Inject(method = "inventoryTick", at = @At("HEAD"))
     private void attractFromNetherite(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo info) {
         if (!((Object) this instanceof Item item)) return;
-        if (!ItemKt.isNetherite(item) || ! (entity instanceof LivingEntity livingEntity)) return;
+        if (item instanceof ArmorItem || !ItemKt.isNetherite(item) || ! (entity instanceof LivingEntity livingEntity)) return;
 
         boolean selectedOrOffHand = selected || livingEntity.getOffHandStack().equals(stack);
         modifier.accept(item, new InventoryTickParams(stack, world, entity, slot, selectedOrOffHand));

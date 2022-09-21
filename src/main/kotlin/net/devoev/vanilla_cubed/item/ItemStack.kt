@@ -1,6 +1,7 @@
 package net.devoev.vanilla_cubed.item
 
 import net.devoev.vanilla_cubed.util.isNetherite
+import net.minecraft.item.ArmorItem
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.util.math.BlockPos
@@ -33,12 +34,12 @@ private const val NETHERITE_DEMAGNETIZED_KEY = "demagnetized"
 var ItemStack.magnetic: Boolean
 
     get() {
-        if (!item.isNetherite()) error("$item must be a netherite tool")
+        if (!item.isNetherite() && item !is ArmorItem) error("$item must be a netherite tool")
         return nbt?.getBoolean(NETHERITE_DEMAGNETIZED_KEY) == false
     }
 
     set(value) {
-        if (!item.isNetherite()) error("$item must be a netherite tool")
+        if (!item.isNetherite() && item !is ArmorItem) error("$item must be a netherite tool")
         nbt?.putBoolean(NETHERITE_DEMAGNETIZED_KEY, !value)
     }
 
