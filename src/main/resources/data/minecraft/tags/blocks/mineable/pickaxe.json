@@ -4,6 +4,7 @@
     "vanilla_cubed:enderite_ore",
     "vanilla_cubed:enderite_block",
     "vanilla_cubed:ancient_gold_block",
-    "vanilla_cubed:amethyst_crystal_block"
+    "vanilla_cubed:amethyst_crystal_block",
+    "vanilla_cubed:amethyst_crystal_block_charged"
   ]
 }

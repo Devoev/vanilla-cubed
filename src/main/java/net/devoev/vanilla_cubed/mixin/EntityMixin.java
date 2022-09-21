@@ -45,6 +45,13 @@ public class EntityMixin {
             item.setOnFire(false);
         }
 
+        if (item.getStack().getItem().equals(ModItems.INSTANCE.getAMETHYST_CRYSTAL_BLOCK())) {
+            item.setStack(new ItemStack(ModItems.INSTANCE.getCHARGED_AMETHYST_CRYSTAL_BLOCK(), item.getStack().getCount()));
+            item.setInvulnerable(true);
+            item.setInvisible(false);
+            item.setOnFire(false);
+        }
+
         if (item.getStack().getItem().equals(ModItems.INSTANCE.getAMETHYST_COMPASS()) && !ItemStackKt.getCharged(item.getStack())) {
             item.setStack(new ItemStack(ModItems.INSTANCE.getAMETHYST_COMPASS(), item.getStack().getCount()));
             item.setInvulnerable(true);
