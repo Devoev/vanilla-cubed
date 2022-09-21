@@ -16,7 +16,8 @@
     "GrindstoneScreenHandlerMixin",
     "TridentEntityMixin",
     "TridentEntityAccessor",
-    "LivingEntityMixin"
+    "LivingEntityMixin",
+    "ItemSettingsAccessor"
   ],
   "client": [],
   "injectors": {

@@ -1,5 +1,6 @@
 package net.devoev.vanilla_cubed.item.tool.data
 
+import net.devoev.vanilla_cubed.item.copy
 import net.minecraft.item.Item
 import net.minecraft.item.Item.Settings
 import net.minecraft.item.ToolMaterial
@@ -27,8 +28,8 @@ interface TridentToolDataSet : ToolDataSet {
          * Calculated using durability*0.16.
          */
         fun tridentSettings(settings: Settings, durability: Int): Settings
-            //= settings.maxDamageIfAbsent((durability * 0.16).toInt())
-            = settings.maxDamageIfAbsent(durability)
+            = settings.copy().maxDamageIfAbsent((durability * 0.16).toInt())
+            //= settings.maxDamageIfAbsent(durability)
     }
 
     data class TridentToolDataImpl(
