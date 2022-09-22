@@ -1,8 +1,10 @@
 package net.devoev.vanilla_cubed.item.tool
 
-import net.devoev.vanilla_cubed.item.behavior.*
+import net.devoev.vanilla_cubed.item.behavior.Behaviors
+import net.devoev.vanilla_cubed.item.behavior.InventoryTickParams
+import net.devoev.vanilla_cubed.item.behavior.PostHitParams
+import net.devoev.vanilla_cubed.item.behavior.PostMineParams
 import net.devoev.vanilla_cubed.item.tool.data.ToolData
-import net.devoev.vanilla_cubed.item.tool.data.ToolParams
 import net.minecraft.block.BlockState
 import net.minecraft.entity.Entity
 import net.minecraft.entity.LivingEntity

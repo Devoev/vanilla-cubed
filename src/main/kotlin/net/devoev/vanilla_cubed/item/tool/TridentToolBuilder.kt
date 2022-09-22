@@ -1,7 +1,8 @@
 package net.devoev.vanilla_cubed.item.tool
 
 import net.devoev.vanilla_cubed.item.behavior.*
-import net.devoev.vanilla_cubed.item.tool.data.ToolParams
+import net.devoev.vanilla_cubed.item.tool.data.ToolDataSet.Companion.BASE_ATTACK_DAMAGE
+import net.devoev.vanilla_cubed.item.tool.data.ToolDataSet.Companion.BASE_ATTACK_SPEED
 import net.devoev.vanilla_cubed.item.tool.data.TridentToolDataSet
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.projectile.TridentEntity
@@ -20,8 +21,8 @@ open class TridentToolBuilder(data: TridentToolDataSet,
 
     constructor(
         material: ToolMaterial,
-        attackDamageAmounts: List<Float> = ToolParams.BASE_ATTACK_DAMAGE,
-        attackSpeedAmounts: List<Float> = ToolParams.BASE_ATTACK_SPEED,
+        attackDamageAmounts: List<Float> = BASE_ATTACK_DAMAGE,
+        attackSpeedAmounts: List<Float> = BASE_ATTACK_SPEED,
         settings: Item.Settings,
         entityProvider: (World, LivingEntity, ItemStack) -> TridentEntity,
         inventoryTickBehavior: InventoryTickBehavior<Item> = INVENTORY_TICK_DEFAULT,

@@ -2,7 +2,8 @@ package net.devoev.vanilla_cubed.item.tool
 
 import net.devoev.vanilla_cubed.item.behavior.*
 import net.devoev.vanilla_cubed.item.tool.data.ToolDataSet
-import net.devoev.vanilla_cubed.item.tool.data.ToolParams
+import net.devoev.vanilla_cubed.item.tool.data.ToolDataSet.Companion.BASE_ATTACK_DAMAGE
+import net.devoev.vanilla_cubed.item.tool.data.ToolDataSet.Companion.BASE_ATTACK_SPEED
 import net.minecraft.item.*
 import net.minecraft.item.Item.Settings
 
@@ -13,8 +14,8 @@ open class ToolBuilder(protected val data: ToolDataSet, protected val behaviors:
 
     constructor(
         material: ToolMaterial,
-        attackDamageAmounts: List<Float> = ToolParams.BASE_ATTACK_DAMAGE,
-        attackSpeedAmounts: List<Float> = ToolParams.BASE_ATTACK_SPEED,
+        attackDamageAmounts: List<Float> = BASE_ATTACK_DAMAGE,
+        attackSpeedAmounts: List<Float> = BASE_ATTACK_SPEED,
         settings: Settings,
         inventoryTickBehavior: InventoryTickBehavior<Item> = INVENTORY_TICK_DEFAULT,
         postHitBehavior: PostHitBehavior<Item> = POST_HIT_DEFAULT,
