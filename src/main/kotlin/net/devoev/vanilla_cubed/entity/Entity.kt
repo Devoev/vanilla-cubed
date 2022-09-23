@@ -32,3 +32,8 @@ fun Entity.addVelocity(vec: Vec3d) = addVelocity(vec.x, vec.y, vec.z)
  * Returns true, if the entity is falling.
  */
 val Entity.falling: Boolean get() = fallDistance != 0f
+
+/**
+ * The viewing vector of this entity.
+ */
+val Entity.view: Vec3d get() = Vec3d.fromPolar(pitch, yaw)
