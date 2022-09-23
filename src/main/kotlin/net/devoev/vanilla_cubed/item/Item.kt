@@ -1,4 +1,4 @@
-package net.devoev.vanilla_cubed.util
+package net.devoev.vanilla_cubed.item
 
 import net.devoev.vanilla_cubed.item.armor.ModArmorMaterials
 import net.devoev.vanilla_cubed.item.tool.ModToolMaterials

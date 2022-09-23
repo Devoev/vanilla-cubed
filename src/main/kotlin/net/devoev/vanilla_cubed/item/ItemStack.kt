@@ -1,6 +1,5 @@
 package net.devoev.vanilla_cubed.item
 
-import net.devoev.vanilla_cubed.util.isNetherite
 import net.minecraft.item.ArmorItem
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items

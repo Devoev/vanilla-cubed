@@ -2,7 +2,7 @@ package net.devoev.vanilla_cubed.client.render.entity
 
 import net.devoev.vanilla_cubed.entity.projectile.ModTridentEntity
 import net.devoev.vanilla_cubed.item.ModItems
-import net.devoev.vanilla_cubed.util.id
+import net.devoev.vanilla_cubed.item.id
 import net.devoev.vanilla_cubed.util.entityTexture
 import net.minecraft.client.render.OverlayTexture
 import net.minecraft.client.render.VertexConsumerProvider

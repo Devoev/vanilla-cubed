@@ -1,16 +1,15 @@
 package net.devoev.vanilla_cubed.mixin;
 
+import net.devoev.vanilla_cubed.item.ItemKt;
 import net.devoev.vanilla_cubed.item.ItemStackKt;
 import net.devoev.vanilla_cubed.item.behavior.BehaviorModifier;
 import net.devoev.vanilla_cubed.item.behavior.InventoryTickParams;
 import net.devoev.vanilla_cubed.item.behavior.MagneticBehavior;
-import net.devoev.vanilla_cubed.util.ItemKt;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolItem;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

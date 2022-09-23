@@ -1,7 +1,7 @@
 package net.devoev.vanilla_cubed.mixin;
 
+import net.devoev.vanilla_cubed.item.ItemKt;
 import net.devoev.vanilla_cubed.item.ModItems;
-import net.devoev.vanilla_cubed.util.ItemKt;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentLevelEntry;
 import net.minecraft.item.ItemStack;

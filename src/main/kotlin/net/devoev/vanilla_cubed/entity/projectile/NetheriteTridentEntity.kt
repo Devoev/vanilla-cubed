@@ -2,7 +2,7 @@ package net.devoev.vanilla_cubed.entity.projectile
 
 import net.devoev.vanilla_cubed.entity.ModEntityTypes
 import net.devoev.vanilla_cubed.item.magnetic
-import net.devoev.vanilla_cubed.util.isNetherite
+import net.devoev.vanilla_cubed.item.isNetherite
 import net.devoev.vanilla_cubed.util.math.Vec3d
 import net.devoev.vanilla_cubed.util.math.minus
 import net.devoev.vanilla_cubed.util.math.plus
@@ -11,7 +11,6 @@ import net.minecraft.entity.ItemEntity
 import net.minecraft.entity.LivingEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.predicate.entity.EntityPredicates
-import net.minecraft.util.hit.EntityHitResult
 import net.minecraft.util.math.Box
 import net.minecraft.world.World
 

@@ -3,7 +3,7 @@ package net.devoev.vanilla_cubed.client.render.entity.model
 import net.devoev.vanilla_cubed.VanillaCubed
 import net.devoev.vanilla_cubed.item.ModItems
 import net.devoev.vanilla_cubed.util.MapInitializer
-import net.devoev.vanilla_cubed.util.id
+import net.devoev.vanilla_cubed.item.id
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry.TexturedModelDataProvider
 import net.minecraft.client.render.entity.model.ElytraEntityModel

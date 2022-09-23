@@ -1,9 +1,9 @@
 package net.devoev.vanilla_cubed.mixin;
 
+import net.devoev.vanilla_cubed.item.ItemKt;
 import net.devoev.vanilla_cubed.item.behavior.ApplyAttributeBehavior;
 import net.devoev.vanilla_cubed.item.behavior.BehaviorModifier;
 import net.devoev.vanilla_cubed.item.behavior.Behaviors;
-import net.devoev.vanilla_cubed.util.ItemKt;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;

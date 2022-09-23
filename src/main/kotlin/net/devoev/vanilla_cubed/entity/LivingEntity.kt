@@ -1,6 +1,7 @@
 package net.devoev.vanilla_cubed.util
 
 import net.devoev.vanilla_cubed.item.armor.ModArmorMaterials
+import net.devoev.vanilla_cubed.item.isMadeOf
 import net.minecraft.entity.LivingEntity
 import net.minecraft.item.ArmorMaterial
 import net.minecraft.item.ArmorMaterials

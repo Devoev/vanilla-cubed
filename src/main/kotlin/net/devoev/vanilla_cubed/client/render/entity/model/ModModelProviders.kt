@@ -2,7 +2,7 @@ package net.devoev.vanilla_cubed.client.render.entity.model
 
 import net.devoev.vanilla_cubed.item.ModItems
 import net.devoev.vanilla_cubed.util.SetInitializer
-import net.devoev.vanilla_cubed.util.model
+import net.devoev.vanilla_cubed.item.model
 import net.fabricmc.fabric.api.client.model.ExtraModelProvider
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry
 

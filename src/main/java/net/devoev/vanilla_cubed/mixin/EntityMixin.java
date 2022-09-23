@@ -1,9 +1,8 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.item.AmethystCompass;
+import net.devoev.vanilla_cubed.item.ItemKt;
 import net.devoev.vanilla_cubed.item.ItemStackKt;
 import net.devoev.vanilla_cubed.item.ModItems;
-import net.devoev.vanilla_cubed.util.ItemKt;
 import net.devoev.vanilla_cubed.util.LivingEntityKt;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
