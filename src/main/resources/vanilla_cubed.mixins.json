@@ -17,7 +17,8 @@
     "TridentEntityMixin",
     "TridentEntityAccessor",
     "LivingEntityMixin",
-    "ItemSettingsAccessor"
+    "ItemSettingsAccessor",
+    "PlayerEntityMixin"
   ],
   "client": [],
   "injectors": {

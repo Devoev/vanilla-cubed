@@ -1,24 +1,30 @@
 package net.devoev.vanilla_cubed.item.behavior
 
 import net.devoev.vanilla_cubed.entity.addVelocity
+import net.devoev.vanilla_cubed.item.droppedByPlayer
 import net.devoev.vanilla_cubed.util.math.minus
 import net.devoev.vanilla_cubed.util.math.times
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityType
+import net.minecraft.entity.ItemEntity
 import net.minecraft.entity.MovementType
 import net.minecraft.item.Item
 import net.minecraft.predicate.entity.EntityPredicates
 import net.minecraft.util.math.Box
 import net.minecraft.util.math.Vec3d
+import java.util.function.Predicate
 import kotlin.math.pow
 import kotlin.math.sqrt
 
 /**
  * Attracts all items in [range] to the player holding the item.
  * The speed of attraction is determined by the [speed] parameter.
- * Only items that have a smaller age value than [ageLimit] get attracted. A value of 0 disables this limit.
+ * Only items that fulfill the [predicate] get attracted.
  */
-class MagneticBehavior(private val range: Double, private val speed: Double, private val ageLimit: Int) : InventoryTickBehavior<Item> {
+class MagneticBehavior(private val range: Double,
+                       private val speed: Double,
+                       private val predicate: Predicate<ItemEntity> = Predicate { true })
+    : InventoryTickBehavior<Item> {
 
     override fun accept(item: Item, params: InventoryTickParams) {
         if (params.selected && !params.world!!.isClient) params.entity?.attractItems(range, speed)
@@ -32,7 +38,7 @@ class MagneticBehavior(private val range: Double, private val speed: Double, pri
             EntityType.ITEM,
             Box(x - range, y - range, z - range, x + range, y + range, z + range),
             EntityPredicates.VALID_ENTITY
-        ).filter { ageLimit == 0 || it.itemAge < ageLimit }
+        ).filter(predicate::test)
 
         val maxDistance = sqrt(2f)*range // Corner point of box
         for (item in items) {

@@ -92,3 +92,15 @@ var ItemStack.teleportTicks: Int
         if (item !is EnderitePowder) error("$item must be of type $EnderitePowder")
         orCreateNbt.putInt(ENDERITE_POWDER_TICK_KEY, value)
     }
+
+/**
+ * The key for the NBT data to indicate, whether the stack was dropped by a player.
+ */
+const val DROPPED_BY_PLAYER_KEY = "dropped_by_player"
+
+/**
+ * Whether this stack is dropped by a player.
+ */
+var ItemStack.droppedByPlayer: Boolean
+    get() = nbt?.getBoolean(DROPPED_BY_PLAYER_KEY) ?: false
+    set(value) { orCreateNbt.putBoolean(DROPPED_BY_PLAYER_KEY, value) }

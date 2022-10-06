@@ -25,7 +25,7 @@ import java.util.Objects;
 public class ItemMixin {
 
     private final BehaviorModifier<Item, InventoryTickParams> modifier =
-            new MagneticBehavior(5.5, 0.4, 200)
+            new MagneticBehavior(5.5, 0.4, item -> !ItemStackKt.getDroppedByPlayer(item.getStack()))
                     .runIf(params -> ItemStackKt.getMagnetic(Objects.requireNonNull(params.getStack())));
 
     /**
