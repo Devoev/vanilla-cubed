@@ -15,7 +15,7 @@ import net.minecraft.world.gen.placementmodifier.*
 object ModPlacedFeatures : RegistryManager<PlacedFeature>(BuiltinRegistries.PLACED_FEATURE) {
 
     val ENDERITE_ORE = create("enderite_ore", ModConfiguredFeatures.ENDERITE_ORE,
-        ORE.modifiersWithCount(3, HeightRangePlacementModifier.uniform(YOffset.aboveBottom(0), YOffset.aboveBottom(70))))
+        ORE.modifiersWithCount(7, HeightRangePlacementModifier.uniform(YOffset.aboveBottom(0), YOffset.aboveBottom(70))))
 
     /**
      * Creates a [PlacedFeature] for ores.
@@ -30,6 +30,9 @@ object ModPlacedFeatures : RegistryManager<PlacedFeature>(BuiltinRegistries.PLAC
         private fun modifiers(countModifier: PlacementModifier, heightModifier: PlacementModifier): List<PlacementModifier>
                 = listOf(countModifier, SquarePlacementModifier.of(), heightModifier, BiomePlacementModifier.of())
 
+        /**
+         * @param count The amount of generated clusters.
+         */
         fun modifiersWithCount(count: Int, heightModifier: PlacementModifier) = modifiers(CountPlacementModifier.of(count), heightModifier)
 
         fun modifiersWithRarity(chance: Int, heightModifier: PlacementModifier) = modifiers(RarityFilterPlacementModifier.of(chance), heightModifier)
