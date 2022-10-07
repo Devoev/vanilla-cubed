@@ -29,8 +29,7 @@ object ModTools {
     val ENDERITE = TridentToolBuilder(
         material = ModToolMaterials.ENDERITE,
         settings = ModItemGroup.VANILLA_CUBED.toSettings(),
-        postHitBehavior = NoGravityPostHitBehavior,
-        postMineBehavior = NoGravityPostMineBehavior,
+        postHitBehavior = NoGravityBehavior,
         entityProvider = ::EnderiteTridentEntity)
 
     val DRAGON_SCALE = ToolBuilder(

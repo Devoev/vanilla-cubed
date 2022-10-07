@@ -18,6 +18,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -115,11 +116,25 @@ public class EntityMixin {
         }
     }
 
+    /**
+     * Removes the gravity of enderite items.
+     */
     @Inject(method = "tick", at = @At("HEAD"))
     private void setNoGravityEnderite(CallbackInfo info) {
         if (!((Object) this instanceof ItemEntity itemEntity)) return;
         if (!itemEntity.getStack().isIn(ModTagKeys.INSTANCE.getENDERITE_ITEM())) return;
-        if (!itemEntity.hasNoGravity())
-            itemEntity.setNoGravity(true);
+        itemEntity.setNoGravity(true);
+    }
+
+    /**
+     * Removes the gravity of items mined with enderite tools.
+     */
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void setNoGravityMinedByEnderite(CallbackInfo info) {
+        if (!((Object) this instanceof ItemEntity itemEntity)) return;
+        if (!ItemStackKt.getMinedByEnderite(itemEntity.getStack())) return;
+        itemEntity.setNoGravity(true);
+        itemEntity.setVelocity(itemEntity.getVelocity().multiply(0.3));
+        ItemStackKt.setMinedByEnderite(itemEntity.getStack(), false);
     }
 }

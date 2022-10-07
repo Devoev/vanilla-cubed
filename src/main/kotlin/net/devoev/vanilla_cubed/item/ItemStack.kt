@@ -104,3 +104,18 @@ const val DROPPED_BY_PLAYER_KEY = "dropped_by_player"
 var ItemStack.droppedByPlayer: Boolean
     get() = nbt?.getBoolean(DROPPED_BY_PLAYER_KEY) ?: false
     set(value) { orCreateNbt.putBoolean(DROPPED_BY_PLAYER_KEY, value) }
+
+/**
+ * The key for the NBT data to indicate, whether the stack is a block drop, whos block got mined with enderite tools.
+ */
+private const val MINED_BY_ENDERITE_KEY = "mined_by_enderite"
+
+/**
+ * Whether this stack is a block drop, that got mined by enderite tools.
+ */
+var ItemStack.minedByEnderite: Boolean
+    get() = nbt?.getBoolean(MINED_BY_ENDERITE_KEY) ?: false
+    set(value) {
+        orCreateNbt.putBoolean(MINED_BY_ENDERITE_KEY, value)
+        if (!value) nbt?.remove(MINED_BY_ENDERITE_KEY)
+    }
