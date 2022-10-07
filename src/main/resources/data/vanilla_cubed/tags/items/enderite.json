@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "vanilla_cubed:enderite_ore",
+    "vanilla_cubed:enderite_block",
+    "vanilla_cubed:enderite_shard",
+    "vanilla_cubed:enderite_ingot",
+    "vanilla_cubed:enderite_powder",
+    "vanilla_cubed:enderite_sword",
+    "vanilla_cubed:enderite_shovel",
+    "vanilla_cubed:enderite_pickaxe",
+    "vanilla_cubed:enderite_axe",
+    "vanilla_cubed:enderite_hoe",
+    "vanilla_cubed:enderite_trident",
+    "vanilla_cubed:enderite_helmet",
+    "vanilla_cubed:enderite_chestplate",
+    "vanilla_cubed:enderite_leggings",
+    "vanilla_cubed:enderite_boots"
+  ]
+}

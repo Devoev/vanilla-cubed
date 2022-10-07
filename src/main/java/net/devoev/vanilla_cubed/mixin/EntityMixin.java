@@ -3,6 +3,7 @@ package net.devoev.vanilla_cubed.mixin;
 import net.devoev.vanilla_cubed.item.ItemKt;
 import net.devoev.vanilla_cubed.item.ItemStackKt;
 import net.devoev.vanilla_cubed.item.ModItems;
+import net.devoev.vanilla_cubed.tag.ModTagKeys;
 import net.devoev.vanilla_cubed.util.LivingEntityKt;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
@@ -11,6 +12,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
@@ -111,5 +113,13 @@ public class EntityMixin {
                 );
             });
         }
+    }
+
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void setNoGravityEnderite(CallbackInfo info) {
+        if (!((Object) this instanceof ItemEntity itemEntity)) return;
+        if (!itemEntity.getStack().isIn(ModTagKeys.INSTANCE.getENDERITE_ITEM())) return;
+        if (!itemEntity.hasNoGravity())
+            itemEntity.setNoGravity(true);
     }
 }
