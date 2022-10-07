@@ -24,7 +24,7 @@ public class BlockMixin {
      * Sets the setMinedByEnderite NBT value of block drops to true, if mined with enderite tools.
      */
     @Inject(method = "getDroppedStacks(Lnet/minecraft/block/BlockState;Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/entity/BlockEntity;Lnet/minecraft/entity/Entity;Lnet/minecraft/item/ItemStack;)Ljava/util/List;", at = @At("RETURN"))
-    private static void test(BlockState state, ServerWorld world, BlockPos pos, @Nullable BlockEntity blockEntity, @Nullable Entity entity, ItemStack stack, CallbackInfoReturnable<List<ItemStack>> info) {
+    private static void setMinedByEnderiteNBT(BlockState state, ServerWorld world, BlockPos pos, @Nullable BlockEntity blockEntity, @Nullable Entity entity, ItemStack stack, CallbackInfoReturnable<List<ItemStack>> info) {
         if (ItemKt.isEnderite(stack.getItem()))
             info.getReturnValue().forEach(itemStack -> ItemStackKt.setMinedByEnderite(itemStack, true));
     }
