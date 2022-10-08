@@ -7,6 +7,7 @@ import net.devoev.vanilla_cubed.client.render.entity.model.ModEntityModelLayers
 import net.devoev.vanilla_cubed.client.render.entity.model.ModModelProviders
 import net.devoev.vanilla_cubed.client.render.item.ModItemRenderer
 import net.devoev.vanilla_cubed.item.ModModelPredicateProvider
+import net.devoev.vanilla_cubed.networking.ModClientPlayNetworking
 import net.devoev.vanilla_cubed.resource.ModResourceReloadListeners
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.api.EnvType
@@ -24,5 +25,6 @@ object VanillaCubedClient : ClientModInitializer {
         ModModelPredicateProvider.init()
         ModLivingEntityFeatureRenderer.init()
         ModClientTickEvents.init()
+        ModClientPlayNetworking.init()
     }
 }

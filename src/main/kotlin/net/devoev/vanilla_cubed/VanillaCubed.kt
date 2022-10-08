@@ -9,6 +9,7 @@ import net.devoev.vanilla_cubed.entity.ModEntityTypes
 import net.devoev.vanilla_cubed.item.ModItems
 import net.devoev.vanilla_cubed.item.ModModelPredicateProvider
 import net.devoev.vanilla_cubed.loot.ModLootTables
+import net.devoev.vanilla_cubed.networking.ModClientPlayNetworking
 import net.devoev.vanilla_cubed.networking.ModServerPlayNetworking
 import net.devoev.vanilla_cubed.world.feature.ModConfiguredFeatures
 import net.devoev.vanilla_cubed.world.feature.ModPlacedFeatures
