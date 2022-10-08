@@ -19,17 +19,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class PlayerEntityMixin {
 
     /**
-     * Sets dropped by player value of the dropped stack to true.
+     * Sets dropped by player value of the dropped item to true.
      */
-    @Inject(method = "dropItem(Lnet/minecraft/item/ItemStack;ZZ)Lnet/minecraft/entity/ItemEntity;", at = @At("HEAD"))
-    private void setDroppedByPlayerItem(ItemStack stack, boolean throwRandomly, boolean retainOwnership, CallbackInfoReturnable<ItemEntity> info) {
-        if (!((Object) this instanceof PlayerEntity player)) return;
-        if (player.world.isClient) return;
-
-        //if (!stack.isEmpty())
-         //   ItemStackKt.setDroppedByPlayer(stack, true);
-    }
-
     @ModifyVariable(method = "dropItem(Lnet/minecraft/item/ItemStack;ZZ)Lnet/minecraft/entity/ItemEntity;", at = @At("STORE"), ordinal = 0)
     private ItemEntity setDroppedByPlayer(ItemEntity itemEntity) {
         if (itemEntity.world.isClient) return itemEntity;
