@@ -1,7 +1,6 @@
 package net.devoev.vanilla_cubed.item.behavior
 
 import net.devoev.vanilla_cubed.entity.addVelocity
-import net.devoev.vanilla_cubed.item.droppedByPlayer
 import net.devoev.vanilla_cubed.util.math.minus
 import net.devoev.vanilla_cubed.util.math.times
 import net.minecraft.entity.Entity

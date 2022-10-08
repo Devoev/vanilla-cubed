@@ -1,5 +1,6 @@
 package net.devoev.vanilla_cubed.mixin;
 
+import net.devoev.vanilla_cubed.entity.ItemEntityKt;
 import net.devoev.vanilla_cubed.item.ItemKt;
 import net.devoev.vanilla_cubed.item.ItemStackKt;
 import net.devoev.vanilla_cubed.item.behavior.BehaviorModifier;
@@ -25,7 +26,7 @@ import java.util.Objects;
 public class ItemMixin {
 
     private final BehaviorModifier<Item, InventoryTickParams> modifier =
-            new MagneticBehavior(5.5, 0.4, item -> !ItemStackKt.getDroppedByPlayer(item.getStack()))
+            new MagneticBehavior(5.5, 0.4, item -> !ItemEntityKt.getDroppedByPlayer(item))
                     .runIf(params -> ItemStackKt.getMagnetic(Objects.requireNonNull(params.getStack())));
 
     /**
