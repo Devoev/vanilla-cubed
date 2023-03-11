@@ -47,7 +47,7 @@ dependencies {
     // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
     // You may need to force-disable transitiveness on them.
     include modImplementation("com.jamieswhiteshirt:reach-entity-attributes:${project.reach_entity_attribute_version}")
-    modImplementation "de.siphalor:nbtcrafting-1.19:2+"
+    modImplementation "de.siphalor:nbtcrafting-${project.nbtcrafting_version}"
 }
 
 processResources {
