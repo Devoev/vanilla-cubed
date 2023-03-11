@@ -20,7 +20,7 @@ val ENDERITE_SHIELD_PARTICLES = PlayChannelHandler { client, _, buf, _ ->
     val v1 = (ex - ex.proj(n)).normalize()
     val v2 = (ez - ez.proj(n) - ez.proj(v1)).normalize()
 
-    val r = 5
+    val r = 4
     val uRange = -r..r
 
     val draw = mutableSetOf<Vec3d>()

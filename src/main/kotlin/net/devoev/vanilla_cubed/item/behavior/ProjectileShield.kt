@@ -4,27 +4,32 @@ import net.devoev.vanilla_cubed.networking.Channels
 import net.devoev.vanilla_cubed.networking.writeVec3d
 import net.devoev.vanilla_cubed.util.math.times
 import net.devoev.vanilla_cubed.util.wearsEnderite
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
-import net.minecraft.client.gui.screen.pack.ResourcePackOrganizer.Pack
 import net.minecraft.entity.damage.DamageSource
 import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.particle.ParticleTypes
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.sound.SoundCategory
 import net.minecraft.sound.SoundEvents
+import kotlin.random.Random
 
 /**
  * Protects the [player] from incoming projectiles, by reflecting them.
+ * @param p The probability of deflecting the projectile.
  * @return True, if the projectile could successfully be deflected.
  */
-fun protectFromProjectiles(player: PlayerEntity, source: DamageSource): Boolean {
-    if (!player.wearsEnderite() || !source.isProjectile || player.world.isClient) return false
+fun protectFromProjectiles(player: PlayerEntity, source: DamageSource, p: Double): Boolean {
+    if (!player.wearsEnderite()
+        || !source.isProjectile
+        || player.world.isClient
+        || Random.nextDouble(1.0) > p
+        ) return false
     val entity = source.source ?: return false
     entity.run {
-        val dir = velocity.normalize() * 0.1
-        updatePosition(x + dir.x, y + dir.y, z + dir.z)
+        val r = blockPos
+        val dr = velocity.normalize() * 3
+        updatePosition(x + dr.x, y + dr.y, z + dr.z)
+        velocity *= -2
         player.world.playSound(
             null,
             blockPos,
@@ -36,8 +41,8 @@ fun protectFromProjectiles(player: PlayerEntity, source: DamageSource): Boolean 
 
         if (player !is ServerPlayerEntity) return@run
         val buf = PacketByteBufs.create()
-            .writeBlockPos(entity.blockPos)
-            .writeVec3d(velocity*1000)
+            .writeBlockPos(r)
+            .writeVec3d(dr*1000)
         ServerPlayNetworking.send(player, Channels.ENDERITE_SHIELD_SPAWN_PARTICLES, buf)
     }
     return true
