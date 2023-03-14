@@ -37,13 +37,6 @@ class InfusedFireworkRocket : FireworkRocketItem(ModItemGroup.VANILLA_CUBED.toSe
         /**
          * The predicate provider to provide the infusion level.
          */
-        val INFUSION_LVL_PREDICATE_PROVIDER = UnclampedModelPredicateProvider { stack, _, _, _ ->
-            when(stack.infusionLvl) {
-                3 -> 1f
-                2 -> 0.5f
-                1 -> 0f
-                else -> error("Infusion level must be between 1 and 3!")
-            }
-        }
+        val INFUSION_LVL_PREDICATE_PROVIDER = UnclampedModelPredicateProvider { stack, _, _, _ -> (stack.infusionLvl - 1f) / 2 }
     }
 }
