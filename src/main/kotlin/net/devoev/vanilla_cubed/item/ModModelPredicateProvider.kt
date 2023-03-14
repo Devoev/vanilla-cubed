@@ -16,6 +16,7 @@ object ModModelPredicateProvider : SetInitializer<ModelPredicate>() {
         create(ModItems.AMETHYST_COMPASS, "charged", AmethystCompass.CHARGED_PREDICATE_PROVIDER)
         create(Items.ENCHANTED_BOOK, "gilded") { stack,_,_,_ -> stack.gilded.toFloat() }
         create(ModItems.ENDERITE_TRIDENT, "throwing", ModTridentItem.THROWING_PREDICATE_PROVIDER)
+        create(ModItems.INFUSED_FIREWORK_ROCKET, "infusion_lvl", InfusedFireworkRocket.INFUSION_LVL_PREDICATE_PROVIDER)
     }
 
     fun create(item: Item, predicateName: String, predicateProvider: UnclampedModelPredicateProvider)

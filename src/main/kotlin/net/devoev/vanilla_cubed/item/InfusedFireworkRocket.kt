@@ -1,5 +1,6 @@
 package net.devoev.vanilla_cubed.item
 
+import net.minecraft.client.item.UnclampedModelPredicateProvider
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.projectile.FireworkRocketEntity
 import net.minecraft.item.FireworkRocketItem
@@ -31,12 +32,18 @@ class InfusedFireworkRocket : FireworkRocketItem(ModItemGroup.VANILLA_CUBED.toSe
         return TypedActionResult.success(stack, world.isClient())
     }
 
-    private var ItemStack.infusionLvl: Int
-        get() = if (orCreateNbt.contains(INFUSION_LVL_NBT_KEY)) nbt!!.getInt(INFUSION_LVL_NBT_KEY) else 3
-        set(value) { orCreateNbt.putInt(INFUSION_LVL_NBT_KEY, value) }
-
     companion object {
 
-        const val INFUSION_LVL_NBT_KEY = "infusion_lvl"
+        /**
+         * The predicate provider to provide the infusion level.
+         */
+        val INFUSION_LVL_PREDICATE_PROVIDER = UnclampedModelPredicateProvider { stack, _, _, _ ->
+            when(stack.infusionLvl) {
+                3 -> 1f
+                2 -> 0.5f
+                1 -> 0f
+                else -> error("Infusion level must be between 1 and 3!")
+            }
+        }
     }
 }

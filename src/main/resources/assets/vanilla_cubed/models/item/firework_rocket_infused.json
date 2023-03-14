@@ -2,5 +2,25 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "vanilla_cubed:item/firework_rocket_infused_3"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "infusion_lvl": 0
+      },
+      "model": "vanilla_cubed:item/firework_rocket_infused_1"
+    },
+    {
+      "predicate": {
+        "infusion_lvl": 0.5
+      },
+      "model": "vanilla_cubed:item/firework_rocket_infused_2"
+    },
+    {
+      "predicate": {
+        "infusion_lvl": 1
+      },
+      "model": "vanilla_cubed:item/firework_rocket_infused_3"
+    }
+  ]
 }

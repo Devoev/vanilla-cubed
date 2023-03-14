@@ -107,3 +107,21 @@ var ItemStack.minedByEnderite: Boolean
         orCreateNbt.putBoolean(MINED_BY_ENDERITE_KEY, value)
         if (!value) nbt?.remove(MINED_BY_ENDERITE_KEY)
     }
+
+/**
+ * The key for the NBT data that stores the infusion level of infused firework rockets.
+ */
+private const val INFUSION_LVL_KEY = "infusion_lvl"
+
+/**
+ * The infusion level.
+ */
+var ItemStack.infusionLvl: Int
+    get() {
+        if (item !is InfusedFireworkRocket) error("$item must be of type $InfusedFireworkRocket")
+        return if (orCreateNbt.contains(INFUSION_LVL_KEY)) nbt!!.getInt(INFUSION_LVL_KEY) else 3
+    }
+    set(value) {
+        if (item !is InfusedFireworkRocket) error("$item must be of type $InfusedFireworkRocket")
+        orCreateNbt.putInt(INFUSION_LVL_KEY, value)
+    }
