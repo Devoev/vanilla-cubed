@@ -4,7 +4,8 @@ import net.devoev.vanilla_cubed.entity.effect.StatusEffectHelper
 import net.devoev.vanilla_cubed.item.tool.ModTools
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.item.Item
-import net.minecraft.item.ToolItem
+import net.minecraft.sound.SoundCategory
+import net.minecraft.sound.SoundEvents
 import kotlin.random.Random
 
 /**
@@ -21,5 +22,13 @@ class ApplyHarmfulEffectBehavior(private val probability: Double,
 
         if (Random.nextDouble() < 1 - probability || effect.effectType.isInstant) return
         params.target?.addStatusEffect(effect, params.attacker)
+        params.target?.world?.playSound(
+            null,
+            params.target.blockPos,
+            SoundEvents.ENTITY_SPLASH_POTION_BREAK,
+            SoundCategory.PLAYERS,
+            5f,
+            0f
+        )
     }
 }

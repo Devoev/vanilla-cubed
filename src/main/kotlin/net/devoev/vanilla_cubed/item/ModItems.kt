@@ -1,10 +1,8 @@
 package net.devoev.vanilla_cubed.item
 
 import net.devoev.vanilla_cubed.block.ModBlocks
-import net.devoev.vanilla_cubed.entity.projectile.EnderiteTridentEntity
 import net.devoev.vanilla_cubed.entity.projectile.NetheriteTridentEntity
 import net.devoev.vanilla_cubed.item.armor.ModArmor
-import net.devoev.vanilla_cubed.item.tool.ModToolMaterials
 import net.devoev.vanilla_cubed.item.tool.ModTools
 import net.devoev.vanilla_cubed.item.tool.ModTridentItem
 import net.devoev.vanilla_cubed.util.RegistryManager
@@ -80,6 +78,8 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
     //Dragon Scale
     val DRAGON_SCALE = create("dragon_scale", DragonScale())
     val INFUSED_DRAGON_SCALE = create("dragon_scale_infused", Item(ModItemGroup.VANILLA_CUBED.toSettings()))
+    val INFUSED_DRAGON_SCALE_CHUNK = create("dragon_scale_chunk_infused", Item(ModItemGroup.VANILLA_CUBED.toSettings()))
+    val INFUSED_FIREWORK_ROCKET = create("firework_rocket_infused", InfusedFireworkRocket())
 
     val DRAGON_SCALE_SWORD = create("dragon_scale_sword", ModTools.DRAGON_SCALE.sword)
     val DRAGON_SCALE_SHOVEL = create("dragon_scale_shovel", ModTools.DRAGON_SCALE.shovel)

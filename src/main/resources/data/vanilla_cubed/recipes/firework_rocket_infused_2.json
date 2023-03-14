@@ -1,0 +1,97 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "vanilla_cubed:dragon_scale_chunk_infused"
+    },
+    {
+      "item": "minecraft:firework_rocket",
+      "data": {
+        "require": {
+          "Fireworks": {
+            "Flight": 2
+          }
+        }
+      }
+    },
+    {
+      "item": "minecraft:firework_rocket",
+      "data": {
+        "require": {
+          "Fireworks": {
+            "Flight": 2
+          }
+        }
+      }
+    },
+    {
+      "item": "minecraft:firework_rocket",
+      "data": {
+        "require": {
+          "Fireworks": {
+            "Flight": 2
+          }
+        }
+      }
+    },
+    {
+      "item": "minecraft:firework_rocket",
+      "data": {
+        "require": {
+          "Fireworks": {
+            "Flight": 2
+          }
+        }
+      }
+    },
+    {
+      "item": "minecraft:firework_rocket",
+      "data": {
+        "require": {
+          "Fireworks": {
+            "Flight": 2
+          }
+        }
+      }
+    },
+    {
+      "item": "minecraft:firework_rocket",
+      "data": {
+        "require": {
+          "Fireworks": {
+            "Flight": 2
+          }
+        }
+      }
+    },
+    {
+      "item": "minecraft:firework_rocket",
+      "data": {
+        "require": {
+          "Fireworks": {
+            "Flight": 2
+          }
+        }
+      }
+    },
+    {
+      "item": "minecraft:firework_rocket",
+      "data": {
+        "require": {
+          "Fireworks": {
+            "Flight": 2
+          }
+        }
+      }
+    }
+  ],
+  "result": {
+    "item": "vanilla_cubed:firework_rocket_infused",
+    "count": 8,
+    "data": {
+      "Fireworks": {
+        "Flight": 2
+      }
+    }
+  }
+}

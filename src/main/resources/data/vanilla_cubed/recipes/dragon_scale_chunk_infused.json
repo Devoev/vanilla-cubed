@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "vanilla_cubed:dragon_scale_infused"
+    }
+  ],
+  "result": {
+    "item": "vanilla_cubed:dragon_scale_chunk_infused",
+    "count": 9
+  }
+}

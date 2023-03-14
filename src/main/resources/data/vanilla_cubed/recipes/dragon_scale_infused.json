@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "vanilla_cubed:dragon_scale_chunk_infused"
+    },
+    {
+      "item": "vanilla_cubed:dragon_scale_chunk_infused"
+    },
+    {
+      "item": "vanilla_cubed:dragon_scale_chunk_infused"
+    },
+    {
+      "item": "vanilla_cubed:dragon_scale_chunk_infused"
+    },
+    {
+      "item": "vanilla_cubed:dragon_scale_chunk_infused"
+    },
+    {
+      "item": "vanilla_cubed:dragon_scale_chunk_infused"
+    },
+    {
+      "item": "vanilla_cubed:dragon_scale_chunk_infused"
+    },
+    {
+      "item": "vanilla_cubed:dragon_scale_chunk_infused"
+    },
+    {
+      "item": "vanilla_cubed:dragon_scale_chunk_infused"
+    }
+  ],
+  "result": {
+    "item": "vanilla_cubed:dragon_scale_infused",
+    "count": 1
+  }
+}
