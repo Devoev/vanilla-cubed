@@ -1,9 +1,8 @@
 package net.devoev.vanilla_cubed.item
 
+import net.devoev.vanilla_cubed.item.tool.THROWING_PREDICATE_PROVIDER
 import net.devoev.vanilla_cubed.util.SetInitializer
 import net.devoev.vanilla_cubed.util.math.toFloat
-import net.devoev.vanilla_cubed.util.math.toGlobalPos
-import net.minecraft.client.item.CompassAnglePredicateProvider
 import net.minecraft.client.item.ModelPredicateProviderRegistry
 import net.minecraft.client.item.UnclampedModelPredicateProvider
 import net.minecraft.item.Item
@@ -27,22 +26,3 @@ object ModModelPredicateProvider : SetInitializer<ModelPredicate>() {
 }
 
 typealias ModelPredicate = Triple<Item, Identifier, UnclampedModelPredicateProvider>
-
-val THROWING_PREDICATE_PROVIDER = UnclampedModelPredicateProvider { stack, _, entity, _ ->
-    (entity != null && entity.isUsingItem && entity.activeItem == stack).toFloat()
-}
-
-/**
- * The predicate provider for this compasses angle.
- */
-val ANGLE_PREDICATE_PROVIDER = CompassAnglePredicateProvider { world, stack, _ -> stack.targetPos?.toGlobalPos(world) }
-
-/**
- * The predicate provider for indicate, whether the compass is charged.
- */
-val CHARGED_PREDICATE_PROVIDER = UnclampedModelPredicateProvider { stack, _, _, _ -> stack.charged.toFloat() }
-
-/**
- * The predicate provider to provide the infusion level.
- */
-val INFUSION_LVL_PREDICATE_PROVIDER = UnclampedModelPredicateProvider { stack, _, _, _ -> (stack.infusionLvl - 1f) / 2 }

@@ -1,7 +1,11 @@
 package net.devoev.vanilla_cubed.item
 
+import net.devoev.vanilla_cubed.util.math.toFloat
+import net.devoev.vanilla_cubed.util.math.toGlobalPos
 import net.devoev.vanilla_cubed.world.gen.structure.StructureHelper
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
+import net.minecraft.client.item.CompassAnglePredicateProvider
+import net.minecraft.client.item.UnclampedModelPredicateProvider
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
@@ -48,3 +52,13 @@ class AmethystCompass : Item(FabricItemSettings().maxDamage(25).group(ModItemGro
         )?.first
     }
 }
+
+/**
+ * The predicate provider for this compasses angle.
+ */
+val ANGLE_PREDICATE_PROVIDER = CompassAnglePredicateProvider { world, stack, _ -> stack.targetPos?.toGlobalPos(world) }
+
+/**
+ * The predicate provider for indicate, whether the compass is charged.
+ */
+val CHARGED_PREDICATE_PROVIDER = UnclampedModelPredicateProvider { stack, _, _, _ -> stack.charged.toFloat() }

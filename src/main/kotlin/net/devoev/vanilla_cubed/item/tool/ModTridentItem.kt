@@ -2,7 +2,9 @@ package net.devoev.vanilla_cubed.item.tool
 
 import net.devoev.vanilla_cubed.item.behavior.*
 import net.devoev.vanilla_cubed.item.tool.data.ToolData
+import net.devoev.vanilla_cubed.util.math.toFloat
 import net.minecraft.block.BlockState
+import net.minecraft.client.item.UnclampedModelPredicateProvider
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.Entity
 import net.minecraft.entity.LivingEntity
@@ -129,4 +131,11 @@ class ModTridentItem(private val entityProvider: (World, LivingEntity, ItemStack
             )
         }
     }
+}
+
+/**
+ * The predicate provider providing the throwing state of a trident.
+ */
+val THROWING_PREDICATE_PROVIDER = UnclampedModelPredicateProvider { stack, _, entity, _ ->
+    (entity != null && entity.isUsingItem && entity.activeItem == stack).toFloat()
 }
