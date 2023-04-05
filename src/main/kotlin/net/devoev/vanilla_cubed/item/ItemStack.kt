@@ -46,7 +46,7 @@ var ItemStack.magnetic: Boolean
  * Whether this [ModItems.AMETHYST_COMPASS] is charged. A compass is charged, if it has at least 2 damage points left.
  */
 val ItemStack.charged: Boolean get() {
-    if (item !is AmethystCompass) error("$item must be of type $AmethystCompass")
+    if (item !is AmethystCompass) error("$item must be of type AmethystCompass")
     return maxDamage - damage > 1
 }
 
@@ -61,14 +61,14 @@ private const val AMETHYST_COMPASS_TARGET_POS_KEY = "target_pos"
 var ItemStack.targetPos: BlockPos?
 
     get() {
-        if (item !is AmethystCompass) error("$item must be of type $AmethystCompass")
+        if (item !is AmethystCompass) error("$item must be of type ${AmethystCompass::class}")
         val list = nbt?.getIntArray(AMETHYST_COMPASS_TARGET_POS_KEY) ?: return null
         if (list.size != 3) return null
         return BlockPos(list[0],list[1],list[2])
     }
 
     set(value) {
-        if (item !is AmethystCompass) error("$item must be of type $AmethystCompass")
+        if (item !is AmethystCompass) error("$item must be of type ${AmethystCompass::class}")
         nbt?.putIntArray(AMETHYST_COMPASS_TARGET_POS_KEY, if (value != null) listOf(value.x, value.y, value.z) else null)
     }
 
@@ -118,10 +118,10 @@ private const val INFUSION_LVL_KEY = "infusion_lvl"
  */
 var ItemStack.infusionLvl: Int
     get() {
-        if (item !is InfusedFireworkRocket) error("$item must be of type $InfusedFireworkRocket")
+        if (item !is InfusedFireworkRocket) error("$item must be of type ${InfusedFireworkRocket::class}")
         return if (orCreateNbt.contains(INFUSION_LVL_KEY)) nbt!!.getInt(INFUSION_LVL_KEY) else 3
     }
     set(value) {
-        if (item !is InfusedFireworkRocket) error("$item must be of type $InfusedFireworkRocket")
+        if (item !is InfusedFireworkRocket) error("$item must be of type ${InfusedFireworkRocket::class}")
         orCreateNbt.putInt(INFUSION_LVL_KEY, value)
     }

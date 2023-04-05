@@ -1,6 +1,5 @@
 package net.devoev.vanilla_cubed.item
 
-import net.minecraft.client.item.UnclampedModelPredicateProvider
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.projectile.FireworkRocketEntity
 import net.minecraft.item.FireworkRocketItem
@@ -30,13 +29,5 @@ class InfusedFireworkRocket : FireworkRocketItem(ModItemGroup.VANILLA_CUBED.toSe
             user.incrementStat(Stats.USED.getOrCreateStat(this))
         }
         return TypedActionResult.success(stack, world.isClient())
-    }
-
-    companion object {
-
-        /**
-         * The predicate provider to provide the infusion level.
-         */
-        val INFUSION_LVL_PREDICATE_PROVIDER = UnclampedModelPredicateProvider { stack, _, _, _ -> (stack.infusionLvl - 1f) / 2 }
     }
 }

@@ -1,11 +1,7 @@
 package net.devoev.vanilla_cubed.item
 
-import net.devoev.vanilla_cubed.util.math.toFloat
-import net.devoev.vanilla_cubed.util.math.toGlobalPos
 import net.devoev.vanilla_cubed.world.gen.structure.StructureHelper
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
-import net.minecraft.client.item.CompassAnglePredicateProvider
-import net.minecraft.client.item.UnclampedModelPredicateProvider
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
@@ -43,25 +39,12 @@ class AmethystCompass : Item(FabricItemSettings().maxDamage(25).group(ModItemGro
      * Generates a new target pos and sets the value of the given [stack].
      */
     private fun generateTargetPos(world: ServerWorld, user: PlayerEntity, stack: ItemStack) {
-        if (stack.item !is AmethystCompass) error("${stack.item} must be of type $AmethystCompass")
+        if (stack.item !is AmethystCompass) error("${stack.item} must be of type ${AmethystCompass::class}")
 
         val entries = StructureHelper.keys.map { world.registryManager.get(Registry.STRUCTURE_KEY).getEntry(it).get() }
         val list = RegistryEntryList.of(entries)
         stack.targetPos = world.chunkManager.chunkGenerator.locateStructure(
             world, list, user.blockPos, 15, false
         )?.first
-    }
-
-    companion object {
-
-        /**
-         * The predicate provider for this compasses angle.
-         */
-        val ANGLE_PREDICATE_PROVIDER = CompassAnglePredicateProvider { world, stack, _ -> stack.targetPos?.toGlobalPos(world) }
-
-        /**
-         * The predicate provider for indicate, whether the compass is charged.
-         */
-        val CHARGED_PREDICATE_PROVIDER = UnclampedModelPredicateProvider { stack, _, _, _ -> stack.charged.toFloat() }
     }
 }

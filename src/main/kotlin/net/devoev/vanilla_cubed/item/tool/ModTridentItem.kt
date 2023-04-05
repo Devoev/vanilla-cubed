@@ -1,12 +1,8 @@
 package net.devoev.vanilla_cubed.item.tool
 
-import net.devoev.vanilla_cubed.item.ModItemGroup
 import net.devoev.vanilla_cubed.item.behavior.*
 import net.devoev.vanilla_cubed.item.tool.data.ToolData
-import net.devoev.vanilla_cubed.util.math.toFloat
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.block.BlockState
-import net.minecraft.client.item.UnclampedModelPredicateProvider
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.Entity
 import net.minecraft.entity.LivingEntity
@@ -14,7 +10,10 @@ import net.minecraft.entity.MovementType
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.projectile.PersistentProjectileEntity
 import net.minecraft.entity.projectile.TridentEntity
-import net.minecraft.item.*
+import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
+import net.minecraft.item.ToolMaterial
+import net.minecraft.item.TridentItem
 import net.minecraft.sound.SoundCategory
 import net.minecraft.sound.SoundEvents
 import net.minecraft.stat.Stats
@@ -128,13 +127,6 @@ class ModTridentItem(private val entityProvider: (World, LivingEntity, ItemStack
                 1.0f,
                 1.0f
             )
-        }
-    }
-
-    companion object {
-
-        val THROWING_PREDICATE_PROVIDER = UnclampedModelPredicateProvider { stack, _, entity, _ ->
-            (entity != null && entity.isUsingItem && entity.activeItem == stack).toFloat()
         }
     }
 }
