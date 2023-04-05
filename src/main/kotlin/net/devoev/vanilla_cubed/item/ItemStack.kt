@@ -3,6 +3,7 @@ package net.devoev.vanilla_cubed.item
 import net.minecraft.item.ArmorItem
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
+import net.minecraft.item.ToolMaterials
 import net.minecraft.util.math.BlockPos
 
 /**
@@ -18,7 +19,7 @@ var ItemStack.gilded: Boolean
     get() = isOf(Items.ENCHANTED_BOOK) && nbt?.getBoolean(ENCHANTED_BOOK_GILDED_KEY) == true
 
     set(value) {
-        if (!isOf(Items.ENCHANTED_BOOK)) error("$item must be of type ${Items.ENCHANTED_BOOK}")
+        if (!isOf(Items.ENCHANTED_BOOK)) error("$item must be an ${Items.ENCHANTED_BOOK}")
         orCreateNbt.putBoolean(ENCHANTED_BOOK_GILDED_KEY, value)
     }
 
@@ -33,12 +34,12 @@ private const val NETHERITE_DEMAGNETIZED_KEY = "demagnetized"
 var ItemStack.magnetic: Boolean
 
     get() {
-        if (!item.isNetherite() && item !is ArmorItem) error("$item must be a netherite tool")
+        if (!item.isNetherite() && item !is ArmorItem) error("$item must be of material ${ToolMaterials.NETHERITE}")
         return nbt?.getBoolean(NETHERITE_DEMAGNETIZED_KEY) == false
     }
 
     set(value) {
-        if (!item.isNetherite() && item !is ArmorItem) error("$item must be a netherite tool")
+        if (!item.isNetherite() && item !is ArmorItem) error("$item must be of material ${ToolMaterials.NETHERITE}")
         nbt?.putBoolean(NETHERITE_DEMAGNETIZED_KEY, !value)
     }
 
@@ -46,7 +47,7 @@ var ItemStack.magnetic: Boolean
  * Whether this [ModItems.AMETHYST_COMPASS] is charged. A compass is charged, if it has at least 2 damage points left.
  */
 val ItemStack.charged: Boolean get() {
-    if (item !is AmethystCompass) error("$item must be of type AmethystCompass")
+    if (!isOf(ModItems.AMETHYST_COMPASS)) error("$item must be an ${ModItems.AMETHYST_COMPASS}")
     return maxDamage - damage > 1
 }
 
@@ -61,14 +62,14 @@ private const val AMETHYST_COMPASS_TARGET_POS_KEY = "target_pos"
 var ItemStack.targetPos: BlockPos?
 
     get() {
-        if (item !is AmethystCompass) error("$item must be of type ${AmethystCompass::class}")
+        if (!isOf(ModItems.AMETHYST_COMPASS)) error("$item must be an ${ModItems.AMETHYST_COMPASS}")
         val list = nbt?.getIntArray(AMETHYST_COMPASS_TARGET_POS_KEY) ?: return null
         if (list.size != 3) return null
         return BlockPos(list[0],list[1],list[2])
     }
 
     set(value) {
-        if (item !is AmethystCompass) error("$item must be of type ${AmethystCompass::class}")
+        if (!isOf(ModItems.AMETHYST_COMPASS)) error("$item must be an ${ModItems.AMETHYST_COMPASS}")
         nbt?.putIntArray(AMETHYST_COMPASS_TARGET_POS_KEY, if (value != null) listOf(value.x, value.y, value.z) else null)
     }
 
@@ -84,12 +85,12 @@ private const val ENDERITE_POWDER_TICK_KEY = "enderite_powder_ticks"
 var ItemStack.teleportTicks: Int
 
     get() {
-        if (item !is EnderitePowder) error("$item must be of type $EnderitePowder")
+        if (!isOf(ModItems.ENDERITE_POWDER)) error("$item must be an ${ModItems.ENDERITE_POWDER}")
         return nbt?.getInt(ENDERITE_POWDER_TICK_KEY) ?: 0
     }
 
     set(value) {
-        if (item !is EnderitePowder) error("$item must be of type $EnderitePowder")
+        if (!isOf(ModItems.ENDERITE_POWDER)) error("$item must be an ${ModItems.ENDERITE_POWDER}")
         orCreateNbt.putInt(ENDERITE_POWDER_TICK_KEY, value)
     }
 
@@ -118,10 +119,10 @@ private const val INFUSION_LVL_KEY = "infusion_lvl"
  */
 var ItemStack.infusionLvl: Int
     get() {
-        if (item !is InfusedFireworkRocket) error("$item must be of type ${InfusedFireworkRocket::class}")
+        if (!isOf(ModItems.INFUSED_FIREWORK_ROCKET)) error("$item must be a ${ModItems.INFUSED_FIREWORK_ROCKET}")
         return if (orCreateNbt.contains(INFUSION_LVL_KEY)) nbt!!.getInt(INFUSION_LVL_KEY) else 3
     }
     set(value) {
-        if (item !is InfusedFireworkRocket) error("$item must be of type ${InfusedFireworkRocket::class}")
+        if (!isOf(ModItems.INFUSED_FIREWORK_ROCKET)) error("$item must be a ${ModItems.INFUSED_FIREWORK_ROCKET}")
         orCreateNbt.putInt(INFUSION_LVL_KEY, value)
     }

@@ -43,7 +43,7 @@ class AmethystCompass : Item(FabricItemSettings().maxDamage(25).group(ModItemGro
      * Generates a new target pos and sets the value of the given [stack].
      */
     private fun generateTargetPos(world: ServerWorld, user: PlayerEntity, stack: ItemStack) {
-        if (stack.item !is AmethystCompass) error("${stack.item} must be of type ${AmethystCompass::class}")
+        if (!stack.isOf(ModItems.AMETHYST_COMPASS)) error("${stack.item} must be an ${ModItems.AMETHYST_COMPASS}")
 
         val entries = StructureHelper.keys.map { world.registryManager.get(Registry.STRUCTURE_KEY).getEntry(it).get() }
         val list = RegistryEntryList.of(entries)
