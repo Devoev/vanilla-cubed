@@ -2,6 +2,7 @@ package net.devoev.vanilla_cubed.block.entity
 
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
+import net.minecraft.block.Blocks
 import net.minecraft.block.entity.BeaconBlockEntity
 import net.minecraft.block.entity.BlockEntity
 import net.minecraft.block.entity.BlockEntityTicker
@@ -30,9 +31,11 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BeaconBlockEntity
          * Ticks the [ModBeaconBlockEntity].
          */
         private fun tick(world: World, pos: BlockPos, state: BlockState, blockEntity: BeaconBlockEntity) {
-            BeaconBlockEntity.tick(world, pos, state, blockEntity)
+            // BeaconBlockEntity.tick(world, pos, state, blockEntity)
 
-            println(baseBlocks(world, pos))
+            val base = baseBlocks(world, pos)
+            val strength = base.filterKeys { it != Blocks.AIR }.values.sum()
+            println("Beacon operating at strength: $strength")
         }
 
         /**
