@@ -1,6 +1,8 @@
 package net.devoev.vanilla_cubed
 
 import net.devoev.vanilla_cubed.block.ModBlocks
+import net.devoev.vanilla_cubed.block.entity.ModBlockEntityTypes
+import net.devoev.vanilla_cubed.client.gui.screen.ingame.ModScreens
 import net.devoev.vanilla_cubed.enchantment.ModEnchantments
 import net.devoev.vanilla_cubed.entity.ModEntityTypes
 import net.devoev.vanilla_cubed.item.ModItems
@@ -25,7 +27,9 @@ object VanillaCubed : ModInitializer {
         ModPlacedFeatures.init()
         ModWorldGeneration.init()
         ModEntityTypes.init()
+        ModBlockEntityTypes.init()
         ModServerPlayNetworking.init()
+        ModScreens.init()
     }
 
     /**
