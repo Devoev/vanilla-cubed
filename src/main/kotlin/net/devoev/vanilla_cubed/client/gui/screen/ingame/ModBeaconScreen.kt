@@ -8,6 +8,7 @@ import net.minecraft.text.Text
 
 class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventory, title: Text)
     : HandledScreen<ModBeaconScreenHandler>(handler, inventory, title) {
+
     override fun drawBackground(matrices: MatrixStack?, delta: Float, mouseX: Int, mouseY: Int) {
         TODO("Not yet implemented")
     }
