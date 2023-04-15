@@ -7,10 +7,30 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen
 import net.minecraft.client.render.GameRenderer
 import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.entity.player.PlayerInventory
+import net.minecraft.item.ItemStack
+import net.minecraft.screen.ScreenHandler
+import net.minecraft.screen.ScreenHandlerListener
 import net.minecraft.text.Text
 
 class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventory, title: Text)
     : HandledScreen<ModBeaconScreenHandler>(handler, inventory, title) {
+
+    init {
+        backgroundWidth = 230
+        backgroundHeight = 219
+        handler.addListener(object : ScreenHandlerListener {
+            override fun onSlotUpdate(handler2: ScreenHandler, slotId: Int, stack: ItemStack) {}
+            override fun onPropertyUpdate(handler2: ScreenHandler, property: Int, value: Int) {
+                println("Apply effects!") //TODO
+            }
+        })
+    }
+
+    override fun render(matrices: MatrixStack?, mouseX: Int, mouseY: Int, delta: Float) {
+        renderBackground(matrices)
+        super.render(matrices, mouseX, mouseY, delta)
+        drawMouseoverTooltip(matrices, mouseX, mouseY)
+    }
 
     override fun drawBackground(matrices: MatrixStack?, delta: Float, mouseX: Int, mouseY: Int) {
         RenderSystem.setShader { GameRenderer.getPositionTexShader() }
