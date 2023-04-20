@@ -19,6 +19,8 @@ class ModBeaconScreenHandler(syncId: Int, inventory: Inventory) : ScreenHandler(
 
     private val context: ScreenHandlerContext = ScreenHandlerContext.EMPTY
     private val propertyDelegate: PropertyDelegate = ArrayPropertyDelegate(3)
+    val properties: Int
+        get() = propertyDelegate.get(0)
 
     init {
         checkDataCount(propertyDelegate, 3)
