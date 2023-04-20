@@ -23,17 +23,16 @@ class ModBeaconScreenHandler(syncId: Int, inventory: Inventory) : ScreenHandler(
     init {
         checkDataCount(propertyDelegate, 3)
         addProperties(propertyDelegate)
-        for (k in 0..3) {
+        for (k in 0..2) {
             for (l in 0..8) {
                 addSlot(Slot(inventory, l + k * 9 + 9, 36 + l * 18, 137 + k * 18))
             }
         }
-        for (k in 0..9) {
+        for (k in 0..8) {
             addSlot(Slot(inventory, k, 36 + k * 18, 195))
         }
     }
 
-    // FIXME: Wrong gui and inventory slots
     override fun transferSlot(player: PlayerEntity?, index: Int): ItemStack {
         var itemStack = ItemStack.EMPTY
         val slot = slots[index]
