@@ -3,7 +3,6 @@ package net.devoev.vanilla_cubed.mixin;
 import net.devoev.vanilla_cubed.block.entity.ModBeaconBlockEntity;
 import net.minecraft.block.BeaconBlock;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BeaconBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -67,7 +66,7 @@ public class BeaconBlockMixin {
         if (itemStack.hasCustomName()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof ModBeaconBlockEntity) {
-                ((ModBeaconBlockEntity)blockEntity).setCustomName(itemStack.getName());
+                ((ModBeaconBlockEntity) blockEntity).setCustomName(itemStack.getName());
                 ci.cancel();
             }
         }

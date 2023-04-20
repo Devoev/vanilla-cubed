@@ -4,27 +4,64 @@ import net.devoev.vanilla_cubed.screen.ModBeaconScreenHandler
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.Blocks
-import net.minecraft.block.entity.BeaconBlockEntity
-import net.minecraft.block.entity.BlockEntity
-import net.minecraft.block.entity.BlockEntityTicker
-import net.minecraft.block.entity.BlockEntityType
+import net.minecraft.block.entity.*
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.PlayerInventory
+import net.minecraft.inventory.ContainerLock
+import net.minecraft.nbt.NbtCompound
+import net.minecraft.network.Packet
+import net.minecraft.network.listener.ClientPlayPacketListener
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket
 import net.minecraft.screen.NamedScreenHandlerFactory
 import net.minecraft.screen.ScreenHandler
+import net.minecraft.sound.SoundEvents
 import net.minecraft.text.Text
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BeaconBlockEntity(pos, state), NamedScreenHandlerFactory {
+class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBlockEntityTypes.MOD_BEACON, pos, state), NamedScreenHandlerFactory {
 
-    override fun getDisplayName(): Text = Text.literal("Modded Beacon")
+    private var lock: ContainerLock = ContainerLock.EMPTY
+    var customName: Text? = null
 
-    override fun createMenu(i: Int, playerInventory: PlayerInventory?, playerEntity: PlayerEntity?): ScreenHandler {
+    override fun getDisplayName(): Text = customName ?: Text.translatable("container.beacon")
+
+    override fun createMenu(i: Int, playerInventory: PlayerInventory?, playerEntity: PlayerEntity?): ScreenHandler? {
         if (playerInventory == null) error("playerInventory must not be null!")
-        println("Created modded menu")
-        return ModBeaconScreenHandler(i, playerInventory)
+        return if (LockableContainerBlockEntity.checkUnlocked(playerEntity, lock, displayName)) ModBeaconScreenHandler(i, playerInventory)
+        else null;
     }
+
+    override fun markRemoved() {
+        BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_DEACTIVATE)
+        super.markRemoved()
+    }
+
+    override fun toUpdatePacket(): Packet<ClientPlayPacketListener>? {
+        return BlockEntityUpdateS2CPacket.create(this)
+    }
+
+    override fun toInitialChunkDataNbt(): NbtCompound {
+        return createNbt()
+    }
+
+    override fun readNbt(nbt: NbtCompound) {
+        super.readNbt(nbt)
+        if (nbt.contains("CustomName", 8)) {
+            customName = Text.Serializer.fromJson(nbt.getString("CustomName"))
+        }
+        lock = ContainerLock.fromNbt(nbt)
+    }
+
+    override fun writeNbt(nbt: NbtCompound) {
+        super.writeNbt(nbt)
+        if (customName != null) {
+            nbt.putString("CustomName", Text.Serializer.toJson(customName))
+        }
+        lock.writeNbt(nbt)
+    }
+
+
 
     companion object {
 
