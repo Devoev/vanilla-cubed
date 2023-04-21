@@ -8,6 +8,7 @@ import net.fabricmc.api.Environment
 import net.minecraft.client.gui.screen.ingame.BeaconScreen.*
 import net.minecraft.client.gui.screen.ingame.HandledScreen
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder
+import net.minecraft.client.gui.widget.ClickableWidget
 import net.minecraft.client.gui.widget.PressableWidget
 import net.minecraft.client.render.GameRenderer
 import net.minecraft.client.util.math.MatrixStack
@@ -25,6 +26,11 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
 
     private val buttons: MutableList<BeaconButtonWidget> = mutableListOf()
 
+    private fun MutableList<BeaconButtonWidget>.addButton(button: ClickableWidget): Boolean {
+        addDrawableChild(button)
+        return add(button as BeaconButtonWidget) // TODO: Update button classes to avoid cast
+    }
+
     init {
         backgroundWidth = 230
         backgroundHeight = 219
@@ -39,8 +45,8 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
     override fun init() {
         super.init()
         buttons.clear()
-        buttons += BasicButtonWidget(x + 164, y + 107, 90, 220, ScreenTexts.DONE)
-        buttons += BasicButtonWidget(x + 190, y + 107, 112, 220, ScreenTexts.CANCEL)
+        buttons.addButton(BasicButtonWidget(x + 164, y + 107, 90, 220, ScreenTexts.DONE))
+        buttons.addButton(BasicButtonWidget(x + 190, y + 107, 112, 220, ScreenTexts.CANCEL))
     }
 
     override fun handledScreenTick() {
@@ -50,7 +56,6 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
     }
 
     override fun render(matrices: MatrixStack?, mouseX: Int, mouseY: Int, delta: Float) {
-        // TODO: Render buttons!
         renderBackground(matrices)
         super.render(matrices, mouseX, mouseY, delta)
         drawMouseoverTooltip(matrices, mouseX, mouseY)
