@@ -137,7 +137,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         }
 
         override fun onPress() {
-            this@ModBeaconScreen.client!!.player!!.closeHandledScreen()
+            // do nothing
         }
 
         override fun tick(level: Int) {
