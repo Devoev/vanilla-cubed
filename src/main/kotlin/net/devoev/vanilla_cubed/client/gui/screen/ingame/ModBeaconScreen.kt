@@ -102,6 +102,9 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         val TEXTURE = VanillaCubed.id("textures/gui/container/mod_beacon.png")
     }
 
+    /**
+     * A beacon button widget.
+     */
     @Environment(EnvType.CLIENT)
     internal interface BeaconButtonWidget {
         fun shouldRenderTooltip(): Boolean
@@ -109,6 +112,9 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         fun tick(level: Int)
     }
 
+    /**
+     * The abstract base class for all pressable beacon buttons at coordinates ([x], [y]) with a hover [message].
+     */
     @Environment(EnvType.CLIENT)
     internal abstract inner class BaseButtonWidget(x: Int, y: Int, message: Text = ScreenTexts.EMPTY) : PressableWidget(x, y, 22, 22, message), BeaconButtonWidget {
 
@@ -139,9 +145,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
 
 
     /**
-     * A basic beacon button.
-     * @param x x coordinate of the button.
-     * @param y x coordinate of the button.
+     * A basic beacon button at coordinates ([x], [y]).
      * @param u Left-most coordinate of the texture region.
      * @param v Top-most coordinate of the texture region.
      */
