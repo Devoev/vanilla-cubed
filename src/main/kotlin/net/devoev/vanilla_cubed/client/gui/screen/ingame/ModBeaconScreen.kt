@@ -45,8 +45,20 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
     override fun init() {
         super.init()
         buttons.clear()
-        buttons.addButton(BasicButtonWidget(x + 164, y + 107, 90, 220, ScreenTexts.DONE))
-        buttons.addButton(BasicButtonWidget(x + 190, y + 107, 112, 220, ScreenTexts.CANCEL))
+
+        // Effect buttons
+        val dx = 42
+        val dy = 25
+        val x0 = 60
+        val y0 = 16
+        for (i in 0 .. 3) {
+            for (j in 0..3) {
+                val xi = x + x0 + i*dx
+                val yj = y + y0 + j*dy
+                // TODO: Pick u and v for the correct texture
+                buttons.addButton(BasicButtonWidget(xi, yj, 90, 220, ScreenTexts.EMPTY))
+            }
+        }
     }
 
     override fun handledScreenTick() {
@@ -125,8 +137,16 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         override fun appendNarrations(builder: NarrationMessageBuilder?) = appendDefaultNarrations(builder)
     }
 
+
+    /**
+     * A basic beacon button.
+     * @param x x coordinate of the button.
+     * @param y x coordinate of the button.
+     * @param u Left-most coordinate of the texture region.
+     * @param v Top-most coordinate of the texture region.
+     */
     @Environment(EnvType.CLIENT)
-    internal inner class BasicButtonWidget(x: Int, y: Int, val u: Int, val v: Int, message: Text) : BaseButtonWidget(x, y, message) {
+    internal inner class BasicButtonWidget(x: Int, y: Int, private val u: Int, private val v: Int, message: Text) : BaseButtonWidget(x, y, message) {
 
         override fun renderExtra(matrices: MatrixStack?) {
             drawTexture(matrices, this.x + 2, this.y + 2, this.u, this.v, 18, 18)
@@ -138,6 +158,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
 
         override fun onPress() {
             // do nothing
+            println("Pressed $message")
         }
 
         override fun tick(level: Int) {
