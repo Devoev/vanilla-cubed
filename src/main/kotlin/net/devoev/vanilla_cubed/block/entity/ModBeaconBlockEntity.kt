@@ -48,7 +48,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
 
         override fun set(index: Int, value: Int) {
             println("Setting delegate at index $index and value $value")
-            behavior = if (index == 1) {
+            behavior = if (value == 1) {
                 // TODO: play beacon sound
                 StatusEffectBehavior(StatusEffects.SPEED)
             } else {
