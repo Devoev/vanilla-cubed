@@ -9,6 +9,7 @@ object ModServerPlayNetworking : MapInitializer<Identifier, PlayChannelHandler>(
 
     init {
         //this[Channels.JUMP_KEY_PRESSED] = ENDERITE_TELEPORTATION
+        this[Channels.BEACON_BUTTON_UPDATE] = BEACON_BUTTON_UPDATE
     }
 
     override fun init() {

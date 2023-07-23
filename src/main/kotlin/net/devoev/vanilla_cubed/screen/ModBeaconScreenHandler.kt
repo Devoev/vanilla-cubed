@@ -26,7 +26,7 @@ import net.minecraft.world.World
 class ModBeaconScreenHandler(
     syncId: Int,
     inventory: Inventory,
-    private val propertyDelegate: PropertyDelegate,
+    val propertyDelegate: PropertyDelegate,
     private val context: ScreenHandlerContext
 ) : ScreenHandler(ModScreenHandlerTypes.MOD_BEACON, syncId) {
 

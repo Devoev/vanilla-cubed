@@ -4,9 +4,12 @@ import com.mojang.blaze3d.systems.RenderSystem
 import net.devoev.vanilla_cubed.VanillaCubed
 import net.devoev.vanilla_cubed.block.entity.ModBeaconBlockEntity
 import net.devoev.vanilla_cubed.block.entity.behavior.BeaconTickBehavior
+import net.devoev.vanilla_cubed.networking.Channels
 import net.devoev.vanilla_cubed.screen.ModBeaconScreenHandler
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs
 import net.minecraft.client.gui.screen.ingame.BeaconScreen.*
 import net.minecraft.client.gui.screen.ingame.HandledScreen
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder
@@ -146,7 +149,8 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
 //                    Optional.ofNullable<StatusEffect>(this@BeaconScreen.secondaryEffect)
 //                )
 //            )
-//            ClientPlayNetworking.send()
+            val buf = PacketByteBufs.create().writeString("hello there")
+            ClientPlayNetworking.send(Channels.BEACON_BUTTON_UPDATE, buf)
 
         }
 
