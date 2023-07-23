@@ -69,13 +69,6 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
          * Provides the [tick] function of a [ModBeaconBlockEntity].
          */
         fun <T : BlockEntity> ticker(type: BlockEntityType<T>): BlockEntityTicker<T>? {
-//            return when(type) {
-//                ModBlockEntityTypes.MOD_BEACON
-//                    -> BlockEntityTicker { world, pos, state, blockEntity -> tick(world, pos, state, blockEntity as ModBeaconBlockEntity) }
-//                BlockEntityType.BEACON
-//                    -> BlockEntityTicker { world, pos, state, blockEntity -> BeaconBlockEntity.tick(world, pos, state, blockEntity as BeaconBlockEntity) }
-//                else -> null
-//            }
             return if (type == ModBlockEntityTypes.MOD_BEACON)
                 BlockEntityTicker { world, pos, state, blockEntity -> tick(world, pos, state, blockEntity as ModBeaconBlockEntity) }
             else null
@@ -86,6 +79,8 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
          */
         private fun tick(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
             // BeaconBlockEntity.tick(world, pos, state, blockEntity)
+
+            // TODO: Apply behaviors specific to the beacon upgrade
 
             val base = baseBlocks(world, pos)
             val strength = base.filterKeys { it != Blocks.AIR }.values.sum()

@@ -56,7 +56,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
                 val xi = x + x0 + i*dx
                 val yj = y + y0 + j*dy
                 // TODO: Pick u and v for the correct texture
-                buttons.addButton(BasicButtonWidget(xi, yj, 90, 220, ScreenTexts.EMPTY))
+                buttons.addButton(BasicButtonWidget(xi, yj, 90, 220, null, ScreenTexts.EMPTY))
             }
         }
     }
@@ -146,11 +146,21 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
 
     /**
      * A basic beacon button at coordinates ([x], [y]).
+     * @param x x coordinate of this button.
+     * @param y y coordinate of this button.
      * @param u Left-most coordinate of the texture region.
      * @param v Top-most coordinate of the texture region.
+     * @param effect Effect of this button.
+     * @param message The hovering text.
      */
     @Environment(EnvType.CLIENT)
-    internal inner class BasicButtonWidget(x: Int, y: Int, private val u: Int, private val v: Int, message: Text) : BaseButtonWidget(x, y, message) {
+    internal inner class BasicButtonWidget(
+        x: Int,
+        y: Int,
+        private val u: Int,
+        private val v: Int,
+        effect: Nothing?,
+        message: Text) : BaseButtonWidget(x, y, message) {
 
         override fun renderExtra(matrices: MatrixStack?) {
             drawTexture(matrices, this.x + 2, this.y + 2, this.u, this.v, 18, 18)
@@ -161,7 +171,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         }
 
         override fun onPress() {
-            // do nothing
+            //TODO: Send packet to screen handler with updated effects
             println("Pressed $message")
         }
 
