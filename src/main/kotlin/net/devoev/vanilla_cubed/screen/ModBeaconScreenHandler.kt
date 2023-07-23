@@ -14,13 +14,22 @@ import net.minecraft.world.World
 
 /**
  * TODO: Implement functions similar to BeaconScreenHandler
+ *
+ * @param syncId Screen handlers sync id.
+ * @param inventory Inventory of the beacon.
+ * @param propertyDelegate Delegated properties of the beacon.
  */
-class ModBeaconScreenHandler(syncId: Int, inventory: Inventory) : ScreenHandler(ModScreenHandlerTypes.MOD_BEACON, syncId) {
+class ModBeaconScreenHandler(
+    syncId: Int,
+    inventory: Inventory,
+    private val propertyDelegate: PropertyDelegate
+) : ScreenHandler(ModScreenHandlerTypes.MOD_BEACON, syncId) {
 
     private val context: ScreenHandlerContext = ScreenHandlerContext.EMPTY
-    private val propertyDelegate: PropertyDelegate = ArrayPropertyDelegate(3)
     val properties: Int
         get() = propertyDelegate.get(0)
+
+    constructor(syncId: Int, inventory: Inventory) : this(syncId, inventory, ArrayPropertyDelegate(3))
 
     init {
         checkDataCount(propertyDelegate, 3)

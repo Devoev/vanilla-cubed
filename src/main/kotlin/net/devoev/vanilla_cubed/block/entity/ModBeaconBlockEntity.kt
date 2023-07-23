@@ -1,10 +1,12 @@
 package net.devoev.vanilla_cubed.block.entity
 
+import net.devoev.vanilla_cubed.block.entity.behavior.BeaconTickBehavior
+import net.devoev.vanilla_cubed.block.entity.behavior.StatusEffectBehavior
 import net.devoev.vanilla_cubed.screen.ModBeaconScreenHandler
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
-import net.minecraft.block.Blocks
 import net.minecraft.block.entity.*
+import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.inventory.ContainerLock
@@ -12,6 +14,7 @@ import net.minecraft.nbt.NbtCompound
 import net.minecraft.network.Packet
 import net.minecraft.network.listener.ClientPlayPacketListener
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket
+import net.minecraft.screen.ArrayPropertyDelegate
 import net.minecraft.screen.NamedScreenHandlerFactory
 import net.minecraft.screen.ScreenHandler
 import net.minecraft.sound.SoundEvents
@@ -19,16 +22,28 @@ import net.minecraft.text.Text
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
+/**
+ * Block entity for the modded beacon.
+ * @param pos Block position.
+ * @param state Block state.
+ *
+ * @property propertyDelegate Delegate of properties to update beacon behavior.
+ * @property behavior Modified beacon behavior.
+ */
 class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBlockEntityTypes.MOD_BEACON, pos, state), NamedScreenHandlerFactory {
 
     private var lock: ContainerLock = ContainerLock.EMPTY
     var customName: Text? = null
+    private val propertyDelegate = ArrayPropertyDelegate(3) //TODO: Use custom delegate that supports behaviors
+    private val behavior: BeaconTickBehavior = StatusEffectBehavior(StatusEffects.SPEED) // TODO: Dont hardcode behavior, allow multiple
 
     override fun getDisplayName(): Text = customName ?: Text.translatable("container.beacon")
 
     override fun createMenu(i: Int, playerInventory: PlayerInventory?, playerEntity: PlayerEntity?): ScreenHandler? {
-        if (playerInventory == null) error("playerInventory must not be null!")
-        return if (LockableContainerBlockEntity.checkUnlocked(playerEntity, lock, displayName)) ModBeaconScreenHandler(i, playerInventory)
+        if (playerInventory == null)
+            error("playerInventory must not be null!")
+        return if (LockableContainerBlockEntity.checkUnlocked(playerEntity, lock, displayName))
+            ModBeaconScreenHandler(i, playerInventory, propertyDelegate)
         else null;
     }
 
@@ -78,12 +93,11 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
          * Ticks the [ModBeaconBlockEntity].
          */
         private fun tick(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
-            // BeaconBlockEntity.tick(world, pos, state, blockEntity)
-
             // TODO: Apply behaviors specific to the beacon upgrade
+            blockEntity.behavior(world, pos, state, blockEntity)
 
-            val base = baseBlocks(world, pos)
-            val strength = base.filterKeys { it != Blocks.AIR }.values.sum()
+//            val base = baseBlocks(world, pos)
+//            val strength = base.filterKeys { it != Blocks.AIR }.values.sum()
         }
 
         /**
