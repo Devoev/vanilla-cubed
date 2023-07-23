@@ -12,4 +12,12 @@ import net.minecraft.world.World
 fun interface BeaconTickBehavior {
 
     operator fun invoke(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity)
+
+    companion object {
+
+        /**
+         * The default [BeaconTickBehavior] that does nothing.
+         */
+        val EMPTY = BeaconTickBehavior { _, _, _, _ ->  }
+    }
 }

@@ -1,6 +1,9 @@
 package net.devoev.vanilla_cubed.screen
 
+import net.devoev.vanilla_cubed.block.entity.behavior.BeaconTickBehavior
+import net.devoev.vanilla_cubed.block.entity.behavior.StatusEffectBehavior
 import net.minecraft.block.Blocks
+import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.Inventory
 import net.minecraft.item.ItemStack
@@ -18,21 +21,36 @@ import net.minecraft.world.World
  * @param syncId Screen handlers sync id.
  * @param inventory Inventory of the beacon.
  * @param propertyDelegate Delegated properties of the beacon.
+ * @param context Screen handler context of the beacon.
  */
 class ModBeaconScreenHandler(
     syncId: Int,
     inventory: Inventory,
-    private val propertyDelegate: PropertyDelegate
+    private val propertyDelegate: PropertyDelegate,
+    private val context: ScreenHandlerContext
 ) : ScreenHandler(ModScreenHandlerTypes.MOD_BEACON, syncId) {
 
-    private val context: ScreenHandlerContext = ScreenHandlerContext.EMPTY
-    val properties: Int
+    val properties: Int // TODO: values of property delegate should have a meaning
         get() = propertyDelegate.get(0)
 
-    constructor(syncId: Int, inventory: Inventory) : this(syncId, inventory, ArrayPropertyDelegate(3))
+    /**
+     * The active behavior of the beacon.
+     */
+    val behavior: BeaconTickBehavior
+        get() {
+            // TODO: int -> behavior encoding
+            println("Getting beacon behavior")
+            return if (properties == 1) {
+                StatusEffectBehavior(StatusEffects.SPEED)
+            } else {
+                BeaconTickBehavior.EMPTY
+            }
+        }
+
+    constructor(syncId: Int, inventory: Inventory) : this(syncId, inventory, ArrayPropertyDelegate(3), ScreenHandlerContext.EMPTY)
 
     init {
-        checkDataCount(propertyDelegate, 3)
+        checkDataCount(propertyDelegate, 2) // TODO: Update size check appropriately
         addProperties(propertyDelegate)
         for (k in 0..2) {
             for (l in 0..8) {

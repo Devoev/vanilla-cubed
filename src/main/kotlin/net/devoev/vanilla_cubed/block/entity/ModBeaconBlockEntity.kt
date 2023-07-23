@@ -14,9 +14,10 @@ import net.minecraft.nbt.NbtCompound
 import net.minecraft.network.Packet
 import net.minecraft.network.listener.ClientPlayPacketListener
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket
-import net.minecraft.screen.ArrayPropertyDelegate
 import net.minecraft.screen.NamedScreenHandlerFactory
+import net.minecraft.screen.PropertyDelegate
 import net.minecraft.screen.ScreenHandler
+import net.minecraft.screen.ScreenHandlerContext
 import net.minecraft.sound.SoundEvents
 import net.minecraft.text.Text
 import net.minecraft.util.math.BlockPos
@@ -27,15 +28,37 @@ import net.minecraft.world.World
  * @param pos Block position.
  * @param state Block state.
  *
+ * @property behavior Modified beacon tick behavior.
  * @property propertyDelegate Delegate of properties to update beacon behavior.
- * @property behavior Modified beacon behavior.
  */
 class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBlockEntityTypes.MOD_BEACON, pos, state), NamedScreenHandlerFactory {
 
     private var lock: ContainerLock = ContainerLock.EMPTY
+
     var customName: Text? = null
-    private val propertyDelegate = ArrayPropertyDelegate(3) //TODO: Use custom delegate that supports behaviors
-    private val behavior: BeaconTickBehavior = StatusEffectBehavior(StatusEffects.SPEED) // TODO: Dont hardcode behavior, allow multiple
+
+    private var behavior: BeaconTickBehavior = BeaconTickBehavior.EMPTY
+
+    // TODO: Currently this delegate represents a boolean, meaning it activates or deactivates the speed modifier.
+    //  Change this with an encoding: int -> behavior/ button
+    private val propertyDelegate = object : PropertyDelegate {
+        override fun get(index: Int): Int {
+            return index
+        }
+
+        override fun set(index: Int, value: Int) {
+            println("Setting delegate at index $index and value $value")
+            behavior = if (index == 1) {
+                // TODO: play beacon sound
+                StatusEffectBehavior(StatusEffects.SPEED)
+            } else {
+                BeaconTickBehavior.EMPTY
+            }
+        }
+
+        override fun size(): Int = 2 // TODO: Update size appropriately
+    }
+
 
     override fun getDisplayName(): Text = customName ?: Text.translatable("container.beacon")
 
@@ -43,7 +66,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         if (playerInventory == null)
             error("playerInventory must not be null!")
         return if (LockableContainerBlockEntity.checkUnlocked(playerEntity, lock, displayName))
-            ModBeaconScreenHandler(i, playerInventory, propertyDelegate)
+            ModBeaconScreenHandler(i, playerInventory, propertyDelegate, ScreenHandlerContext.create(world, pos))
         else null;
     }
 
