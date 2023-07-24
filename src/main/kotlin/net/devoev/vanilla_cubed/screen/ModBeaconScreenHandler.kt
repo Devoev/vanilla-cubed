@@ -26,11 +26,11 @@ class ModBeaconScreenHandler(
     syncId: Int,
     inventory: Inventory,
     val propertyDelegate: PropertyDelegate,
-    private val context: ScreenHandlerContext
+    val context: ScreenHandlerContext
 ) : ScreenHandler(ModScreenHandlerTypes.MOD_BEACON, syncId) {
 
     val properties: Int // TODO: values of property delegate should have a meaning
-        get() = propertyDelegate.get(0)
+        get() = propertyDelegate[0]
 
     /**
      * The active upgrade of the beacon.
@@ -91,4 +91,8 @@ class ModBeaconScreenHandler(
         }, true)
     }
 
+    override fun setProperty(id: Int, value: Int) {
+        super.setProperty(id, value)
+        sendContentUpdates()
+    }
 }

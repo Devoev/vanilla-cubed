@@ -64,8 +64,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         handler.addListener(object : ScreenHandlerListener {
             override fun onSlotUpdate(handler2: ScreenHandler, slotId: Int, stack: ItemStack) {}
             override fun onPropertyUpdate(handler2: ScreenHandler, property: Int, value: Int) {
-                // Update the behavior property of this screen with the one from the handler.
-                println("handler listener property update called")
+                // Update the behavior property of this screen to stay in sync with the handler.
                 upgrade = handler.upgrade
             }
         })
@@ -75,7 +74,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         super.init()
         buttons.clear()
 
-        // Effect buttons
+        // Place upgrade buttons
         val dx = 42
         val dy = 25
         val x0 = 60
@@ -162,7 +161,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         /**
          * Whether this button is disabled, meaning it is already pressed.
          */
-        var disabled: Boolean = false
+        abstract val disabled: Boolean
 
         /**
          * Updates the server side beacon by sending the required packets to the [ModBeaconScreenHandler].
@@ -216,6 +215,9 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         private val upgrade: BeaconUpgrade,
         message: Text) : BaseButtonWidget(x, y, message) {
 
+        override val disabled: Boolean
+            get() = upgrade == this@ModBeaconScreen.upgrade
+
         override fun renderExtra(matrices: MatrixStack?) {
             drawTexture(matrices, this.x + 2, this.y + 2, this.u, this.v, 18, 18)
         }
@@ -240,7 +242,6 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         override fun tick(level: Int) {
             // TODO: Deactivate or disable button, if level is not high enough.
             active = true
-            disabled = upgrade == this@ModBeaconScreen.upgrade
         }
     }
 }
