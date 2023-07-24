@@ -34,12 +34,12 @@ class ModBeaconScreenHandler(
         get() = propertyDelegate.get(0)
 
     /**
-     * The active behavior of the beacon.
+     * The active upgrade of the beacon.
      */
-    val behavior: BeaconUpgrade
+    val upgrade: BeaconUpgrade
         get() {
             // TODO: int -> behavior encoding
-            println("Getting beacon behavior")
+            println("Getting beacon upgrade")
             return if (properties == 1) {
                 StatusEffectUpgrade(StatusEffects.SPEED)
             } else {

@@ -2,9 +2,10 @@ package net.devoev.vanilla_cubed.client.gui.screen.ingame
 
 import com.mojang.blaze3d.systems.RenderSystem
 import net.devoev.vanilla_cubed.VanillaCubed
-import net.devoev.vanilla_cubed.block.entity.ModBeaconBlockEntity
 import net.devoev.vanilla_cubed.block.entity.behavior.BeaconUpgrade
+import net.devoev.vanilla_cubed.block.entity.behavior.BeaconUpgrades
 import net.devoev.vanilla_cubed.networking.Channels
+import net.devoev.vanilla_cubed.networking.writeBeaconUpgrade
 import net.devoev.vanilla_cubed.screen.ModBeaconScreenHandler
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
@@ -32,14 +33,14 @@ import java.util.*
  * @param title Title of this screen.
  *
  * @property buttons List of all buttons appearing on the screen.
- * @property behavior The active behavior.
+ * @property upgrade The active beacon upgrade.
  */
 @Environment(EnvType.CLIENT)
 class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventory, title: Text)
     : HandledScreen<ModBeaconScreenHandler>(handler, inventory, title) {
 
     private val buttons: MutableList<BeaconButtonWidget> = mutableListOf()
-    private lateinit var behavior: BeaconUpgrade
+    private lateinit var upgrade: BeaconUpgrade
 
     private fun MutableList<BeaconButtonWidget>.addButton(button: ClickableWidget): Boolean {
         addDrawableChild(button)
@@ -54,7 +55,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
             override fun onPropertyUpdate(handler2: ScreenHandler, property: Int, value: Int) {
                 // Update the behavior property of this screen with the one from the handler.
                 println("handler listener property update called")
-                behavior = handler.behavior
+                upgrade = handler.upgrade
             }
         })
     }
@@ -74,7 +75,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
                 val yj = y + y0 + j*dy
                 // TODO: Pick u and v for the correct texture
                 // TODO: Update given behavior
-                buttons.addButton(TickBehaviorButtonWidget(xi, yj, 90, 220, BeaconUpgrade.EMPTY, ScreenTexts.EMPTY))
+                buttons.addButton(UpgradeButtonWidget(xi, yj, 90, 220, BeaconUpgrades[0], ScreenTexts.EMPTY))
             }
         }
     }
@@ -142,11 +143,8 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
          * Updates the beacon by sending the required packets to the [ModBeaconScreenHandler].
          */
         fun update() {
-            // TODO: Send client update to server. Look at channels, networking etc.
-            val buf = PacketByteBufs.create().writeString("hello there")
-//            buf.writeNullable(behavior) { packet, behavior -> }
-            ClientPlayNetworking.send(Channels.BEACON_BUTTON_UPDATE, buf)
-
+            val packet = PacketByteBufs.create().writeBeaconUpgrade(upgrade)
+            ClientPlayNetworking.send(Channels.BEACON_BUTTON_UPDATE, packet)
         }
 
         override fun renderButton(matrices: MatrixStack?, mouseX: Int, mouseY: Int, delta: Float) {
@@ -174,21 +172,21 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
 
 
     /**
-     * A beacon button modifying the [ModBeaconBlockEntity.tick] method using the given [behavior].
+     * A button enabling a [BeaconUpgrade].
      * @param x x coordinate of this button.
      * @param y y coordinate of this button.
      * @param u Left-most coordinate of the texture region.
      * @param v Top-most coordinate of the texture region.
-     * @param behavior Tick behavior of this button.
+     * @param upgrade Tick behavior of this button.
      * @param message The hovering text.
      */
     @Environment(EnvType.CLIENT)
-    internal inner class TickBehaviorButtonWidget(
+    internal inner class UpgradeButtonWidget(
         x: Int,
         y: Int,
         private val u: Int, // TODO: Update with general texture
         private val v: Int,
-        private val behavior: BeaconUpgrade,
+        private val upgrade: BeaconUpgrade,
         message: Text) : BaseButtonWidget(x, y, message) {
 
         override fun renderExtra(matrices: MatrixStack?) {
@@ -205,7 +203,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
             if (disabled) return
 
             // Update the behavior of the screen with this one
-            this@ModBeaconScreen.behavior = behavior
+            this@ModBeaconScreen.upgrade = upgrade
 
             // TODO: Tick buttons?
 
