@@ -136,8 +136,20 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
      */
     @Environment(EnvType.CLIENT)
     internal interface BeaconButtonWidget {
+
+        /**
+         * Whether the tooltip of this button should be rendered.
+         */
         fun shouldRenderTooltip(): Boolean
+
+        /**
+         * Renders the tooltip of this button.
+         */
         fun renderTooltip(matrices: MatrixStack?, mouseX: Int, mouseY: Int)
+
+        /**
+         * Ticks this button.
+         */
         fun tick(level: Int)
     }
 
@@ -147,10 +159,13 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
     @Environment(EnvType.CLIENT)
     internal abstract inner class BaseButtonWidget(x: Int, y: Int, message: Text = ScreenTexts.EMPTY) : PressableWidget(x, y, 22, 22, message), BeaconButtonWidget {
 
+        /**
+         * Whether this button is disabled, meaning it is already pressed.
+         */
         var disabled: Boolean = false
 
         /**
-         * Updates the beacon by sending the required packets to the [ModBeaconScreenHandler].
+         * Updates the server side beacon by sending the required packets to the [ModBeaconScreenHandler].
          */
         fun update() {
             if (upgrade == null) return
