@@ -73,9 +73,9 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
             for (j in 0..3) {
                 val xi = x + x0 + i*dx
                 val yj = y + y0 + j*dy
+                val n = j + 4*i // canonical upgrade index
                 // TODO: Pick u and v for the correct texture
-                // TODO: Update given behavior
-                buttons.addButton(UpgradeButtonWidget(xi, yj, 90, 220, BeaconUpgrades[0], ScreenTexts.EMPTY))
+                buttons.addButton(UpgradeButtonWidget(xi, yj, 90, 220, BeaconUpgrades[n], ScreenTexts.EMPTY))
             }
         }
     }

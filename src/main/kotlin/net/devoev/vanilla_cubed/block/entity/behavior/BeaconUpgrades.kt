@@ -18,17 +18,31 @@ import net.minecraft.entity.effect.StatusEffects
  */
 object BeaconUpgrades {
 
-    private val IRON = listOf<BeaconUpgrade>(
-        StatusEffectUpgrade(StatusEffects.RESISTANCE)
+    private val IRON = listOf(
+        StatusEffectUpgrade(StatusEffects.RESISTANCE),
+        BeaconUpgrade.EMPTY,
+        BeaconUpgrade.EMPTY,
+        StatusEffectUpgrade(StatusEffects.HASTE)
     )
 
-    private val GOLD = listOf<BeaconUpgrade>(
-        StatusEffectUpgrade(StatusEffects.SPEED)
+    private val GOLD = listOf(
+        StatusEffectUpgrade(StatusEffects.SPEED),
+        BeaconUpgrade.EMPTY,
+        BeaconUpgrade.EMPTY,
+        BeaconUpgrade.EMPTY
     )
-    private val EMERALD = listOf<BeaconUpgrade>()
+    private val EMERALD = listOf(
+        BeaconUpgrade.EMPTY,
+        BeaconUpgrade.EMPTY,
+        BeaconUpgrade.EMPTY,
+        BeaconUpgrade.EMPTY
+    )
 
-    private val DIAMOND = listOf<BeaconUpgrade>(
-        StatusEffectUpgrade(StatusEffects.STRENGTH)
+    private val DIAMOND = listOf(
+        StatusEffectUpgrade(StatusEffects.STRENGTH),
+        BeaconUpgrade.EMPTY,
+        BeaconUpgrade.EMPTY,
+        BeaconUpgrade.EMPTY
     )
 
     private val UPGRADES = IRON + GOLD + EMERALD + DIAMOND
