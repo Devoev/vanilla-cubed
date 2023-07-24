@@ -164,6 +164,11 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         abstract val disabled: Boolean
 
         /**
+         * Renders additional content like a sprite or texture on top.
+         */
+        protected abstract fun renderExtra(matrices: MatrixStack?)
+
+        /**
          * Updates the server side beacon by sending the required packets to the [ModBeaconScreenHandler].
          */
         fun update() {
@@ -185,11 +190,9 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
                 width * 3
             } else 0
 
-            this.drawTexture(matrices, x, y, u, 219, width, height)
-            this.renderExtra(matrices)
+            drawTexture(matrices, x, y, u, 219, width, height)
+            renderExtra(matrices)
         }
-
-        protected abstract fun renderExtra(matrices: MatrixStack?)
 
         override fun shouldRenderTooltip(): Boolean = hovered
 
