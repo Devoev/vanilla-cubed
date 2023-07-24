@@ -40,11 +40,22 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
     : HandledScreen<ModBeaconScreenHandler>(handler, inventory, title) {
 
     private val buttons: MutableList<BeaconButtonWidget> = mutableListOf()
-    private lateinit var upgrade: BeaconUpgrade
+    private var upgrade: BeaconUpgrade? = null
 
+    /**
+     * Adds the given [button] to this list and appends it as a drawable child.
+     */
     private fun MutableList<BeaconButtonWidget>.addButton(button: ClickableWidget): Boolean {
         addDrawableChild(button)
         return add(button as BeaconButtonWidget) // TODO: Update button classes to avoid cast
+    }
+
+    /**
+     * Ticks all buttons in this list.
+     */
+    private fun MutableList<BeaconButtonWidget>.tick() {
+        val i = (handler as ModBeaconScreenHandler).properties // TODO: This value currently doesnt represent the level!
+        forEach { it.tick(i) }
     }
 
     init {
@@ -82,8 +93,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
 
     override fun handledScreenTick() {
         super.handledScreenTick()
-        val i = (handler as ModBeaconScreenHandler).properties // TODO: This value currently doesnt represent the level!
-        buttons.forEach { it.tick(i) }
+        buttons.tick()
     }
 
     override fun render(matrices: MatrixStack?, mouseX: Int, mouseY: Int, delta: Float) {
@@ -143,7 +153,8 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
          * Updates the beacon by sending the required packets to the [ModBeaconScreenHandler].
          */
         fun update() {
-            val packet = PacketByteBufs.create().writeBeaconUpgrade(upgrade)
+            if (upgrade == null) return
+            val packet = PacketByteBufs.create().writeBeaconUpgrade(upgrade!!)
             ClientPlayNetworking.send(Channels.BEACON_BUTTON_UPDATE, packet)
         }
 
@@ -151,15 +162,16 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
             RenderSystem.setShader { GameRenderer.getPositionTexShader() }
             RenderSystem.setShaderTexture(0, TEXTURE)
             RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f)
-            var j = 0
-            if (!active) {
-                j += width * 2
-            } else if (this.disabled) {
-                j += width * 1
-            } else if (this.isHovered) {
-                j += width * 3
-            }
-            this.drawTexture(matrices, x, y, j, 219, width, height)
+
+            val u = if (!active) {
+                width * 2
+            } else if (disabled) {
+                width * 1
+            } else if (isHovered) {
+                width * 3
+            } else 0
+
+            this.drawTexture(matrices, x, y, u, 219, width, height)
             this.renderExtra(matrices)
         }
 
@@ -177,7 +189,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
      * @param y y coordinate of this button.
      * @param u Left-most coordinate of the texture region.
      * @param v Top-most coordinate of the texture region.
-     * @param upgrade Tick behavior of this button.
+     * @param upgrade Beacon upgrade enabled by this button.
      * @param message The hovering text.
      */
     @Environment(EnvType.CLIENT)
@@ -199,21 +211,21 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
 
         override fun onPress() {
             //TODO: Send packet to screen handler with updated effects
-            println("Pressing button")
             if (disabled) return
 
-            // Update the behavior of the screen with this one
+            // Update the enabled upgrade of the screen with this one
             this@ModBeaconScreen.upgrade = upgrade
 
             // TODO: Tick buttons?
 
             update()
-            disabled = true
+            buttons.tick()
         }
 
         override fun tick(level: Int) {
             // TODO: Deactivate or disable button, if level is not high enough.
             active = true
+            disabled = upgrade == this@ModBeaconScreen.upgrade
         }
     }
 }

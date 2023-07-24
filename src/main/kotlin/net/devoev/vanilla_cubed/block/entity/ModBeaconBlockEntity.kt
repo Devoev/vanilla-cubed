@@ -46,7 +46,6 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         }
 
         override fun set(index: Int, value: Int) {
-            println("Setting delegate at index $index and value $value")
             // TODO: play beacon sound
             upgrade = BeaconUpgrades[value]
         }
