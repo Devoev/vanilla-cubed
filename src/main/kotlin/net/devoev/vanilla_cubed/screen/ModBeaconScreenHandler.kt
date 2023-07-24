@@ -29,13 +29,13 @@ class ModBeaconScreenHandler(
     val context: ScreenHandlerContext
 ) : ScreenHandler(ModScreenHandlerTypes.MOD_BEACON, syncId) {
 
-    val properties: Int // TODO: values of property delegate should have a meaning
+    val properties: Int // TODO: Replace with level property (or similar value)
         get() = propertyDelegate[0]
 
     /**
      * The active upgrade of the beacon.
      */
-    val upgrade: BeaconUpgrade
+    val upgrade: BeaconUpgrade?
         get() = BeaconUpgrades[propertyDelegate[0]]
 
     constructor(syncId: Int, inventory: Inventory) : this(syncId, inventory, ArrayPropertyDelegate(3), ScreenHandlerContext.EMPTY)

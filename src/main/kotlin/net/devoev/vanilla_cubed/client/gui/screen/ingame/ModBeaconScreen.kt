@@ -40,7 +40,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
     : HandledScreen<ModBeaconScreenHandler>(handler, inventory, title) {
 
     private val buttons: MutableList<BeaconButtonWidget> = mutableListOf()
-    private var upgrade: BeaconUpgrade? = null
+    private var upgrade: BeaconUpgrade? = handler.upgrade
 
     /**
      * Adds the given [button] to this list and appends it as a drawable child.
@@ -85,7 +85,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
                 val yj = y + y0 + j*dy
                 val n = j + 4*i // canonical upgrade index
                 // TODO: Pick u and v for the correct texture
-                buttons.addButton(UpgradeButtonWidget(xi, yj, 90, 220, BeaconUpgrades[n], ScreenTexts.EMPTY))
+                buttons.addButton(UpgradeButtonWidget(xi, yj, 90, 220, BeaconUpgrades[n]!!, ScreenTexts.EMPTY))
             }
         }
     }

@@ -31,7 +31,7 @@ fun PacketByteBuf.writeBeaconUpgrade(upgrade: BeaconUpgrade): PacketByteBuf {
 /**
  * Reads the [BeaconUpgrade] entry of this packet.
  */
-fun PacketByteBuf.readBeaconUpgrade(): BeaconUpgrade {
+fun PacketByteBuf.readBeaconUpgrade(): BeaconUpgrade? {
     val i = readNullable { it.readInt() } ?: error("No beacon upgrade saved in this packet.")
     return BeaconUpgrades[i]
 }

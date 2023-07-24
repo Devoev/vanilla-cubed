@@ -50,10 +50,10 @@ object BeaconUpgrades {
     /**
      * Returns the [i]th beacon upgrade.
      */
-    operator fun get(i: Int): BeaconUpgrade = UPGRADES[i]
+    operator fun get(i: Int): BeaconUpgrade? = UPGRADES.getOrNull(i)
 
     /**
      * Returns the canonical index of the given [upgrade].
      */
-    fun indexOf(upgrade: BeaconUpgrade) = UPGRADES.indexOf(upgrade)
+    fun indexOf(upgrade: BeaconUpgrade?) = UPGRADES.indexOf(upgrade)
 }

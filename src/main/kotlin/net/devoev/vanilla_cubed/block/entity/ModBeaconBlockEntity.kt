@@ -36,7 +36,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
 
     var customName: Text? = null
 
-    private var upgrade: BeaconUpgrade = BeaconUpgrade.EMPTY
+    private var upgrade: BeaconUpgrade? = null
 
     // TODO: Currently this property is of length one. The one int value is the canonical index of the upgrade.
     //  Change this, to include multiple values (e.g. levels)
@@ -51,6 +51,11 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         }
 
         override fun size(): Int = 1 // TODO: Update size appropriately
+    }
+
+    init {
+        // Default property value: -1 = no upgrade activated
+        propertyDelegate[0] = -1
     }
 
 
@@ -111,7 +116,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
          */
         private fun tick(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
             // TODO: Apply behaviors specific to the beacon upgrade
-            blockEntity.upgrade(world, pos, state, blockEntity)
+            blockEntity.upgrade?.invoke(world, pos, state, blockEntity)
 
 //            val base = baseBlocks(world, pos)
 //            val strength = base.filterKeys { it != Blocks.AIR }.values.sum()
