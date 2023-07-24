@@ -7,17 +7,17 @@ import net.minecraft.world.World
 
 
 /**
- * Modifies the [ModBeaconBlockEntity.tick] function by injecting the [invoke] method.
+ * A beacon upgrade stage. Modifies the [ModBeaconBlockEntity.tick] function by injecting the [invoke] method.
  */
-fun interface BeaconTickBehavior {
+fun interface BeaconUpgrade {
 
     operator fun invoke(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity)
 
     companion object {
 
         /**
-         * The default [BeaconTickBehavior] that does nothing.
+         * The default [BeaconUpgrade] that does nothing.
          */
-        val EMPTY = BeaconTickBehavior { _, _, _, _ ->  }
+        val EMPTY = BeaconUpgrade { _, _, _, _ ->  }
     }
 }

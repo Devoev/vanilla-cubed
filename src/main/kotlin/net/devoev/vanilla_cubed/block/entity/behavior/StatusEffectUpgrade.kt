@@ -9,7 +9,10 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Box
 import net.minecraft.world.World
 
-class StatusEffectBehavior(private val effect: StatusEffect) : BeaconTickBehavior {
+/**
+ * A beacon upgrade that applies the given [effect] to all players in the range.
+ */
+class StatusEffectUpgrade(private val effect: StatusEffect) : BeaconUpgrade {
     override fun invoke(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
         //TODO: Update implementation
         if (world.isClient) {

@@ -1,7 +1,7 @@
 package net.devoev.vanilla_cubed.screen
 
-import net.devoev.vanilla_cubed.block.entity.behavior.BeaconTickBehavior
-import net.devoev.vanilla_cubed.block.entity.behavior.StatusEffectBehavior
+import net.devoev.vanilla_cubed.block.entity.behavior.BeaconUpgrade
+import net.devoev.vanilla_cubed.block.entity.behavior.StatusEffectUpgrade
 import net.minecraft.block.Blocks
 import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.entity.player.PlayerEntity
@@ -36,14 +36,14 @@ class ModBeaconScreenHandler(
     /**
      * The active behavior of the beacon.
      */
-    val behavior: BeaconTickBehavior
+    val behavior: BeaconUpgrade
         get() {
             // TODO: int -> behavior encoding
             println("Getting beacon behavior")
             return if (properties == 1) {
-                StatusEffectBehavior(StatusEffects.SPEED)
+                StatusEffectUpgrade(StatusEffects.SPEED)
             } else {
-                BeaconTickBehavior.EMPTY
+                BeaconUpgrade.EMPTY
             }
         }
 

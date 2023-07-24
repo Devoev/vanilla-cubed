@@ -1,7 +1,7 @@
 package net.devoev.vanilla_cubed.block.entity
 
-import net.devoev.vanilla_cubed.block.entity.behavior.BeaconTickBehavior
-import net.devoev.vanilla_cubed.block.entity.behavior.StatusEffectBehavior
+import net.devoev.vanilla_cubed.block.entity.behavior.BeaconUpgrade
+import net.devoev.vanilla_cubed.block.entity.behavior.StatusEffectUpgrade
 import net.devoev.vanilla_cubed.screen.ModBeaconScreenHandler
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
@@ -37,7 +37,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
 
     var customName: Text? = null
 
-    private var behavior: BeaconTickBehavior = BeaconTickBehavior.EMPTY
+    private var behavior: BeaconUpgrade = BeaconUpgrade.EMPTY
 
     // TODO: Currently this delegate represents a boolean, meaning it activates or deactivates the speed modifier.
     //  Change this with an encoding: int -> behavior/ button
@@ -50,9 +50,9 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
             println("Setting delegate at index $index and value $value")
             behavior = if (value == 1) {
                 // TODO: play beacon sound
-                StatusEffectBehavior(StatusEffects.SPEED)
+                StatusEffectUpgrade(StatusEffects.SPEED)
             } else {
-                BeaconTickBehavior.EMPTY
+                BeaconUpgrade.EMPTY
             }
         }
 

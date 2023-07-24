@@ -3,7 +3,7 @@ package net.devoev.vanilla_cubed.client.gui.screen.ingame
 import com.mojang.blaze3d.systems.RenderSystem
 import net.devoev.vanilla_cubed.VanillaCubed
 import net.devoev.vanilla_cubed.block.entity.ModBeaconBlockEntity
-import net.devoev.vanilla_cubed.block.entity.behavior.BeaconTickBehavior
+import net.devoev.vanilla_cubed.block.entity.behavior.BeaconUpgrade
 import net.devoev.vanilla_cubed.networking.Channels
 import net.devoev.vanilla_cubed.screen.ModBeaconScreenHandler
 import net.fabricmc.api.EnvType
@@ -39,7 +39,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
     : HandledScreen<ModBeaconScreenHandler>(handler, inventory, title) {
 
     private val buttons: MutableList<BeaconButtonWidget> = mutableListOf()
-    private lateinit var behavior: BeaconTickBehavior
+    private lateinit var behavior: BeaconUpgrade
 
     private fun MutableList<BeaconButtonWidget>.addButton(button: ClickableWidget): Boolean {
         addDrawableChild(button)
@@ -74,7 +74,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
                 val yj = y + y0 + j*dy
                 // TODO: Pick u and v for the correct texture
                 // TODO: Update given behavior
-                buttons.addButton(TickBehaviorButtonWidget(xi, yj, 90, 220, BeaconTickBehavior.EMPTY, ScreenTexts.EMPTY))
+                buttons.addButton(TickBehaviorButtonWidget(xi, yj, 90, 220, BeaconUpgrade.EMPTY, ScreenTexts.EMPTY))
             }
         }
     }
@@ -143,13 +143,8 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
          */
         fun update() {
             // TODO: Send client update to server. Look at channels, networking etc.
-//            client?.networkHandler?.sendPacket(
-//                UpdateBeaconC2SPacket(
-//                    Optional.ofNullable<StatusEffect>(this@BeaconScreen.primaryEffect),
-//                    Optional.ofNullable<StatusEffect>(this@BeaconScreen.secondaryEffect)
-//                )
-//            )
             val buf = PacketByteBufs.create().writeString("hello there")
+//            buf.writeNullable(behavior) { packet, behavior -> }
             ClientPlayNetworking.send(Channels.BEACON_BUTTON_UPDATE, buf)
 
         }
@@ -193,7 +188,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         y: Int,
         private val u: Int, // TODO: Update with general texture
         private val v: Int,
-        private val behavior: BeaconTickBehavior,
+        private val behavior: BeaconUpgrade,
         message: Text) : BaseButtonWidget(x, y, message) {
 
         override fun renderExtra(matrices: MatrixStack?) {
