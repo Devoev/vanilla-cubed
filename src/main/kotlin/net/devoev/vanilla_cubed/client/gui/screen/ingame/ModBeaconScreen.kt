@@ -82,7 +82,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
 
     override fun handledScreenTick() {
         super.handledScreenTick()
-        val i = (handler as ModBeaconScreenHandler).properties
+        val i = (handler as ModBeaconScreenHandler).properties // TODO: This value currently doesnt represent the level!
         buttons.forEach { it.tick(i) }
     }
 

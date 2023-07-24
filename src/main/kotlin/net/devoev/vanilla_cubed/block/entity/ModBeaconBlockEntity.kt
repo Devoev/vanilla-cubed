@@ -1,12 +1,11 @@
 package net.devoev.vanilla_cubed.block.entity
 
 import net.devoev.vanilla_cubed.block.entity.behavior.BeaconUpgrade
-import net.devoev.vanilla_cubed.block.entity.behavior.StatusEffectUpgrade
+import net.devoev.vanilla_cubed.block.entity.behavior.BeaconUpgrades
 import net.devoev.vanilla_cubed.screen.ModBeaconScreenHandler
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.entity.*
-import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.inventory.ContainerLock
@@ -28,7 +27,7 @@ import net.minecraft.world.World
  * @param pos Block position.
  * @param state Block state.
  *
- * @property behavior Modified beacon tick behavior.
+ * @property upgrade Activated beacon upgrade.
  * @property propertyDelegate Delegate of properties to update beacon behavior.
  */
 class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBlockEntityTypes.MOD_BEACON, pos, state), NamedScreenHandlerFactory {
@@ -37,26 +36,22 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
 
     var customName: Text? = null
 
-    private var behavior: BeaconUpgrade = BeaconUpgrade.EMPTY
+    private var upgrade: BeaconUpgrade = BeaconUpgrade.EMPTY
 
-    // TODO: Currently this delegate represents a boolean, meaning it activates or deactivates the speed modifier.
-    //  Change this with an encoding: int -> behavior/ button
+    // TODO: Currently this property is of length one. The one int value is the canonical index of the upgrade.
+    //  Change this, to include multiple values (e.g. levels)
     private val propertyDelegate = object : PropertyDelegate {
         override fun get(index: Int): Int {
-            return index
+            return BeaconUpgrades.indexOf(upgrade)
         }
 
         override fun set(index: Int, value: Int) {
             println("Setting delegate at index $index and value $value")
-            behavior = if (value == 1) {
-                // TODO: play beacon sound
-                StatusEffectUpgrade(StatusEffects.SPEED)
-            } else {
-                BeaconUpgrade.EMPTY
-            }
+            // TODO: play beacon sound
+            upgrade = BeaconUpgrades[value]
         }
 
-        override fun size(): Int = 2 // TODO: Update size appropriately
+        override fun size(): Int = 1 // TODO: Update size appropriately
     }
 
 
@@ -117,7 +112,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
          */
         private fun tick(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
             // TODO: Apply behaviors specific to the beacon upgrade
-            blockEntity.behavior(world, pos, state, blockEntity)
+            blockEntity.upgrade(world, pos, state, blockEntity)
 
 //            val base = baseBlocks(world, pos)
 //            val strength = base.filterKeys { it != Blocks.AIR }.values.sum()

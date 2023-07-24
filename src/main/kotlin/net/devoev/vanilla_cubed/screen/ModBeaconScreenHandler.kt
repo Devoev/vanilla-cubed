@@ -1,9 +1,8 @@
 package net.devoev.vanilla_cubed.screen
 
 import net.devoev.vanilla_cubed.block.entity.behavior.BeaconUpgrade
-import net.devoev.vanilla_cubed.block.entity.behavior.StatusEffectUpgrade
+import net.devoev.vanilla_cubed.block.entity.behavior.BeaconUpgrades
 import net.minecraft.block.Blocks
-import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.Inventory
 import net.minecraft.item.ItemStack
@@ -37,20 +36,12 @@ class ModBeaconScreenHandler(
      * The active upgrade of the beacon.
      */
     val upgrade: BeaconUpgrade
-        get() {
-            // TODO: int -> behavior encoding
-            println("Getting beacon upgrade")
-            return if (properties == 1) {
-                StatusEffectUpgrade(StatusEffects.SPEED)
-            } else {
-                BeaconUpgrade.EMPTY
-            }
-        }
+        get() = BeaconUpgrades[propertyDelegate[0]]
 
     constructor(syncId: Int, inventory: Inventory) : this(syncId, inventory, ArrayPropertyDelegate(3), ScreenHandlerContext.EMPTY)
 
     init {
-        checkDataCount(propertyDelegate, 2) // TODO: Update size check appropriately
+        checkDataCount(propertyDelegate, 1) // TODO: Update size check appropriately
         addProperties(propertyDelegate)
         for (k in 0..2) {
             for (l in 0..8) {

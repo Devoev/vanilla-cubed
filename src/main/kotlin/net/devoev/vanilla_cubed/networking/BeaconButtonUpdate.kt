@@ -10,8 +10,6 @@ val BEACON_BUTTON_UPDATE = PlayChannelHandler { _, player, _, buf, _ ->
     val screenHandler = player.currentScreenHandler
     if (screenHandler !is ModBeaconScreenHandler) return@PlayChannelHandler
 
-    val upgrade = buf.readBeaconUpgrade()
-    println(upgrade)
-
-    screenHandler.propertyDelegate[0] = 1
+    // Read the canonical index of the received upgrade via readInt.
+    screenHandler.propertyDelegate[0] = buf.readBeaconUpgradeIndex()
 }

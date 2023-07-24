@@ -35,3 +35,10 @@ fun PacketByteBuf.readBeaconUpgrade(): BeaconUpgrade {
     val i = readNullable { it.readInt() } ?: error("No beacon upgrade saved in this packet.")
     return BeaconUpgrades[i]
 }
+
+/**
+ * Reads the canonical index of the [BeaconUpgrade] entry of this packet.
+ */
+fun PacketByteBuf.readBeaconUpgradeIndex(): Int {
+    return readNullable { it.readInt() } ?: error("No beacon upgrade saved in this packet.")
+}
