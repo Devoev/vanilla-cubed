@@ -24,6 +24,7 @@ import net.minecraft.screen.ScreenHandler
 import net.minecraft.screen.ScreenHandlerListener
 import net.minecraft.screen.ScreenTexts
 import net.minecraft.text.Text
+import net.minecraft.util.Identifier
 import java.util.*
 
 /**
@@ -84,8 +85,8 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
                 val xi = x + x0 + i*dx
                 val yj = y + y0 + j*dy
                 val n = j + 4*i // canonical upgrade index
-                // TODO: Pick u and v for the correct texture
-                buttons.addButton(UpgradeButtonWidget(xi, yj, 90, 220, BeaconUpgrades[n]!!, ScreenTexts.EMPTY))
+                // TODO: Pick correct texture and tooltip
+                buttons.addButton(UpgradeButtonWidget(xi, yj, BeaconUpgrades[n]!!, Text.literal("tooltip!"), VanillaCubed.id("textures/item/gilded_book.png")))
             }
         }
     }
@@ -153,10 +154,11 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
     }
 
     /**
-     * The abstract base class for all pressable beacon buttons at coordinates ([x], [y]) with a hover [message].
+     * The abstract base class for all pressable beacon buttons at coordinates ([x], [y]) with a hover [tooltip].
      */
     @Environment(EnvType.CLIENT)
-    internal abstract inner class BaseButtonWidget(x: Int, y: Int, message: Text = ScreenTexts.EMPTY) : PressableWidget(x, y, 22, 22, message), BeaconButtonWidget {
+    internal abstract inner class BaseButtonWidget(x: Int, y: Int, private val tooltip: Text)
+        : PressableWidget(x, y, 22, 22, ScreenTexts.EMPTY), BeaconButtonWidget {
 
         /**
          * Whether this button is disabled, meaning it is already pressed.
@@ -196,6 +198,10 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
 
         override fun shouldRenderTooltip(): Boolean = hovered
 
+        override fun renderTooltip(matrices: MatrixStack?, mouseX: Int, mouseY: Int) {
+            renderTooltip(matrices, tooltip, mouseX, mouseY)
+        }
+
         override fun appendNarrations(builder: NarrationMessageBuilder?) = appendDefaultNarrations(builder)
     }
 
@@ -207,43 +213,38 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
      * @param u Left-most coordinate of the texture region.
      * @param v Top-most coordinate of the texture region.
      * @param upgrade Beacon upgrade enabled by this button.
-     * @param message The hovering text.
+     * @param tooltip Tooltip that shows when hovering over this button.
+     * @param texture Identifier of the texture of this button.
      */
     @Environment(EnvType.CLIENT)
     internal inner class UpgradeButtonWidget(
         x: Int,
         y: Int,
-        private val u: Int, // TODO: Update with general texture
-        private val v: Int,
         private val upgrade: BeaconUpgrade,
-        message: Text) : BaseButtonWidget(x, y, message) {
+        tooltip: Text,
+        private val texture: Identifier) : BaseButtonWidget(x, y, tooltip) {
 
         override val disabled: Boolean
             get() = upgrade == this@ModBeaconScreen.upgrade
 
         override fun renderExtra(matrices: MatrixStack?) {
-            drawTexture(matrices, this.x + 2, this.y + 2, this.u, this.v, 18, 18)
-        }
-
-        override fun renderTooltip(matrices: MatrixStack?, mouseX: Int, mouseY: Int) {
-            this@ModBeaconScreen.renderTooltip(matrices, this@ModBeaconScreen.title, mouseX, mouseY)
+//            drawTexture(matrices, this.x + 2, this.y + 2, this.u, this.v, 18, 18)
+            RenderSystem.setShaderTexture(0, texture)
+            drawTexture(matrices, x + 3, y + 3, 0f, 0f, 16, 16, 16, 16)
         }
 
         override fun onPress() {
-            //TODO: Send packet to screen handler with updated effects
             if (disabled) return
 
             // Update the enabled upgrade of the screen with this one
             this@ModBeaconScreen.upgrade = upgrade
-
-            // TODO: Tick buttons?
 
             update()
             buttons.tick()
         }
 
         override fun tick(level: Int) {
-            // TODO: Deactivate or disable button, if level is not high enough.
+            // TODO: Deactivate button, if level is not high enough.
             active = true
         }
     }
