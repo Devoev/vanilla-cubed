@@ -211,8 +211,6 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
      * A button enabling a [BeaconUpgrade].
      * @param x x coordinate of this button.
      * @param y y coordinate of this button.
-     * @param u Left-most coordinate of the texture region.
-     * @param v Top-most coordinate of the texture region.
      * @param upgrade Beacon upgrade enabled by this button.
      * @param tooltip Tooltip that shows when hovering over this button.
      * @param texture Identifier of the 18x18 texture of this button.
