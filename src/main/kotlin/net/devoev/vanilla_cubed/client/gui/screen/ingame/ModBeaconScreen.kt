@@ -86,7 +86,8 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
                 val yj = y + y0 + j*dy
                 val n = j + 4*i // canonical upgrade index
                 // TODO: Pick correct texture and tooltip
-                buttons.addButton(UpgradeButtonWidget(xi, yj, BeaconUpgrades[n]!!, Text.literal("tooltip!"), VanillaCubed.id("textures/item/gilded_book.png")))
+
+                buttons.addButton(UpgradeButtonWidget(xi, yj, BeaconUpgrades.getData(n)))
             }
         }
     }
@@ -214,7 +215,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
      * @param v Top-most coordinate of the texture region.
      * @param upgrade Beacon upgrade enabled by this button.
      * @param tooltip Tooltip that shows when hovering over this button.
-     * @param texture Identifier of the texture of this button.
+     * @param texture Identifier of the 18x18 texture of this button.
      */
     @Environment(EnvType.CLIENT)
     internal inner class UpgradeButtonWidget(
@@ -224,13 +225,15 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         tooltip: Text,
         private val texture: Identifier) : BaseButtonWidget(x, y, tooltip) {
 
+        constructor(x: Int, y: Int, data: BeaconUpgradeButtonData) : this(x, y, data.upgrade, data.tooltip, data.texture)
+
         override val disabled: Boolean
             get() = upgrade == this@ModBeaconScreen.upgrade
 
         override fun renderExtra(matrices: MatrixStack?) {
 //            drawTexture(matrices, this.x + 2, this.y + 2, this.u, this.v, 18, 18)
             RenderSystem.setShaderTexture(0, texture)
-            drawTexture(matrices, x + 3, y + 3, 0f, 0f, 16, 16, 16, 16)
+            drawTexture(matrices, x + 2, y + 2, 0f, 0f, width, height, 18, 18)
         }
 
         override fun onPress() {
