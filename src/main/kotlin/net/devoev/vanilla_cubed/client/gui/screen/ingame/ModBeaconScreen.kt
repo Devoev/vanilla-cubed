@@ -230,10 +230,12 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         override val disabled: Boolean
             get() = upgrade == this@ModBeaconScreen.upgrade
 
+        /**
+         * Renders the 18x18 [texture] of this button.
+         */
         override fun renderExtra(matrices: MatrixStack?) {
-//            drawTexture(matrices, this.x + 2, this.y + 2, this.u, this.v, 18, 18)
             RenderSystem.setShaderTexture(0, texture)
-            drawTexture(matrices, x + 2, y + 2, 0f, 0f, width, height, 18, 18)
+            drawTexture(matrices, x + 2, y + 2, 0f, 0f, 18, 18, 18, 18)
         }
 
         override fun onPress() {
