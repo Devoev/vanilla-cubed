@@ -1,7 +1,7 @@
 package net.devoev.vanilla_cubed.block.entity
 
-import net.devoev.vanilla_cubed.block.entity.behavior.BeaconUpgrade
-import net.devoev.vanilla_cubed.block.entity.behavior.BeaconUpgrades
+import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrade
+import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades
 import net.devoev.vanilla_cubed.screen.ModBeaconScreenHandler
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState

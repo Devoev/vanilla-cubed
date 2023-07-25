@@ -1,10 +1,10 @@
-package net.devoev.vanilla_cubed.block.entity.behavior
+package net.devoev.vanilla_cubed.block.entity.beacon_upgrade
 
 import net.devoev.vanilla_cubed.VanillaCubed
-import net.devoev.vanilla_cubed.block.entity.behavior.BeaconUpgrades.DIAMOND
-import net.devoev.vanilla_cubed.block.entity.behavior.BeaconUpgrades.EMERALD
-import net.devoev.vanilla_cubed.block.entity.behavior.BeaconUpgrades.GOLD
-import net.devoev.vanilla_cubed.block.entity.behavior.BeaconUpgrades.IRON
+import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades.DIAMOND
+import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades.EMERALD
+import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades.GOLD
+import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades.IRON
 import net.devoev.vanilla_cubed.client.gui.screen.ingame.BEACON_UPGRADE_BUTTON_DATA_EMPTY
 import net.devoev.vanilla_cubed.client.gui.screen.ingame.BeaconUpgradeButtonData
 import net.devoev.vanilla_cubed.client.gui.screen.ingame.upgrade

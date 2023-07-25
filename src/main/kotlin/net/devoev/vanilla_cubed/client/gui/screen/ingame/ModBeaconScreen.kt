@@ -2,8 +2,8 @@ package net.devoev.vanilla_cubed.client.gui.screen.ingame
 
 import com.mojang.blaze3d.systems.RenderSystem
 import net.devoev.vanilla_cubed.VanillaCubed
-import net.devoev.vanilla_cubed.block.entity.behavior.BeaconUpgrade
-import net.devoev.vanilla_cubed.block.entity.behavior.BeaconUpgrades
+import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrade
+import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades
 import net.devoev.vanilla_cubed.networking.Channels
 import net.devoev.vanilla_cubed.networking.writeBeaconUpgrade
 import net.devoev.vanilla_cubed.screen.ModBeaconScreenHandler

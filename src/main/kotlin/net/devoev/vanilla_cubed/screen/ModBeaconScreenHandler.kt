@@ -1,7 +1,7 @@
 package net.devoev.vanilla_cubed.screen
 
-import net.devoev.vanilla_cubed.block.entity.behavior.BeaconUpgrade
-import net.devoev.vanilla_cubed.block.entity.behavior.BeaconUpgrades
+import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrade
+import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades
 import net.minecraft.block.Blocks
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.Inventory
