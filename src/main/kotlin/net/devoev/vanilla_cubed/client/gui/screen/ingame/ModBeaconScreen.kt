@@ -55,7 +55,8 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
      * Ticks all buttons in this list.
      */
     private fun MutableList<BeaconButtonWidget>.tick() {
-        val i = (handler as ModBeaconScreenHandler).properties // TODO: This value currently doesnt represent the level!
+//        val i = (handler as ModBeaconScreenHandler).propertyDelegate!!.levels[0] // TODO: This value currently doesnt represent the level!
+        val i = 0
         forEach { it.tick(i) }
     }
 

@@ -1,7 +1,6 @@
 package net.devoev.vanilla_cubed.screen
 
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrade
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades
 import net.minecraft.block.Blocks
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.Inventory
@@ -29,19 +28,16 @@ class ModBeaconScreenHandler(
     val context: ScreenHandlerContext
 ) : ScreenHandler(ModScreenHandlerTypes.MOD_BEACON, syncId) {
 
-    val properties: Int // TODO: Replace with level property (or similar value)
-        get() = propertyDelegate[0]
-
     /**
      * The active upgrade of the beacon.
      */
     val upgrade: BeaconUpgrade?
-        get() = BeaconUpgrades[propertyDelegate[0]]
+        get() = propertyDelegate.upgrade
 
-    constructor(syncId: Int, inventory: Inventory) : this(syncId, inventory, ArrayPropertyDelegate(3), ScreenHandlerContext.EMPTY)
+    constructor(syncId: Int, inventory: Inventory) : this(syncId, inventory, ArrayPropertyDelegate(5), ScreenHandlerContext.EMPTY)
 
     init {
-        checkDataCount(propertyDelegate, 1) // TODO: Update size check appropriately
+        checkDataCount(propertyDelegate, 5) // TODO: Update size check appropriately
         addProperties(propertyDelegate)
         for (k in 0..2) {
             for (l in 0..8) {

@@ -3,8 +3,11 @@ package net.devoev.vanilla_cubed.block.entity
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrade
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades
 import net.devoev.vanilla_cubed.screen.ModBeaconScreenHandler
+import net.devoev.vanilla_cubed.screen.levels
+import net.devoev.vanilla_cubed.screen.upgrade
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
+import net.minecraft.block.Blocks
 import net.minecraft.block.entity.*
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.PlayerInventory
@@ -28,7 +31,8 @@ import net.minecraft.world.World
  * @param state Block state.
  *
  * @property upgrade Activated beacon upgrade.
- * @property propertyDelegate Delegate of properties to update beacon behavior.
+ * @property levels Amount of placed iron, gold, emerald or diamond blocks.
+ * @property propertyDelegate Delegate of properties to sync with the screen handler.
  */
 class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBlockEntityTypes.MOD_BEACON, pos, state), NamedScreenHandlerFactory {
 
@@ -38,26 +42,9 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
 
     private var upgrade: BeaconUpgrade? = null
 
-    // TODO: Currently this property is of length one. The one int value is the canonical index of the upgrade.
-    //  Change this, to include multiple values (e.g. levels)
-    private val propertyDelegate = object : PropertyDelegate {
-        override fun get(index: Int): Int {
-            return BeaconUpgrades.indexOf(upgrade)
-        }
+    private val levels: IntArray = intArrayOf(0,0,0,0)
 
-        override fun set(index: Int, value: Int) {
-            // TODO: play beacon sound
-            upgrade = BeaconUpgrades[value]
-        }
-
-        override fun size(): Int = 1 // TODO: Update size appropriately
-    }
-
-    init {
-        // Default property value: -1 = no upgrade activated
-        propertyDelegate[0] = -1
-    }
-
+    private val propertyDelegate = BeaconPropertyDelegate()
 
     override fun getDisplayName(): Text = customName ?: Text.translatable("container.beacon")
 
@@ -115,11 +102,16 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
          * Ticks the [ModBeaconBlockEntity].
          */
         private fun tick(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
-            // TODO: Apply behaviors specific to the beacon upgrade
-            blockEntity.upgrade?.invoke(world, pos, state, blockEntity)
 
-//            val base = baseBlocks(world, pos)
-//            val strength = base.filterKeys { it != Blocks.AIR }.values.sum()
+            // Calculate the level values
+            val base = baseBlocks(world, pos)
+            blockEntity.levels[0] = base[Blocks.IRON_BLOCK] ?: 0
+            blockEntity.levels[1] = base[Blocks.GOLD_BLOCK] ?: 0
+            blockEntity.levels[2] = base[Blocks.EMERALD_BLOCK] ?: 0
+            blockEntity.levels[3] = base[Blocks.DIAMOND_BLOCK] ?: 0
+
+            // Apply selected beacon upgrade
+            blockEntity.upgrade?.invoke(world, pos, state, blockEntity)
         }
 
         /**
@@ -141,5 +133,38 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
             }
             return res
         }
+    }
+
+    /**
+     * The property delegate of a [ModBeaconBlockEntity].
+     * The stored properties are:
+     * @property levels [ModBeaconBlockEntity.levels] at indices 0-3.
+     * @property upgrade [ModBeaconBlockEntity.upgrade] at index 4.
+     */
+    inner class BeaconPropertyDelegate : PropertyDelegate {
+
+        init {
+            // Initially no upgrade should be activated and levels should be zero
+            this.levels = intArrayOf(0,0,0,0)
+            this.upgrade = null
+        }
+
+        override fun get(i: Int): Int {
+            return when(i) {
+                in 0..3 -> this@ModBeaconBlockEntity.levels[i]
+                4 -> BeaconUpgrades.indexOf(this@ModBeaconBlockEntity.upgrade)
+                else -> error("Index $i out of bounds.")
+            }
+        }
+
+        override fun set(i: Int, value: Int) {
+            // TODO: play beacon sound
+            when(i) {
+                in 0..3 -> { this@ModBeaconBlockEntity.levels[i] = value }
+                4 -> { this@ModBeaconBlockEntity.upgrade = BeaconUpgrades[value] }
+            }
+        }
+
+        override fun size(): Int = 5 // TODO: Update size appropriately
     }
 }
