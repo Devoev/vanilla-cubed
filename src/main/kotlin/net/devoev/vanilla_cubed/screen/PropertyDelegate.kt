@@ -9,7 +9,7 @@ import net.minecraft.screen.PropertyDelegate
  * [ModBeaconBlockEntity.levels] stored at indices 0-3.
  */
 var PropertyDelegate.levels: IntArray
-    get() = intArrayOf(get(0), get(1), get(2), get(4))
+    get() = intArrayOf(get(0), get(1), get(2), get(3))
     set(value) { value.forEachIndexed { i, v -> set(i,v) } }
 
 /**

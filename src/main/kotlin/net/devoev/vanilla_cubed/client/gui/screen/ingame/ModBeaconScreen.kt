@@ -7,6 +7,7 @@ import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades
 import net.devoev.vanilla_cubed.networking.Channels
 import net.devoev.vanilla_cubed.networking.writeBeaconUpgrade
 import net.devoev.vanilla_cubed.screen.ModBeaconScreenHandler
+import net.devoev.vanilla_cubed.screen.levels
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
@@ -55,9 +56,8 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
      * Ticks all buttons in this list.
      */
     private fun MutableList<BeaconButtonWidget>.tick() {
-//        val i = (handler as ModBeaconScreenHandler).propertyDelegate!!.levels[0] // TODO: This value currently doesnt represent the level!
-        val i = 0
-        forEach { it.tick(i) }
+        val levels = (handler as ModBeaconScreenHandler).propertyDelegate.levels
+        forEach { it.tick(levels) }
     }
 
     init {
@@ -151,8 +151,9 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
 
         /**
          * Ticks this button.
+         * @param levels The current block levels.
          */
-        fun tick(level: Int)
+        fun tick(levels: IntArray)
     }
 
     /**
@@ -247,8 +248,9 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
             buttons.tick()
         }
 
-        override fun tick(level: Int) {
+        override fun tick(levels: IntArray) {
             // TODO: Deactivate button, if level is not high enough.
+            println(levels.toList())
             active = true
         }
     }
