@@ -65,6 +65,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
             override fun onSlotUpdate(handler2: ScreenHandler, slotId: Int, stack: ItemStack) {}
             override fun onPropertyUpdate(handler2: ScreenHandler, property: Int, value: Int) {
                 // Update the behavior property of this screen to stay in sync with the handler.
+                // TODO Only update when correct index is met
                 upgrade = handler.upgrade
             }
         })
@@ -84,7 +85,6 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
                 val xi = x + x0 + i*dx
                 val yj = y + y0 + j*dy
                 val n = j + 4*i // canonical upgrade index
-                //TODO: Check status of propertyDelegate, to avoid initial 0,0,0,0 values
                 buttons.addButton(UpgradeButtonWidget(xi, yj, BeaconUpgrades.dataAt(n)))
             }
         }
@@ -252,7 +252,6 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         }
 
         override fun tick(levels: IntArray) {
-            // TODO: Deactivate button, if level is not high enough.
             active = tier.checkLevel(levels)
         }
     }

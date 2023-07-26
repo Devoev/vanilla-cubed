@@ -85,8 +85,6 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         lock.writeNbt(nbt)
     }
 
-
-
     companion object {
 
         /**
@@ -109,6 +107,8 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
             blockEntity.levels[1] = base[Blocks.GOLD_BLOCK] ?: 0
             blockEntity.levels[2] = base[Blocks.EMERALD_BLOCK] ?: 0
             blockEntity.levels[3] = base[Blocks.DIAMOND_BLOCK] ?: 0
+
+            // TODO: Possibly send levels value by networking to screen, in order to prevent flicker
 
             // Apply selected beacon upgrade
             blockEntity.upgrade?.invoke(world, pos, state, blockEntity)
@@ -144,9 +144,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     inner class BeaconPropertyDelegate : PropertyDelegate {
 
         init {
-            // Initially no upgrade should be activated and levels should be zero
-//            this.levels = intArrayOf(0,0,0,0)
-//            this.upgrade = null
+            // Set initial values
             this.levels = this@ModBeaconBlockEntity.levels
             this.upgrade = this@ModBeaconBlockEntity.upgrade
         }
