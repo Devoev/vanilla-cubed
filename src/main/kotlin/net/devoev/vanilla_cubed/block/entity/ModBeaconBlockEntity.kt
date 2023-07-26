@@ -20,6 +20,8 @@ import net.minecraft.screen.NamedScreenHandlerFactory
 import net.minecraft.screen.PropertyDelegate
 import net.minecraft.screen.ScreenHandler
 import net.minecraft.screen.ScreenHandlerContext
+import net.minecraft.sound.SoundCategory
+import net.minecraft.sound.SoundEvent
 import net.minecraft.sound.SoundEvents
 import net.minecraft.text.Text
 import net.minecraft.util.math.BlockPos
@@ -110,6 +112,8 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
 
             // TODO: Possibly send levels value by networking to screen, in order to prevent flicker
 
+            // TODO: Create beacon beam
+
             // Apply selected beacon upgrade
             blockEntity.upgrade?.invoke(world, pos, state, blockEntity)
         }
@@ -132,6 +136,15 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
                 }
             }
             return res
+        }
+
+        /**
+         * Plays the given [sound] at the [pos] if the current [world] is server side.
+         */
+        private fun playSound(world: World?, pos: BlockPos, sound: SoundEvent) {
+            if (world?.isClient == false) {
+                world.playSound(null, pos, sound, SoundCategory.BLOCKS, 1.0f, 1.0f)
+            }
         }
     }
 
@@ -161,7 +174,10 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
             // TODO: play beacon sound
             when(i) {
                 in 0..3 -> { this@ModBeaconBlockEntity.levels[i] = value }
-                4 -> { this@ModBeaconBlockEntity.upgrade = BeaconUpgrades[value] }
+                4 -> {
+                    playSound(world, pos, SoundEvents.BLOCK_BEACON_POWER_SELECT)
+                    this@ModBeaconBlockEntity.upgrade = BeaconUpgrades[value]
+                }
             }
         }
 
