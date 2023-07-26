@@ -5,10 +5,7 @@ import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades.DIAMO
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades.EMERALD
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades.GOLD
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades.IRON
-import net.devoev.vanilla_cubed.client.gui.screen.ingame.BeaconUpgradeButtonData
-import net.devoev.vanilla_cubed.client.gui.screen.ingame.diamondTierOf
-import net.devoev.vanilla_cubed.client.gui.screen.ingame.goldTierOf
-import net.devoev.vanilla_cubed.client.gui.screen.ingame.ironTierOf
+import net.devoev.vanilla_cubed.client.gui.screen.ingame.*
 import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
@@ -32,8 +29,18 @@ object BeaconUpgrades {
             textureOf("iron1.png"),
             ironTierOf(1)
         ),
-        BeaconUpgradeButtonData.EMPTY,
-        BeaconUpgradeButtonData.EMPTY,
+        BeaconUpgradeButtonData(
+            BeaconUpgrade.EMPTY,
+            tooltipOf("iron2"),
+            textureOf(""),
+            ironTierOf(2)
+        ),
+        BeaconUpgradeButtonData(
+            BeaconUpgrade.EMPTY,
+            tooltipOf("iron3"),
+            textureOf(""),
+            ironTierOf(3)
+        ),
         BeaconUpgradeButtonData(
             StatusEffectUpgrade(StatusEffects.HASTE),
             tooltipOf("iron4"),
@@ -49,15 +56,50 @@ object BeaconUpgrades {
             textureOf("iron1.png"),
             goldTierOf(1)
         ),
-        BeaconUpgradeButtonData.EMPTY,
-        BeaconUpgradeButtonData.EMPTY,
-        BeaconUpgradeButtonData.EMPTY
+        BeaconUpgradeButtonData(
+            BeaconUpgrade.EMPTY,
+            tooltipOf("gold2"),
+            textureOf(""),
+            goldTierOf(2)
+        ),
+        BeaconUpgradeButtonData(
+            BeaconUpgrade.EMPTY,
+            tooltipOf("gold3"),
+            textureOf(""),
+            goldTierOf(3)
+        ),
+        BeaconUpgradeButtonData(
+            BeaconUpgrade.EMPTY,
+            tooltipOf("gold4"),
+            textureOf(""),
+            goldTierOf(4)
+        ),
     )
     private val EMERALD = listOf(
-        BeaconUpgradeButtonData.EMPTY,
-        BeaconUpgradeButtonData.EMPTY,
-        BeaconUpgradeButtonData.EMPTY,
-        BeaconUpgradeButtonData.EMPTY
+        BeaconUpgradeButtonData(
+            BeaconUpgrade.EMPTY,
+            tooltipOf("emerald1"),
+            textureOf(""),
+            emeraldTierOf(1)
+        ),
+        BeaconUpgradeButtonData(
+            BeaconUpgrade.EMPTY,
+            tooltipOf("emerald2"),
+            textureOf(""),
+            emeraldTierOf(2)
+        ),
+        BeaconUpgradeButtonData(
+            BeaconUpgrade.EMPTY,
+            tooltipOf("emerald3"),
+            textureOf(""),
+            emeraldTierOf(3)
+        ),
+        BeaconUpgradeButtonData(
+            BeaconUpgrade.EMPTY,
+            tooltipOf("emerald4"),
+            textureOf(""),
+            emeraldTierOf(4)
+        )
     )
 
     private val DIAMOND = listOf(
@@ -66,9 +108,24 @@ object BeaconUpgrades {
             textureOf("iron1.png"),
             diamondTierOf(1)
         ),
-        BeaconUpgradeButtonData.EMPTY,
-        BeaconUpgradeButtonData.EMPTY,
-        BeaconUpgradeButtonData.EMPTY
+        BeaconUpgradeButtonData(
+            BeaconUpgrade.EMPTY,
+            tooltipOf("diamond2"),
+            textureOf(""),
+            diamondTierOf(2)
+        ),
+        BeaconUpgradeButtonData(
+            BeaconUpgrade.EMPTY,
+            tooltipOf("diamond3"),
+            textureOf(""),
+            diamondTierOf(3)
+        ),
+        BeaconUpgradeButtonData(
+            BeaconUpgrade.EMPTY,
+            tooltipOf("diamond4"),
+            textureOf(""),
+            diamondTierOf(4)
+        ),
     )
 
     private val ALL: List<BeaconUpgradeButtonData> = IRON + GOLD + EMERALD + DIAMOND
