@@ -145,8 +145,10 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
 
         init {
             // Initially no upgrade should be activated and levels should be zero
-            this.levels = intArrayOf(0,0,0,0)
-            this.upgrade = null
+//            this.levels = intArrayOf(0,0,0,0)
+//            this.upgrade = null
+            this.levels = this@ModBeaconBlockEntity.levels
+            this.upgrade = this@ModBeaconBlockEntity.upgrade
         }
 
         override fun get(i: Int): Int {
@@ -165,6 +167,6 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
             }
         }
 
-        override fun size(): Int = 5 // TODO: Update size appropriately
+        override fun size(): Int = 5
     }
 }

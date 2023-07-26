@@ -84,9 +84,8 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
                 val xi = x + x0 + i*dx
                 val yj = y + y0 + j*dy
                 val n = j + 4*i // canonical upgrade index
-                // TODO: Pick correct texture and tooltip
-
-                buttons.addButton(UpgradeButtonWidget(xi, yj, BeaconUpgrades.getData(n)))
+                //TODO: Check status of propertyDelegate, to avoid initial 0,0,0,0 values
+                buttons.addButton(UpgradeButtonWidget(xi, yj, BeaconUpgrades.dataAt(n)))
             }
         }
     }
@@ -227,7 +226,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         constructor(x: Int, y: Int, data: BeaconUpgradeButtonData) : this(x, y, data.upgrade, data.tooltip, data.texture, data.tier)
 
         init {
-            println(handler.levels.toList())
+            // TODO: Fix that initial value is always 0,0,0,0
             active = tier.checkLevel(handler.levels)
         }
 

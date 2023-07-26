@@ -83,7 +83,7 @@ object BeaconUpgrades {
     /**
      * Returns the [BeaconUpgradeButtonData] of the [i]th upgrade.
      */
-    fun getData(i: Int): BeaconUpgradeButtonData = ALL[i]
+    fun dataAt(i: Int): BeaconUpgradeButtonData = ALL[i]
 
     /**
      * Returns the canonical index of the given [upgrade].
