@@ -81,5 +81,23 @@
   "item.vanilla_cubed.dragon_scale_chestplate": "Dragon Scale Chestplate",
   "item.vanilla_cubed.dragon_scale_leggings": "Dragon Scale Leggings",
   "item.vanilla_cubed.dragon_scale_boots": "Dragon Scale Boots",
-  "item.vanilla_cubed.dragon_scale_chestplate_winged": "Winged Dragon Scale Chestplate"
+  "item.vanilla_cubed.dragon_scale_chestplate_winged": "Winged Dragon Scale Chestplate",
+
+  "block.vanilla_cubed.beacon": "Beacon",
+  "block.vanilla_cubed.beacon.iron1": "Resistance",
+  "block.vanilla_cubed.beacon.iron2": "",
+  "block.vanilla_cubed.beacon.iron3": "",
+  "block.vanilla_cubed.beacon.iron4": "Haste II",
+  "block.vanilla_cubed.beacon.gold1": "Jump Boost + Speed",
+  "block.vanilla_cubed.beacon.gold2": "",
+  "block.vanilla_cubed.beacon.gold3": "",
+  "block.vanilla_cubed.beacon.gold4": "",
+  "block.vanilla_cubed.beacon.emerald1": "",
+  "block.vanilla_cubed.beacon.emerald2": "",
+  "block.vanilla_cubed.beacon.emerald3": "",
+  "block.vanilla_cubed.beacon.emerald4": "",
+  "block.vanilla_cubed.beacon.diamond1": "Strength + Regeneration",
+  "block.vanilla_cubed.beacon.diamond2": "",
+  "block.vanilla_cubed.beacon.diamond3": "",
+  "block.vanilla_cubed.beacon.diamond4": ""
 }

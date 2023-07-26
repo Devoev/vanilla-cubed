@@ -28,16 +28,16 @@ object BeaconUpgrades {
     private val IRON = listOf(
         BeaconUpgradeButtonData(
             StatusEffectUpgrade(StatusEffects.RESISTANCE),
-            Text.empty(),
-            textureId("iron_1.png"),
+            tooltipOf("iron1"),
+            textureOf("iron1.png"),
             ironTierOf(1)
         ),
         BeaconUpgradeButtonData.EMPTY,
         BeaconUpgradeButtonData.EMPTY,
         BeaconUpgradeButtonData(
             StatusEffectUpgrade(StatusEffects.HASTE),
-            Text.empty(),
-            textureId("iron_4.png"),
+            tooltipOf("iron4"),
+            textureOf("iron4.png"),
             ironTierOf(4)
         )
     )
@@ -45,7 +45,8 @@ object BeaconUpgrades {
     private val GOLD = listOf(
         BeaconUpgradeButtonData(
             StatusEffectUpgrade(StatusEffects.SPEED),
-            Text.empty(), textureId("iron_1.png"),
+            tooltipOf("gold1"),
+            textureOf("iron1.png"),
             goldTierOf(1)
         ),
         BeaconUpgradeButtonData.EMPTY,
@@ -60,10 +61,9 @@ object BeaconUpgrades {
     )
 
     private val DIAMOND = listOf(
-        BeaconUpgradeButtonData(StatusEffectUpgrade(
-            StatusEffects.STRENGTH),
-            Text.empty(),
-            textureId("iron_1.png"),
+        BeaconUpgradeButtonData(StatusEffectUpgrade(StatusEffects.STRENGTH),
+            tooltipOf("diamond1"),
+            textureOf("iron1.png"),
             diamondTierOf(1)
         ),
         BeaconUpgradeButtonData.EMPTY,
@@ -93,5 +93,10 @@ object BeaconUpgrades {
     /**
      * Creates the [Identifier] of the texture [name] located at the path `textures/gui/container/beacon_icons/`.
      */
-    private fun textureId(name: String): Identifier = VanillaCubed.id("textures/gui/container/beacon_icons/$name")
+    private fun textureOf(name: String): Identifier = VanillaCubed.id("textures/gui/container/beacon_icons/$name")
+
+    /**
+     * Creates the translatable tooltip with the text [name] located at the path `block.vanilla_cubed.beacon`.
+     */
+    private fun tooltipOf(name: String): Text = Text.translatable("block.vanilla_cubed.beacon.$name")
 }
