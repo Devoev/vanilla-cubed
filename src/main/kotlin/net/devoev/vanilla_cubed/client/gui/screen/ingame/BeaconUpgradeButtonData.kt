@@ -7,28 +7,20 @@ import net.minecraft.util.Identifier
 
 /**
  * Data to create a [ModBeaconScreen.UpgradeButtonWidget].
+ * @property upgrade [BeaconUpgrade] of the button.
+ * @property tooltip Tooltip [Text] of the button.
+ * @property texture [Identifier] of the texture of the button.
  */
-typealias BeaconUpgradeButtonData = Triple<BeaconUpgrade, Text, Identifier>
-
-/**
- * [BeaconUpgrade] of the button.
- */
-val BeaconUpgradeButtonData.upgrade: BeaconUpgrade
-    get() = first
-
-/**
- * Tooltip [Text] of the button.
- */
-val BeaconUpgradeButtonData.tooltip: Text
-    get() = second
-
-/**
- * [Identifier] of the texture of the button.
- */
-val BeaconUpgradeButtonData.texture: Identifier
-    get() = third
-
-/**
- * Empty [BeaconUpgradeButtonData].
- */
-val BEACON_UPGRADE_BUTTON_DATA_EMPTY: BeaconUpgradeButtonData = Triple(BeaconUpgrade.EMPTY, Text.empty(), VanillaCubed.id(""))
+data class BeaconUpgradeButtonData(
+    val upgrade: BeaconUpgrade,
+    val tooltip: Text,
+    val texture: Identifier,
+    val tier: BeaconUpgradeTier
+) {
+    companion object {
+        /**
+         * Empty [BeaconUpgradeButtonData].
+         */
+        val EMPTY = BeaconUpgradeButtonData(BeaconUpgrade.EMPTY, Text.empty(), VanillaCubed.id(""), BeaconUpgradeTier.EMPTY)
+    }
+}

@@ -7,7 +7,6 @@ import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades
 import net.devoev.vanilla_cubed.networking.Channels
 import net.devoev.vanilla_cubed.networking.writeBeaconUpgrade
 import net.devoev.vanilla_cubed.screen.ModBeaconScreenHandler
-import net.devoev.vanilla_cubed.screen.levels
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
@@ -56,8 +55,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
      * Ticks all buttons in this list.
      */
     private fun MutableList<BeaconButtonWidget>.tick() {
-        val levels = (handler as ModBeaconScreenHandler).propertyDelegate.levels
-        forEach { it.tick(levels) }
+        forEach { it.tick(handler.levels) }
     }
 
     init {
@@ -223,9 +221,15 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         y: Int,
         private val upgrade: BeaconUpgrade,
         tooltip: Text,
-        private val texture: Identifier) : BaseButtonWidget(x, y, tooltip) {
+        private val texture: Identifier,
+        private val tier: BeaconUpgradeTier) : BaseButtonWidget(x, y, tooltip) {
 
-        constructor(x: Int, y: Int, data: BeaconUpgradeButtonData) : this(x, y, data.upgrade, data.tooltip, data.texture)
+        constructor(x: Int, y: Int, data: BeaconUpgradeButtonData) : this(x, y, data.upgrade, data.tooltip, data.texture, data.tier)
+
+        init {
+            println(handler.levels.toList())
+            active = tier.checkLevel(handler.levels)
+        }
 
         override val disabled: Boolean
             get() = upgrade == this@ModBeaconScreen.upgrade
@@ -250,8 +254,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
 
         override fun tick(levels: IntArray) {
             // TODO: Deactivate button, if level is not high enough.
-            println(levels.toList())
-            active = true
+            active = tier.checkLevel(levels)
         }
     }
 }
