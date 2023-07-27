@@ -8,6 +8,7 @@ import net.devoev.vanilla_cubed.screen.upgrade
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.Blocks
+import net.minecraft.block.Stainable
 import net.minecraft.block.entity.*
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.PlayerInventory
@@ -25,13 +26,16 @@ import net.minecraft.sound.SoundEvent
 import net.minecraft.sound.SoundEvents
 import net.minecraft.text.Text
 import net.minecraft.util.math.BlockPos
+import net.minecraft.world.Heightmap
 import net.minecraft.world.World
+
 
 /**
  * Block entity for the modded beacon.
  * @param pos Block position.
  * @param state Block state.
  *
+ * @property beamSegments Segments of the beacon beam.
  * @property upgrade Activated beacon upgrade.
  * @property levels Amount of placed iron, gold, emerald or diamond blocks.
  * @property propertyDelegate Delegate of properties to sync with the screen handler.
@@ -41,6 +45,8 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     private var lock: ContainerLock = ContainerLock.EMPTY
 
     var customName: Text? = null
+
+    val beamSegments: MutableList<ModBeamSegment> = mutableListOf()
 
     private var upgrade: BeaconUpgrade? = null
 
@@ -102,20 +108,24 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
          * Ticks the [ModBeaconBlockEntity].
          */
         private fun tick(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
+            tickLevels(world, pos, blockEntity)
 
-            // Calculate the level values
+            // TODO: Possibly send levels value by networking to screen, in order to prevent flicker
+
+            tickBeam(world, pos, state, blockEntity)
+
+            tickUpgrade(world, pos, state, blockEntity)
+        }
+
+        /**
+         * Ticks the [levels] property by updating its values.
+         */
+        private fun tickLevels(world: World, pos: BlockPos, blockEntity: ModBeaconBlockEntity) {
             val base = baseBlocks(world, pos)
             blockEntity.levels[0] = base[Blocks.IRON_BLOCK] ?: 0
             blockEntity.levels[1] = base[Blocks.GOLD_BLOCK] ?: 0
             blockEntity.levels[2] = base[Blocks.EMERALD_BLOCK] ?: 0
             blockEntity.levels[3] = base[Blocks.DIAMOND_BLOCK] ?: 0
-
-            // TODO: Possibly send levels value by networking to screen, in order to prevent flicker
-
-            // TODO: Create beacon beam
-
-            // Apply selected beacon upgrade
-            blockEntity.upgrade?.invoke(world, pos, state, blockEntity)
         }
 
         /**
@@ -136,6 +146,68 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
                 }
             }
             return res
+        }
+
+        /**
+         * Ticks the beacon beam by spawning it.
+         */
+        private fun tickBeam(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
+            var blockPos: BlockPos
+            var minY = world.bottomY - 1
+            val i = pos.x
+            val j = pos.y
+            val k = pos.z
+            if (minY < j) {
+                blockPos = pos
+                minY = blockPos.y - 1
+            } else {
+                blockPos = BlockPos(i, minY + 1, k)
+            }
+            var beamSegment: ModBeamSegment? = blockEntity.beamSegments.lastOrNull()
+            val l: Int = world.getTopY(Heightmap.Type.WORLD_SURFACE, i, k)
+
+            for (n in 0..9) {
+                if (blockPos.y > l) break
+
+                val blockState = world.getBlockState(blockPos)
+                val block = blockState.block
+                if (block is Stainable) {
+                    val color = block.color.colorComponents
+                    if (blockEntity.beamSegments.size <= 1) {
+                        blockEntity.beamSegments += ModBeamSegment(color)
+                    } else if (beamSegment != null) {
+                        if (color contentEquals beamSegment.color) {
+                            beamSegment.increaseHeight()
+                        } else {
+                            beamSegment = ModBeamSegment(
+                                floatArrayOf(
+                                    (beamSegment.color[0] + color[0]) / 2.0f,
+                                    (beamSegment.color[1] + color[1]) / 2.0f,
+                                    (beamSegment.color[2] + color[2]) / 2.0f
+                                )
+                            )
+                            blockEntity.beamSegments += beamSegment
+                        }
+                    }
+                } else {
+                    if (beamSegment == null || blockState.getOpacity(world, blockPos) >= 15 && !blockState.isOf(Blocks.BEDROCK)) {
+                        blockEntity.beamSegments.clear()
+                        minY = l
+                        break
+                    }
+                    blockPos = blockPos.up()
+                    minY++
+                }
+            }
+
+            println(blockEntity.beamSegments)
+        }
+
+        /**
+         * Ticks the active [upgrade] by invoking it.
+         */
+        private fun tickUpgrade(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
+            blockEntity.upgrade?.invoke(world, pos, state, blockEntity)
         }
 
         /**
@@ -182,5 +254,29 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         }
 
         override fun size(): Int = 5
+    }
+
+    /**
+     * Segment of the beacons beam with the given [color] and [height].
+     */
+    data class ModBeamSegment(val color: FloatArray, private var height: Int = 0) {
+
+        internal fun increaseHeight() { ++height }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (javaClass != other?.javaClass) return false
+
+            other as ModBeamSegment
+
+            if (!color.contentEquals(other.color)) return false
+            return height == other.height
+        }
+
+        override fun hashCode(): Int {
+            var result = color.contentHashCode()
+            result = 31 * result + height
+            return result
+        }
     }
 }
