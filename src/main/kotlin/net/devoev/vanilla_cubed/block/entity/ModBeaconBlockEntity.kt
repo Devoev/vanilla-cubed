@@ -5,6 +5,7 @@ import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades
 import net.devoev.vanilla_cubed.screen.ModBeaconScreenHandler
 import net.devoev.vanilla_cubed.screen.levels
 import net.devoev.vanilla_cubed.screen.upgrade
+import net.minecraft.advancement.criterion.Criteria
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.Blocks
@@ -21,11 +22,13 @@ import net.minecraft.screen.NamedScreenHandlerFactory
 import net.minecraft.screen.PropertyDelegate
 import net.minecraft.screen.ScreenHandler
 import net.minecraft.screen.ScreenHandlerContext
+import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.sound.SoundCategory
 import net.minecraft.sound.SoundEvent
 import net.minecraft.sound.SoundEvents
 import net.minecraft.text.Text
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.Box
 import net.minecraft.world.Heightmap
 import net.minecraft.world.World
 
@@ -47,6 +50,8 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     var customName: Text? = null
 
     val beamSegments: MutableList<ModBeamSegment> = mutableListOf()
+
+    private var minY: Int = 0
 
     private var upgrade: BeaconUpgrade? = null
 
@@ -108,13 +113,16 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
          * Ticks the [ModBeaconBlockEntity].
          */
         private fun tick(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
-            tickLevels(world, pos, blockEntity)
-
             // TODO: Possibly send levels value by networking to screen, in order to prevent flicker
 
             tickBeam(world, pos, state, blockEntity)
+            val oldLevels = blockEntity.levels.clone()
+            if (world.time % 80L == 0L && blockEntity.beamSegments.isNotEmpty()) {
+                tickLevels(world, pos, blockEntity)
+                tickUpgrade(world, pos, state, blockEntity)
+            }
 
-            tickUpgrade(world, pos, state, blockEntity)
+            tickActivation(world, pos, state, blockEntity, oldLevels)
         }
 
         /**
@@ -149,25 +157,23 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         }
 
         /**
-         * Ticks the beacon beam by spawning it.
+         * Ticks the beacon beam updating the [beamSegments].
          */
         private fun tickBeam(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
             var blockPos: BlockPos
-            var minY = world.bottomY - 1
-            val i = pos.x
-            val j = pos.y
-            val k = pos.z
-            if (minY < j) {
+            if (blockEntity.minY < pos.y) {
                 blockPos = pos
-                minY = blockPos.y - 1
+                blockEntity.beamSegments.clear()
+                blockEntity.minY = blockPos.y - 1
             } else {
-                blockPos = BlockPos(i, minY + 1, k)
+                blockPos = BlockPos(pos.x, blockEntity.minY + 1, pos.z)
             }
+            println("Value of minY ${blockEntity.minY}")
             var beamSegment: ModBeamSegment? = blockEntity.beamSegments.lastOrNull()
-            val l: Int = world.getTopY(Heightmap.Type.WORLD_SURFACE, i, k)
+            val maxY: Int = world.getTopY(Heightmap.Type.WORLD_SURFACE, pos.x, pos.z)
 
             for (n in 0..9) {
-                if (blockPos.y > l) break
+                if (blockPos.y > maxY) break
 
                 val blockState = world.getBlockState(blockPos)
                 val block = blockState.block
@@ -192,22 +198,56 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
                 } else {
                     if (beamSegment == null || blockState.getOpacity(world, blockPos) >= 15 && !blockState.isOf(Blocks.BEDROCK)) {
                         blockEntity.beamSegments.clear()
-                        minY = l
+                        blockEntity.minY = maxY
                         break
                     }
                     blockPos = blockPos.up()
-                    minY++
+                    blockEntity.minY++
                 }
             }
-
-            println(blockEntity.beamSegments)
         }
 
         /**
-         * Ticks the active [upgrade] by invoking it.
+         * Ticks the active [upgrade] by invoking it and plays the [SoundEvents.BLOCK_BEACON_AMBIENT] sound.
          */
         private fun tickUpgrade(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
             blockEntity.upgrade?.invoke(world, pos, state, blockEntity)
+            playSound(world, pos, SoundEvents.BLOCK_BEACON_AMBIENT)
+        }
+
+        /**
+         * Ticks the activation and deactivation of the beacon, by comparing the [levels] to the given [oldLevels],
+         * before updating them.
+         */
+        private fun tickActivation(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity, oldLevels: IntArray) {
+            val maxY: Int = world.getTopY(Heightmap.Type.WORLD_SURFACE, pos.x, pos.z)
+            val maxOldLevel = oldLevels.max()
+            val maxLevel = blockEntity.levels.max()
+            if (blockEntity.minY >= maxY) {
+                blockEntity.minY = world.bottomY - 1
+                // TODO: Only apply beam segments here!
+//                blockEntity.beamSegments = blockEntity.field_19178
+                if (!world.isClient) {
+                    if (maxOldLevel <= 0 && maxLevel > 0) {
+                        BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_ACTIVATE)
+                        for (serverPlayerEntity in world.getNonSpectatingEntities(
+                            ServerPlayerEntity::class.java,
+                            Box(
+                                pos.x.toDouble(),
+                                pos.y.toDouble(),
+                                pos.z.toDouble(),
+                                pos.x.toDouble(),
+                                (pos.y - 4).toDouble(),
+                                pos.z.toDouble()
+                            ).expand(10.0, 5.0, 10.0)
+                        )) {
+                            Criteria.CONSTRUCT_BEACON.trigger(serverPlayerEntity, maxLevel)
+                        }
+                    } else if (maxOldLevel > 0 && maxLevel <= 0) {
+                        BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_DEACTIVATE)
+                    }
+                }
+            }
         }
 
         /**
