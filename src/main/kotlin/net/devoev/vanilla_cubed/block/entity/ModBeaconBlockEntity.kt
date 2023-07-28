@@ -46,20 +46,23 @@ import net.minecraft.world.World
 class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBlockEntityTypes.MOD_BEACON, pos, state), NamedScreenHandlerFactory {
 
     private var lock: ContainerLock = ContainerLock.EMPTY
-
     var customName: Text? = null
 
-    val beamSegments: MutableList<ModBeamSegment> = mutableListOf()
-
+    private val tmpBeamSegments: MutableList<ModBeamSegment> = mutableListOf()
+    var beamSegments: List<ModBeamSegment> = listOf()
+        private set
     private var minY: Int = 0
 
     private var upgrade: BeaconUpgrade? = null
-
     private val levels: IntArray = intArrayOf(0,0,0,0)
-
     private val propertyDelegate = BeaconPropertyDelegate()
 
     override fun getDisplayName(): Text = customName ?: Text.translatable("container.beacon")
+
+    override fun setWorld(world: World) {
+        super.setWorld(world)
+        minY = world.bottomY - 1
+    }
 
     override fun createMenu(i: Int, playerInventory: PlayerInventory?, playerEntity: PlayerEntity?): ScreenHandler? {
         if (playerInventory == null)
@@ -157,30 +160,31 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         }
 
         /**
-         * Ticks the beacon beam updating the [beamSegments].
+         * Ticks the beacon beam updating the temporary beam segments [tmpBeamSegments].
          */
         private fun tickBeam(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
             var blockPos: BlockPos
             if (blockEntity.minY < pos.y) {
                 blockPos = pos
-                blockEntity.beamSegments.clear()
+                blockEntity.tmpBeamSegments.clear()
                 blockEntity.minY = blockPos.y - 1
             } else {
                 blockPos = BlockPos(pos.x, blockEntity.minY + 1, pos.z)
             }
-            println("Value of minY ${blockEntity.minY}")
-            var beamSegment: ModBeamSegment? = blockEntity.beamSegments.lastOrNull()
+
+            var beamSegment: ModBeamSegment? = blockEntity.tmpBeamSegments.lastOrNull()
             val maxY: Int = world.getTopY(Heightmap.Type.WORLD_SURFACE, pos.x, pos.z)
 
             for (n in 0..9) {
+                println("Blockpos.y = ${blockPos.y}")
                 if (blockPos.y > maxY) break
 
                 val blockState = world.getBlockState(blockPos)
                 val block = blockState.block
                 if (block is Stainable) {
                     val color = block.color.colorComponents
-                    if (blockEntity.beamSegments.size <= 1) {
-                        blockEntity.beamSegments += ModBeamSegment(color)
+                    if (blockEntity.tmpBeamSegments.size <= 1) {
+                        blockEntity.tmpBeamSegments += ModBeamSegment(color)
                     } else if (beamSegment != null) {
                         if (color contentEquals beamSegment.color) {
                             beamSegment.increaseHeight()
@@ -192,12 +196,12 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
                                     (beamSegment.color[2] + color[2]) / 2.0f
                                 )
                             )
-                            blockEntity.beamSegments += beamSegment
+                            blockEntity.tmpBeamSegments += beamSegment
                         }
                     }
                 } else {
                     if (beamSegment == null || blockState.getOpacity(world, blockPos) >= 15 && !blockState.isOf(Blocks.BEDROCK)) {
-                        blockEntity.beamSegments.clear()
+                        blockEntity.tmpBeamSegments.clear()
                         blockEntity.minY = maxY
                         break
                     }
@@ -225,10 +229,12 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
             val maxLevel = blockEntity.levels.max()
             if (blockEntity.minY >= maxY) {
                 blockEntity.minY = world.bottomY - 1
-                // TODO: Only apply beam segments here!
-//                blockEntity.beamSegments = blockEntity.field_19178
+                blockEntity.beamSegments = blockEntity.tmpBeamSegments
                 if (!world.isClient) {
+                    println("max OLD level $maxOldLevel")
+                    println("max level $maxLevel")
                     if (maxOldLevel <= 0 && maxLevel > 0) {
+                        println("Activation: Max level reached")
                         BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_ACTIVATE)
                         for (serverPlayerEntity in world.getNonSpectatingEntities(
                             ServerPlayerEntity::class.java,
@@ -244,6 +250,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
                             Criteria.CONSTRUCT_BEACON.trigger(serverPlayerEntity, maxLevel)
                         }
                     } else if (maxOldLevel > 0 && maxLevel <= 0) {
+                        println("Activation: Max OLD level reached")
                         BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_DEACTIVATE)
                     }
                 }
