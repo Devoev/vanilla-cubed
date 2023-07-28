@@ -259,7 +259,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     /**
      * Segment of the beacons beam with the given [color] and [height].
      */
-    data class ModBeamSegment(val color: FloatArray, private var height: Int = 0) {
+    data class ModBeamSegment(val color: FloatArray, internal var height: Int = 0) {
 
         internal fun increaseHeight() { ++height }
 

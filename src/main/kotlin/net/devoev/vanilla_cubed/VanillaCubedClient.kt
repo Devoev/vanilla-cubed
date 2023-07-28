@@ -1,6 +1,7 @@
 package net.devoev.vanilla_cubed
 
 import net.devoev.vanilla_cubed.client.event.ModClientTickEvents
+import net.devoev.vanilla_cubed.client.render.entity.ModBlockEntityRenderer
 import net.devoev.vanilla_cubed.client.render.entity.ModEntityRenderer
 import net.devoev.vanilla_cubed.client.render.entity.feature.ModLivingEntityFeatureRenderer
 import net.devoev.vanilla_cubed.client.render.entity.model.ModEntityModelLayers
@@ -22,6 +23,7 @@ object VanillaCubedClient : ClientModInitializer {
         ModResourceReloadListeners.init()
         ModItemRenderer.init()
         ModEntityRenderer.init()
+        ModBlockEntityRenderer.init()
         ModModelProviders.init()
         ModModelPredicateProvider.init()
         ModLivingEntityFeatureRenderer.init()

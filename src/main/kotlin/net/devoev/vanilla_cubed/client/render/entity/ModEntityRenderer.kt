@@ -23,8 +23,4 @@ object ModEntityRenderer : MapInitializer<EntityType<out Entity>, EntityRenderer
         = put(type) { ctx -> rendererProvider(ctx) as EntityRenderer<Entity> }
 
     override fun init() = forEach { EntityRendererRegistry.register(it.key, it.value) }
-
-//    fun <E : Entity?> register(entityType: EntityType<out E>, entityRendererFactory: EntityRendererFactory<E>) {
-//        EntityRendererRegistryImpl.register(entityType, entityRendererFactory)
-//    }
 }
