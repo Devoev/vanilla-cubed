@@ -4,12 +4,15 @@ import net.devoev.vanilla_cubed.client.render.item.TridentItemRenderer
 import net.devoev.vanilla_cubed.entity.ModEntityTypes
 import net.devoev.vanilla_cubed.entity.texture
 import net.devoev.vanilla_cubed.item.ModItems
-import net.devoev.vanilla_cubed.util.SetInitializer
 import net.devoev.vanilla_cubed.item.id
+import net.devoev.vanilla_cubed.util.SetInitializer
+import net.fabricmc.api.EnvType
+import net.fabricmc.api.Environment
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper
 import net.minecraft.resource.ResourceType
 
+@Environment(EnvType.CLIENT)
 object ModResourceReloadListeners : SetInitializer<IdentifiableResourceReloadListener>() {
 
     val ENDERITE_TRIDENT = create(TridentItemRenderer(

@@ -3,12 +3,15 @@ package net.devoev.vanilla_cubed.item
 import net.devoev.vanilla_cubed.item.tool.THROWING_PREDICATE_PROVIDER
 import net.devoev.vanilla_cubed.util.SetInitializer
 import net.devoev.vanilla_cubed.util.math.toFloat
+import net.fabricmc.api.EnvType
+import net.fabricmc.api.Environment
 import net.minecraft.client.item.ModelPredicateProviderRegistry
 import net.minecraft.client.item.UnclampedModelPredicateProvider
 import net.minecraft.item.Item
 import net.minecraft.item.Items
 import net.minecraft.util.Identifier
 
+@Environment(EnvType.CLIENT)
 object ModModelPredicateProvider : SetInitializer<ModelPredicate>() {
 
     init {

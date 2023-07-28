@@ -2,6 +2,8 @@ package net.devoev.vanilla_cubed.client.render.entity
 
 import net.devoev.vanilla_cubed.entity.ModEntityTypes
 import net.devoev.vanilla_cubed.util.MapInitializer
+import net.fabricmc.api.EnvType
+import net.fabricmc.api.Environment
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry
 import net.minecraft.client.render.entity.EntityRenderer
 import net.minecraft.client.render.entity.EntityRendererFactory
@@ -12,6 +14,7 @@ import net.minecraft.entity.EntityType
 /**
  * An object for initializing a custom [EntityRenderer].
  */
+@Environment(EnvType.CLIENT)
 object ModEntityRenderer : MapInitializer<EntityType<out Entity>, EntityRendererFactory<Entity>>() {
 
     init {
