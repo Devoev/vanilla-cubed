@@ -133,6 +133,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
          */
         private fun tickLevels(world: World, pos: BlockPos, blockEntity: ModBeaconBlockEntity) {
             val base = baseBlocks(world, pos)
+            // TODO: DONT only check base blocks, but also for air gaps
             blockEntity.levels[0] = base[Blocks.IRON_BLOCK] ?: 0
             blockEntity.levels[1] = base[Blocks.GOLD_BLOCK] ?: 0
             blockEntity.levels[2] = base[Blocks.EMERALD_BLOCK] ?: 0
@@ -163,6 +164,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
          * Ticks the beacon beam updating the temporary beam segments [tmpBeamSegments].
          */
         private fun tickBeam(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
+            // TODO: Fix bug, that beam starts one block too low
             var blockPos: BlockPos
             if (blockEntity.minY < pos.y) {
                 blockPos = pos
@@ -176,15 +178,16 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
             val maxY: Int = world.getTopY(Heightmap.Type.WORLD_SURFACE, pos.x, pos.z)
 
             for (n in 0..9) {
-                println("Blockpos.y = ${blockPos.y}")
                 if (blockPos.y > maxY) break
 
                 val blockState = world.getBlockState(blockPos)
                 val block = blockState.block
+
                 if (block is Stainable) {
                     val color = block.color.colorComponents
                     if (blockEntity.tmpBeamSegments.size <= 1) {
-                        blockEntity.tmpBeamSegments += ModBeamSegment(color)
+                        beamSegment = ModBeamSegment(color)
+                        blockEntity.tmpBeamSegments += beamSegment
                     } else if (beamSegment != null) {
                         if (color contentEquals beamSegment.color) {
                             beamSegment.increaseHeight()
@@ -205,9 +208,12 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
                         blockEntity.minY = maxY
                         break
                     }
-                    blockPos = blockPos.up()
-                    blockEntity.minY++
+
+                    beamSegment.increaseHeight()
                 }
+
+                blockPos = blockPos.up()
+                blockEntity.minY++
             }
         }
 
@@ -225,16 +231,14 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
          */
         private fun tickActivation(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity, oldLevels: IntArray) {
             val maxY: Int = world.getTopY(Heightmap.Type.WORLD_SURFACE, pos.x, pos.z)
+            // TODO: DONT use just the max levels, but each the required one.
             val maxOldLevel = oldLevels.max()
             val maxLevel = blockEntity.levels.max()
             if (blockEntity.minY >= maxY) {
                 blockEntity.minY = world.bottomY - 1
                 blockEntity.beamSegments = blockEntity.tmpBeamSegments
                 if (!world.isClient) {
-                    println("max OLD level $maxOldLevel")
-                    println("max level $maxLevel")
                     if (maxOldLevel <= 0 && maxLevel > 0) {
-                        println("Activation: Max level reached")
                         BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_ACTIVATE)
                         for (serverPlayerEntity in world.getNonSpectatingEntities(
                             ServerPlayerEntity::class.java,
@@ -250,7 +254,6 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
                             Criteria.CONSTRUCT_BEACON.trigger(serverPlayerEntity, maxLevel)
                         }
                     } else if (maxOldLevel > 0 && maxLevel <= 0) {
-                        println("Activation: Max OLD level reached")
                         BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_DEACTIVATE)
                     }
                 }
