@@ -164,7 +164,6 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
          * Ticks the beacon beam updating the temporary beam segments [tmpBeamSegments].
          */
         private fun tickBeam(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
-            // TODO: Fix bug, that beam starts one block too low
             var blockPos: BlockPos
             if (blockEntity.minY < pos.y) {
                 blockPos = pos
