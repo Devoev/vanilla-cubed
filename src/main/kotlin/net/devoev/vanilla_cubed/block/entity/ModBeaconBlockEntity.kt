@@ -119,6 +119,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
             // TODO: Possibly send levels value by networking to screen, in order to prevent flicker
 
             tickBeam(world, pos, state, blockEntity)
+            println(blockEntity.tmpBeamSegments.map { it.height })
             val oldLevels = blockEntity.levels.clone()
             if (world.time % 80L == 0L && blockEntity.beamSegments.isNotEmpty()) {
                 tickLevels(world, pos, blockEntity)
@@ -308,7 +309,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     /**
      * Segment of the beacons beam with the given [color] and [height].
      */
-    data class ModBeamSegment(val color: FloatArray, internal var height: Int = 0) {
+    data class ModBeamSegment(val color: FloatArray, internal var height: Int = 1) {
 
         internal fun increaseHeight() { ++height }
 

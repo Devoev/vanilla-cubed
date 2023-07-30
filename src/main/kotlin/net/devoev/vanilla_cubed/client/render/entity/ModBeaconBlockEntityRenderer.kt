@@ -22,7 +22,7 @@ class ModBeaconBlockEntityRenderer(ctx: BlockEntityRendererFactory.Context) : Bl
     ) {
         val time: Long = entity.world?.time ?: return
         val beamSegments: List<ModBeaconBlockEntity.ModBeamSegment> = entity.beamSegments
-        var yOffset = 1
+        var yOffset = 0
         for (i in beamSegments.indices) {
             val beamSegment = beamSegments[i]
             BeaconBlockEntityRenderer.renderBeam(
