@@ -119,7 +119,6 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
             // TODO: Possibly send levels value by networking to screen, in order to prevent flicker
 
             tickBeam(world, pos, state, blockEntity)
-            println(blockEntity.tmpBeamSegments.map { it.height })
             val oldLevels = blockEntity.levels.clone()
             if (world.time % 80L == 0L && blockEntity.beamSegments.isNotEmpty()) {
                 tickLevels(world, pos, blockEntity)
@@ -165,6 +164,9 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
          * Ticks the beacon beam updating the temporary beam segments [tmpBeamSegments].
          */
         private fun tickBeam(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
+            // TODO: Find bug that causes beam to flicker.
+            //  - Caused by rapidly changing minY values
+            //  - "Fixed" by increasing loop bound from 9 to higher
             var blockPos: BlockPos
             if (blockEntity.minY < pos.y) {
                 blockPos = pos
@@ -177,7 +179,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
             var beamSegment: ModBeamSegment? = blockEntity.tmpBeamSegments.lastOrNull()
             val maxY: Int = world.getTopY(Heightmap.Type.WORLD_SURFACE, pos.x, pos.z)
 
-            for (n in 0..9) {
+            for (i in 0..9) {
                 if (blockPos.y > maxY) break
 
                 val blockState = world.getBlockState(blockPos)
@@ -194,9 +196,9 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
                         } else {
                             beamSegment = ModBeamSegment(
                                 floatArrayOf(
-                                    (beamSegment.color[0] + color[0]) / 2.0f,
-                                    (beamSegment.color[1] + color[1]) / 2.0f,
-                                    (beamSegment.color[2] + color[2]) / 2.0f
+                                    (beamSegment.color[0] + color[0]) / 2,
+                                    (beamSegment.color[1] + color[1]) / 2,
+                                    (beamSegment.color[2] + color[2]) / 2
                                 )
                             )
                             blockEntity.tmpBeamSegments += beamSegment
