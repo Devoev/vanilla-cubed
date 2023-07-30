@@ -22,9 +22,9 @@ class ModBeaconBlockEntityRenderer(ctx: BlockEntityRendererFactory.Context) : Bl
     ) {
         val time: Long = entity.world?.time ?: return
         val beamSegments: List<ModBeaconBlockEntity.ModBeamSegment> = entity.beamSegments
-        var yOffset = 0
-        for (m in beamSegments.indices) {
-            val beamSegment = beamSegments[m]
+        var yOffset = 1
+        for (i in beamSegments.indices) {
+            val beamSegment = beamSegments[i]
             BeaconBlockEntityRenderer.renderBeam(
                 matrices,
                 vertexConsumers,
@@ -33,7 +33,7 @@ class ModBeaconBlockEntityRenderer(ctx: BlockEntityRendererFactory.Context) : Bl
                 1.0f,
                 time,
                 yOffset,
-                if (m == beamSegments.size - 1) BeaconBlockEntityRenderer.MAX_BEAM_HEIGHT else beamSegment.height,
+                if (i == beamSegments.size - 1) BeaconBlockEntityRenderer.MAX_BEAM_HEIGHT else beamSegment.height,
                 beamSegment.color,
                 0.2f,
                 0.25f
