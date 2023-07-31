@@ -38,24 +38,38 @@ import net.minecraft.world.World
  * @param pos Block position.
  * @param state Block state.
  *
- * @property beamSegments Segments of the beacon beam.
  * @property upgrade Activated beacon upgrade.
  * @property levels Amount of placed iron, gold, emerald or diamond blocks.
  * @property propertyDelegate Delegate of properties to sync with the screen handler.
+ * @property beamSegments Segments of the beacon beam.
  */
 class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBlockEntityTypes.MOD_BEACON, pos, state), NamedScreenHandlerFactory {
 
     private var lock: ContainerLock = ContainerLock.EMPTY
     var customName: Text? = null
 
-    private val _beamSegments: MutableList<ModBeamSegment> = mutableListOf()
-    var beamSegments: List<ModBeamSegment> = listOf()
-        private set
-    private var minY: Int = 0
-
     private var upgrade: BeaconUpgrade? = null
     private val levels: IntArray = intArrayOf(0,0,0,0)
     private val propertyDelegate = BeaconPropertyDelegate()
+
+    private var _beamSegments: MutableList<ModBeamSegment> = mutableListOf()
+    var beamSegments: MutableList<ModBeamSegment>
+        get() = if (activeLevels) _beamSegments else mutableListOf()
+        private set(value) { _beamSegments = value }
+
+    /**
+     * Whether the [levels] are active.
+     */
+    private val activeLevels: Boolean // TODO: Check not any level but the upgraded one
+        get() = levels.any { it > 0 }
+
+    /**
+     * Whether the [beamSegments] are active.
+     */
+    private val activeBeam: Boolean
+        get() = beamSegments.isNotEmpty()
+
+    private var minY: Int = 0
 
     override fun getDisplayName(): Text = customName ?: Text.translatable("container.beacon")
 
@@ -118,11 +132,14 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         private fun tick(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
             // TODO: Possibly send levels value by networking to screen, in order to prevent flicker
 
-            tickBeam(world, pos, state, blockEntity)
             val oldLevels = blockEntity.levels.clone()
-            if (world.time % 80L == 0L && blockEntity.beamSegments.isNotEmpty()) {
-                tickLevels(world, pos, blockEntity)
-                tickUpgrade(world, pos, state, blockEntity)
+            tickLevels(world, pos, blockEntity)
+
+            if (blockEntity.activeLevels) {
+                tickBeam(world, pos, state, blockEntity)
+                if (world.time % 80L == 0L && blockEntity.activeBeam) {
+                    tickUpgrade(world, pos, state, blockEntity)
+                }
             }
 
             tickActivation(world, pos, state, blockEntity, oldLevels)
@@ -187,19 +204,19 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         }
 
         /**
-         * Ticks the beacon beam updating the temporary beam segments [_beamSegments].
+         * Ticks the beacon beam updating beam segments [beamSegments].
          */
         private fun tickBeam(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
             var blockPos: BlockPos
             if (blockEntity.minY < pos.y) {
                 blockPos = pos
-                blockEntity._beamSegments.clear()
+                blockEntity.beamSegments.clear()
                 blockEntity.minY = pos.y - 1
             } else {
                 blockPos = BlockPos(pos.x, blockEntity.minY + 1, pos.z)
             }
 
-            var beamSegment: ModBeamSegment? = blockEntity._beamSegments.lastOrNull()
+            var beamSegment: ModBeamSegment? = blockEntity.beamSegments.lastOrNull()
             val maxY: Int = world.getTopY(Heightmap.Type.WORLD_SURFACE, pos.x, pos.z)
 
             while (blockPos.y <= maxY) {
@@ -208,9 +225,9 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
 
                 if (block is Stainable) {
                     val color = block.color.colorComponents
-                    if (blockEntity._beamSegments.size <= 1) {
+                    if (blockEntity.beamSegments.size <= 1) {
                         beamSegment = ModBeamSegment(color)
-                        blockEntity._beamSegments += beamSegment
+                        blockEntity.beamSegments += beamSegment
                     } else if (beamSegment != null) {
                         if (color contentEquals beamSegment.color) {
                             beamSegment.increaseHeight()
@@ -222,12 +239,12 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
                                     (beamSegment.color[2] + color[2]) / 2
                                 )
                             )
-                            blockEntity._beamSegments += beamSegment
+                            blockEntity.beamSegments += beamSegment
                         }
                     }
                 } else {
                     if (beamSegment == null || blockState.getOpacity(world, blockPos) >= 15 && !blockState.isOf(Blocks.BEDROCK)) {
-                        blockEntity._beamSegments.clear()
+                        blockEntity.beamSegments.clear()
                         blockEntity.minY = maxY
                         break
                     }
@@ -263,7 +280,6 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
 
             if (blockEntity.minY >= maxY) {
                 blockEntity.minY = world.bottomY - 1
-                blockEntity.beamSegments = blockEntity._beamSegments
                 if (!world.isClient) {
                     if (maxOldLevel <= 0 && maxLevel > 0) {
                         BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_ACTIVATE)
