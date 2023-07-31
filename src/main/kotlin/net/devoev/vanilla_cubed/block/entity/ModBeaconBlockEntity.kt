@@ -58,6 +58,15 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         private set(value) { _beamSegments = value }
 
     /**
+     * The required level for the currently activated [upgrade].
+     */
+    private val currentLevel: Int
+        get() {
+            return if (upgrade == null) 0
+            else levels[BeaconUpgrades.dataOf(upgrade).tier.type.idx]
+        }
+
+    /**
      * Whether the [levels] are active.
      */
     private val activeLevels: Boolean // TODO: Check not any level but the upgraded one

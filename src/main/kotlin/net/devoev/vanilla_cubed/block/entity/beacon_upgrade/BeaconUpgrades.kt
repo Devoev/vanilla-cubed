@@ -143,6 +143,11 @@ object BeaconUpgrades {
     fun dataAt(i: Int): BeaconUpgradeButtonData = ALL[i]
 
     /**
+     * Returns the [BeaconUpgradeButtonData] of the given [upgrade].
+     */
+    fun dataOf(upgrade: BeaconUpgrade?) = dataAt(indexOf(upgrade))
+
+    /**
      * Returns the canonical index of the given [upgrade].
      */
     fun indexOf(upgrade: BeaconUpgrade?) = UPGRADES.indexOf(upgrade)

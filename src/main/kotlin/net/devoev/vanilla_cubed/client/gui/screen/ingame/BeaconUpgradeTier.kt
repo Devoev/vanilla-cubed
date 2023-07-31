@@ -26,21 +26,20 @@ data class BeaconUpgradeTier(val tier: Int, val type: Type) {
      * @return True, if [levels] are high enough.
      */
     fun checkLevel(levels: IntArray): Boolean {
-        return when(type) {
-            Type.IRON -> checkLevel(levels[0])
-            Type.GOLD -> checkLevel(levels[1])
-            Type.EMERALD -> checkLevel(levels[2])
-            Type.DIAMOND -> checkLevel(levels[3])
-            else -> checkLevel(0)
-        }
+        return if (type==Type.NONE) true
+        else checkLevel(levels[type.idx])
     }
 
     init {
         assert(tier in 0..4) { "Tier $tier must be between 0 and 4!" }
     }
 
-    enum class Type {
-        IRON, GOLD, EMERALD, DIAMOND, NONE
+    /**
+     * Block category type.
+     * @property idx The index in the levels arrays.
+     */
+    enum class Type(val idx: Int) {
+        IRON(0), GOLD(1), EMERALD(2), DIAMOND(3), NONE(-1)
     }
 
     companion object {
