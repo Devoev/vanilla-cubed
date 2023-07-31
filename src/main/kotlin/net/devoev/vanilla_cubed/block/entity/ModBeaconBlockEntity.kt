@@ -164,14 +164,11 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
          * Ticks the beacon beam updating the temporary beam segments [tmpBeamSegments].
          */
         private fun tickBeam(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
-            // TODO: Find bug that causes beam to flicker.
-            //  - Caused by rapidly changing minY values
-            //  - "Fixed" by increasing loop bound from 9 to higher
             var blockPos: BlockPos
             if (blockEntity.minY < pos.y) {
                 blockPos = pos
                 blockEntity.tmpBeamSegments.clear()
-                blockEntity.minY = blockPos.y - 1
+                blockEntity.minY = pos.y - 1
             } else {
                 blockPos = BlockPos(pos.x, blockEntity.minY + 1, pos.z)
             }
@@ -179,9 +176,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
             var beamSegment: ModBeamSegment? = blockEntity.tmpBeamSegments.lastOrNull()
             val maxY: Int = world.getTopY(Heightmap.Type.WORLD_SURFACE, pos.x, pos.z)
 
-            for (i in 0..9) {
-                if (blockPos.y > maxY) break
-
+            while (blockPos.y <= maxY) {
                 val blockState = world.getBlockState(blockPos)
                 val block = blockState.block
 
@@ -236,6 +231,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
             // TODO: DONT use just the max levels, but each the required one.
             val maxOldLevel = oldLevels.max()
             val maxLevel = blockEntity.levels.max()
+
             if (blockEntity.minY >= maxY) {
                 blockEntity.minY = world.bottomY - 1
                 blockEntity.beamSegments = blockEntity.tmpBeamSegments
