@@ -64,17 +64,17 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         minY = world.bottomY - 1
     }
 
+    override fun markRemoved() {
+        BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_DEACTIVATE)
+        super.markRemoved()
+    }
+
     override fun createMenu(i: Int, playerInventory: PlayerInventory?, playerEntity: PlayerEntity?): ScreenHandler? {
         if (playerInventory == null)
             error("playerInventory must not be null!")
         return if (LockableContainerBlockEntity.checkUnlocked(playerEntity, lock, displayName))
             ModBeaconScreenHandler(i, playerInventory, propertyDelegate, ScreenHandlerContext.create(world, pos))
         else null;
-    }
-
-    override fun markRemoved() {
-        BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_DEACTIVATE)
-        super.markRemoved()
     }
 
     override fun toUpdatePacket(): Packet<ClientPlayPacketListener>? {
@@ -218,7 +218,9 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
          * Ticks the active [upgrade] by invoking it and plays the [SoundEvents.BLOCK_BEACON_AMBIENT] sound.
          */
         private fun tickUpgrade(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
-            blockEntity.upgrade?.invoke(world, pos, state, blockEntity)
+            if (!world.isClient) {
+                blockEntity.upgrade?.invoke(world, pos, state, blockEntity)
+            }
             playSound(world, pos, SoundEvents.BLOCK_BEACON_AMBIENT)
         }
 

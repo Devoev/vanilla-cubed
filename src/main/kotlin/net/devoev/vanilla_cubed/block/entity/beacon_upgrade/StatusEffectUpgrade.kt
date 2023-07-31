@@ -15,9 +15,6 @@ import net.minecraft.world.World
 class StatusEffectUpgrade(private val effect: StatusEffect) : BeaconUpgrade {
     override fun invoke(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
         //TODO: Update implementation
-        if (world.isClient) {
-            return
-        }
         val beaconLevel = 4
         val d: Double = (beaconLevel * 10 + 10).toDouble()
         val i = 0
