@@ -132,20 +132,46 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
          * Ticks the [levels] property by updating its values.
          */
         private fun tickLevels(world: World, pos: BlockPos, blockEntity: ModBeaconBlockEntity) {
+
+            /**
+             * Checks whether the levels contain any other block than valid base blocks.
+             */
+            fun Map<Block, Int>.invalid(): Boolean {
+                return this.any {
+                    it.key != Blocks.IRON_BLOCK
+                            && it.key != Blocks.GOLD_BLOCK
+                            && it.key != Blocks.EMERALD_BLOCK
+                            && it.key != Blocks.DIAMOND_BLOCK
+                }
+            }
+
+            // Clear old levels
+            blockEntity.levels[0] = 0
+            blockEntity.levels[1] = 0
+            blockEntity.levels[2] = 0
+            blockEntity.levels[3] = 0
+
+            // Set new levels
             val base = baseBlocks(world, pos)
-            // TODO: DONT only check base blocks, but also for air gaps
-            blockEntity.levels[0] = base[Blocks.IRON_BLOCK] ?: 0
-            blockEntity.levels[1] = base[Blocks.GOLD_BLOCK] ?: 0
-            blockEntity.levels[2] = base[Blocks.EMERALD_BLOCK] ?: 0
-            blockEntity.levels[3] = base[Blocks.DIAMOND_BLOCK] ?: 0
+            for (baseLevel in base) {
+                if (baseLevel.invalid()) break
+                blockEntity.levels[0] += baseLevel[Blocks.IRON_BLOCK] ?: 0
+                blockEntity.levels[1] += baseLevel[Blocks.GOLD_BLOCK] ?: 0
+                blockEntity.levels[2] += baseLevel[Blocks.EMERALD_BLOCK] ?: 0
+                blockEntity.levels[3] += baseLevel[Blocks.DIAMOND_BLOCK] ?: 0
+            }
         }
 
         /**
          * Counts the amount of blocks that make up the beacon base.
+         * @return A list of all blocks per y-level. Sorted from highest to lowest y value.
          */
-        private fun baseBlocks(world: World, pos: BlockPos): Map<Block, Int> {
-            val res = mutableMapOf<Block, Int>()
+        private fun baseBlocks(world: World, pos: BlockPos): List<Map<Block, Int>> {
+            val res: List<MutableMap<Block, Int>> = listOf(
+                mutableMapOf(), mutableMapOf(), mutableMapOf(), mutableMapOf()
+            )
             for (dy in 1..4) {
+                val level = res[dy-1]
                 for (dz in -dy..dy) {
                     for (dx in -dy..dy) {
                         val block = world.getBlockState(BlockPos(
@@ -153,7 +179,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
                             pos.y - dy,
                             pos.z + dz)
                         ).block
-                        res[block] = res.getOrPut(block) { 0 } + 1
+                        level[block] = level.getOrPut(block) { 0 } + 1
                     }
                 }
             }
