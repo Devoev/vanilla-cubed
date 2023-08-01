@@ -32,13 +32,13 @@ object BeaconUpgrades {
         BeaconUpgradeButtonData(
             BeaconUpgrade.EMPTY,
             tooltipOf("iron2"),
-            textureOf(""),
+            textureOf("iron2.png"),
             ironTierOf(2)
         ),
         BeaconUpgradeButtonData(
             BeaconUpgrade.EMPTY,
             tooltipOf("iron3"),
-            textureOf(""),
+            textureOf("iron3.png"),
             ironTierOf(3)
         ),
         BeaconUpgradeButtonData(
@@ -53,25 +53,25 @@ object BeaconUpgrades {
         BeaconUpgradeButtonData(
             StatusEffectUpgrade(StatusEffects.SPEED, 0) andThen StatusEffectUpgrade(StatusEffects.JUMP_BOOST, 0),
             tooltipOf("gold1"),
-            textureOf("iron1.png"),
+            textureOf("gold1.png"),
             goldTierOf(1)
         ),
         BeaconUpgradeButtonData(
             BeaconUpgrade.EMPTY,
             tooltipOf("gold2"),
-            textureOf(""),
+            textureOf("gold2.png"),
             goldTierOf(2)
         ),
         BeaconUpgradeButtonData(
             BeaconUpgrade.EMPTY,
             tooltipOf("gold3"),
-            textureOf(""),
+            textureOf("gold3.png"),
             goldTierOf(3)
         ),
         BeaconUpgradeButtonData(
             BeaconUpgrade.EMPTY,
             tooltipOf("gold4"),
-            textureOf(""),
+            textureOf("gold4.png"),
             goldTierOf(4)
         ),
     )
@@ -79,25 +79,25 @@ object BeaconUpgrades {
         BeaconUpgradeButtonData(
             BeaconUpgrade.EMPTY,
             tooltipOf("emerald1"),
-            textureOf(""),
+            textureOf("emerald1.png"),
             emeraldTierOf(1)
         ),
         BeaconUpgradeButtonData(
             BeaconUpgrade.EMPTY,
             tooltipOf("emerald2"),
-            textureOf(""),
+            textureOf("emerald2.png"),
             emeraldTierOf(2)
         ),
         BeaconUpgradeButtonData(
             BeaconUpgrade.EMPTY,
             tooltipOf("emerald3"),
-            textureOf(""),
+            textureOf("emerald3.png"),
             emeraldTierOf(3)
         ),
         BeaconUpgradeButtonData(
-            BeaconUpgrade.EMPTY,
+            DisableMonsterSpawningUpgrade,
             tooltipOf("emerald4"),
-            textureOf(""),
+            textureOf("emerald4.png"),
             emeraldTierOf(4)
         )
     )
@@ -105,25 +105,25 @@ object BeaconUpgrades {
     private val DIAMOND = listOf(
         BeaconUpgradeButtonData(StatusEffectUpgrade(StatusEffects.STRENGTH, 0) andThen StatusEffectUpgrade(StatusEffects.REGENERATION, 0),
             tooltipOf("diamond1"),
-            textureOf("iron1.png"),
+            textureOf("diamond1.png"),
             diamondTierOf(1)
         ),
         BeaconUpgradeButtonData(
             BeaconUpgrade.EMPTY,
             tooltipOf("diamond2"),
-            textureOf(""),
+            textureOf("diamond2.png"),
             diamondTierOf(2)
         ),
         BeaconUpgradeButtonData(
             BeaconUpgrade.EMPTY,
             tooltipOf("diamond3"),
-            textureOf(""),
+            textureOf("diamond3.png"),
             diamondTierOf(3)
         ),
         BeaconUpgradeButtonData(
             BeaconUpgrade.EMPTY,
             tooltipOf("diamond4"),
-            textureOf(""),
+            textureOf("diamond4.png"),
             diamondTierOf(4)
         ),
     )
