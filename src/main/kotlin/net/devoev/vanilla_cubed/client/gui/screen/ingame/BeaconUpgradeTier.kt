@@ -12,13 +12,7 @@ data class BeaconUpgradeTier(val tier: Int, val type: Type) {
      * @return True, if [level] is high enough.
      */
     fun checkLevel(level: Int): Boolean {
-        return when(tier) {
-            1 -> level >= 9
-            2 -> level >= 34
-            3 -> level >= 83
-            4 -> level >= 164
-            else -> true
-        }
+        return tierToLevel(tier) <= level
     }
 
     /**
@@ -48,6 +42,33 @@ data class BeaconUpgradeTier(val tier: Int, val type: Type) {
          * An empty [BeaconUpgradeTier].
          */
         val EMPTY = BeaconUpgradeTier(0, Type.NONE)
+
+        /**
+         * The required level for the given [tier].
+         */
+        fun tierToLevel(tier: Int): Int {
+            return when(tier) {
+                1 -> 9
+                2 -> 34
+                3 -> 83
+                4 -> 164
+                else -> -1
+            }
+        }
+
+        /**
+         * The tier the given [level] corresponds to.
+         */
+        fun levelToTier(level: Int): Int {
+            return when(level) {
+                in 0..<9 -> 0
+                in 9..<34 -> 1
+                in 34..<83 -> 2
+                in 83..<164 -> 3
+                164 -> 4
+                else -> -1
+            }
+        }
     }
 }
 

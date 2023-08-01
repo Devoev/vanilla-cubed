@@ -2,6 +2,7 @@ package net.devoev.vanilla_cubed.block.entity
 
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrade
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades
+import net.devoev.vanilla_cubed.client.gui.screen.ingame.BeaconUpgradeTier
 import net.devoev.vanilla_cubed.screen.ModBeaconScreenHandler
 import net.devoev.vanilla_cubed.screen.levels
 import net.devoev.vanilla_cubed.screen.upgrade
@@ -42,6 +43,8 @@ import net.minecraft.world.World
  * @property levels Amount of placed iron, gold, emerald or diamond blocks.
  * @property propertyDelegate Delegate of properties to sync with the screen handler.
  * @property beamSegments Segments of the beacon beam.
+ * @property boxRange Range of the beacon effect.
+ * @property currentLevel The required level for the currently activated [upgrade].
  */
 class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBlockEntityTypes.MOD_BEACON, pos, state), NamedScreenHandlerFactory {
 
@@ -57,10 +60,15 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         get() = if (activeBase) _beamSegments else mutableListOf()
         private set(value) { _beamSegments = value }
 
-    /**
-     * The required level for the currently activated [upgrade].
-     */
-    private val currentLevel: Int
+    private val range: Int
+        get() = BeaconUpgradeTier.levelToTier(levels.sum())*10 + 10
+
+    val boxRange: Box
+        get() = Box(pos)
+            .expand(range.toDouble())
+            .stretch(0.0, world!!.height.toDouble(), 0.0)
+
+    val currentLevel: Int
         get() {
             return if (upgrade == null) 0
             else levels[BeaconUpgrades.dataOf(upgrade).tier.type.idx]

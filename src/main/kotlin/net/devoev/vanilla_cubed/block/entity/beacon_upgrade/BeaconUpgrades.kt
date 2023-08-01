@@ -24,7 +24,7 @@ object BeaconUpgrades {
 
     private val IRON = listOf(
         BeaconUpgradeButtonData(
-            StatusEffectUpgrade(StatusEffects.RESISTANCE),
+            StatusEffectUpgrade(StatusEffects.RESISTANCE, 0),
             tooltipOf("iron1"),
             textureOf("iron1.png"),
             ironTierOf(1)
@@ -42,7 +42,7 @@ object BeaconUpgrades {
             ironTierOf(3)
         ),
         BeaconUpgradeButtonData(
-            StatusEffectUpgrade(StatusEffects.HASTE),
+            StatusEffectUpgrade(StatusEffects.HASTE, 1),
             tooltipOf("iron4"),
             textureOf("iron4.png"),
             ironTierOf(4)
@@ -51,7 +51,7 @@ object BeaconUpgrades {
 
     private val GOLD = listOf(
         BeaconUpgradeButtonData(
-            StatusEffectUpgrade(StatusEffects.SPEED),
+            StatusEffectUpgrade(StatusEffects.SPEED, 0),
             tooltipOf("gold1"),
             textureOf("iron1.png"),
             goldTierOf(1)
@@ -103,7 +103,7 @@ object BeaconUpgrades {
     )
 
     private val DIAMOND = listOf(
-        BeaconUpgradeButtonData(StatusEffectUpgrade(StatusEffects.STRENGTH),
+        BeaconUpgradeButtonData(StatusEffectUpgrade(StatusEffects.STRENGTH, 0),
             tooltipOf("diamond1"),
             textureOf("iron1.png"),
             diamondTierOf(1)
