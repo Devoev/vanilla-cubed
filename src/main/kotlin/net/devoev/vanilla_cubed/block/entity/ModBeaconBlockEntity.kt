@@ -118,6 +118,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
 
     override fun readNbt(nbt: NbtCompound) {
         super.readNbt(nbt)
+        upgrade = BeaconUpgrades[nbt.getInt("upgrade")]
         if (nbt.contains("CustomName", 8)) {
             customName = Text.Serializer.fromJson(nbt.getString("CustomName"))
         }
@@ -126,6 +127,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
 
     override fun writeNbt(nbt: NbtCompound) {
         super.writeNbt(nbt)
+        nbt.putInt("upgrade", BeaconUpgrades.indexOf(upgrade))
         if (customName != null) {
             nbt.putString("CustomName", Text.Serializer.toJson(customName))
         }
