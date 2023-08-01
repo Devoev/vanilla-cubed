@@ -54,7 +54,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
 
     private var _beamSegments: MutableList<ModBeamSegment> = mutableListOf()
     var beamSegments: MutableList<ModBeamSegment>
-        get() = if (activeLevels) _beamSegments else mutableListOf()
+        get() = if (activeBase) _beamSegments else mutableListOf()
         private set(value) { _beamSegments = value }
 
     /**
@@ -67,13 +67,13 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         }
 
     /**
-     * Whether at least one of the [levels] is greater than 0.
+     * Whether at least one of the [levels] is greater than 0, meaning the base is build properly.
      */
-    private val activeLevels: Boolean
+    private val activeBase: Boolean
         get() = levels.any { it > 0 }
 
     /**
-     * Whether the [beamSegments] exist and ar not empty.
+     * Whether the [beamSegments] ar not empty, meaning a beam is active.
      */
     private val activeBeam: Boolean
         get() = beamSegments.isNotEmpty()
@@ -144,7 +144,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
             val oldLevels = blockEntity.levels.clone()
             tickLevels(world, pos, blockEntity)
 
-            if (blockEntity.activeLevels) {
+            if (blockEntity.activeBase) {
                 tickBeam(world, pos, state, blockEntity)
                 playSound(world, pos, SoundEvents.BLOCK_BEACON_AMBIENT)
                 if (world.time % 80L == 0L && blockEntity.activeBeam) {
