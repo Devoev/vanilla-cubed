@@ -13,6 +13,14 @@ fun interface BeaconUpgrade {
 
     operator fun invoke(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity)
 
+    /**
+     * Creates a composed [BeaconUpgrade] that first runs this and then [after].
+     */
+    infix fun andThen(after: BeaconUpgrade): BeaconUpgrade = BeaconUpgrade { world, pos, state, blockEntity ->
+        this(world, pos, state, blockEntity)
+        after(world, pos, state, blockEntity)
+    }
+
     companion object {
 
         /**
