@@ -15,11 +15,11 @@ import net.minecraft.world.World
  * @property amplifier Level of the effect.
  */
 class StatusEffectUpgrade(private val effect: StatusEffect, private val amplifier: Int) : BeaconUpgrade {
-    override fun invoke(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
-        val tier = BeaconUpgradeTier.levelToTier(blockEntity.currentLevel)
+    override fun ModBeaconBlockEntity.accept(world: World, pos: BlockPos, state: BlockState) {
+        val tier = BeaconUpgradeTier.levelToTier(currentLevel)
         val duration: Int = (9 + tier * 2) * 20
 
-        val players = world.getNonSpectatingEntities(PlayerEntity::class.java, blockEntity.boxRange)
+        val players = world.getNonSpectatingEntities(PlayerEntity::class.java, boxRange)
         for (playerEntity in players) {
             playerEntity.addStatusEffect(StatusEffectInstance(effect, duration, amplifier, true, true))
         }

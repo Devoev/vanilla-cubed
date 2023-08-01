@@ -11,14 +11,17 @@ import net.minecraft.world.World
  */
 fun interface BeaconUpgrade {
 
+    fun ModBeaconBlockEntity.accept(world: World, pos: BlockPos, state: BlockState)
+
     operator fun invoke(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity)
+        = blockEntity.accept(world, pos, state)
 
     /**
      * Creates a composed [BeaconUpgrade] that first runs this and then [after].
      */
-    infix fun andThen(after: BeaconUpgrade): BeaconUpgrade = BeaconUpgrade { world, pos, state, blockEntity ->
-        this(world, pos, state, blockEntity)
-        after(world, pos, state, blockEntity)
+    infix fun andThen(after: BeaconUpgrade): BeaconUpgrade = BeaconUpgrade { world, pos, state ->
+        invoke(world, pos, state, this)
+        after(world, pos, state, this)
     }
 
     companion object {
@@ -26,6 +29,6 @@ fun interface BeaconUpgrade {
         /**
          * The default [BeaconUpgrade] that does nothing.
          */
-        val EMPTY = BeaconUpgrade { _, _, _, _ ->  }
+        val EMPTY = BeaconUpgrade { _, _, _ ->  }
     }
 }

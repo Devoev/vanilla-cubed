@@ -283,7 +283,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
                 if (world.isClient || upgrade == null) return
 
                 if (BeaconUpgrades.dataOf(upgrade).tier.checkLevel(currentLevel)) {
-                    upgrade?.invoke(world, pos, state, this)
+                    upgrade!!(world, pos, state, this)
                 }
             }
         }
