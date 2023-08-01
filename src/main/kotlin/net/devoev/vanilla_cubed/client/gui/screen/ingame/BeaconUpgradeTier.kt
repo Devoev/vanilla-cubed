@@ -11,7 +11,7 @@ data class BeaconUpgradeTier(val tier: Int, val type: Type) {
      * Checks whether the given [level] is high enough to activate the upgrade for this tier.
      * @return True, if [level] is high enough.
      */
-    private fun checkLevel(level: Int): Boolean {
+    fun checkLevel(level: Int): Boolean {
         return when(tier) {
             1 -> level >= 9
             2 -> level >= 34

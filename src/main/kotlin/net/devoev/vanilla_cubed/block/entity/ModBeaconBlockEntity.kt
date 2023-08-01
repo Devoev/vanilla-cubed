@@ -67,13 +67,13 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         }
 
     /**
-     * Whether the [levels] are active.
+     * Whether at least one of the [levels] is greater than 0.
      */
-    private val activeLevels: Boolean // TODO: Check not any level but the upgraded one
+    private val activeLevels: Boolean
         get() = levels.any { it > 0 }
 
     /**
-     * Whether the [beamSegments] are active.
+     * Whether the [beamSegments] exist and ar not empty.
      */
     private val activeBeam: Boolean
         get() = beamSegments.isNotEmpty()
@@ -146,6 +146,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
 
             if (blockEntity.activeLevels) {
                 tickBeam(world, pos, state, blockEntity)
+                playSound(world, pos, SoundEvents.BLOCK_BEACON_AMBIENT)
                 if (world.time % 80L == 0L && blockEntity.activeBeam) {
                     tickUpgrade(world, pos, state, blockEntity)
                 }
@@ -270,11 +271,13 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
          * Ticks the active [upgrade] by invoking it and plays the [SoundEvents.BLOCK_BEACON_AMBIENT] sound.
          */
         private fun tickUpgrade(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
-            // TODO: Check level requirement
-            if (!world.isClient) {
-                blockEntity.upgrade?.invoke(world, pos, state, blockEntity)
+            with(blockEntity) {
+                if (world.isClient || upgrade == null) return
+
+                if (BeaconUpgrades.dataOf(upgrade).tier.checkLevel(currentLevel)) {
+                    upgrade?.invoke(world, pos, state, this)
+                }
             }
-            playSound(world, pos, SoundEvents.BLOCK_BEACON_AMBIENT)
         }
 
         /**
