@@ -10,4 +10,7 @@ import net.minecraft.world.World
  */
 fun BlockPos.toVec3d() = Vec3d(this.x.toDouble(), this.y.toDouble(), this.z.toDouble())
 
-fun BlockPos.toGlobalPos(world: World) = GlobalPos.create(world.registryKey, this)
+/**
+ * Converts this [BlockPos] to a [GlobalPos].
+ */
+fun BlockPos.toGlobalPos(world: World): GlobalPos = GlobalPos.create(world.registryKey, this)
