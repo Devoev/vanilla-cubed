@@ -51,7 +51,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     private var lock: ContainerLock = ContainerLock.EMPTY
     var customName: Text? = null
 
-    private var upgrade: BeaconUpgrade? = null
+    var upgrade: BeaconUpgrade? = null // TODO: Make private again
     private val levels: IntArray = intArrayOf(0,0,0,0)
     private val propertyDelegate = BeaconPropertyDelegate()
 

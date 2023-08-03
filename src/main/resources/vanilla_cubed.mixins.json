@@ -19,6 +19,7 @@
     "PlayerEntityMixin",
     "PlayerInventoryMixin",
     "ServerPlayerEntityMixin",
+    "ServerWorldMixin",
     "TridentEntityAccessor",
     "TridentEntityMixin"
   ],

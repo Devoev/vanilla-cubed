@@ -95,7 +95,7 @@ object BeaconUpgrades {
             emeraldTierOf(3)
         ),
         BeaconUpgradeButtonData(
-            DisableMonsterSpawningUpgrade,
+            DisableMonsterSpawningUpgrade(),
             tooltipOf("emerald4"),
             textureOf("emerald4.png"),
             emeraldTierOf(4)
