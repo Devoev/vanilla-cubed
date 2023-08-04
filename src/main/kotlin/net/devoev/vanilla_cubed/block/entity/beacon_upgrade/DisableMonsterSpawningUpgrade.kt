@@ -40,13 +40,12 @@ class DisableMonsterSpawningUpgrade : BeaconUpgrade {
          */
         fun Entity.checkSpawn(): Boolean {
             if (this !is HostileEntity) return false
-            val range = Box(blockPos)
+            return Box(blockPos)
                 .expand(50.0)
                 .stretch(0.0, entityWorld.height.toDouble(), 0.0)
-            return range
                 .asIterable()
                 .mapNotNull { entityWorld.getBlockEntity(it, ModBlockEntityTypes.MOD_BEACON).getOrNull() }
-                .any { it.disableMonsterSpawningUpgrade?.inRange(this) ?: false }
+                .any { it.disableMonsterSpawningUpgrade?.inRange(this) == true }
         }
 
         private val ModBeaconBlockEntity.disableMonsterSpawningUpgrade: DisableMonsterSpawningUpgrade?

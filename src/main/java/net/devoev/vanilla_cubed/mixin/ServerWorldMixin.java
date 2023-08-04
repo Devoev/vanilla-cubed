@@ -11,10 +11,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ServerWorld.class)
 public class ServerWorldMixin {
 
-    @Inject(method = "spawnEntity", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "spawnEntity", at = @At("HEAD"))
     private void disableMonsterSpawn(Entity entity, CallbackInfoReturnable<Boolean> cir) {
         // TODO: Update implementation
         if (DisableMonsterSpawningUpgrade.Companion.checkSpawn(entity))
-            cir.cancel();
+            entity.discard();
     }
 }
