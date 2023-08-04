@@ -3,6 +3,7 @@ package net.devoev.vanilla_cubed.block.entity.beacon_upgrade
 import net.devoev.vanilla_cubed.block.entity.ModBeaconBlockEntity
 import net.devoev.vanilla_cubed.block.entity.ModBlockEntityTypes
 import net.devoev.vanilla_cubed.util.math.toList
+import net.devoev.vanilla_cubed.util.math.toSet
 import net.minecraft.block.BlockState
 import net.minecraft.entity.Entity
 import net.minecraft.entity.mob.HostileEntity
@@ -54,9 +55,9 @@ class DisableMonsterSpawningUpgrade : BeaconUpgrade {
             println(beacons)
             println(beacons.map { it.disableMonsterSpawningUpgrade?.checkSpawn(this) })
 
-            val box = Box(blockPos).expand(3.0)
+            val box = Box(blockPos)
             println(box.toList())
-            println(box.toList().toSet().size)
+            println(box.toSet())
         }
 
         val ModBeaconBlockEntity.disableMonsterSpawningUpgrade: DisableMonsterSpawningUpgrade?

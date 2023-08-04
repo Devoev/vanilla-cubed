@@ -3,41 +3,33 @@ package net.devoev.vanilla_cubed.util.math
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Box
 
-operator fun Box.iterator(): Iterator<BlockPos> {
-    return object : AbstractIterator<BlockPos>() {
-
-        var x = minX
-        var y = minY
-        var z = minZ
-
-        override fun computeNext() {
-            setNext(BlockPos(x,y,z))
-
-            if (x < maxX) {
-                x++
-            } else {
-                x = minX
-                if (z < maxZ) {
-                    z++
-                } else {
-                    z = minZ
-                    if (y < maxY) {
-                        y++
-                    } else {
-                        done()
-                    }
-                }
-            }
-        }
-    }
+/**
+ * Returns an iterator over all [BlockPos] contained in this box.
+ * Iterates first in `x` direction, then `z` and then `y`.
+ */
+operator fun Box.iterator(): Iterator<BlockPos> = iterator {
+    for (y in minY.toInt()..maxY.toInt())
+        for (z in minZ.toInt()..maxZ.toInt())
+            for (x in minX.toInt()..maxX.toInt())
+                yield(BlockPos(x,y,z))
 }
 
 /**
- * Converts this [Box] to a [List] of [BlockPos].
+ * Returns this box as an [Iterable].
  */
-fun Box.toList(): List<BlockPos> {
-    val res = mutableListOf<BlockPos>()
-    for (pos in this)
-        res += pos
-    return res
-}
+fun Box.asIterable(): Iterable<BlockPos> = Iterable { iterator() }
+
+/**
+ * Returns this box as a [Sequence].
+ */
+fun Box.asSequence(): Sequence<BlockPos> = Sequence { iterator() }
+
+/**
+ * Converts this box to a [List].
+ */
+fun Box.toList(): List<BlockPos> = asIterable().toList()
+
+/**
+ * Converts this box to a [Set].
+ */
+fun Box.toSet(): Set<BlockPos> = asIterable().toSet()
