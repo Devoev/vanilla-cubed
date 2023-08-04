@@ -103,7 +103,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     }
 
     override fun markRemoved() {
-        BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_DEACTIVATE)
+        deactivate(world!!, pos)
         super.markRemoved()
     }
 
@@ -141,6 +141,204 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         lock.writeNbt(nbt)
     }
 
+    /**
+     * Called when activating the beacon.
+     */
+    private fun activate(world: World, pos: BlockPos) {
+        BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_ACTIVATE)
+        for (serverPlayerEntity in world.getNonSpectatingEntities(
+            ServerPlayerEntity::class.java,
+            Box(
+                pos.x.toDouble(),
+                pos.y.toDouble(),
+                pos.z.toDouble(),
+                pos.x.toDouble(),
+                (pos.y - 4).toDouble(),
+                pos.z.toDouble()
+            ).expand(10.0, 5.0, 10.0)
+        )) {
+            Criteria.CONSTRUCT_BEACON.trigger(serverPlayerEntity, currentLevel) // TODO: Update level
+        }
+    }
+
+    /**
+     * Called when deactivating the beacon.
+     */
+    private fun deactivate(world: World, pos: BlockPos) {
+        BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_DEACTIVATE)
+    }
+
+    /**
+     * Ticks the [ModBeaconBlockEntity].
+     */
+    private fun tick(world: World, pos: BlockPos, state: BlockState) {
+        // TODO: Possibly send levels value by networking to screen, in order to prevent flicker
+
+        val active = activeBase
+        tickLevels(world, pos)
+
+        if (activeBase) {
+            tickBeam(world, pos)
+            if (world.time % 80L == 0L && activeBeam) {
+                tickUpgrade(world, pos, state)
+                playSound(world, pos, SoundEvents.BLOCK_BEACON_AMBIENT)
+            }
+        }
+
+        tickActivation(world, pos, active)
+    }
+
+    /**
+     * Ticks the [levels] property by updating its values.
+     */
+    private fun tickLevels(world: World, pos: BlockPos) {
+
+        /**
+         * Checks whether the levels contain any other block than valid base blocks.
+         */
+        fun Map<Block, Int>.invalid(): Boolean {
+            return this.any {
+                it.key != Blocks.IRON_BLOCK
+                        && it.key != Blocks.GOLD_BLOCK
+                        && it.key != Blocks.EMERALD_BLOCK
+                        && it.key != Blocks.DIAMOND_BLOCK
+            }
+        }
+
+        // Clear old levels
+        levels[0] = 0
+        levels[1] = 0
+        levels[2] = 0
+        levels[3] = 0
+
+        // Set new levels
+        val base = baseBlocks(world, pos)
+        for (baseLevel in base) {
+            if (baseLevel.invalid()) break
+            levels[0] += baseLevel[Blocks.IRON_BLOCK] ?: 0
+            levels[1] += baseLevel[Blocks.GOLD_BLOCK] ?: 0
+            levels[2] += baseLevel[Blocks.EMERALD_BLOCK] ?: 0
+            levels[3] += baseLevel[Blocks.DIAMOND_BLOCK] ?: 0
+        }
+    }
+
+    /**
+     * Counts the amount of blocks that make up the beacon base.
+     * @return A list of all blocks per y-level. Sorted from highest to lowest y value.
+     */
+    private fun baseBlocks(world: World, pos: BlockPos): List<Map<Block, Int>> {
+        val res: List<MutableMap<Block, Int>> = listOf(
+            mutableMapOf(), mutableMapOf(), mutableMapOf(), mutableMapOf()
+        )
+        for (dy in 1..4) {
+            val level = res[dy-1]
+            for (dz in -dy..dy) {
+                for (dx in -dy..dy) {
+                    val block = world.getBlockState(BlockPos(
+                        pos.x + dx,
+                        pos.y - dy,
+                        pos.z + dz)
+                    ).block
+                    level[block] = level.getOrPut(block) { 0 } + 1
+                }
+            }
+        }
+        return res
+    }
+
+    /**
+     * Ticks the beacon beam updating beam segments [beamSegments].
+     */
+    private fun tickBeam(world: World, pos: BlockPos) {
+        var blockPos: BlockPos
+        if (minY < pos.y) {
+            blockPos = pos
+            beamSegments.clear()
+            minY = pos.y - 1
+        } else {
+            blockPos = BlockPos(pos.x, minY + 1, pos.z)
+        }
+
+        var beamSegment: ModBeamSegment? = beamSegments.lastOrNull()
+        val maxY: Int = world.getTopY(Heightmap.Type.WORLD_SURFACE, pos.x, pos.z)
+
+        while (blockPos.y <= maxY) {
+            val blockState = world.getBlockState(blockPos)
+            val block = blockState.block
+
+            if (block is Stainable) {
+                val color = block.color.colorComponents
+                if (beamSegments.size <= 1) {
+                    beamSegment = ModBeamSegment(color)
+                    beamSegments += beamSegment
+                } else if (beamSegment != null) {
+                    if (color contentEquals beamSegment.color) {
+                        beamSegment.increaseHeight()
+                    } else {
+                        beamSegment = ModBeamSegment(
+                            floatArrayOf(
+                                (beamSegment.color[0] + color[0]) / 2,
+                                (beamSegment.color[1] + color[1]) / 2,
+                                (beamSegment.color[2] + color[2]) / 2
+                            )
+                        )
+                        beamSegments += beamSegment
+                    }
+                }
+            } else {
+                if (beamSegment == null || blockState.getOpacity(world, blockPos) >= 15 && !blockState.isOf(Blocks.BEDROCK)) {
+                    beamSegments.clear()
+                    minY = maxY
+                    break
+                }
+
+                beamSegment.increaseHeight()
+            }
+
+            blockPos = blockPos.up()
+            minY++
+        }
+    }
+
+    /**
+     * Ticks the active [upgrade] by invoking it and plays the [SoundEvents.BLOCK_BEACON_AMBIENT] sound.
+     */
+    private fun tickUpgrade(world: World, pos: BlockPos, state: BlockState) {
+        if (world.isClient || upgrade == null) return
+
+        if (BeaconUpgrades.dataOf(upgrade).tier.checkLevel(currentLevel)) {
+            upgrade!!(world, pos, state, this)
+        }
+
+    }
+
+    /**
+     * Ticks the activation and deactivation of the beacon, by comparing the if the
+     * [ModBeaconBlockEntity.activeBase] property changes, before updating the [levels].
+     * @param activeBase The old property value.
+     */
+    private fun tickActivation(world: World, pos: BlockPos, activeBase: Boolean) {
+        val activeBaseCurrent = this.activeBase
+
+        minY = world.bottomY - 1
+        if (!world.isClient) {
+            if (!activeBase && activeBaseCurrent) {
+                activate(world, pos)
+            } else if (activeBase && !activeBaseCurrent) {
+                deactivate(world, pos)
+            }
+        }
+    }
+
+    /**
+     * Plays the given [sound] at the [pos] if the current [world] is server side.
+     */
+    private fun playSound(world: World?, pos: BlockPos, sound: SoundEvent) {
+        if (world?.isClient == false) {
+            world.playSound(null, pos, sound, SoundCategory.BLOCKS, 1.0f, 1.0f)
+        }
+    }
+
     companion object {
 
         /**
@@ -148,207 +346,8 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
          */
         fun <T : BlockEntity> ticker(type: BlockEntityType<T>): BlockEntityTicker<T>? {
             return if (type == ModBlockEntityTypes.MOD_BEACON)
-                BlockEntityTicker { world, pos, state, blockEntity -> tick(world, pos, state, blockEntity as ModBeaconBlockEntity) }
+                BlockEntityTicker { world, pos, state, blockEntity -> (blockEntity as ModBeaconBlockEntity).tick(world, pos, state) }
             else null
-        }
-
-        /**
-         * Called when activating the beacon.
-         */
-        private fun activate(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
-            BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_ACTIVATE)
-            for (serverPlayerEntity in world.getNonSpectatingEntities(
-                ServerPlayerEntity::class.java,
-                Box(
-                    pos.x.toDouble(),
-                    pos.y.toDouble(),
-                    pos.z.toDouble(),
-                    pos.x.toDouble(),
-                    (pos.y - 4).toDouble(),
-                    pos.z.toDouble()
-                ).expand(10.0, 5.0, 10.0)
-            )) {
-                Criteria.CONSTRUCT_BEACON.trigger(serverPlayerEntity, blockEntity.currentLevel) // TODO: Update level
-            }
-        }
-
-        /**
-         * Called when deactivating the beacon.
-         */
-        private fun deactivate(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
-            BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_DEACTIVATE)
-        }
-
-        /**
-         * Ticks the [ModBeaconBlockEntity].
-         */
-        private fun tick(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
-            // TODO: Possibly send levels value by networking to screen, in order to prevent flicker
-
-            val active = blockEntity.activeBase
-            tickLevels(world, pos, blockEntity)
-
-            if (blockEntity.activeBase) {
-                tickBeam(world, pos, state, blockEntity)
-                if (world.time % 80L == 0L && blockEntity.activeBeam) {
-                    tickUpgrade(world, pos, state, blockEntity)
-                    playSound(world, pos, SoundEvents.BLOCK_BEACON_AMBIENT)
-                }
-            }
-
-            tickActivation(world, pos, state, blockEntity, active)
-        }
-
-        /**
-         * Ticks the [levels] property by updating its values.
-         */
-        private fun tickLevels(world: World, pos: BlockPos, blockEntity: ModBeaconBlockEntity) {
-
-            /**
-             * Checks whether the levels contain any other block than valid base blocks.
-             */
-            fun Map<Block, Int>.invalid(): Boolean {
-                return this.any {
-                    it.key != Blocks.IRON_BLOCK
-                            && it.key != Blocks.GOLD_BLOCK
-                            && it.key != Blocks.EMERALD_BLOCK
-                            && it.key != Blocks.DIAMOND_BLOCK
-                }
-            }
-
-            // Clear old levels
-            blockEntity.levels[0] = 0
-            blockEntity.levels[1] = 0
-            blockEntity.levels[2] = 0
-            blockEntity.levels[3] = 0
-
-            // Set new levels
-            val base = baseBlocks(world, pos)
-            for (baseLevel in base) {
-                if (baseLevel.invalid()) break
-                blockEntity.levels[0] += baseLevel[Blocks.IRON_BLOCK] ?: 0
-                blockEntity.levels[1] += baseLevel[Blocks.GOLD_BLOCK] ?: 0
-                blockEntity.levels[2] += baseLevel[Blocks.EMERALD_BLOCK] ?: 0
-                blockEntity.levels[3] += baseLevel[Blocks.DIAMOND_BLOCK] ?: 0
-            }
-        }
-
-        /**
-         * Counts the amount of blocks that make up the beacon base.
-         * @return A list of all blocks per y-level. Sorted from highest to lowest y value.
-         */
-        private fun baseBlocks(world: World, pos: BlockPos): List<Map<Block, Int>> {
-            val res: List<MutableMap<Block, Int>> = listOf(
-                mutableMapOf(), mutableMapOf(), mutableMapOf(), mutableMapOf()
-            )
-            for (dy in 1..4) {
-                val level = res[dy-1]
-                for (dz in -dy..dy) {
-                    for (dx in -dy..dy) {
-                        val block = world.getBlockState(BlockPos(
-                            pos.x + dx,
-                            pos.y - dy,
-                            pos.z + dz)
-                        ).block
-                        level[block] = level.getOrPut(block) { 0 } + 1
-                    }
-                }
-            }
-            return res
-        }
-
-        /**
-         * Ticks the beacon beam updating beam segments [beamSegments].
-         */
-        private fun tickBeam(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
-            var blockPos: BlockPos
-            if (blockEntity.minY < pos.y) {
-                blockPos = pos
-                blockEntity.beamSegments.clear()
-                blockEntity.minY = pos.y - 1
-            } else {
-                blockPos = BlockPos(pos.x, blockEntity.minY + 1, pos.z)
-            }
-
-            var beamSegment: ModBeamSegment? = blockEntity.beamSegments.lastOrNull()
-            val maxY: Int = world.getTopY(Heightmap.Type.WORLD_SURFACE, pos.x, pos.z)
-
-            while (blockPos.y <= maxY) {
-                val blockState = world.getBlockState(blockPos)
-                val block = blockState.block
-
-                if (block is Stainable) {
-                    val color = block.color.colorComponents
-                    if (blockEntity.beamSegments.size <= 1) {
-                        beamSegment = ModBeamSegment(color)
-                        blockEntity.beamSegments += beamSegment
-                    } else if (beamSegment != null) {
-                        if (color contentEquals beamSegment.color) {
-                            beamSegment.increaseHeight()
-                        } else {
-                            beamSegment = ModBeamSegment(
-                                floatArrayOf(
-                                    (beamSegment.color[0] + color[0]) / 2,
-                                    (beamSegment.color[1] + color[1]) / 2,
-                                    (beamSegment.color[2] + color[2]) / 2
-                                )
-                            )
-                            blockEntity.beamSegments += beamSegment
-                        }
-                    }
-                } else {
-                    if (beamSegment == null || blockState.getOpacity(world, blockPos) >= 15 && !blockState.isOf(Blocks.BEDROCK)) {
-                        blockEntity.beamSegments.clear()
-                        blockEntity.minY = maxY
-                        break
-                    }
-
-                    beamSegment.increaseHeight()
-                }
-
-                blockPos = blockPos.up()
-                blockEntity.minY++
-            }
-        }
-
-        /**
-         * Ticks the active [upgrade] by invoking it and plays the [SoundEvents.BLOCK_BEACON_AMBIENT] sound.
-         */
-        private fun tickUpgrade(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
-            with(blockEntity) {
-                if (world.isClient || upgrade == null) return
-
-                if (BeaconUpgrades.dataOf(upgrade).tier.checkLevel(currentLevel)) {
-                    upgrade!!(world, pos, state, this)
-                }
-            }
-        }
-
-        /**
-         * Ticks the activation and deactivation of the beacon, by comparing the if the
-         * [ModBeaconBlockEntity.activeBase] property changes, before updating the [levels].
-         * @param activeBase The old property value.
-         */
-        private fun tickActivation(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity, activeBase: Boolean) {
-            val activeBaseCurrent = blockEntity.activeBase
-
-            blockEntity.minY = world.bottomY - 1
-            if (!world.isClient) {
-                if (!activeBase && activeBaseCurrent) {
-                    activate(world, pos, state, blockEntity)
-                } else if (activeBase && !activeBaseCurrent) {
-                    deactivate(world, pos, state, blockEntity)
-                }
-            }
-        }
-
-        /**
-         * Plays the given [sound] at the [pos] if the current [world] is server side.
-         */
-        private fun playSound(world: World?, pos: BlockPos, sound: SoundEvent) {
-            if (world?.isClient == false) {
-                world.playSound(null, pos, sound, SoundCategory.BLOCKS, 1.0f, 1.0f)
-            }
         }
     }
 
