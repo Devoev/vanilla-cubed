@@ -56,8 +56,9 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     var upgrade: BeaconUpgrade?
         get() = _upgrade
         set(value) {
-            println("Updating upgrade!")
+            _upgrade?.deactivate()
             _upgrade = value
+            _upgrade?.activate()
         }
 
     private val levels: IntArray = intArrayOf(0,0,0,0)

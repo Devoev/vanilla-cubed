@@ -18,7 +18,15 @@ class DisableMonsterSpawningUpgrade : BeaconUpgrade {
 
     private var range: Box? = null
 
-    override fun ModBeaconBlockEntity.accept(world: World, pos: BlockPos, state: BlockState) {
+    override fun activate() {
+        println("Activating this upgrade!")
+    }
+
+    override fun deactivate() {
+        println("Deactivating this upgrade!")
+    }
+
+    override fun ModBeaconBlockEntity.tick(world: World, pos: BlockPos, state: BlockState) {
         // TODO: Overwrite ServerWorld.spawnEntity fun or ServerChunkManager.tickChunks -> SpawnHelper.spawn fun
         //  Disable ALL hostile mob spawning or just natural ones?
         range = boxRange

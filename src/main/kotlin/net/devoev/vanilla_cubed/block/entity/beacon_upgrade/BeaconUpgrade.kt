@@ -9,17 +9,31 @@ import net.minecraft.world.World
 /**
  * A beacon upgrade stage. Modifies the [ModBeaconBlockEntity.tick] function by injecting the [invoke] method.
  */
-fun interface BeaconUpgrade {
+interface BeaconUpgrade {
 
-    fun ModBeaconBlockEntity.accept(world: World, pos: BlockPos, state: BlockState)
+    /**
+     * Called on upgrades activation.
+     */
+    fun activate()
+
+    /**
+     * Called on upgrades deactivation.
+     */
+    fun deactivate()
+
+    /**
+     * Called on each game tick.
+     */
+    fun ModBeaconBlockEntity.tick(world: World, pos: BlockPos, state: BlockState)
 
     operator fun invoke(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity)
-        = blockEntity.accept(world, pos, state)
+        = blockEntity.tick(world, pos, state)
 
     /**
      * Creates a composed [BeaconUpgrade] that first runs this and then [after].
      */
-    infix fun andThen(after: BeaconUpgrade): BeaconUpgrade = BeaconUpgrade { world, pos, state ->
+    infix fun andThen(after: BeaconUpgrade): BeaconUpgrade = tickUpgrade { world, pos, state ->
+        // TODO: DONT built a tickupgrade but a general one!
         invoke(world, pos, state, this)
         after(world, pos, state, this)
     }
@@ -29,6 +43,22 @@ fun interface BeaconUpgrade {
         /**
          * The default [BeaconUpgrade] that does nothing.
          */
-        val EMPTY = BeaconUpgrade { _, _, _ ->  }
+        val EMPTY = tickUpgrade { _, _, _ ->  }
+    }
+}
+
+/**
+ * Builds a [BeaconUpgrade] with the provided [tick] function.
+ * [BeaconUpgrade.activate] and [BeaconUpgrade.deactivate] do nothing.
+ */
+fun tickUpgrade(tick: ModBeaconBlockEntity.(world: World, pos: BlockPos, state: BlockState) -> Unit): BeaconUpgrade {
+    return object : BeaconUpgrade {
+
+        override fun activate() = Unit
+
+        override fun deactivate() = Unit
+
+        override fun ModBeaconBlockEntity.tick(world: World, pos: BlockPos, state: BlockState) = tick(world, pos, state)
+
     }
 }
