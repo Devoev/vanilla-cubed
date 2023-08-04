@@ -14,12 +14,12 @@ interface BeaconUpgrade {
     /**
      * Called on upgrades activation.
      */
-    fun activate()
+    fun activate(blockEntity: ModBeaconBlockEntity)
 
     /**
      * Called on upgrades deactivation.
      */
-    fun deactivate()
+    fun deactivate(blockEntity: ModBeaconBlockEntity)
 
     /**
      * Called on each game tick.
@@ -54,9 +54,9 @@ interface BeaconUpgrade {
 fun tickUpgrade(tick: ModBeaconBlockEntity.(world: World, pos: BlockPos, state: BlockState) -> Unit): BeaconUpgrade {
     return object : BeaconUpgrade {
 
-        override fun activate() = Unit
+        override fun activate(blockEntity: ModBeaconBlockEntity) = Unit
 
-        override fun deactivate() = Unit
+        override fun deactivate(blockEntity: ModBeaconBlockEntity) = Unit
 
         override fun ModBeaconBlockEntity.tick(world: World, pos: BlockPos, state: BlockState) = tick(world, pos, state)
 

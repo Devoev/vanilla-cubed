@@ -44,7 +44,7 @@ import net.minecraft.world.World
  * @property levels Amount of placed iron, gold, emerald or diamond blocks.
  * @property propertyDelegate Delegate of properties to sync with the screen handler.
  * @property beamSegments Segments of the beacon beam.
- * @property boxRange Range of the beacon effect.
+ * @property beaconRange Range of the beacon effect.
  * @property currentLevel The required level for the currently activated [upgrade].
  */
 class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBlockEntityTypes.MOD_BEACON, pos, state), NamedScreenHandlerFactory {
@@ -56,9 +56,9 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     var upgrade: BeaconUpgrade?
         get() = _upgrade
         set(value) {
-            _upgrade?.deactivate()
+            _upgrade?.deactivate(this)
             _upgrade = value
-            _upgrade?.activate()
+            _upgrade?.activate(this)
         }
 
     private val levels: IntArray = intArrayOf(0,0,0,0)
@@ -72,7 +72,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     private val range: Int
         get() = BeaconUpgradeTier.levelToTier(levels.sum())*10 + 10
 
-    val boxRange: Box
+    val beaconRange: Box
         get() = Box(pos)
             .expand(range.toDouble())
             .stretch(0.0, world!!.height.toDouble(), 0.0)
@@ -148,6 +148,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
      */
     private fun activate(world: World, pos: BlockPos) {
         BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_ACTIVATE)
+        upgrade?.activate(this)
         val players = world.getNonSpectatingEntities(
             ServerPlayerEntity::class.java,
             boxOf(pos.x, pos.y, pos.z, pos.x, (pos.y - 4), pos.z).expand(10.0, 5.0, 10.0)
@@ -162,6 +163,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
      */
     private fun deactivate(world: World, pos: BlockPos) {
         BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_DEACTIVATE)
+        upgrade?.deactivate(this)
     }
 
     /**
@@ -315,6 +317,8 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
      */
     private fun tickActivation(world: World, pos: BlockPos, activeBase: Boolean) {
         val activeBaseCurrent = this.activeBase
+
+        // TODO: ALSO call activation/ deactivation with changing beam
 
         minY = world.bottomY - 1
         if (!world.isClient) {

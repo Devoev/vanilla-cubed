@@ -17,7 +17,7 @@ class StatusEffectUpgrade(
     val tier = BeaconUpgradeTier.levelToTier(currentLevel)
     val duration: Int = (9 + tier * 2) * 20
 
-    val players = world.getNonSpectatingEntities(PlayerEntity::class.java, boxRange)
+    val players = world.getNonSpectatingEntities(PlayerEntity::class.java, beaconRange)
     for (playerEntity in players) {
         playerEntity.addStatusEffect(StatusEffectInstance(effect, duration, amplifier, true, true))
     }
