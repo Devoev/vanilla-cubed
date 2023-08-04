@@ -14,6 +14,7 @@ public class ServerWorldMixin {
     @Inject(method = "spawnEntity", at = @At("HEAD"), cancellable = true)
     private void disableMonsterSpawn(Entity entity, CallbackInfoReturnable<Boolean> cir) {
         // TODO: Update implementation
-        DisableMonsterSpawningUpgrade.Companion.check(entity);
+        if (DisableMonsterSpawningUpgrade.Companion.checkSpawn(entity))
+            cir.cancel();
     }
 }

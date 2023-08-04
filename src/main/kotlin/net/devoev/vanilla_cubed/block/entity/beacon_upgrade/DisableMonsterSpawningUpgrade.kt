@@ -2,8 +2,7 @@ package net.devoev.vanilla_cubed.block.entity.beacon_upgrade
 
 import net.devoev.vanilla_cubed.block.entity.ModBeaconBlockEntity
 import net.devoev.vanilla_cubed.block.entity.ModBlockEntityTypes
-import net.devoev.vanilla_cubed.util.math.toList
-import net.devoev.vanilla_cubed.util.math.toSet
+import net.devoev.vanilla_cubed.util.math.asIterable
 import net.minecraft.block.BlockState
 import net.minecraft.entity.Entity
 import net.minecraft.entity.mob.HostileEntity
@@ -26,41 +25,31 @@ class DisableMonsterSpawningUpgrade : BeaconUpgrade {
     }
 
     /**
-     * Whether the spawn of the [entity] should be canceled by this upgrade.
+     * Whether the given [entity] is in the range of this upgrade.
      */
-    fun checkSpawn(entity: Entity): Boolean {
+    fun inRange(entity: Entity): Boolean {
         return range?.run {
-            entity is HostileEntity && entity.pos in this
+            entity.pos in this
         } ?: false
     }
 
     companion object {
 
-        fun Entity.check() {
-            if (this !is HostileEntity) return
+        /**
+         * Whether the spawn of this entity should be canceled by a beacon.
+         */
+        fun Entity.checkSpawn(): Boolean {
+            if (this !is HostileEntity) return false
             val range = Box(blockPos)
                 .expand(50.0)
                 .stretch(0.0, entityWorld.height.toDouble(), 0.0)
-            val beacons = mutableListOf<ModBeaconBlockEntity>()
-            range.run {
-                for (x in minX.toInt()..maxX.toInt()) {
-                    for (y in minY.toInt()..maxY.toInt()) {
-                        for (z in minZ.toInt()..maxZ.toInt()) {
-                            val beaconEntity = entityWorld.getBlockEntity(BlockPos(x, y, z), ModBlockEntityTypes.MOD_BEACON)
-                            beacons += beaconEntity.getOrNull() ?: continue
-                        }
-                    }
-                }
-            }
-            println(beacons)
-            println(beacons.map { it.disableMonsterSpawningUpgrade?.checkSpawn(this) })
-
-            val box = Box(blockPos)
-            println(box.toList())
-            println(box.toSet())
+            return range
+                .asIterable()
+                .mapNotNull { entityWorld.getBlockEntity(it, ModBlockEntityTypes.MOD_BEACON).getOrNull() }
+                .any { it.disableMonsterSpawningUpgrade?.inRange(this) ?: false }
         }
 
-        val ModBeaconBlockEntity.disableMonsterSpawningUpgrade: DisableMonsterSpawningUpgrade?
+        private val ModBeaconBlockEntity.disableMonsterSpawningUpgrade: DisableMonsterSpawningUpgrade?
             get() = upgrade as? DisableMonsterSpawningUpgrade
     }
 }
