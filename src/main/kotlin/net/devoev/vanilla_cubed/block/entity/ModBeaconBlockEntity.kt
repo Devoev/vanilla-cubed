@@ -51,7 +51,14 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     private var lock: ContainerLock = ContainerLock.EMPTY
     var customName: Text? = null
 
-    var upgrade: BeaconUpgrade? = null // TODO: Make private again
+    private var _upgrade: BeaconUpgrade? = null
+    var upgrade: BeaconUpgrade?
+        get() = _upgrade
+        set(value) {
+            println("Updating upgrade!")
+            _upgrade = value
+        }
+
     private val levels: IntArray = intArrayOf(0,0,0,0)
     private val propertyDelegate = BeaconPropertyDelegate()
 
@@ -143,6 +150,33 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
             return if (type == ModBlockEntityTypes.MOD_BEACON)
                 BlockEntityTicker { world, pos, state, blockEntity -> tick(world, pos, state, blockEntity as ModBeaconBlockEntity) }
             else null
+        }
+
+        /**
+         * Called when activating the beacon.
+         */
+        private fun activate(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
+            BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_ACTIVATE)
+            for (serverPlayerEntity in world.getNonSpectatingEntities(
+                ServerPlayerEntity::class.java,
+                Box(
+                    pos.x.toDouble(),
+                    pos.y.toDouble(),
+                    pos.z.toDouble(),
+                    pos.x.toDouble(),
+                    (pos.y - 4).toDouble(),
+                    pos.z.toDouble()
+                ).expand(10.0, 5.0, 10.0)
+            )) {
+                Criteria.CONSTRUCT_BEACON.trigger(serverPlayerEntity, blockEntity.currentLevel) // TODO: Update level
+            }
+        }
+
+        /**
+         * Called when deactivating the beacon.
+         */
+        private fun deactivate(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity) {
+            BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_DEACTIVATE)
         }
 
         /**
@@ -301,22 +335,9 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
             blockEntity.minY = world.bottomY - 1
             if (!world.isClient) {
                 if (!activeBase && activeBaseCurrent) {
-                    BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_ACTIVATE)
-                    for (serverPlayerEntity in world.getNonSpectatingEntities(
-                        ServerPlayerEntity::class.java,
-                        Box(
-                            pos.x.toDouble(),
-                            pos.y.toDouble(),
-                            pos.z.toDouble(),
-                            pos.x.toDouble(),
-                            (pos.y - 4).toDouble(),
-                            pos.z.toDouble()
-                        ).expand(10.0, 5.0, 10.0)
-                    )) {
-                        Criteria.CONSTRUCT_BEACON.trigger(serverPlayerEntity, blockEntity.currentLevel) // TODO: Update level
-                    }
+                    activate(world, pos, state, blockEntity)
                 } else if (activeBase && !activeBaseCurrent) {
-                    BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_DEACTIVATE)
+                    deactivate(world, pos, state, blockEntity)
                 }
             }
         }
