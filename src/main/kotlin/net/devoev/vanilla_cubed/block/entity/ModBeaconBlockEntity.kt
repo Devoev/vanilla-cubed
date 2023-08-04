@@ -354,11 +354,10 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         }
 
         override fun set(i: Int, value: Int) {
-            // TODO: play beacon sound
             when(i) {
                 in 0..3 -> { this@ModBeaconBlockEntity.levels[i] = value }
                 4 -> {
-                    playSound(world, pos, SoundEvents.BLOCK_BEACON_POWER_SELECT)
+                    if (activeBeam) playSound(world, pos, SoundEvents.BLOCK_BEACON_POWER_SELECT)
                     this@ModBeaconBlockEntity.upgrade = BeaconUpgrades[value]
                 }
             }
