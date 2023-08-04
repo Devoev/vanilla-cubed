@@ -6,6 +6,7 @@ import net.devoev.vanilla_cubed.client.gui.screen.ingame.BeaconUpgradeTier
 import net.devoev.vanilla_cubed.screen.ModBeaconScreenHandler
 import net.devoev.vanilla_cubed.screen.levels
 import net.devoev.vanilla_cubed.screen.upgrade
+import net.devoev.vanilla_cubed.util.math.boxOf
 import net.minecraft.advancement.criterion.Criteria
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
@@ -146,18 +147,12 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
      */
     private fun activate(world: World, pos: BlockPos) {
         BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_ACTIVATE)
-        for (serverPlayerEntity in world.getNonSpectatingEntities(
+        val players = world.getNonSpectatingEntities(
             ServerPlayerEntity::class.java,
-            Box(
-                pos.x.toDouble(),
-                pos.y.toDouble(),
-                pos.z.toDouble(),
-                pos.x.toDouble(),
-                (pos.y - 4).toDouble(),
-                pos.z.toDouble()
-            ).expand(10.0, 5.0, 10.0)
-        )) {
-            Criteria.CONSTRUCT_BEACON.trigger(serverPlayerEntity, currentLevel) // TODO: Update level
+            boxOf(pos.x, pos.y, pos.z, pos.x, (pos.y - 4), pos.z).expand(10.0, 5.0, 10.0)
+        )
+        for (player in players) {
+            Criteria.CONSTRUCT_BEACON.trigger(player, currentLevel) // TODO: Update level
         }
     }
 

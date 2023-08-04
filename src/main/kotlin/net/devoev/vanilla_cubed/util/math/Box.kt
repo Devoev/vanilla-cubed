@@ -4,6 +4,12 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Box
 
 /**
+ * Creates a box of the given coordinates.
+ */
+fun boxOf(x1: Number, y1: Number, z1: Number, x2: Number, y2: Number, z2: Number)
+    = Box(x1.toDouble(), y1.toDouble(), z1.toDouble(), x2.toDouble(), y2.toDouble(), z2.toDouble())
+
+/**
  * Returns an iterator over all [BlockPos] contained in this box.
  * Iterates first in `x` direction, then `z` and then `y`.
  */
