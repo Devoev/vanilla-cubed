@@ -29,6 +29,7 @@ import java.util.*
 
 /**
  * Handled screen of a [ModBeaconScreenHandler].
+ *
  * @param handler The handler linked to this screen.
  * @param inventory Player inventory accessing the beacon block.
  * @param title Title of this screen.
@@ -46,17 +47,15 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
     /**
      * Adds the given [button] to this list and appends it as a drawable child.
      */
-    private fun MutableList<BeaconButtonWidget>.addButton(button: ClickableWidget): Boolean {
-        addDrawableChild(button)
-        return add(button as BeaconButtonWidget) // TODO: Update button classes to avoid cast
+    private fun MutableList<BeaconButtonWidget>.addButton(button: BeaconButtonWidget): Boolean {
+        addDrawableChild(button as ClickableWidget)
+        return add(button)
     }
 
     /**
      * Ticks all buttons in this list.
      */
-    private fun MutableList<BeaconButtonWidget>.tick() {
-        forEach { it.tick(handler.levels) }
-    }
+    private fun MutableList<BeaconButtonWidget>.tick() = forEach { it.tick(handler.levels) }
 
     init {
         backgroundWidth = 230

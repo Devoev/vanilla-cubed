@@ -1,5 +1,6 @@
 package net.devoev.vanilla_cubed.screen
 
+import net.devoev.vanilla_cubed.block.entity.ModBeaconBlockEntity
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrade
 import net.minecraft.block.Blocks
 import net.minecraft.entity.player.PlayerEntity
@@ -14,7 +15,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
 /**
- * TODO: Implement functions similar to BeaconScreenHandler
+ * Screen handler of [ModBeaconBlockEntity].
  *
  * @param syncId Screen handlers sync id.
  * @param inventory Inventory of the beacon.

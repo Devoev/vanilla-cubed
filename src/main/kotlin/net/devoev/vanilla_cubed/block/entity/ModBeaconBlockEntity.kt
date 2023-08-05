@@ -38,6 +38,7 @@ import kotlin.properties.Delegates
 
 /**
  * Block entity for the modded beacon.
+ *
  * @param pos Block position.
  * @param state Block state.
  *
