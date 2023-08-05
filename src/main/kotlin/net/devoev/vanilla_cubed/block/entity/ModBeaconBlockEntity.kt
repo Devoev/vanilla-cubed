@@ -136,6 +136,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     }
 
     override fun writeNbt(nbt: NbtCompound) {
+        // TODO: fix update and beam not saving
         super.writeNbt(nbt)
         nbt.putInt("upgrade", BeaconUpgrades.indexOf(upgrade))
         if (customName != null) {
