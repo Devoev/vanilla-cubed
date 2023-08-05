@@ -21,10 +21,7 @@ class DisableMonsterSpawningUpgrade : BeaconUpgrade {
         activeRanges.remove(blockEntity)
     }
 
-    override fun ModBeaconBlockEntity.tick(world: World, pos: BlockPos, state: BlockState) {
-        // TODO: Overwrite ServerWorld.spawnEntity fun or ServerChunkManager.tickChunks -> SpawnHelper.spawn fun
-        //  Disable ALL hostile mob spawning or just natural ones?
-    }
+    override fun ModBeaconBlockEntity.tick(world: World, pos: BlockPos, state: BlockState) = Unit
 
     companion object {
 

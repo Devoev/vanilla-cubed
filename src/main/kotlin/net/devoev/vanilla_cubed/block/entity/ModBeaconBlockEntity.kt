@@ -33,6 +33,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Box
 import net.minecraft.world.Heightmap
 import net.minecraft.world.World
+import kotlin.properties.Delegates
 
 
 /**
@@ -52,14 +53,10 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     private var lock: ContainerLock = ContainerLock.EMPTY
     var customName: Text? = null
 
-    private var _upgrade: BeaconUpgrade? = null
-    var upgrade: BeaconUpgrade?
-        get() = _upgrade
-        set(value) {
-            _upgrade?.deactivate(this)
-            _upgrade = value
-            _upgrade?.activate(this)
-        }
+    var upgrade: BeaconUpgrade? by Delegates.observable(null) { _, old, new ->
+        old?.deactivate(this)
+        new?.activate(this)
+    }
 
     private val levels: IntArray = intArrayOf(0,0,0,0)
     private val propertyDelegate = BeaconPropertyDelegate()
