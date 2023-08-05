@@ -140,7 +140,7 @@ object BeaconUpgrades {
     /**
      * Returns the [BeaconUpgradeButtonData] of the [i]th upgrade.
      */
-    fun dataAt(i: Int): BeaconUpgradeButtonData = ALL[i]
+    fun dataAt(i: Int): BeaconUpgradeButtonData? = ALL.getOrNull(i)
 
     /**
      * Returns the [BeaconUpgradeButtonData] of the given [upgrade].

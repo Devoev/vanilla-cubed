@@ -75,10 +75,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
             .stretch(0.0, world!!.height.toDouble(), 0.0)
 
     val currentLevel: Int
-        get() {
-            return if (upgrade == null) 0
-            else levels[BeaconUpgrades.dataOf(upgrade).tier.type.idx]
-        }
+        get() = BeaconUpgrades.dataOf(upgrade)?.tier?.type?.idx.let { if (it != null) levels[it] else 0  }
 
     /**
      * Whether at least one of the [levels] is greater than 0, meaning the base is build properly.
@@ -91,6 +88,12 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
      */
     private val activeBeam: Boolean
         get() = beamSegments.isNotEmpty()
+
+    /**
+     * Whether the [levels] are high enough to activate the current [upgrade].
+     */
+    private val activeLevel: Boolean
+        get() = BeaconUpgrades.dataOf(upgrade)?.tier?.checkLevel(currentLevel) == true
 
     private var minY: Int = 0
 
@@ -169,9 +172,11 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     private fun tick(world: World, pos: BlockPos, state: BlockState) {
         // TODO: Possibly send levels value by networking to screen, in order to prevent flicker
 
-        val active = activeBase
-        tickLevels(world, pos)
+        val activeBaseOld = activeBase
+        val activeBeamOld = activeBeam
+        val activeLevelOld = activeLevel
 
+        tickLevels(world, pos)
         if (activeBase) {
             tickBeam(world, pos)
             if (world.time % 80L == 0L && activeBeam) {
@@ -179,8 +184,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
                 playSound(world, pos, SoundEvents.BLOCK_BEACON_AMBIENT)
             }
         }
-
-        tickActivation(world, pos, active)
+        tickActivation(world, pos, activeBaseOld, activeBeamOld, activeLevelOld)
     }
 
     /**
@@ -301,7 +305,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     private fun tickUpgrade(world: World, pos: BlockPos, state: BlockState) {
         if (world.isClient || upgrade == null) return
 
-        if (BeaconUpgrades.dataOf(upgrade).tier.checkLevel(currentLevel)) {
+        if (activeLevel) {
             upgrade!!(world, pos, state, this)
         }
 
@@ -310,20 +314,26 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     /**
      * Ticks the activation and deactivation of the beacon, by comparing the if the
      * [ModBeaconBlockEntity.activeBase] property changes, before updating the [levels].
-     * @param activeBase The old property value.
+     * @param activeBaseOld The old property value.
+     * @param activeBeamOld The old property value.
+     * @param activeLevelOld The old property value.
      */
-    private fun tickActivation(world: World, pos: BlockPos, activeBase: Boolean) {
-        val activeBaseCurrent = this.activeBase
-
-        // TODO: ALSO call activation/ deactivation with changing beam
+    private fun tickActivation(world: World, pos: BlockPos, activeBaseOld: Boolean, activeBeamOld: Boolean, activeLevelOld: Boolean) {
+        // TODO: ALSO call activation/ deactivation with changing beam and activeLevels false
 
         minY = world.bottomY - 1
-        if (!world.isClient) {
-            if (!activeBase && activeBaseCurrent) {
-                activate(world, pos)
-            } else if (activeBase && !activeBaseCurrent) {
-                deactivate(world, pos)
-            }
+        if (world.isClient) return
+
+        if (!activeBeamOld && activeBeam || !activeLevelOld && activeLevel) {
+            upgrade?.activate(this)
+        } else if (activeBeamOld && !activeBeam || activeLevelOld && !activeLevel) {
+            upgrade?.deactivate(this)
+        }
+
+        if (!activeBaseOld && activeBase) {
+            activate(world, pos)
+        } else if (activeBaseOld && !activeBase) {
+            deactivate(world, pos)
         }
     }
 
