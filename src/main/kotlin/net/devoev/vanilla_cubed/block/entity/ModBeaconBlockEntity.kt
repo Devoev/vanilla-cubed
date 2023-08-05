@@ -319,8 +319,6 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
      * @param activeLevelOld The old property value.
      */
     private fun tickActivation(world: World, pos: BlockPos, activeBaseOld: Boolean, activeBeamOld: Boolean, activeLevelOld: Boolean) {
-        // TODO: ALSO call activation/ deactivation with changing beam and activeLevels false
-
         minY = world.bottomY - 1
         if (world.isClient) return
 
