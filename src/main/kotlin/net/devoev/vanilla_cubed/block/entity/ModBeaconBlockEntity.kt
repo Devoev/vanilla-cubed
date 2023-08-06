@@ -70,10 +70,10 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     private val range: Int
         get() = BeaconUpgradeTier.levelToTier(levels.sum())*10 + 10
 
-    val beaconRange: Box
-        get() = Box(pos)
-            .expand(range.toDouble())
-            .stretch(0.0, world!!.height.toDouble(), 0.0)
+    val beaconRange: Box?
+        get() = world?.run {
+            Box(pos).expand(range.toDouble()).stretch(0.0, height.toDouble(), 0.0)
+        }
 
     val currentLevel: Int
         get() = BeaconUpgrades.dataOf(upgrade)?.tier?.type?.idx.let { if (it != null) levels[it] else 0  }

@@ -14,11 +14,11 @@ import net.minecraft.world.World
 class DisableMonsterSpawningUpgrade : BeaconUpgrade {
 
     override fun activate(blockEntity: ModBeaconBlockEntity) {
-        activeRanges[blockEntity] = blockEntity.beaconRange
+        activeRanges[blockEntity.pos] = blockEntity.beaconRange ?: return
     }
 
     override fun deactivate(blockEntity: ModBeaconBlockEntity) {
-        activeRanges.remove(blockEntity)
+        activeRanges.remove(blockEntity.pos)
     }
 
     override fun ModBeaconBlockEntity.tick(world: World, pos: BlockPos, state: BlockState) = Unit
@@ -28,7 +28,7 @@ class DisableMonsterSpawningUpgrade : BeaconUpgrade {
         /**
          * A map of active ranges by this upgrade.
          */
-        val activeRanges: MutableMap<ModBeaconBlockEntity, Box> = mutableMapOf()
+        val activeRanges: MutableMap<BlockPos, Box> = mutableMapOf()
 
         /**
          * Whether the spawn of this entity should be canceled by a beacon.
