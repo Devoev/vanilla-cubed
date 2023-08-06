@@ -111,8 +111,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     }
 
     override fun createMenu(i: Int, playerInventory: PlayerInventory?, playerEntity: PlayerEntity?): ScreenHandler? {
-        if (playerInventory == null)
-            error("playerInventory must not be null!")
+        requireNotNull(playerInventory) { "playerInventory must not be null!" }
         return if (LockableContainerBlockEntity.checkUnlocked(playerEntity, lock, displayName))
             ModBeaconScreenHandler(i, playerInventory, propertyDelegate, ScreenHandlerContext.create(world, pos))
         else null;
