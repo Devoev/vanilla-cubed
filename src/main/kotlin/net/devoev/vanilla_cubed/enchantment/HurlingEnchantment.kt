@@ -31,5 +31,5 @@ object HurlingEnchantment : Enchantment(Rarity.UNCOMMON, EnchantmentTarget.TRIDE
     /**
      * The level of this enchantment the given [stack] has.
      */
-    fun level(stack: ItemStack): Int = EnchantmentHelper.getLevel(ModEnchantments.FORCE, stack)
+    fun level(stack: ItemStack): Int = EnchantmentHelper.getLevel(ModEnchantments.HURLING, stack)
 }

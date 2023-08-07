@@ -6,5 +6,5 @@ import net.minecraft.util.registry.Registry
 
 object ModEnchantments : RegistryManager<Enchantment>(Registry.ENCHANTMENT) {
 
-    val FORCE = create("hurling", HurlingEnchantment)
+    val HURLING = create("hurling", HurlingEnchantment)
 }

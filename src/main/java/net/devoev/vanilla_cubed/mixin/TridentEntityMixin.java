@@ -18,7 +18,7 @@ public class TridentEntityMixin {
      * Applies the force enchantment when a trident hits an entity.
      */
     @ModifyVariable(method = "onEntityHit", at = @At(value = "STORE"), ordinal = 0)
-    private float applyForceEnchantment(float f) {
+    private float applyHurlingEnchantment(float f) {
         return f + HurlingEnchantment.INSTANCE.damage(tridentStack);
     }
 }
