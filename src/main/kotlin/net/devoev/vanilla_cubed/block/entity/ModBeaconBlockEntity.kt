@@ -135,7 +135,6 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     }
 
     override fun writeNbt(nbt: NbtCompound) {
-        // TODO: fix update and beam not saving
         super.writeNbt(nbt)
         nbt.putInt("upgrade", BeaconUpgrades.indexOf(upgrade))
         if (customName != null) {
@@ -348,6 +347,11 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     companion object {
 
         /**
+         * Index of the [upgrade] property in [BeaconPropertyDelegate].
+         */
+        const val IDX_UPGRADE = 4
+
+        /**
          * Provides the [tick] function of a [ModBeaconBlockEntity].
          */
         fun <T : BlockEntity> ticker(type: BlockEntityType<T>): BlockEntityTicker<T>? {
@@ -374,7 +378,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         override fun get(i: Int): Int {
             return when(i) {
                 in 0..3 -> this@ModBeaconBlockEntity.levels[i]
-                4 -> BeaconUpgrades.indexOf(this@ModBeaconBlockEntity.upgrade)
+                IDX_UPGRADE -> BeaconUpgrades.indexOf(this@ModBeaconBlockEntity.upgrade)
                 else -> error("Index $i out of bounds.")
             }
         }
@@ -382,7 +386,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         override fun set(i: Int, value: Int) {
             when(i) {
                 in 0..3 -> { this@ModBeaconBlockEntity.levels[i] = value }
-                4 -> {
+                IDX_UPGRADE -> {
                     if (activeBeam) playSound(world, pos, SoundEvents.BLOCK_BEACON_POWER_SELECT)
                     this@ModBeaconBlockEntity.upgrade = BeaconUpgrades[value]
                 }

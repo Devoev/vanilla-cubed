@@ -2,6 +2,7 @@ package net.devoev.vanilla_cubed.client.gui.screen.ingame
 
 import com.mojang.blaze3d.systems.RenderSystem
 import net.devoev.vanilla_cubed.VanillaCubed
+import net.devoev.vanilla_cubed.block.entity.ModBeaconBlockEntity
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrade
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades
 import net.devoev.vanilla_cubed.networking.Channels
@@ -64,8 +65,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
             override fun onSlotUpdate(handler2: ScreenHandler, slotId: Int, stack: ItemStack) {}
             override fun onPropertyUpdate(handler2: ScreenHandler, property: Int, value: Int) {
                 // Update the behavior property of this screen to stay in sync with the handler.
-                // TODO Only update when correct index is met
-                upgrade = handler.upgrade
+                if (property == ModBeaconBlockEntity.IDX_UPGRADE) upgrade = handler.upgrade
             }
         })
     }
@@ -226,6 +226,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
 
         init {
             // TODO: Fix that initial value is always 0,0,0,0
+            //  Issue is maybe caused by screen handler listener above
             active = tier.checkLevel(handler.levels)
         }
 
