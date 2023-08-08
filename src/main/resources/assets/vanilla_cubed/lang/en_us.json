@@ -85,19 +85,19 @@
 
   "block.vanilla_cubed.beacon": "Beacon",
   "block.vanilla_cubed.beacon.iron1": "Resistance",
-  "block.vanilla_cubed.beacon.iron2": "",
-  "block.vanilla_cubed.beacon.iron3": "",
+  "block.vanilla_cubed.beacon.iron2": "Glowing",
+  "block.vanilla_cubed.beacon.iron3": "Increase reach distance",
   "block.vanilla_cubed.beacon.iron4": "Haste II",
   "block.vanilla_cubed.beacon.gold1": "Jump Boost + Speed",
   "block.vanilla_cubed.beacon.gold2": "",
-  "block.vanilla_cubed.beacon.gold3": "",
-  "block.vanilla_cubed.beacon.gold4": "",
+  "block.vanilla_cubed.beacon.gold3": "Increase vehicle speed",
+  "block.vanilla_cubed.beacon.gold4": "Remove armor and tool damage",
   "block.vanilla_cubed.beacon.emerald1": "Disable environmental damage",
   "block.vanilla_cubed.beacon.emerald2": "Disable mob griefing",
   "block.vanilla_cubed.beacon.emerald3": "Increase plant growth",
   "block.vanilla_cubed.beacon.emerald4": "Disable monster spawning",
   "block.vanilla_cubed.beacon.diamond1": "Strength + Regeneration",
-  "block.vanilla_cubed.beacon.diamond2": "",
+  "block.vanilla_cubed.beacon.diamond2": "Strengthen allied mobs",
   "block.vanilla_cubed.beacon.diamond3": "",
-  "block.vanilla_cubed.beacon.diamond4": ""
+  "block.vanilla_cubed.beacon.diamond4": "Increase monster XP"
 }
