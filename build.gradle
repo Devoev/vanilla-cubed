@@ -61,7 +61,7 @@ processResources {
 // ensure that the encoding is set to UTF-8, no matter what the system default is
 // this fixes some edge cases with special characters not displaying correctly
 // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     it.options.encoding = "UTF-8"
 
     // Minecraft 1.18.1 upwards uses Java 17.
@@ -103,7 +103,12 @@ publishing {
 }
 
 //compileKotlin.kotlinOptions.jvmTarget = "17"
-compileKotlin.kotlinOptions {
-    jvmTarget = "17"
-    freeCompilerArgs += "-Xjvm-default=all-compatibility"
+compileKotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xjvm-default=all-compatibility")
+    }
+
+    kotlin {
+        jvmToolchain(17)
+    }
 }
