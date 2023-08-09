@@ -312,8 +312,8 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     }
 
     /**
-     * Ticks the activation and deactivation of the beacon, by comparing the if the
-     * [ModBeaconBlockEntity.activeBase] property changes, before updating the [levels].
+     * Ticks the activation and deactivation of the beacon, by comparing the
+     * beacons properties with the provided old values.
      * @param activeBaseOld The old property value.
      * @param activeBeamOld The old property value.
      * @param activeLevelOld The old property value.
