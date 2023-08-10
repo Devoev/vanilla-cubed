@@ -24,7 +24,7 @@ object BeaconUpgrades {
 
     private val IRON = listOf(
         BeaconUpgradeButtonData(
-            StatusEffectUpgrade(StatusEffects.RESISTANCE, 0),
+            playerStatusEffectUpgradeOf(StatusEffects.RESISTANCE, 0),
             tooltipOf("iron1"),
             textureOf("iron1.png"),
             ironTierOf(1)
@@ -42,7 +42,7 @@ object BeaconUpgrades {
             ironTierOf(3)
         ),
         BeaconUpgradeButtonData(
-            StatusEffectUpgrade(StatusEffects.HASTE, 1),
+            playerStatusEffectUpgradeOf(StatusEffects.HASTE, 1),
             tooltipOf("iron4"),
             textureOf("iron4.png"),
             ironTierOf(4)
@@ -51,7 +51,7 @@ object BeaconUpgrades {
 
     private val GOLD = listOf(
         BeaconUpgradeButtonData(
-            StatusEffectUpgrade(StatusEffects.SPEED, 0) andThen StatusEffectUpgrade(StatusEffects.JUMP_BOOST, 0),
+            playerStatusEffectUpgradeOf(StatusEffects.SPEED, 0) andThen playerStatusEffectUpgradeOf(StatusEffects.JUMP_BOOST, 0),
             tooltipOf("gold1"),
             textureOf("gold1.png"),
             goldTierOf(1)
@@ -103,13 +103,14 @@ object BeaconUpgrades {
     )
 
     private val DIAMOND = listOf(
-        BeaconUpgradeButtonData(StatusEffectUpgrade(StatusEffects.STRENGTH, 0) andThen StatusEffectUpgrade(StatusEffects.REGENERATION, 0),
+        BeaconUpgradeButtonData(
+            playerStatusEffectUpgradeOf(StatusEffects.STRENGTH, 0) andThen playerStatusEffectUpgradeOf(StatusEffects.REGENERATION, 0),
             tooltipOf("diamond1"),
             textureOf("diamond1.png"),
             diamondTierOf(1)
         ),
         BeaconUpgradeButtonData(
-            BeaconUpgrade.EMPTY,
+            strengthenAlliedMobsUpgrade,
             tooltipOf("diamond2"),
             textureOf("diamond2.png"),
             diamondTierOf(2)
