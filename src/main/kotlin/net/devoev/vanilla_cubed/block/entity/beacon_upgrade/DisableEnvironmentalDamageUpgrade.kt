@@ -14,6 +14,7 @@ object DisableEnvironmentalDamageUpgrade : ToggledUpgrade() {
 
     /**
      * Injection function for [FireBlockMixin.disableFireTick].
+     * TODO: Add injects for other methods (lava, lightning)
      */
     fun inject(block: Block, world: ServerWorld, pos: BlockPos, ci: CallbackInfo) {
         if (inRange(pos.toVec3d())) {
