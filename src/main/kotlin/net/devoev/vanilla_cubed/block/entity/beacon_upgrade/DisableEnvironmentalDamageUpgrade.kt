@@ -1,7 +1,11 @@
 package net.devoev.vanilla_cubed.block.entity.beacon_upgrade
 
+import net.devoev.vanilla_cubed.mixin.FireBlockMixin
 import net.devoev.vanilla_cubed.util.math.toVec3d
+import net.minecraft.block.Block
+import net.minecraft.server.world.ServerWorld
 import net.minecraft.util.math.BlockPos
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo
 
 /**
  * A beacon upgrade that prevents environmental damage like fire spread.
@@ -9,7 +13,12 @@ import net.minecraft.util.math.BlockPos
 object DisableEnvironmentalDamageUpgrade : ToggledUpgrade() {
 
     /**
-     * Whether the block pos is in range of an active [DisableEnvironmentalDamageUpgrade] upgrade.
+     * Injection function for [FireBlockMixin.disableFireTick].
      */
-    operator fun invoke(pos: BlockPos): Boolean = inRange(pos.toVec3d())
+    fun inject(block: Block, world: ServerWorld, pos: BlockPos, ci: CallbackInfo) {
+        if (inRange(pos.toVec3d())) {
+            world.createAndScheduleBlockTick(pos, block, 30 + world.random.nextInt(10))
+            ci.cancel()
+        }
+    }
 }
