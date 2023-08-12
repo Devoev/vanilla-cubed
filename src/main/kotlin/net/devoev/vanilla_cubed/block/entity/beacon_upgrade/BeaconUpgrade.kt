@@ -32,10 +32,21 @@ interface BeaconUpgrade {
     /**
      * Creates a composed [BeaconUpgrade] that first runs this and then [after].
      */
-    infix fun andThen(after: BeaconUpgrade): BeaconUpgrade = tickUpgrade { world, pos, state ->
-        // TODO: DONT built a tickupgrade but a general one!
-        invoke(world, pos, state, this)
-        after(world, pos, state, this)
+    infix fun andThen(after: BeaconUpgrade): BeaconUpgrade = object : BeaconUpgrade {
+        override fun activate(blockEntity: ModBeaconBlockEntity) {
+            activate(blockEntity)
+            after.activate(blockEntity)
+        }
+
+        override fun deactivate(blockEntity: ModBeaconBlockEntity) {
+            deactivate(blockEntity)
+            after.deactivate(blockEntity)
+        }
+
+        override fun ModBeaconBlockEntity.tick(world: World, pos: BlockPos, state: BlockState) {
+            invoke(world, pos, state, this)
+            after(world, pos, state, this)
+        }
     }
 
     companion object {
