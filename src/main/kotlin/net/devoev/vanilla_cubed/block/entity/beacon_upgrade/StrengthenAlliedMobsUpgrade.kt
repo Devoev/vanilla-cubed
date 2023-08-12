@@ -28,7 +28,7 @@ private val passive: Map<EntityType<out LivingEntity>, Predicate<LivingEntity>> 
 )
 
 /**
- * Creates and upgrade that increases the attack damage and health of allied mobs by given them strength and regeneration.
+ * A beacon upgrade that increases the attack damage and health of allied mobs by given them strength and regeneration.
  */
 val strengthenAlliedMobsUpgrade
     = statusEffectUpgradeOf(attacking, StatusEffects.STRENGTH, 1) andThen

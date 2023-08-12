@@ -32,20 +32,21 @@ interface BeaconUpgrade {
     /**
      * Creates a composed [BeaconUpgrade] that first runs this and then [after].
      */
-    infix fun andThen(after: BeaconUpgrade): BeaconUpgrade = object : BeaconUpgrade {
-        override fun activate(blockEntity: ModBeaconBlockEntity) {
-            activate(blockEntity)
-            after.activate(blockEntity)
+    infix fun andThen(after: BeaconUpgrade): BeaconUpgrade = beaconUpgrade {
+
+        activate {
+            activate(it)
+            after.activate(it)
         }
 
-        override fun deactivate(blockEntity: ModBeaconBlockEntity) {
-            deactivate(blockEntity)
-            after.deactivate(blockEntity)
+        deactivate {
+            deactivate(it)
+            after.deactivate(it)
         }
 
-        override fun ModBeaconBlockEntity.tick(world: World, pos: BlockPos, state: BlockState) {
-            invoke(world, pos, state, this)
-            after(world, pos, state, this)
+        tick { world, blockPos, blockState ->
+            tick(world, blockPos, blockState)
+            after(world, blockPos, blockState, this)
         }
     }
 
@@ -55,21 +56,5 @@ interface BeaconUpgrade {
          * The default [BeaconUpgrade] that does nothing.
          */
         val EMPTY = tickUpgrade { _, _, _ ->  }
-    }
-}
-
-/**
- * Builds a [BeaconUpgrade] with the provided [tick] function.
- * [BeaconUpgrade.activate] and [BeaconUpgrade.deactivate] do nothing.
- */
-fun tickUpgrade(tick: ModBeaconBlockEntity.(world: World, pos: BlockPos, state: BlockState) -> Unit): BeaconUpgrade {
-    return object : BeaconUpgrade {
-
-        override fun activate(blockEntity: ModBeaconBlockEntity) = Unit
-
-        override fun deactivate(blockEntity: ModBeaconBlockEntity) = Unit
-
-        override fun ModBeaconBlockEntity.tick(world: World, pos: BlockPos, state: BlockState) = tick(world, pos, state)
-
     }
 }
