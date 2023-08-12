@@ -77,7 +77,7 @@ object BeaconUpgrades {
     )
     private val EMERALD = listOf(
         BeaconUpgradeButtonData(
-            disableEnvironmentalDamage,
+            DisableEnvironmentalDamageUpgrade,
             tooltipOf("emerald1"),
             textureOf("emerald1.png"),
             emeraldTierOf(1)
@@ -95,7 +95,7 @@ object BeaconUpgrades {
             emeraldTierOf(3)
         ),
         BeaconUpgradeButtonData(
-            DisableMonsterSpawningUpgrade(),
+            DisableMonsterSpawningUpgrade,
             tooltipOf("emerald4"),
             textureOf("emerald4.png"),
             emeraldTierOf(4)
