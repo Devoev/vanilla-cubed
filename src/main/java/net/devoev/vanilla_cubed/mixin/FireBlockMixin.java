@@ -17,6 +17,6 @@ public class FireBlockMixin {
 
     @Inject(method = "scheduledTick", at = @At("HEAD"), cancellable = true)
     private void disableFireTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        DisableEnvironmentalDamageUpgrade.INSTANCE.inject((Block) (Object) this, world, pos, ci);
+        DisableEnvironmentalDamageUpgrade.INSTANCE.injectLavaBlock((Block) (Object) this, world, pos, ci);
     }
 }
