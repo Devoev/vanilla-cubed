@@ -12,7 +12,6 @@ import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs
-import net.minecraft.client.gui.screen.ingame.BeaconScreen.*
 import net.minecraft.client.gui.screen.ingame.HandledScreen
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder
 import net.minecraft.client.gui.widget.ClickableWidget
@@ -26,7 +25,6 @@ import net.minecraft.screen.ScreenHandlerListener
 import net.minecraft.screen.ScreenTexts
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
-import java.util.*
 
 /**
  * Handled screen of a [ModBeaconScreenHandler].
@@ -160,9 +158,9 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         : PressableWidget(x, y, 22, 22, ScreenTexts.EMPTY), BeaconButtonWidget {
 
         /**
-         * Whether this button is disabled, meaning it is already pressed.
+         * Whether this button is pressed.
          */
-        abstract val disabled: Boolean
+        abstract val pressed: Boolean
 
         /**
          * Renders additional content like a sprite or texture on top.
@@ -173,8 +171,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
          * Updates the server side beacon by sending the required packets to the [ModBeaconScreenHandler].
          */
         fun update() {
-            if (upgrade == null) return
-            val packet = PacketByteBufs.create().writeBeaconUpgrade(upgrade!!)
+            val packet = PacketByteBufs.create().writeBeaconUpgrade(upgrade)
             ClientPlayNetworking.send(Channels.BEACON_BUTTON_UPDATE, packet)
         }
 
@@ -185,7 +182,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
 
             val u = if (!active) {
                 width * 2
-            } else if (disabled) {
+            } else if (pressed) {
                 width * 1
             } else if (isHovered) {
                 width * 3
@@ -230,7 +227,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
             active = tier.checkLevel(handler.levels)
         }
 
-        override val disabled: Boolean
+        override val pressed: Boolean
             get() = upgrade == this@ModBeaconScreen.upgrade
 
         /**
@@ -242,10 +239,11 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         }
 
         override fun onPress() {
-            if (disabled) return
-
-            // Update the enabled upgrade of the screen with this one
-            this@ModBeaconScreen.upgrade = upgrade
+            if (pressed) {
+                this@ModBeaconScreen.upgrade = null
+            } else {
+                this@ModBeaconScreen.upgrade = upgrade
+            }
 
             update()
             buttons.tick()
