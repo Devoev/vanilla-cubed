@@ -250,7 +250,6 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         }
 
         override fun tick(totalLevels: IntArray, remainingLevels: IntArray) {
-            // TODO: Dont just pass total or remaining levels. Use total levels and manually subtract levels used by this upgrade.
             active = if (pressed) {
                 tier.checkLevel(totalLevels)
             } else {
