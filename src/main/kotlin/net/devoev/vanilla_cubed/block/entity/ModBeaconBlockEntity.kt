@@ -43,7 +43,7 @@ import kotlin.properties.Delegates
  * @param state Block state.
  *
  * @property upgrade Activated beacon upgrade.
- * @property levels Amount of placed iron, gold, emerald or diamond blocks.
+ * @property totalLevels Amount of placed iron, gold, emerald or diamond blocks.
  * @property propertyDelegate Delegate of properties to sync with the screen handler.
  * @property beamSegments Segments of the beacon beam.
  * @property beaconRange Range of the beacon effect.
@@ -59,7 +59,23 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         new?.activate(this)
     }
 
-    private val levels: IntArray = intArrayOf(0,0,0,0)
+//    var upgrades: List<BeaconUpgrade> by Delegates.observable(listOf()) { _, old, new ->
+//        old.forEach { it.deactivate(this) }
+//        new.forEach { it.deactivate(this) }
+//    }
+    val upgrades: List<BeaconUpgrade>
+        get() = upgrade?.let { listOf(it) } ?: listOf()
+
+    private val totalLevels: IntArray = intArrayOf(0,0,0,0)
+    private val remainingLevels: IntArray
+        get() {
+            var res = totalLevels.toList()
+            for (upgrade in upgrades) {
+                val required = BeaconUpgrades.requiredLevels(upgrade)
+                res = List(res.size) { i -> res[i] - required[i] }
+            }
+            return res.toIntArray()
+        }
     private val propertyDelegate = BeaconPropertyDelegate()
 
     private var _beamSegments: MutableList<ModBeamSegment> = mutableListOf()
@@ -68,7 +84,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         private set(value) { _beamSegments = value }
 
     private val range: Int
-        get() = BeaconUpgradeTier.levelToTier(levels.sum())*10 + 10
+        get() = BeaconUpgradeTier.levelToTier(totalLevels.sum())*10 + 10
 
     val beaconRange: Box?
         get() = world?.run {
@@ -76,13 +92,13 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         }
 
     val currentLevel: Int
-        get() = BeaconUpgrades.dataOf(upgrade)?.tier?.type?.idx.let { if (it != null) levels[it] else 0  }
+        get() = BeaconUpgrades.dataOf(upgrade)?.tier?.type?.idx.let { if (it != null) totalLevels[it] else 0  }
 
     /**
-     * Whether at least one of the [levels] is greater than 0, meaning the base is build properly.
+     * Whether at least one of the [totalLevels] is greater than 0, meaning the base is build properly.
      */
     private val activeBase: Boolean
-        get() = levels.any { it > 0 }
+        get() = totalLevels.any { it > 0 }
 
     /**
      * Whether the [beamSegments] ar not empty, meaning a beam is active.
@@ -91,7 +107,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         get() = beamSegments.isNotEmpty()
 
     /**
-     * Whether the [levels] are high enough to activate the current [upgrade].
+     * Whether the [totalLevels] are high enough to activate the current [upgrade].
      */
     private val activeLevel: Boolean
         get() = BeaconUpgrades.dataOf(upgrade)?.tier?.checkLevel(currentLevel) == true
@@ -188,7 +204,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     }
 
     /**
-     * Ticks the [levels] property by updating its values.
+     * Ticks the [totalLevels] property by updating its values.
      */
     private fun tickLevels(world: World, pos: BlockPos) {
 
@@ -205,19 +221,19 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         }
 
         // Clear old levels
-        levels[0] = 0
-        levels[1] = 0
-        levels[2] = 0
-        levels[3] = 0
+        totalLevels[0] = 0
+        totalLevels[1] = 0
+        totalLevels[2] = 0
+        totalLevels[3] = 0
 
         // Set new levels
         val base = baseBlocks(world, pos)
         for (baseLevel in base) {
             if (baseLevel.invalid()) break
-            levels[0] += baseLevel[Blocks.IRON_BLOCK] ?: 0
-            levels[1] += baseLevel[Blocks.GOLD_BLOCK] ?: 0
-            levels[2] += baseLevel[Blocks.EMERALD_BLOCK] ?: 0
-            levels[3] += baseLevel[Blocks.DIAMOND_BLOCK] ?: 0
+            totalLevels[0] += baseLevel[Blocks.IRON_BLOCK] ?: 0
+            totalLevels[1] += baseLevel[Blocks.GOLD_BLOCK] ?: 0
+            totalLevels[2] += baseLevel[Blocks.EMERALD_BLOCK] ?: 0
+            totalLevels[3] += baseLevel[Blocks.DIAMOND_BLOCK] ?: 0
         }
     }
 
@@ -364,20 +380,20 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     /**
      * The property delegate of a [ModBeaconBlockEntity].
      * The stored properties are:
-     * @property levels [ModBeaconBlockEntity.levels] at indices 0-3.
+     * @property totalLevels [ModBeaconBlockEntity.totalLevels] at indices 0-3.
      * @property upgrade [ModBeaconBlockEntity.upgrade] at index 4.
      */
     inner class BeaconPropertyDelegate : PropertyDelegate {
 
         init {
             // Set initial values
-            this.levels = this@ModBeaconBlockEntity.levels
+            this.levels = this@ModBeaconBlockEntity.totalLevels
             this.upgrade = this@ModBeaconBlockEntity.upgrade
         }
 
         override fun get(i: Int): Int {
             return when(i) {
-                in 0..3 -> this@ModBeaconBlockEntity.levels[i]
+                in 0..3 -> this@ModBeaconBlockEntity.totalLevels[i]
                 IDX_UPGRADE -> BeaconUpgrades.indexOf(this@ModBeaconBlockEntity.upgrade)
                 else -> error("Index $i out of bounds.")
             }
@@ -385,7 +401,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
 
         override fun set(i: Int, value: Int) {
             when(i) {
-                in 0..3 -> { this@ModBeaconBlockEntity.levels[i] = value }
+                in 0..3 -> { this@ModBeaconBlockEntity.totalLevels[i] = value }
                 IDX_UPGRADE -> {
                     if (activeBeam) playSound(world, pos, SoundEvents.BLOCK_BEACON_POWER_SELECT)
                     this@ModBeaconBlockEntity.upgrade = BeaconUpgrades[value]

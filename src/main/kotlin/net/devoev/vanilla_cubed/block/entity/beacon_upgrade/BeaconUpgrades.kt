@@ -154,12 +154,22 @@ object BeaconUpgrades {
     fun indexOf(upgrade: BeaconUpgrade?) = UPGRADES.indexOf(upgrade)
 
     /**
-     * Creates the [Identifier] of the texture [name] located at the path `textures/gui/container/beacon_icons/`.
+     * Returns an integer array that has the required level for the given [upgrade] at the correct position.
      */
-    private fun textureOf(name: String): Identifier = VanillaCubed.id("textures/gui/container/beacon_icons/$name")
-
-    /**
-     * Creates the translatable tooltip with the text [name] located at the path `block.vanilla_cubed.beacon`.
-     */
-    private fun tooltipOf(name: String): Text = Text.translatable("block.vanilla_cubed.beacon.$name")
+    fun requiredLevels(upgrade: BeaconUpgrade?): IntArray {
+        val res = intArrayOf(0,0,0,0)
+        val tier = dataOf(upgrade)?.tier ?: return res
+        res[tier.type.idx] = BeaconUpgradeTier.tierToLevel(tier.tier)
+        return res
+    }
 }
+
+/**
+ * Creates the [Identifier] of the texture [name] located at the path `textures/gui/container/beacon_icons/`.
+ */
+private fun textureOf(name: String): Identifier = VanillaCubed.id("textures/gui/container/beacon_icons/$name")
+
+/**
+ * Creates the translatable tooltip with the text [name] located at the path `block.vanilla_cubed.beacon`.
+ */
+private fun tooltipOf(name: String): Text = Text.translatable("block.vanilla_cubed.beacon.$name")
