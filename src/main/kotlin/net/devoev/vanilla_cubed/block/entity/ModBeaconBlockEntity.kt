@@ -4,7 +4,8 @@ import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrade
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades
 import net.devoev.vanilla_cubed.client.gui.screen.ingame.BeaconUpgradeTier
 import net.devoev.vanilla_cubed.screen.ModBeaconScreenHandler
-import net.devoev.vanilla_cubed.screen.levels
+import net.devoev.vanilla_cubed.screen.remainingLevels
+import net.devoev.vanilla_cubed.screen.totalLevels
 import net.devoev.vanilla_cubed.screen.upgrade
 import net.devoev.vanilla_cubed.util.math.boxOf
 import net.minecraft.advancement.criterion.Criteria
@@ -59,21 +60,21 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         new?.activate(this)
     }
 
-//    var upgrades: List<BeaconUpgrade> by Delegates.observable(listOf()) { _, old, new ->
-//        old.forEach { it.deactivate(this) }
-//        new.forEach { it.deactivate(this) }
-//    }
-    val upgrades: List<BeaconUpgrade>
-        get() = upgrade?.let { listOf(it) } ?: listOf()
+    var upgrades: List<BeaconUpgrade> by Delegates.observable(listOf()) { _, old, new ->
+        old.forEach { it.deactivate(this) }
+        new.forEach { it.deactivate(this) }
+    }
 
     private val totalLevels: IntArray = intArrayOf(0,0,0,0)
     private val remainingLevels: IntArray
         get() {
             var res = totalLevels.toList()
-            for (upgrade in upgrades) {
-                val required = BeaconUpgrades.requiredLevels(upgrade)
-                res = List(res.size) { i -> res[i] - required[i] }
-            }
+            val required = BeaconUpgrades.requiredLevels(upgrade)
+            res = List(res.size) { i -> res[i] - required[i] }
+//            for (upgrade in upgrades) {
+//                val required = BeaconUpgrades.requiredLevels(upgrade)
+//                res = List(res.size) { i -> res[i] - required[i] }
+//            }
             return res.toIntArray()
         }
     private val propertyDelegate = BeaconPropertyDelegate()
@@ -363,9 +364,19 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     companion object {
 
         /**
-         * Index of the [upgrade] property in [BeaconPropertyDelegate].
+         * Index range for the [totalLevels] property.
          */
-        const val IDX_UPGRADE = 4
+        val TOTAL_LEVELS_RANGE = 0..3
+
+        /**
+         * Index range for the [remainingLevels] property.
+         */
+        val REMAINING_LEVELS_RANGE = 4..7
+
+        /**
+         * The starting index for the [upgrade] property.
+         */
+        val UPGRADE_IDX = 8
 
         /**
          * Provides the [tick] function of a [ModBeaconBlockEntity].
@@ -387,29 +398,31 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
 
         init {
             // Set initial values
-            this.levels = this@ModBeaconBlockEntity.totalLevels
+            this.totalLevels = this@ModBeaconBlockEntity.totalLevels
+            this.remainingLevels = this@ModBeaconBlockEntity.remainingLevels
             this.upgrade = this@ModBeaconBlockEntity.upgrade
         }
 
         override fun get(i: Int): Int {
             return when(i) {
-                in 0..3 -> this@ModBeaconBlockEntity.totalLevels[i]
-                IDX_UPGRADE -> BeaconUpgrades.indexOf(this@ModBeaconBlockEntity.upgrade)
-                else -> error("Index $i out of bounds.")
+                in TOTAL_LEVELS_RANGE -> this@ModBeaconBlockEntity.totalLevels[i]
+                in REMAINING_LEVELS_RANGE -> this@ModBeaconBlockEntity.remainingLevels[i-4]
+                else -> BeaconUpgrades.indexOf(this@ModBeaconBlockEntity.upgrade)
             }
         }
 
         override fun set(i: Int, value: Int) {
             when(i) {
-                in 0..3 -> { this@ModBeaconBlockEntity.totalLevels[i] = value }
-                IDX_UPGRADE -> {
+                in TOTAL_LEVELS_RANGE -> { this@ModBeaconBlockEntity.totalLevels[i] = value }
+                in REMAINING_LEVELS_RANGE -> { this@ModBeaconBlockEntity.remainingLevels[i-4] = value }
+                else -> {
                     if (activeBeam) playSound(world, pos, SoundEvents.BLOCK_BEACON_POWER_SELECT)
                     this@ModBeaconBlockEntity.upgrade = BeaconUpgrades[value]
                 }
             }
         }
 
-        override fun size(): Int = 5
+        override fun size(): Int = 20 // TODO: pick max size
     }
 
     /**

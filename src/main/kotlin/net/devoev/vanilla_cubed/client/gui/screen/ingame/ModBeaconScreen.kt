@@ -2,7 +2,6 @@ package net.devoev.vanilla_cubed.client.gui.screen.ingame
 
 import com.mojang.blaze3d.systems.RenderSystem
 import net.devoev.vanilla_cubed.VanillaCubed
-import net.devoev.vanilla_cubed.block.entity.ModBeaconBlockEntity
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrade
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades
 import net.devoev.vanilla_cubed.networking.Channels
@@ -54,7 +53,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
     /**
      * Ticks all buttons in this list.
      */
-    private fun MutableList<BeaconButtonWidget>.tick() = forEach { it.tick(handler.levels) }
+    private fun MutableList<BeaconButtonWidget>.tick() = forEach { it.tick(handler.totalLevels, handler.remainingLevels) }
 
     init {
         backgroundWidth = 230
@@ -63,7 +62,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
             override fun onSlotUpdate(handler2: ScreenHandler, slotId: Int, stack: ItemStack) {}
             override fun onPropertyUpdate(handler2: ScreenHandler, property: Int, value: Int) {
                 // Update the behavior property of this screen to stay in sync with the handler.
-                if (property == ModBeaconBlockEntity.IDX_UPGRADE) upgrade = handler.upgrade
+                if (property == 8) upgrade = handler.upgrade // TODO: Change idx to allow multiple upgrades
             }
         })
     }
@@ -145,9 +144,10 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
 
         /**
          * Ticks this button.
-         * @param levels The current block levels.
+         * @param totalLevels The total block levels.
+         * @param remainingLevels The remaining block levels.
          */
-        fun tick(levels: IntArray)
+        fun tick(totalLevels: IntArray, remainingLevels: IntArray)
     }
 
     /**
@@ -224,7 +224,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         init {
             // TODO: Fix that initial value is always 0,0,0,0
             //  Issue is maybe caused by screen handler listener above
-            active = tier.checkLevel(handler.levels)
+            active = tier.checkLevel(handler.remainingLevels)
         }
 
         override val pressed: Boolean
@@ -249,8 +249,13 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
             buttons.tick()
         }
 
-        override fun tick(levels: IntArray) {
-            active = tier.checkLevel(levels)
+        override fun tick(totalLevels: IntArray, remainingLevels: IntArray) {
+            // TODO: Dont just pass total or remaining levels. Use total levels and manually subtract levels used by this upgrade.
+            active = if (pressed) {
+                tier.checkLevel(totalLevels)
+            } else {
+                tier.checkLevel(totalLevels) && tier.checkLevel(remainingLevels)
+            }
         }
     }
 }

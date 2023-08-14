@@ -36,12 +36,19 @@ class ModBeaconScreenHandler(
         get() = propertyDelegate.upgrade
 
     /**
-     * The current levels of the beacon.
+     * The total levels of the beacon.
      */
-    val levels: IntArray
-        get() = propertyDelegate.levels
+    val totalLevels: IntArray
+        get() = propertyDelegate.totalLevels
 
-    constructor(syncId: Int, inventory: Inventory) : this(syncId, inventory, ArrayPropertyDelegate(5), ScreenHandlerContext.EMPTY)
+    /**
+     * The remaining levels of the beacon.
+     */
+    val remainingLevels: IntArray
+        get() = propertyDelegate.remainingLevels
+
+    // TODO: Update size 20 of property delegate
+    constructor(syncId: Int, inventory: Inventory) : this(syncId, inventory, ArrayPropertyDelegate(20), ScreenHandlerContext.EMPTY)
 
     init {
         checkDataCount(propertyDelegate, 5)
