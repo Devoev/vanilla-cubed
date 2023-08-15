@@ -5,8 +5,9 @@ import net.devoev.vanilla_cubed.VanillaCubed
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrade
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades
 import net.devoev.vanilla_cubed.networking.Channels
-import net.devoev.vanilla_cubed.networking.writeBeaconUpgrade
+import net.devoev.vanilla_cubed.networking.writeBeaconUpgrades
 import net.devoev.vanilla_cubed.screen.ModBeaconScreenHandler
+import net.devoev.vanilla_cubed.screen.UPGRADE_RANGE
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
@@ -33,14 +34,14 @@ import net.minecraft.util.Identifier
  * @param title Title of this screen.
  *
  * @property buttons List of all buttons appearing on the screen.
- * @property upgrade The active beacon upgrade.
+ * @property upgrades The active beacon upgrade.
  */
 @Environment(EnvType.CLIENT)
 class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventory, title: Text)
     : HandledScreen<ModBeaconScreenHandler>(handler, inventory, title) {
 
     private val buttons: MutableList<BeaconButtonWidget> = mutableListOf()
-    private var upgrade: BeaconUpgrade? = handler.upgrade
+    private var upgrades: MutableList<BeaconUpgrade?> = handler.upgrades
 
     /**
      * Adds the given [button] to this list and appends it as a drawable child.
@@ -62,7 +63,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
             override fun onSlotUpdate(handler2: ScreenHandler, slotId: Int, stack: ItemStack) {}
             override fun onPropertyUpdate(handler2: ScreenHandler, property: Int, value: Int) {
                 // Update the behavior property of this screen to stay in sync with the handler.
-                if (property == 8) upgrade = handler.upgrade // TODO: Change idx to allow multiple upgrades
+                if (property in UPGRADE_RANGE) upgrades = handler.upgrades
             }
         })
     }
@@ -171,7 +172,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
          * Updates the server side beacon by sending the required packets to the [ModBeaconScreenHandler].
          */
         fun update() {
-            val packet = PacketByteBufs.create().writeBeaconUpgrade(upgrade)
+            val packet = PacketByteBufs.create().writeBeaconUpgrades(upgrades)
             ClientPlayNetworking.send(Channels.BEACON_BUTTON_UPDATE, packet)
         }
 
@@ -228,7 +229,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         }
 
         override val pressed: Boolean
-            get() = upgrade == this@ModBeaconScreen.upgrade
+            get() = this@ModBeaconScreen.upgrades[BeaconUpgrades.indexOf(upgrade)] == upgrade
 
         /**
          * Renders the 18x18 [texture] of this button.
@@ -240,9 +241,9 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
 
         override fun onPress() {
             if (pressed) {
-                this@ModBeaconScreen.upgrade = null
+                this@ModBeaconScreen.upgrades[BeaconUpgrades.indexOf(upgrade)] = null
             } else {
-                this@ModBeaconScreen.upgrade = upgrade
+                this@ModBeaconScreen.upgrades[BeaconUpgrades.indexOf(upgrade)] = upgrade
             }
 
             update()

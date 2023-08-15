@@ -20,10 +20,10 @@ class StatusEffectUpgrade<out T : LivingEntity>(
     private val amplifier: Int,
     private val predicate: Predicate<T>
 ) : BeaconUpgrade by tickUpgrade({ world, _, _ ->
-    val tier = BeaconUpgradeTier.levelToTier(currentLevel)
+    val tier = BeaconUpgradeTier.levelToTier(totalLevels.sum()) // TODO: Update tier calculation by levels
     val duration: Int = (9 + tier * 2) * 20
 
-    val entities = world.getEntitiesByType(entityType, beaconRange, predicate)
+    val entities = world.getEntitiesByType(entityType, range, predicate)
     for (entity in entities) {
         entity.addStatusEffect(StatusEffectInstance(effect, duration, amplifier, true, true))
     }

@@ -30,13 +30,13 @@ object BeaconUpgrades {
             ironTierOf(1)
         ),
         BeaconUpgradeButtonData(
-            BeaconUpgrade.EMPTY,
+            emptyUpgrade(),
             tooltipOf("iron2"),
             textureOf("iron2.png"),
             ironTierOf(2)
         ),
         BeaconUpgradeButtonData(
-            BeaconUpgrade.EMPTY,
+            emptyUpgrade(),
             tooltipOf("iron3"),
             textureOf("iron3.png"),
             ironTierOf(3)
@@ -57,19 +57,19 @@ object BeaconUpgrades {
             goldTierOf(1)
         ),
         BeaconUpgradeButtonData(
-            BeaconUpgrade.EMPTY,
+            emptyUpgrade(),
             tooltipOf("gold2"),
             textureOf("gold2.png"),
             goldTierOf(2)
         ),
         BeaconUpgradeButtonData(
-            BeaconUpgrade.EMPTY,
+            emptyUpgrade(),
             tooltipOf("gold3"),
             textureOf("gold3.png"),
             goldTierOf(3)
         ),
         BeaconUpgradeButtonData(
-            BeaconUpgrade.EMPTY,
+            emptyUpgrade(),
             tooltipOf("gold4"),
             textureOf("gold4.png"),
             goldTierOf(4)
@@ -83,13 +83,13 @@ object BeaconUpgrades {
             emeraldTierOf(1)
         ),
         BeaconUpgradeButtonData(
-            BeaconUpgrade.EMPTY,
+            emptyUpgrade(),
             tooltipOf("emerald2"),
             textureOf("emerald2.png"),
             emeraldTierOf(2)
         ),
         BeaconUpgradeButtonData(
-            BeaconUpgrade.EMPTY,
+            emptyUpgrade(),
             tooltipOf("emerald3"),
             textureOf("emerald3.png"),
             emeraldTierOf(3)
@@ -116,13 +116,13 @@ object BeaconUpgrades {
             diamondTierOf(2)
         ),
         BeaconUpgradeButtonData(
-            BeaconUpgrade.EMPTY,
+            emptyUpgrade(),
             tooltipOf("diamond3"),
             textureOf("diamond3.png"),
             diamondTierOf(3)
         ),
         BeaconUpgradeButtonData(
-            BeaconUpgrade.EMPTY,
+            emptyUpgrade(),
             tooltipOf("diamond4"),
             textureOf("diamond4.png"),
             diamondTierOf(4)

@@ -18,7 +18,7 @@ abstract class ToggledUpgrade : BeaconUpgrade {
     private val activeRanges: MutableMap<BlockPos, Box> = mutableMapOf()
 
     override fun activate(blockEntity: ModBeaconBlockEntity) {
-        activeRanges[blockEntity.pos] = blockEntity.beaconRange ?: return
+        activeRanges[blockEntity.pos] = blockEntity.range ?: return
     }
 
     override fun deactivate(blockEntity: ModBeaconBlockEntity) {

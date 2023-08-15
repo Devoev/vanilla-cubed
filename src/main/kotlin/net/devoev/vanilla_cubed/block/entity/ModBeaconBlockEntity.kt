@@ -3,10 +3,7 @@ package net.devoev.vanilla_cubed.block.entity
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrade
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades
 import net.devoev.vanilla_cubed.client.gui.screen.ingame.BeaconUpgradeTier
-import net.devoev.vanilla_cubed.screen.ModBeaconScreenHandler
-import net.devoev.vanilla_cubed.screen.remainingLevels
-import net.devoev.vanilla_cubed.screen.totalLevels
-import net.devoev.vanilla_cubed.screen.upgrade
+import net.devoev.vanilla_cubed.screen.*
 import net.devoev.vanilla_cubed.util.math.boxOf
 import net.minecraft.advancement.criterion.Criteria
 import net.minecraft.block.Block
@@ -43,38 +40,37 @@ import kotlin.properties.Delegates
  * @param pos Block position.
  * @param state Block state.
  *
- * @property upgrade Activated beacon upgrade.
+ * @property activeUpgrades Activated beacon upgrades.
  * @property totalLevels Amount of placed iron, gold, emerald or diamond blocks.
  * @property propertyDelegate Delegate of properties to sync with the screen handler.
  * @property beamSegments Segments of the beacon beam.
- * @property beaconRange Range of the beacon effect.
- * @property currentLevel The required level for the currently activated [upgrade].
+ * @property range Range of the beacon effect.
  */
 class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBlockEntityTypes.MOD_BEACON, pos, state), NamedScreenHandlerFactory {
 
     private var lock: ContainerLock = ContainerLock.EMPTY
     var customName: Text? = null
 
-    var upgrade: BeaconUpgrade? by Delegates.observable(null) { _, old, new ->
-        old?.deactivate(this)
-        new?.activate(this)
+    /**
+     * The 16 beacon upgrades stored with respect to canonical indexing. A `null` value is stored, if upgrade is not active.
+     */
+    private var upgrades: List<BeaconUpgrade?> by Delegates.observable(UPGRADES_EMPTY) { _, old, new ->
+        check(new.size == 16) { "New upgrades list is too small!" }
+        old.forEach { it?.deactivate(this) }
+        new.forEach { it?.activate(this) }
     }
 
-    var upgrades: List<BeaconUpgrade> by Delegates.observable(listOf()) { _, old, new ->
-        old.forEach { it.deactivate(this) }
-        new.forEach { it.deactivate(this) }
-    }
+    private val activeUpgrades: List<BeaconUpgrade>
+        get() = upgrades.filterNotNull()
 
-    private val totalLevels: IntArray = intArrayOf(0,0,0,0)
+    val totalLevels: IntArray = intArrayOf(0,0,0,0)
     private val remainingLevels: IntArray
         get() {
             var res = totalLevels.toList()
-            val required = BeaconUpgrades.requiredLevels(upgrade)
-            res = List(res.size) { i -> res[i] - required[i] }
-//            for (upgrade in upgrades) {
-//                val required = BeaconUpgrades.requiredLevels(upgrade)
-//                res = List(res.size) { i -> res[i] - required[i] }
-//            }
+            for (upgrade in activeUpgrades) {
+                val required = BeaconUpgrades.requiredLevels(upgrade)
+                res = List(res.size) { i -> res[i] - required[i] }
+            }
             return res.toIntArray()
         }
     private val propertyDelegate = BeaconPropertyDelegate()
@@ -84,16 +80,11 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         get() = if (activeBase) _beamSegments else mutableListOf()
         private set(value) { _beamSegments = value }
 
-    private val range: Int
-        get() = BeaconUpgradeTier.levelToTier(totalLevels.sum())*10 + 10
-
-    val beaconRange: Box?
-        get() = world?.run {
-            Box(pos).expand(range.toDouble()).stretch(0.0, height.toDouble(), 0.0)
+    val range: Box?
+        get() = world?.run {Box(pos)
+            .expand(BeaconUpgradeTier.levelToTier(totalLevels.sum())*10.0 + 10)
+            .stretch(0.0, height.toDouble(), 0.0)
         }
-
-    val currentLevel: Int
-        get() = BeaconUpgrades.dataOf(upgrade)?.tier?.type?.idx.let { if (it != null) totalLevels[it] else 0  }
 
     /**
      * Whether at least one of the [totalLevels] is greater than 0, meaning the base is build properly.
@@ -108,10 +99,10 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         get() = beamSegments.isNotEmpty()
 
     /**
-     * Whether the [totalLevels] are high enough to activate the current [upgrade].
+     * Whether the [totalLevels] are high enough to activate the current [activeUpgrades].
      */
-    private val activeLevel: Boolean
-        get() = BeaconUpgrades.dataOf(upgrade)?.tier?.checkLevel(currentLevel) == true
+    private val activeLevels: BooleanArray
+        get() = activeUpgrades.map { BeaconUpgrades.dataOf(it)!!.tier.checkLevel(totalLevels) }.toBooleanArray()
 
     private var minY: Int = 0
 
@@ -144,7 +135,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
 
     override fun readNbt(nbt: NbtCompound) {
         super.readNbt(nbt)
-        upgrade = BeaconUpgrades[nbt.getInt("upgrade")]
+        upgrades = nbt.getIntArray("upgrades").map { BeaconUpgrades[it] }.ifEmpty { UPGRADES_EMPTY }
         if (nbt.contains("CustomName", 8)) {
             customName = Text.Serializer.fromJson(nbt.getString("CustomName"))
         }
@@ -153,7 +144,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
 
     override fun writeNbt(nbt: NbtCompound) {
         super.writeNbt(nbt)
-        nbt.putInt("upgrade", BeaconUpgrades.indexOf(upgrade))
+        nbt.putIntArray("upgrades", upgrades.map { BeaconUpgrades.indexOf(it) })
         if (customName != null) {
             nbt.putString("CustomName", Text.Serializer.toJson(customName))
         }
@@ -165,13 +156,13 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
      */
     private fun activate(world: World, pos: BlockPos) {
         BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_ACTIVATE)
-        upgrade?.activate(this)
+        activeUpgrades.forEach { it.activate(this) }
         val players = world.getNonSpectatingEntities(
             ServerPlayerEntity::class.java,
             boxOf(pos.x, pos.y, pos.z, pos.x, (pos.y - 4), pos.z).expand(10.0, 5.0, 10.0)
         )
         for (player in players) {
-            Criteria.CONSTRUCT_BEACON.trigger(player, currentLevel) // TODO: Update level
+            Criteria.CONSTRUCT_BEACON.trigger(player, totalLevels.sum()) // TODO: Update level
         }
     }
 
@@ -180,7 +171,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
      */
     private fun deactivate(world: World, pos: BlockPos) {
         BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_DEACTIVATE)
-        upgrade?.deactivate(this)
+        activeUpgrades.forEach { it.deactivate(this) }
     }
 
     /**
@@ -191,7 +182,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
 
         val activeBaseOld = activeBase
         val activeBeamOld = activeBeam
-        val activeLevelOld = activeLevel
+        val activeLevelsOld = activeLevels.copyOf()
 
         tickLevels(world, pos)
         if (activeBase) {
@@ -201,7 +192,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
                 playSound(world, pos, SoundEvents.BLOCK_BEACON_AMBIENT)
             }
         }
-        tickActivation(world, pos, activeBaseOld, activeBeamOld, activeLevelOld)
+        tickActivation(world, pos, activeBaseOld, activeBeamOld, activeLevelsOld)
     }
 
     /**
@@ -317,13 +308,13 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     }
 
     /**
-     * Ticks the active [upgrade] by invoking it and plays the [SoundEvents.BLOCK_BEACON_AMBIENT] sound.
+     * Ticks the [activeUpgrades] by invoking it and plays the [SoundEvents.BLOCK_BEACON_AMBIENT] sound.
      */
     private fun tickUpgrade(world: World, pos: BlockPos, state: BlockState) {
-        if (world.isClient || upgrade == null) return
+        if (world.isClient || activeUpgrades.isEmpty()) return
 
-        if (activeLevel) {
-            upgrade!!(world, pos, state, this)
+        if (activeLevels.any()) { // TODO: Check each update individually
+            activeUpgrades.forEach { it(world, pos, state, this) }
         }
 
     }
@@ -333,16 +324,16 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
      * beacons properties with the provided old values.
      * @param activeBaseOld The old property value.
      * @param activeBeamOld The old property value.
-     * @param activeLevelOld The old property value.
+     * @param activeLevelsOld The old property value.
      */
-    private fun tickActivation(world: World, pos: BlockPos, activeBaseOld: Boolean, activeBeamOld: Boolean, activeLevelOld: Boolean) {
+    private fun tickActivation(world: World, pos: BlockPos, activeBaseOld: Boolean, activeBeamOld: Boolean, activeLevelsOld: BooleanArray) {
         minY = world.bottomY - 1
         if (world.isClient) return
 
-        if (!activeBeamOld && activeBeam || !activeLevelOld && activeLevel) {
-            upgrade?.activate(this)
-        } else if (activeBeamOld && !activeBeam || activeLevelOld && !activeLevel) {
-            upgrade?.deactivate(this)
+        if (!activeBeamOld && activeBeam || !activeLevelsOld.any { it } && activeLevels.any { it }) { // TODO: Check each update individually
+            activeUpgrades.forEach { it.activate(this) }
+        } else if (activeBeamOld && !activeBeam || activeLevelsOld.any { it } && !activeLevels.any { it }) {
+            activeUpgrades.forEach { it.deactivate(this) }
         }
 
         if (!activeBaseOld && activeBase) {
@@ -364,21 +355,6 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     companion object {
 
         /**
-         * Index range for the [totalLevels] property.
-         */
-        val TOTAL_LEVELS_RANGE = 0..3
-
-        /**
-         * Index range for the [remainingLevels] property.
-         */
-        val REMAINING_LEVELS_RANGE = 4..7
-
-        /**
-         * The starting index for the [upgrade] property.
-         */
-        val UPGRADE_IDX = 8
-
-        /**
          * Provides the [tick] function of a [ModBeaconBlockEntity].
          */
         fun <T : BlockEntity> ticker(type: BlockEntityType<T>): BlockEntityTicker<T>? {
@@ -392,7 +368,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
      * The property delegate of a [ModBeaconBlockEntity].
      * The stored properties are:
      * @property totalLevels [ModBeaconBlockEntity.totalLevels] at indices 0-3.
-     * @property upgrade [ModBeaconBlockEntity.upgrade] at index 4.
+     * @property upgrades [ModBeaconBlockEntity.upgrade] at index 4.
      */
     inner class BeaconPropertyDelegate : PropertyDelegate {
 
@@ -400,29 +376,33 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
             // Set initial values
             this.totalLevels = this@ModBeaconBlockEntity.totalLevels
             this.remainingLevels = this@ModBeaconBlockEntity.remainingLevels
-            this.upgrade = this@ModBeaconBlockEntity.upgrade
+            this.upgrades = this@ModBeaconBlockEntity.upgrades
         }
 
         override fun get(i: Int): Int {
             return when(i) {
                 in TOTAL_LEVELS_RANGE -> this@ModBeaconBlockEntity.totalLevels[i]
-                in REMAINING_LEVELS_RANGE -> this@ModBeaconBlockEntity.remainingLevels[i-4]
-                else -> BeaconUpgrades.indexOf(this@ModBeaconBlockEntity.upgrade)
+                in REMAINING_LEVELS_RANGE -> this@ModBeaconBlockEntity.remainingLevels[i - REMAINING_LEVELS_RANGE.first]
+                in UPGRADE_RANGE -> BeaconUpgrades.indexOf(this@ModBeaconBlockEntity.upgrades.getOrNull(i - UPGRADE_RANGE.first))
+                else -> error("Index $i out of bounds")
             }
         }
 
         override fun set(i: Int, value: Int) {
             when(i) {
                 in TOTAL_LEVELS_RANGE -> { this@ModBeaconBlockEntity.totalLevels[i] = value }
-                in REMAINING_LEVELS_RANGE -> { this@ModBeaconBlockEntity.remainingLevels[i-4] = value }
-                else -> {
+                in REMAINING_LEVELS_RANGE -> { this@ModBeaconBlockEntity.remainingLevels[i - REMAINING_LEVELS_RANGE.first] = value }
+                in UPGRADE_RANGE -> {
                     if (activeBeam) playSound(world, pos, SoundEvents.BLOCK_BEACON_POWER_SELECT)
-                    this@ModBeaconBlockEntity.upgrade = BeaconUpgrades[value]
+                    val list = this@ModBeaconBlockEntity.upgrades.toMutableList()
+                    list[i - UPGRADE_RANGE.first] = BeaconUpgrades[value]
+                    this@ModBeaconBlockEntity.upgrades = list
                 }
+                else -> error("Index $i out of bounds")
             }
         }
 
-        override fun size(): Int = 20 // TODO: pick max size
+        override fun size(): Int = UPGRADE_RANGE.last + 1
     }
 
     /**

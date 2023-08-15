@@ -69,3 +69,8 @@ fun tickUpgrade(tick: ModBeaconBlockEntity.(world: World, pos: BlockPos, state: 
         tick(tick)
     }
 }
+
+/**
+ * Builds an empty [BeaconUpgrade].
+ */
+fun emptyUpgrade() = beaconUpgrade {  }

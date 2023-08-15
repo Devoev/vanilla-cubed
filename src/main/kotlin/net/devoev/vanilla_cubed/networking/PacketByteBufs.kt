@@ -21,20 +21,17 @@ fun PacketByteBuf.readVec3d(): Vec3d {
 }
 
 /**
- * Writes the given [upgrade] to this packet by storing its canonical index in [BeaconUpgrades]
+ * Writes the given [upgrades] to this packet by storing their canonical index in [BeaconUpgrades]
  */
-fun PacketByteBuf.writeBeaconUpgrade(upgrade: BeaconUpgrade?): PacketByteBuf {
-    writeNullable(upgrade) { packet, upgrade2 -> packet.writeInt(BeaconUpgrades.indexOf(upgrade2)) }
-    return this
+fun PacketByteBuf.writeBeaconUpgrades(upgrades: List<BeaconUpgrade?>): PacketByteBuf {
+    return writeIntArray(upgrades.map { BeaconUpgrades.indexOf(it) }.toIntArray())
 }
 
 /**
- * Reads the [BeaconUpgrade] entry of this packet.
+ * Reads the [BeaconUpgrade] entries of this packet.
  */
-fun PacketByteBuf.readBeaconUpgrade(): BeaconUpgrade? {
-//    val i = readNullable { it.readInt() } ?: error("No beacon upgrade saved in this packet.")
-    val i = readNullable { it.readInt() } ?: return null
-    return BeaconUpgrades[i]
+fun PacketByteBuf.readBeaconUpgrades(): List<BeaconUpgrade?> {
+    return readIntArray().map { BeaconUpgrades[it] }
 }
 
 /**
