@@ -367,8 +367,9 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     /**
      * The property delegate of a [ModBeaconBlockEntity].
      * The stored properties are:
-     * @property totalLevels [ModBeaconBlockEntity.totalLevels] at indices 0-3.
-     * @property upgrades [ModBeaconBlockEntity.upgrade] at index 4.
+     * @property totalLevels [Total levels][ModBeaconBlockEntity.totalLevels] at indices [0-3][TOTAL_LEVELS_RANGE].
+     * @property totalLevels [Remaining levels][ModBeaconBlockEntity.remainingLevels] at indices [4-7][REMAINING_LEVELS_RANGE].
+     * @property upgrades [Beacons upgrades][ModBeaconBlockEntity.upgrades] at indices [8-23][UPGRADE_RANGE].
      */
     inner class BeaconPropertyDelegate : PropertyDelegate {
 
