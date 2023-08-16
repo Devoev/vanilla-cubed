@@ -395,7 +395,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
                 in TOTAL_LEVELS_RANGE -> { this@ModBeaconBlockEntity.totalLevels[i] = value }
                 in REMAINING_LEVELS_RANGE -> { this@ModBeaconBlockEntity.remainingLevels[i - REMAINING_LEVELS_RANGE.first] = value }
                 in UPGRADE_RANGE -> {
-                    if (activeBeam) playSound(world, pos, SoundEvents.BLOCK_BEACON_POWER_SELECT)
+                    if (activeBeam && i == UPGRADE_RANGE.first) playSound(world, pos, SoundEvents.BLOCK_BEACON_POWER_SELECT)
                     val list = this@ModBeaconBlockEntity.upgrades.toMutableList()
                     list[i - UPGRADE_RANGE.first] = BeaconUpgrades.getOrNull(value)
                     this@ModBeaconBlockEntity.upgrades = list
