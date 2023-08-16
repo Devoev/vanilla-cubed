@@ -188,7 +188,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         if (activeBase) {
             tickBeam(world, pos)
             if (world.time % 80L == 0L && activeBeam) {
-                tickUpgrade(world, pos, state)
+                tickUpgrades(world, pos, state)
                 playSound(world, pos, SoundEvents.BLOCK_BEACON_AMBIENT)
             }
         }
@@ -310,11 +310,11 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     /**
      * Ticks the [activeUpgrades] by invoking it and plays the [SoundEvents.BLOCK_BEACON_AMBIENT] sound.
      */
-    private fun tickUpgrade(world: World, pos: BlockPos, state: BlockState) {
+    private fun tickUpgrades(world: World, pos: BlockPos, state: BlockState) {
         if (world.isClient || activeUpgrades.isEmpty()) return
 
-        if (activeLevels.any()) { // TODO: Check each update individually
-            activeUpgrades.forEach { it(world, pos, state, this) }
+        activeUpgrades.forEachIndexed { i, upgrade ->
+            if (activeLevels[i]) upgrade(world, pos, state, this)
         }
 
     }
