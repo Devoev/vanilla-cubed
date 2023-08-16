@@ -1,18 +1,18 @@
 package net.devoev.vanilla_cubed.client.gui.screen.ingame
 
 /**
- * A beacon upgrade of a given [tier] and [type].
- * @property tier Value between 0 and 4. A value of 0 means the upgrade is always activated.
+ * A beacon upgrade tier of a given [value] and [type].
+ * @property value Value between 0 and 4. A value of 0 means the upgrade is always activated.
  * @property type Block upgrade category.
  */
-data class BeaconUpgradeTier(val tier: Int, val type: Type) {
+data class BeaconUpgradeTier(val value: Int, val type: Type) {
 
     /**
      * Checks whether the given [level] is high enough to activate the upgrade for this tier.
      * @return True, if [level] is high enough.
      */
     fun checkLevel(level: Int): Boolean {
-        return tierToLevel(tier) <= level
+        return tierToLevel(value) <= level
     }
 
     /**
@@ -25,7 +25,7 @@ data class BeaconUpgradeTier(val tier: Int, val type: Type) {
     }
 
     init {
-        assert(tier in 0..4) { "Tier $tier must be between 0 and 4!" }
+        require(value in 0..4) { "Value $value must be between 0 and 4!" }
     }
 
     /**

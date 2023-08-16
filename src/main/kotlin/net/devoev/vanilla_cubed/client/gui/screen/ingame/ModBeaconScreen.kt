@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem
 import net.devoev.vanilla_cubed.VanillaCubed
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrade
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades
+import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.idx
 import net.devoev.vanilla_cubed.networking.Channels
 import net.devoev.vanilla_cubed.networking.writeBeaconUpgrades
 import net.devoev.vanilla_cubed.screen.ModBeaconScreenHandler
@@ -229,7 +230,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         }
 
         override val pressed: Boolean
-            get() = this@ModBeaconScreen.upgrades[BeaconUpgrades.indexOf(upgrade)] == upgrade
+            get() = this@ModBeaconScreen.upgrades[upgrade.idx] == upgrade
 
         /**
          * Renders the 18x18 [texture] of this button.
@@ -241,9 +242,9 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
 
         override fun onPress() {
             if (pressed) {
-                this@ModBeaconScreen.upgrades[BeaconUpgrades.indexOf(upgrade)] = null
+                this@ModBeaconScreen.upgrades[upgrade.idx] = null
             } else {
-                this@ModBeaconScreen.upgrades[BeaconUpgrades.indexOf(upgrade)] = upgrade
+                this@ModBeaconScreen.upgrades[upgrade.idx] = upgrade
             }
 
             update()

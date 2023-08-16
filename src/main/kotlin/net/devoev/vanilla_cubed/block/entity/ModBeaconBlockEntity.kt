@@ -1,7 +1,6 @@
 package net.devoev.vanilla_cubed.block.entity
 
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrade
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades
+import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.*
 import net.devoev.vanilla_cubed.client.gui.screen.ingame.BeaconUpgradeTier
 import net.devoev.vanilla_cubed.screen.*
 import net.devoev.vanilla_cubed.util.math.boxOf
@@ -68,7 +67,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         get() {
             var res = totalLevels.toList()
             for (upgrade in activeUpgrades) {
-                val required = BeaconUpgrades.requiredLevels(upgrade)
+                val required = upgrade.requiredLevels
                 res = List(res.size) { i -> res[i] - required[i] }
             }
             return res.toIntArray()
@@ -102,7 +101,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
      * Whether the [totalLevels] are high enough to activate the current [activeUpgrades].
      */
     private val activeLevels: BooleanArray
-        get() = activeUpgrades.map { BeaconUpgrades.dataOf(it)!!.tier.checkLevel(totalLevels) }.toBooleanArray()
+        get() = activeUpgrades.map { it.tier.checkLevel(totalLevels) }.toBooleanArray()
 
     private var minY: Int = 0
 
@@ -144,7 +143,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
 
     override fun writeNbt(nbt: NbtCompound) {
         super.writeNbt(nbt)
-        nbt.putIntArray("upgrades", upgrades.map { BeaconUpgrades.indexOf(it) })
+        nbt.putIntArray("upgrades", upgrades.map { it.idx })
         if (customName != null) {
             nbt.putString("CustomName", Text.Serializer.toJson(customName))
         }
@@ -384,7 +383,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
             return when(i) {
                 in TOTAL_LEVELS_RANGE -> this@ModBeaconBlockEntity.totalLevels[i]
                 in REMAINING_LEVELS_RANGE -> this@ModBeaconBlockEntity.remainingLevels[i - REMAINING_LEVELS_RANGE.first]
-                in UPGRADE_RANGE -> BeaconUpgrades.indexOf(this@ModBeaconBlockEntity.upgrades.getOrNull(i - UPGRADE_RANGE.first))
+                in UPGRADE_RANGE -> this@ModBeaconBlockEntity.upgrades.getOrNull(i - UPGRADE_RANGE.first).idx
                 else -> error("Index $i out of bounds")
             }
         }

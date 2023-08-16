@@ -146,7 +146,12 @@ object BeaconUpgrades {
     /**
      * Returns the [BeaconUpgradeButtonData] of the given [upgrade].
      */
-    fun dataOf(upgrade: BeaconUpgrade?) = dataAt(indexOf(upgrade))
+    fun dataOfOrNull(upgrade: BeaconUpgrade?) = dataAt(indexOf(upgrade))
+
+    /**
+     * Returns the [BeaconUpgradeButtonData] of the given [upgrade].
+     */
+    fun dataOf(upgrade: BeaconUpgrade) = dataAt(indexOf(upgrade))!!
 
     /**
      * Returns the canonical index of the given [upgrade].
@@ -158,8 +163,8 @@ object BeaconUpgrades {
      */
     fun requiredLevels(upgrade: BeaconUpgrade?): IntArray {
         val res = intArrayOf(0,0,0,0)
-        val tier = dataOf(upgrade)?.tier ?: return res
-        res[tier.type.idx] = BeaconUpgradeTier.tierToLevel(tier.tier)
+        val tier = dataOfOrNull(upgrade)?.tier ?: return res
+        res[tier.type.idx] = BeaconUpgradeTier.tierToLevel(tier.value)
         return res
     }
 }
@@ -173,3 +178,26 @@ private fun textureOf(name: String): Identifier = VanillaCubed.id("textures/gui/
  * Creates the translatable tooltip with the text [name] located at the path `block.vanilla_cubed.beacon`.
  */
 private fun tooltipOf(name: String): Text = Text.translatable("block.vanilla_cubed.beacon.$name")
+
+
+
+/**
+ * The canonical index of this upgrade.s
+ * @see BeaconUpgrades.indexOf
+ */
+val BeaconUpgrade?.idx: Int
+    get() = BeaconUpgrades.indexOf(this)
+
+/**
+ * The [BeaconUpgradeTier] of this upgrade.
+ * @see BeaconUpgrades.dataOfOrNull
+ */
+val BeaconUpgrade.tier: BeaconUpgradeTier
+    get() = BeaconUpgrades.dataOf(this).tier
+
+/**
+ * The [IntArray] of required levels of this upgrade.
+ * @see BeaconUpgrades.requiredLevels
+ */
+val BeaconUpgrade.requiredLevels: IntArray
+    get() = BeaconUpgrades.requiredLevels(this)
