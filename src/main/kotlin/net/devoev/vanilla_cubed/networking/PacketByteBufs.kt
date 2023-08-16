@@ -31,7 +31,7 @@ fun PacketByteBuf.writeBeaconUpgrades(upgrades: List<BeaconUpgrade?>): PacketByt
  * Reads the [BeaconUpgrade] entries of this packet.
  */
 fun PacketByteBuf.readBeaconUpgrades(): List<BeaconUpgrade?> {
-    return readIntArray().map { BeaconUpgrades[it] }
+    return readIntArray().map { BeaconUpgrades.getOrNull(it) }
 }
 
 /**

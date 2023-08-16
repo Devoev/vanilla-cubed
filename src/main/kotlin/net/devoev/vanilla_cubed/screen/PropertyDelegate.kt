@@ -23,7 +23,7 @@ var PropertyDelegate.remainingLevels: IntArray
  * [ModBeaconBlockEntity.upgrades] stored at indices [UPGRADE_RANGE].
  */
 var PropertyDelegate.upgrades: List<BeaconUpgrade?>
-    get() = UPGRADE_RANGE.map { i -> BeaconUpgrades[get(i)] }
+    get() = UPGRADE_RANGE.map { i -> BeaconUpgrades.getOrNull(get(i)) }
     set(value) { UPGRADE_RANGE.forEach { i -> set(i, BeaconUpgrades.indexOf(value[i - UPGRADE_RANGE.first])) } }
 
 /**

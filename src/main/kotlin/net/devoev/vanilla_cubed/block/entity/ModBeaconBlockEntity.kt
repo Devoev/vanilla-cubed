@@ -134,7 +134,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
 
     override fun readNbt(nbt: NbtCompound) {
         super.readNbt(nbt)
-        upgrades = nbt.getIntArray("upgrades").map { BeaconUpgrades[it] }.ifEmpty { UPGRADES_EMPTY }
+        upgrades = nbt.getIntArray("upgrades").map { BeaconUpgrades.getOrNull(it) }.ifEmpty { UPGRADES_EMPTY }
         if (nbt.contains("CustomName", 8)) {
             customName = Text.Serializer.fromJson(nbt.getString("CustomName"))
         }
@@ -395,7 +395,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
                 in UPGRADE_RANGE -> {
                     if (activeBeam) playSound(world, pos, SoundEvents.BLOCK_BEACON_POWER_SELECT)
                     val list = this@ModBeaconBlockEntity.upgrades.toMutableList()
-                    list[i - UPGRADE_RANGE.first] = BeaconUpgrades[value]
+                    list[i - UPGRADE_RANGE.first] = BeaconUpgrades.getOrNull(value)
                     this@ModBeaconBlockEntity.upgrades = list
                 }
                 else -> error("Index $i out of bounds")

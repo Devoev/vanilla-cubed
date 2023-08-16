@@ -136,25 +136,35 @@ object BeaconUpgrades {
     /**
      * Returns the [i]th beacon upgrade.
      */
-    operator fun get(i: Int): BeaconUpgrade? = UPGRADES.getOrNull(i)
+    operator fun get(i: Int): BeaconUpgrade = UPGRADES[i]
+
+    /**
+     * Returns the [i]th beacon upgrade or `null` if the index is out of bounds.
+     */
+    fun getOrNull(i: Int): BeaconUpgrade? = UPGRADES.getOrNull(i)
 
     /**
      * Returns the [BeaconUpgradeButtonData] of the [i]th upgrade.
      */
-    fun dataAt(i: Int): BeaconUpgradeButtonData? = ALL.getOrNull(i)
+    fun dataAt(i: Int): BeaconUpgradeButtonData = ALL[i]
+
+    /**
+     * Returns the [BeaconUpgradeButtonData] of the [i]th upgrade or `null` if the index is out of bounds.
+     */
+    fun dataAtOrNull(i: Int): BeaconUpgradeButtonData? = ALL.getOrNull(i)
 
     /**
      * Returns the [BeaconUpgradeButtonData] of the given [upgrade].
      */
-    fun dataOfOrNull(upgrade: BeaconUpgrade?) = dataAt(indexOf(upgrade))
+    fun dataOf(upgrade: BeaconUpgrade): BeaconUpgradeButtonData = dataAt(indexOf(upgrade))
 
     /**
      * Returns the [BeaconUpgradeButtonData] of the given [upgrade].
      */
-    fun dataOf(upgrade: BeaconUpgrade) = dataAt(indexOf(upgrade))!!
+    fun dataOfOrNull(upgrade: BeaconUpgrade?): BeaconUpgradeButtonData? = dataAtOrNull(indexOf(upgrade))
 
     /**
-     * Returns the canonical index of the given [upgrade].
+     * Returns the canonical index of the given [upgrade] or `-1` if the upgrade isn't contained.
      */
     fun indexOf(upgrade: BeaconUpgrade?) = UPGRADES.indexOf(upgrade)
 
