@@ -329,10 +329,12 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         minY = world.bottomY - 1
         if (world.isClient) return
 
-        if (!activeBeamOld && activeBeam || !activeLevelsOld.any { it } && activeLevels.any { it }) { // TODO: Check each update individually
-            activeUpgrades.forEach { it.activate(this) }
-        } else if (activeBeamOld && !activeBeam || activeLevelsOld.any { it } && !activeLevels.any { it }) {
-            activeUpgrades.forEach { it.deactivate(this) }
+        activeUpgrades.forEachIndexed { i, upgrade ->
+            if (!activeBeamOld && activeBeam || !activeLevelsOld[i] && activeLevels[i]) {
+                upgrade.activate(this)
+            } else if (activeBeamOld && !activeBeam || activeLevelsOld[i] && !activeLevels[i]) {
+                upgrade.deactivate(this)
+            }
         }
 
         if (!activeBaseOld && activeBase) {
