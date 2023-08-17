@@ -4,10 +4,8 @@ import net.minecraft.entity.effect.StatusEffect
 import net.minecraft.entity.effect.StatusEffectCategory
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.effect.StatusEffects
-import java.time.Duration
 import kotlin.random.Random
 import kotlin.random.nextInt
-import kotlin.random.nextUInt
 import kotlin.reflect.KVisibility
 import kotlin.reflect.full.staticProperties
 
@@ -24,9 +22,9 @@ object StatusEffectHelper {
         .map { it.get() }
         .filterIsInstance<StatusEffect>()
 
-    val harmful = all.filter { it.category == StatusEffectCategory.HARMFUL }
-    val beneficial = all.filter { it.category == StatusEffectCategory.BENEFICIAL }
-    val neutral = all.filter { it.category == StatusEffectCategory.NEUTRAL }
+    private val harmful = all.filter { it.category == StatusEffectCategory.HARMFUL }
+    private val beneficial = all.filter { it.category == StatusEffectCategory.BENEFICIAL }
+    private val neutral = all.filter { it.category == StatusEffectCategory.NEUTRAL }
 
     /**
      * Returns a random [StatusEffectInstance] from the given [list].

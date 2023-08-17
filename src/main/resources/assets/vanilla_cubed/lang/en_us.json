@@ -65,8 +65,6 @@
   "advancements.end.obtain_enderite_ore.description": "Mine enderite ore",
   "advancements.end.enderite_armor.title": "Cover me in Enderite",
   "advancements.end.enderite_armor.description": "Get a full suit of Enderite armor",
-  "advancements.end.dragon_scale_armor.title": "Dragon Elytra",
-  "advancements.end.dragon_scale_armor.description": "Get a full suit of Dragon Scale armor, upgraded with an Elytra",
 
   "item.vanilla_cubed.dragon_scale": "Dragon Scale",
   "item.vanilla_cubed.dragon_scale_infused": "Infused Dragon Scale",
@@ -82,6 +80,10 @@
   "item.vanilla_cubed.dragon_scale_leggings": "Dragon Scale Leggings",
   "item.vanilla_cubed.dragon_scale_boots": "Dragon Scale Boots",
   "item.vanilla_cubed.dragon_scale_chestplate_winged": "Winged Dragon Scale Chestplate",
+  "advancements.end.dragon_scale_armor.title": "Dragon Elytra",
+  "advancements.end.dragon_scale_armor.description": "Get a full suit of Dragon Scale armor, upgraded with an Elytra",
+
+  "effect.vanilla_cubed.reach": "Reach",
 
   "block.vanilla_cubed.beacon": "Beacon",
   "block.vanilla_cubed.beacon.iron1": "Resistance",

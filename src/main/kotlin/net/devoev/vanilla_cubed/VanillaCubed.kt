@@ -5,6 +5,7 @@ import net.devoev.vanilla_cubed.block.entity.ModBlockEntityTypes
 import net.devoev.vanilla_cubed.client.gui.screen.ingame.ModScreens
 import net.devoev.vanilla_cubed.enchantment.ModEnchantments
 import net.devoev.vanilla_cubed.entity.ModEntityTypes
+import net.devoev.vanilla_cubed.entity.effect.ModStatusEffects
 import net.devoev.vanilla_cubed.item.ModItems
 import net.devoev.vanilla_cubed.loot.ModLootTables
 import net.devoev.vanilla_cubed.networking.ModServerPlayNetworking
@@ -22,6 +23,7 @@ object VanillaCubed : ModInitializer {
         ModItems.init()
         ModBlocks.init()
         ModEnchantments.init()
+        ModStatusEffects.init()
         ModLootTables.init()
         ModConfiguredFeatures.init()
         ModPlacedFeatures.init()
