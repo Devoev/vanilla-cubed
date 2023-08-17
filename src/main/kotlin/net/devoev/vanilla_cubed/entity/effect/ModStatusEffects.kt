@@ -6,5 +6,5 @@ import net.minecraft.util.registry.Registry
 
 object ModStatusEffects : RegistryManager<StatusEffect>(Registry.STATUS_EFFECT) {
 
-    val REACH = create("reach", ReachStatusEffect)
+    val REACH = create("reach", reachStatusEffect)
 }
