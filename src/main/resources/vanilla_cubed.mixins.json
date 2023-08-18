@@ -12,6 +12,7 @@
     "EndermanEntityMixin",
     "EntityMixin",
     "ExperienceOrbEntityMixin",
+    "FireballEntityMixin",
     "FireBlockMixin",
     "GrindstoneScreenHandlerMixin",
     "ItemMixin",
