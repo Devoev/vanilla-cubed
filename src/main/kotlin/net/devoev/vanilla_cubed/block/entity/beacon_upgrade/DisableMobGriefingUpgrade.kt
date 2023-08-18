@@ -16,4 +16,6 @@ object DisableMobGriefingUpgrade : ToggledUpgrade() {
     fun injectCreeperExplosion(pos: BlockPos, type: Explosion.DestructionType): Explosion.DestructionType {
         return if (inRange(pos.toVec3d())) Explosion.DestructionType.NONE else type
     }
+
+    // TODO: Add more injections
 }
