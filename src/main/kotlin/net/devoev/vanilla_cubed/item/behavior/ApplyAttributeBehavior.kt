@@ -5,11 +5,11 @@ import net.minecraft.entity.attribute.EntityAttribute
 import net.minecraft.entity.attribute.EntityAttributeInstance
 import net.minecraft.entity.attribute.EntityAttributeModifier
 import net.minecraft.item.Item
-import net.minecraft.item.ToolItem
 
 /**
  * An [InventoryTickBehavior] that applies the [modifier] to the [attribute] of the entity holding the specified item.
  */
+@Deprecated("Apply status effects instead of attributes manually", replaceWith = ReplaceWith("ApplyToolStatusEffectBehavior"))
 class ApplyAttributeBehavior(val attribute: EntityAttribute, val modifier: EntityAttributeModifier)
     : InventoryTickBehavior<Item> {
 

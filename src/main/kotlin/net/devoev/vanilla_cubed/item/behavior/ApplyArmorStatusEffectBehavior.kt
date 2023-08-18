@@ -11,9 +11,9 @@ import net.minecraft.item.ArmorItem
  * An [InventoryTickBehavior] that applies the given [effect], when the entity is wearing a full set of armor.
  * @see ModArmor.AMETHYST
  */
-class ApplyEffectBehavior(private val effect: StatusEffect,
-                          private val duration: Int = 0,
-                          private val amplifier: Int = 0) : InventoryTickBehavior<ArmorItem> {
+class ApplyArmorStatusEffectBehavior(private val effect: StatusEffect,
+                                     private val duration: Int = 0,
+                                     private val amplifier: Int = 0) : InventoryTickBehavior<ArmorItem> {
 
     override fun accept(item: ArmorItem, params: InventoryTickParams) {
         if (params.world!!.isClient) return
