@@ -83,7 +83,7 @@ object BeaconUpgrades {
             emeraldTierOf(1)
         ),
         BeaconUpgradeButtonData(
-            emptyUpgrade(),
+            DisableMobGriefingUpgrade,
             tooltipOf("emerald2"),
             textureOf("emerald2.png"),
             emeraldTierOf(2)

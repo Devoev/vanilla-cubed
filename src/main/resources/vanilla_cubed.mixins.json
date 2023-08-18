@@ -5,6 +5,7 @@
   "mixins": [
     "BeaconBlockMixin",
     "BlockMixin",
+    "CreeperEntityMixin",
     "EnchantmentHelperMixin",
     "EnchantmentScreenHandlerMixin",
     "EnderDragonEntityMixin",
