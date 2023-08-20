@@ -69,7 +69,7 @@ object BeaconUpgrades {
             goldTierOf(3)
         ),
         BeaconUpgradeButtonData(
-            emptyUpgrade(),
+            DisableGearDamageUpgrade,
             tooltipOf("gold4"),
             textureOf("gold4.png"),
             goldTierOf(4)

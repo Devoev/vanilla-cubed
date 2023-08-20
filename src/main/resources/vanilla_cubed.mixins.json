@@ -17,6 +17,7 @@
     "GrindstoneScreenHandlerMixin",
     "ItemMixin",
     "ItemSettingsAccessor",
+    "ItemStackMixin",
     "LavaFluidMixin",
     "LightningEntityMixin",
     "LivingEntityMixin",
