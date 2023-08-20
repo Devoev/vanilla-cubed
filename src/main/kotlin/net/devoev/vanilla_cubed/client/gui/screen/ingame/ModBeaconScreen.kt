@@ -83,7 +83,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
                 val xi = x + x0 + i*dx
                 val yj = y + y0 + j*dy
                 val n = j + 4*i // canonical upgrade index
-                buttons.addButton(UpgradeButtonWidget(xi, yj, BeaconUpgrades.dataAt(n)!!))
+                buttons.addButton(UpgradeButtonWidget(xi, yj, BeaconUpgrades.dataAt(n)))
             }
         }
     }
