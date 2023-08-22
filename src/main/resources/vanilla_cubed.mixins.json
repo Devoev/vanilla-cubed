@@ -27,7 +27,9 @@
     "ServerPlayerEntityMixin",
     "ServerWorldMixin",
     "TridentEntityAccessor",
-    "TridentEntityMixin"
+    "TridentEntityMixin",
+    "WitherEntityMixin",
+    "WitherSkullEntityMixin"
   ],
   "client": [],
   "injectors": {
