@@ -32,7 +32,7 @@ class StatusEffectUpgrade<out T : LivingEntity>(
 /**
  * Creates a [StatusEffectUpgrade] that applies to non spectating players.
  */
-fun playerStatusEffectUpgradeOf(effect: StatusEffect, amplifier: Int)
+fun playerStatusEffectUpgradeOf(effect: StatusEffect, amplifier: Int = 0)
     = StatusEffectUpgrade<PlayerEntity>(EntityType.PLAYER, effect, amplifier) { !it.isSpectator }
 
 /**

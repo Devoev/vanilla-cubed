@@ -6,6 +6,7 @@ import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades.EMERA
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades.GOLD
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades.IRON
 import net.devoev.vanilla_cubed.client.gui.screen.ingame.*
+import net.devoev.vanilla_cubed.entity.effect.ModStatusEffects
 import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
@@ -24,7 +25,7 @@ object BeaconUpgrades {
 
     private val IRON = listOf(
         BeaconUpgradeButtonData(
-            playerStatusEffectUpgradeOf(StatusEffects.RESISTANCE, 0),
+            playerStatusEffectUpgradeOf(StatusEffects.NIGHT_VISION),
             tooltipOf("iron1"),
             textureOf("iron1.png"),
             ironTierOf(1)
@@ -32,11 +33,11 @@ object BeaconUpgrades {
         BeaconUpgradeButtonData(
             emptyUpgrade(),
             tooltipOf("iron2"),
-            textureOf("iron2.png"),
+            textureOf("emerald2.png"),
             ironTierOf(2)
         ),
         BeaconUpgradeButtonData(
-            emptyUpgrade(),
+            playerStatusEffectUpgradeOf(ModStatusEffects.REACH, 1),
             tooltipOf("iron3"),
             textureOf("iron3.png"),
             ironTierOf(3)
@@ -51,13 +52,13 @@ object BeaconUpgrades {
 
     private val GOLD = listOf(
         BeaconUpgradeButtonData(
-            playerStatusEffectUpgradeOf(StatusEffects.SPEED, 0) andThen playerStatusEffectUpgradeOf(StatusEffects.JUMP_BOOST, 0),
+            playerStatusEffectUpgradeOf(StatusEffects.SPEED) andThen playerStatusEffectUpgradeOf(StatusEffects.JUMP_BOOST),
             tooltipOf("gold1"),
             textureOf("gold1.png"),
             goldTierOf(1)
         ),
         BeaconUpgradeButtonData(
-            emptyUpgrade(),
+            playerStatusEffectUpgradeOf(StatusEffects.SATURATION),
             tooltipOf("gold2"),
             textureOf("gold2.png"),
             goldTierOf(2)
@@ -83,13 +84,13 @@ object BeaconUpgrades {
             emeraldTierOf(1)
         ),
         BeaconUpgradeButtonData(
-            DisableMobGriefingUpgrade,
+            emptyUpgrade(),
             tooltipOf("emerald2"),
             textureOf("emerald2.png"),
             emeraldTierOf(2)
         ),
         BeaconUpgradeButtonData(
-            emptyUpgrade(),
+            DisableMobGriefingUpgrade,
             tooltipOf("emerald3"),
             textureOf("emerald3.png"),
             emeraldTierOf(3)
@@ -104,7 +105,7 @@ object BeaconUpgrades {
 
     private val DIAMOND = listOf(
         BeaconUpgradeButtonData(
-            playerStatusEffectUpgradeOf(StatusEffects.STRENGTH, 0) andThen playerStatusEffectUpgradeOf(StatusEffects.REGENERATION, 0),
+            playerStatusEffectUpgradeOf(StatusEffects.STRENGTH) andThen playerStatusEffectUpgradeOf(StatusEffects.RESISTANCE),
             tooltipOf("diamond1"),
             textureOf("diamond1.png"),
             diamondTierOf(1)
@@ -116,7 +117,7 @@ object BeaconUpgrades {
             diamondTierOf(2)
         ),
         BeaconUpgradeButtonData(
-            emptyUpgrade(),
+            playerStatusEffectUpgradeOf(StatusEffects.REGENERATION) andThen playerStatusEffectUpgradeOf(StatusEffects.HEALTH_BOOST),
             tooltipOf("diamond3"),
             textureOf("diamond3.png"),
             diamondTierOf(3)
