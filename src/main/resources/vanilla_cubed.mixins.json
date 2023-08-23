@@ -28,6 +28,7 @@
     "PlayerInventoryMixin",
     "ServerPlayerEntityMixin",
     "ServerWorldMixin",
+    "StatusEffectMixin",
     "TridentEntityAccessor",
     "TridentEntityMixin",
     "WitherEntityMixin",
