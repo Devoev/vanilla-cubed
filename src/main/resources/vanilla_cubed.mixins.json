@@ -6,6 +6,7 @@
     "AbstractMinecartEntityMixin",
     "BeaconBlockMixin",
     "BlockMixin",
+    "BoatEntityMixin",
     "CreeperEntityMixin",
     "EnchantmentHelperMixin",
     "EnchantmentScreenHandlerMixin",

@@ -15,7 +15,7 @@ abstract class ToggledUpgrade : BeaconUpgrade {
     /**
      * A map of all ranges that are activated by various beacons.
      */
-    private val activeRanges: MutableMap<BlockPos, Box> = mutableMapOf()
+    protected val activeRanges: MutableMap<BlockPos, Box> = mutableMapOf()
 
     override fun activate(blockEntity: ModBeaconBlockEntity) {
         activeRanges[blockEntity.pos] = blockEntity.range ?: return
@@ -30,5 +30,5 @@ abstract class ToggledUpgrade : BeaconUpgrade {
     /**
      * Whether the given [pos] is inside any of the [activeRanges].
      */
-    fun inRange(pos: Vec3d) = activeRanges.values.any { pos in it }
+    open fun inRange(pos: Vec3d) = activeRanges.values.any { pos in it }
 }
