@@ -10,9 +10,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(AbstractMinecartEntity.class)
 public class AbstractMinecartEntityMixin {
 
-    @Inject(method = "getVelocityMultiplier", at=@At("HEAD"), cancellable = true)
-    private void increaseVelocityMultiplier(CallbackInfoReturnable<Float> cir) {
+    @Inject(method = "getMaxSpeed", at=@At("RETURN"), cancellable = true)
+    private void increaseMaxSpeed(CallbackInfoReturnable<Double> cir) {
         AbstractMinecartEntity entity = (AbstractMinecartEntity)(Object)this;
-        IncreaseVehicleSpeed.INSTANCE.injectMinecart(entity.getBlockPos(), entity.world, cir);
+        IncreaseVehicleSpeed.INSTANCE.injectMinecart(entity.getBlockPos(), cir);
     }
 }
