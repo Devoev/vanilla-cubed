@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.block.entity.beacon_upgrade
 
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.IncreaseVehicleSpeed.INCREASE_RANGE
+import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.IncreaseVehicleSpeedUpgrade.INCREASE_RANGE
 import net.devoev.vanilla_cubed.mixin.AbstractMinecartEntityMixin
 import net.devoev.vanilla_cubed.mixin.BoatEntityMixin
 import net.devoev.vanilla_cubed.util.math.toVec3d
@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
  * Increases the speed of vehicles like [minecarts][MinecartEntity] by [INCREASE_RANGE].
  * Range of this upgrade is increased by [INCREASE_RANGE].
  */
-object IncreaseVehicleSpeed : ToggledUpgrade() {
+object IncreaseVehicleSpeedUpgrade : ToggledUpgrade() {
 
     private const val INCREASE_SPEED = 5
     private const val INCREASE_RANGE = 3

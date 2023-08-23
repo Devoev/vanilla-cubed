@@ -64,7 +64,7 @@ object BeaconUpgrades {
             goldTierOf(2)
         ),
         BeaconUpgradeButtonData(
-            IncreaseVehicleSpeed,
+            IncreaseVehicleSpeedUpgrade,
             tooltipOf("gold3"),
             textureOf("gold3.png"),
             goldTierOf(3)
@@ -84,7 +84,7 @@ object BeaconUpgrades {
             emeraldTierOf(1)
         ),
         BeaconUpgradeButtonData(
-            emptyUpgrade(),
+            glowingUpgrade,
             tooltipOf("emerald2"),
             textureOf("emerald2.png"),
             emeraldTierOf(2)
