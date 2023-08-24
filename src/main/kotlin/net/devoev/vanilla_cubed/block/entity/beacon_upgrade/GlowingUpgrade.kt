@@ -8,6 +8,9 @@ import java.util.function.Predicate
 import kotlin.reflect.KVisibility
 import kotlin.reflect.full.staticProperties
 
+/**
+ * Selectors for entity types that are either in [SpawnGroup.CREATURE] or [SpawnGroup.MONSTER].
+ */
 private val selectors: Map<EntityType<out LivingEntity>, Predicate<LivingEntity>> = EntityType::class.staticProperties
     .filter { it.visibility == KVisibility.PUBLIC }
     .map { it.get() }
