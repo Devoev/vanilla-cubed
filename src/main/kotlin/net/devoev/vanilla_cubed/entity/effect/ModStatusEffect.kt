@@ -9,7 +9,7 @@ import net.minecraft.util.math.MathHelper
 /**
  * A modded [StatusEffect].
  */
-class ModStatusEffect(category: StatusEffectCategory, color: Int) : StatusEffect(category, color)
+open class ModStatusEffect(category: StatusEffectCategory, color: Int) : StatusEffect(category, color)
 
 /**
  * Creates a [StatusEffect] that modifies the given entity [attribute].
