@@ -58,7 +58,7 @@ object BeaconUpgrades {
             goldTierOf(1)
         ),
         BeaconUpgradeButtonData(
-            playerStatusEffectUpgradeOf(StatusEffects.SATURATION),
+            playerStatusEffectUpgradeOf(ModStatusEffects.NOURISHMENT),
             tooltipOf("gold2"),
             textureOf("gold2.png"),
             goldTierOf(2)
