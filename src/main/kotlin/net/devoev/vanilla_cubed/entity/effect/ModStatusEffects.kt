@@ -7,4 +7,5 @@ import net.minecraft.util.registry.Registry
 object ModStatusEffects : RegistryManager<StatusEffect>(Registry.STATUS_EFFECT) {
 
     val REACH = create("reach", reachStatusEffect)
+    val NOURISHMENT = create("nourishment", NourishmentStatusEffect())
 }
