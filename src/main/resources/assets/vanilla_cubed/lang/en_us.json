@@ -84,6 +84,7 @@
   "advancements.end.dragon_scale_armor.description": "Get a full suit of Dragon Scale armor, upgraded with an Elytra",
 
   "effect.vanilla_cubed.reach": "Reach",
+  "effect.vanilla_cubed.nourishment": "Nourishment",
 
   "block.vanilla_cubed.beacon": "Beacon",
   "block.vanilla_cubed.beacon.iron1": "Night Vision",
@@ -91,7 +92,7 @@
   "block.vanilla_cubed.beacon.iron3": "Reach II",
   "block.vanilla_cubed.beacon.iron4": "Haste II",
   "block.vanilla_cubed.beacon.gold1": "Jump Boost + Speed",
-  "block.vanilla_cubed.beacon.gold2": "Saturation",
+  "block.vanilla_cubed.beacon.gold2": "Nourishment",
   "block.vanilla_cubed.beacon.gold3": "Increase vehicle speed",
   "block.vanilla_cubed.beacon.gold4": "Disable armor and tool damage",
   "block.vanilla_cubed.beacon.emerald1": "Disable environmental damage",

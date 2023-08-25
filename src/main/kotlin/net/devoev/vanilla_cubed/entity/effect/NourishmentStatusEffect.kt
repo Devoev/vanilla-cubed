@@ -7,7 +7,7 @@ import net.minecraft.entity.player.PlayerEntity
 /**
  * Passively regenerates hunger of players.
  */
-class NourishmentStatusEffect : ModStatusEffect(StatusEffectCategory.BENEFICIAL, 16262179) {
+class NourishmentStatusEffect : ModStatusEffect(StatusEffectCategory.BENEFICIAL, 0xaf5220) {
 
     override fun applyUpdateEffect(entity: LivingEntity?, amplifier: Int) {
         // TODO: Update implementation
