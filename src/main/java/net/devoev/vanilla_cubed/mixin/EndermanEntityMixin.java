@@ -1,6 +1,8 @@
 package net.devoev.vanilla_cubed.mixin;
 
+import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.DisableMobGriefingUpgrade;
 import net.devoev.vanilla_cubed.item.ItemKt;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -22,5 +24,12 @@ public class EndermanEntityMixin {
     private void notStaringWhenWearingEnderite(PlayerEntity player, CallbackInfoReturnable<Boolean> info) {
         for (ItemStack stack : player.getArmorItems())
             if (ItemKt.isEnderite(stack.getItem())) info.setReturnValue(false);
+    }
+
+    @Inject(method = "getCarriedBlock", at = @At("HEAD"), cancellable = true)
+    private void removeCarriedBlock(CallbackInfoReturnable<BlockState> cir) {
+        // TODO: Test if this is working
+        EndermanEntity entity = (EndermanEntity)(Object) this;
+        DisableMobGriefingUpgrade.INSTANCE.disableEndermanBlockPickup(entity.getPos(), cir);
     }
 }

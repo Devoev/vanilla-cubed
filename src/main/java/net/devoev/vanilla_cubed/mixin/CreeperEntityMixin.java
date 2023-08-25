@@ -14,6 +14,6 @@ public class CreeperEntityMixin {
     @ModifyVariable(method = "explode", at = @At(value = "STORE"))
     private Explosion.DestructionType disableExplosion(Explosion.DestructionType type) {
         CreeperEntity entity = (CreeperEntity)(Object)this;
-        return DisableMobGriefingUpgrade.INSTANCE.injectExplosionDestructionType(entity.getBlockPos(), type);
+        return DisableMobGriefingUpgrade.INSTANCE.injectExplosionDestructionType(entity.getPos(), type);
     }
 }

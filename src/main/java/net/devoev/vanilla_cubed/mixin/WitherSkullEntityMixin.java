@@ -14,6 +14,6 @@ public class WitherSkullEntityMixin {
     @ModifyVariable(method = "onCollision", at = @At(value = "STORE"))
     private Explosion.DestructionType disableExplosion(Explosion.DestructionType type) {
         WitherSkullEntity entity = (WitherSkullEntity)(Object)this;
-        return DisableMobGriefingUpgrade.INSTANCE.injectExplosionDestructionType(entity.getBlockPos(), type);
+        return DisableMobGriefingUpgrade.INSTANCE.injectExplosionDestructionType(entity.getPos(), type);
     }
 }
