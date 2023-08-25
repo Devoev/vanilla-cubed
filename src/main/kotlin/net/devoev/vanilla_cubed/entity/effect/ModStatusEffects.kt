@@ -6,6 +6,8 @@ import net.minecraft.util.registry.Registry
 
 object ModStatusEffects : RegistryManager<StatusEffect>(Registry.STATUS_EFFECT) {
 
+    // TODO: Add potions for both effects
+    // TODO: Add magnetic status effect
     val REACH = create("reach", reachStatusEffect)
     val NOURISHMENT = create("nourishment", NourishmentStatusEffect())
 }
