@@ -12,6 +12,7 @@
     "EnchantmentScreenHandlerMixin",
     "EnderDragonEntityMixin",
     "EndermanEntityMixin",
+    "EndermanEntityPickUpBlockGoalMixin",
     "EntityMixin",
     "ExperienceOrbEntityMixin",
     "FireballEntityMixin",

@@ -1,10 +1,9 @@
 package net.devoev.vanilla_cubed.block.entity.beacon_upgrade
 
 import net.devoev.vanilla_cubed.mixin.CreeperEntityMixin
-import net.devoev.vanilla_cubed.mixin.EndermanEntityMixin
+import net.devoev.vanilla_cubed.mixin.EndermanEntityPickUpBlockGoalMixin
 import net.devoev.vanilla_cubed.mixin.FireballEntityMixin
 import net.devoev.vanilla_cubed.mixin.WitherSkullEntityMixin
-import net.minecraft.block.BlockState
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.explosion.Explosion
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
@@ -30,10 +29,12 @@ object DisableMobGriefingUpgrade : ToggledUpgrade() {
 
     /**
      * Sets the carried block of the enderman to `null`.
-     * @see EndermanEntityMixin.removeCarriedBlock
+     * @see EndermanEntityPickUpBlockGoalMixin.disableStart
      */
-    fun disableEndermanBlockPickup(pos: Vec3d, cir: CallbackInfoReturnable<BlockState>) {
-        if (inRange(pos)) cir.returnValue = null
+    fun disableEndermanBlockPickup(pos: Vec3d?, cir: CallbackInfoReturnable<Boolean>) {
+//        if (inRange(pos)) cir.returnValue = null
+        // TODO: Add access widener for PickUpBlockGoal and get enderman range.
+        cir.returnValue = false
     }
 
     // TODO: Add more injections
