@@ -18,7 +18,7 @@ class ApplyToolStatusEffectBehavior(private val effect: StatusEffect,
 
         if (entity !is LivingEntity) return
         if (selected && entity.offHandStack != stack) {
-            entity.addStatusEffect(StatusEffectInstance(effect, duration, amplifier))
+            entity.addStatusEffect(StatusEffectInstance(effect, duration, amplifier, false, false))
         }
     }
 }
