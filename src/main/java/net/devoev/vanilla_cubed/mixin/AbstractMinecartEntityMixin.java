@@ -13,6 +13,6 @@ public class AbstractMinecartEntityMixin {
     @Inject(method = "getMaxSpeed", at=@At("RETURN"), cancellable = true)
     private void increaseMaxSpeed(CallbackInfoReturnable<Double> cir) {
         AbstractMinecartEntity entity = (AbstractMinecartEntity)(Object)this;
-        IncreaseVehicleSpeedUpgrade.INSTANCE.injectMinecart(entity.getBlockPos(), cir);
+        IncreaseVehicleSpeedUpgrade.INSTANCE.injectMinecart(entity.getBlockPos(), entity.world, cir);
     }
 }
