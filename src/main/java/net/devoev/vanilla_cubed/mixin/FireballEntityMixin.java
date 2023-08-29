@@ -9,10 +9,13 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(FireballEntity.class)
 public class FireballEntityMixin {
 
+    /**
+     * @see DisableMobGriefingUpgrade
+     */
     @SuppressWarnings("All")
     @ModifyVariable(method = "onCollision", at = @At(value = "STORE"), ordinal = 0)
     private boolean disableExplosion(boolean bl) {
         FireballEntity entity = (FireballEntity)(Object)this;
-        return DisableMobGriefingUpgrade.INSTANCE.injectFireballExplosion(entity.getPos(), bl);
+        return DisableMobGriefingUpgrade.INSTANCE.disableExplosion(entity.getPos(), bl);
     }
 }

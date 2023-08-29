@@ -10,10 +10,13 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(WitherSkullEntity.class)
 public class WitherSkullEntityMixin {
 
+    /**
+     * @see DisableMobGriefingUpgrade
+     */
     @SuppressWarnings("All")
     @ModifyVariable(method = "onCollision", at = @At(value = "STORE"))
     private Explosion.DestructionType disableExplosion(Explosion.DestructionType type) {
         WitherSkullEntity entity = (WitherSkullEntity)(Object)this;
-        return DisableMobGriefingUpgrade.INSTANCE.injectExplosionDestructionType(entity.getPos(), type);
+        return DisableMobGriefingUpgrade.INSTANCE.disableExplosion(entity.getPos(), type);
     }
 }

@@ -14,6 +14,6 @@ public class WitherEntityMixin {
     @ModifyVariable(method = "mobTick", at = @At(value = "STORE"))
     private Explosion.DestructionType disableExplosion(Explosion.DestructionType type) {
         WitherEntity entity = (WitherEntity)(Object)this;
-        return DisableMobGriefingUpgrade.INSTANCE.injectExplosionDestructionType(entity.getPos(), type);
+        return DisableMobGriefingUpgrade.INSTANCE.disableExplosion(entity.getPos(), type);
     }
 }

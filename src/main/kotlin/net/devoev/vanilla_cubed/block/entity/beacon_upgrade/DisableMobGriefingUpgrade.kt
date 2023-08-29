@@ -14,16 +14,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
 object DisableMobGriefingUpgrade : ToggledUpgrade() {
 
     /**
-     * Injection for [CreeperEntityMixin.disableExplosion] and [WitherSkullEntityMixin.disableExplosion].
+     * Disables explosions by setting the destruction type to [Explosion.DestructionType.NONE].
+     * @see CreeperEntityMixin.disableExplosion
+     * @see WitherSkullEntityMixin.disableExplosion
      */
-    fun injectExplosionDestructionType(pos: Vec3d, type: Explosion.DestructionType): Explosion.DestructionType {
+    fun disableExplosion(pos: Vec3d, type: Explosion.DestructionType): Explosion.DestructionType {
         return if (inRange(pos)) Explosion.DestructionType.NONE else type
     }
 
     /**
-     * Injection for [FireballEntityMixin.disableExplosion].
+     * Disables the fireball explosion by updating the local [bl] variable.
+     * @see FireballEntityMixin.disableExplosion
      */
-    fun injectFireballExplosion(pos: Vec3d, bl: Boolean): Boolean {
+    fun disableExplosion(pos: Vec3d, bl: Boolean): Boolean {
         return bl && !inRange(pos)
     }
 
