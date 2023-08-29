@@ -88,10 +88,10 @@
 
   "block.vanilla_cubed.beacon": "Beacon",
   "block.vanilla_cubed.beacon.iron1": "Night Vision",
-  "block.vanilla_cubed.beacon.iron2": "",
+  "block.vanilla_cubed.beacon.iron2": "Jump Boost II",
   "block.vanilla_cubed.beacon.iron3": "Reach II",
   "block.vanilla_cubed.beacon.iron4": "Haste II",
-  "block.vanilla_cubed.beacon.gold1": "Jump Boost + Speed",
+  "block.vanilla_cubed.beacon.gold1": "Speed II",
   "block.vanilla_cubed.beacon.gold2": "Nourishment",
   "block.vanilla_cubed.beacon.gold3": "Increase vehicle speed",
   "block.vanilla_cubed.beacon.gold4": "Disable armor and tool damage",
@@ -102,5 +102,5 @@
   "block.vanilla_cubed.beacon.diamond1": "Strength + Resistance",
   "block.vanilla_cubed.beacon.diamond2": "Strengthen allied mobs",
   "block.vanilla_cubed.beacon.diamond3": "Regeneration + Health Boost",
-  "block.vanilla_cubed.beacon.diamond4": "Increase monster XP"
+  "block.vanilla_cubed.beacon.diamond4": "Increase XP drop"
 }

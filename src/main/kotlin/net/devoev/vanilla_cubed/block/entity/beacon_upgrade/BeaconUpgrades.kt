@@ -31,9 +31,9 @@ object BeaconUpgrades {
             ironTierOf(1)
         ),
         BeaconUpgradeButtonData(
-            emptyUpgrade(),
+            playerStatusEffectUpgradeOf(StatusEffects.JUMP_BOOST, 1),
             tooltipOf("iron2"),
-            textureOf("emerald2.png"),
+            textureOf("iron2.png"),
             ironTierOf(2)
         ),
         BeaconUpgradeButtonData(
@@ -52,7 +52,7 @@ object BeaconUpgrades {
 
     private val GOLD = listOf(
         BeaconUpgradeButtonData(
-            playerStatusEffectUpgradeOf(StatusEffects.SPEED) andThen playerStatusEffectUpgradeOf(StatusEffects.JUMP_BOOST),
+            playerStatusEffectUpgradeOf(StatusEffects.SPEED, 1),
             tooltipOf("gold1"),
             textureOf("gold1.png"),
             goldTierOf(1)
