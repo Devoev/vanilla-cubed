@@ -123,7 +123,7 @@ object BeaconUpgrades {
             diamondTierOf(3)
         ),
         BeaconUpgradeButtonData(
-            emptyUpgrade(),
+            IncreaseXPDropUpgrade,
             tooltipOf("diamond4"),
             textureOf("diamond4.png"),
             diamondTierOf(4)

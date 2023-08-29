@@ -25,6 +25,7 @@
     "LavaFluidMixin",
     "LightningEntityMixin",
     "LivingEntityMixin",
+    "MobEntityMixin",
     "PiglinBrainMixin",
     "PlayerEntityMixin",
     "PlayerInventoryMixin",
