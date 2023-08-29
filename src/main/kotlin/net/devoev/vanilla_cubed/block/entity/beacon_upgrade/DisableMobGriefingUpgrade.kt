@@ -31,10 +31,8 @@ object DisableMobGriefingUpgrade : ToggledUpgrade() {
      * Sets the carried block of the enderman to `null`.
      * @see EndermanEntityPickUpBlockGoalMixin.disableStart
      */
-    fun disableEndermanBlockPickup(pos: Vec3d?, cir: CallbackInfoReturnable<Boolean>) {
-//        if (inRange(pos)) cir.returnValue = null
-        // TODO: Add access widener for PickUpBlockGoal and get enderman range.
-        cir.returnValue = false
+    fun disableEndermanBlockPickup(pos: Vec3d, cir: CallbackInfoReturnable<Boolean>) {
+        if (inRange(pos)) cir.returnValue = false
     }
 
     // TODO: Add more injections

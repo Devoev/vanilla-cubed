@@ -9,8 +9,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(targets = "net/minecraft/entity/mob/EndermanEntity$PickUpBlockGoal")
 public class EndermanEntityPickUpBlockGoalMixin {
 
+    /**
+     * @see DisableMobGriefingUpgrade
+     */
     @Inject(method = "canStart", at = @At("HEAD"), cancellable = true)
     private void disableStart(CallbackInfoReturnable<Boolean> cir) {
-        DisableMobGriefingUpgrade.INSTANCE.disableEndermanBlockPickup(null, cir);
+        EndermanEntityPickUpBlockGoalAccessor accessor = (EndermanEntityPickUpBlockGoalAccessor) this;
+        DisableMobGriefingUpgrade.INSTANCE.disableEndermanBlockPickup(accessor.getEnderman().getPos(), cir);
     }
 }
