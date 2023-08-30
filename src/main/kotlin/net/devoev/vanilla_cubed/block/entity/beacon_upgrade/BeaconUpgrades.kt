@@ -64,7 +64,7 @@ object BeaconUpgrades {
             goldTierOf(2)
         ),
         BeaconUpgradeButtonData(
-            IncreaseVehicleSpeedUpgrade,
+            IncreaseMinecartSpeedUpgrade,
             tooltipOf("gold3"),
             textureOf("gold3.png"),
             goldTierOf(3)

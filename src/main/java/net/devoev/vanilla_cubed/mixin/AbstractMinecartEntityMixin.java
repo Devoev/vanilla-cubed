@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.IncreaseVehicleSpeedUpgrade;
+import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.IncreaseMinecartSpeedUpgrade;
 import net.minecraft.entity.vehicle.AbstractMinecartEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,6 +13,6 @@ public class AbstractMinecartEntityMixin {
     @Inject(method = "getMaxSpeed", at=@At("RETURN"), cancellable = true)
     private void increaseMaxSpeed(CallbackInfoReturnable<Double> cir) {
         AbstractMinecartEntity entity = (AbstractMinecartEntity)(Object)this;
-        IncreaseVehicleSpeedUpgrade.INSTANCE.injectMinecart(entity.getBlockPos(), entity.world, cir);
+        IncreaseMinecartSpeedUpgrade.INSTANCE.increaseMaxSpeed(entity.getBlockPos(), entity.world, cir);
     }
 }
