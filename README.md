@@ -55,7 +55,6 @@ The beacon upgrades range from classic upgrades like status effects (e.g. jump b
 - Reworked Totems of Undying: Totems will activate from **any** inventory slot, so you don't have to waste the offhand slot
 
 ## TODO
-- Improved Beacons
 - Better Phantoms
 - More uses for Copper
 - Sculk Armor
