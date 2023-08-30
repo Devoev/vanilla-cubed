@@ -38,7 +38,7 @@ trident.
 
 ### Improved Beacons
 
-Vanilla Cubed adds a new tier system to beacons. Instead of Iron, Gold, Emerald and Diamond providing all the same upgrades, one must now choose which type of update to pick. Each upgrade category has up to 4 upgrades. The upgrade categories are:
+*Vanilla Cubed* adds a new tier system to beacons. Instead of Iron, Gold, Emerald and Diamond providing all the same upgrades, one must now choose which type of update to pick. Each upgrade category has up to 4 upgrades. The upgrade categories are:
 - Iron: Building/ Mining
 - Gold: Utility
 - Emerald: Environmental
