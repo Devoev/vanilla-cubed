@@ -6,19 +6,21 @@ import net.devoev.vanilla_cubed.mixin.LightningEntityMixin
 import net.devoev.vanilla_cubed.util.math.toVec3d
 import net.minecraft.block.Block
 import net.minecraft.entity.LightningEntity
+import net.minecraft.fluid.LavaFluid
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.util.math.BlockPos
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo
 
 /**
- * A beacon upgrade that prevents environmental damage like fire spread.
+ * A beacon upgrade that prevents environmental damage caused by fire.
  */
-object DisableEnvironmentalDamageUpgrade : ToggledUpgrade() {
+object DisableFireDamageUpgrade : ToggledUpgrade() {
 
     /**
-     * Injection function for [FireBlockMixin.disableFireTick].
+     * Disables fire tick by cancelling the [ServerWorld.createAndScheduleBlockTick] call.
+     * @see FireBlockMixin.disableFireTick
      */
-    fun injectLavaBlock(block: Block, world: ServerWorld, pos: BlockPos, ci: CallbackInfo) {
+    fun disableFireTick(block: Block, world: ServerWorld, pos: BlockPos, ci: CallbackInfo) {
         if (inRange(pos.toVec3d())) {
             world.createAndScheduleBlockTick(pos, block, 30 + world.random.nextInt(10))
             ci.cancel()
@@ -26,18 +28,20 @@ object DisableEnvironmentalDamageUpgrade : ToggledUpgrade() {
     }
 
     /**
-     * Injection function for [LavaFluidMixin.disableLavaFireTick].
+     * Disables lava fire tick by cancelling the [LavaFluid.onRandomTick] call.
+     * @see LavaFluidMixin.disableLavaFireTick
      */
-    fun injectLavaFluid(pos: BlockPos, ci: CallbackInfo) {
+    fun disableLavaFireTick(pos: BlockPos, ci: CallbackInfo) {
         if (inRange(pos.toVec3d())) {
             ci.cancel()
         }
     }
 
     /**
-     * Injection function for [LightningEntityMixin.disableSpawnFire].
+     * Disables fire spawn of lightning strikes by cancelling the [LightningEntity.spawnFire] call.
+     * @see LightningEntityMixin.disableSpawnFire
      */
-    fun injectLightningEntity(entity: LightningEntity, ci: CallbackInfo) {
+    fun disableSpawnFire(entity: LightningEntity, ci: CallbackInfo) {
         if (inRange(entity.blockPos.toVec3d())) {
             ci.cancel()
         }

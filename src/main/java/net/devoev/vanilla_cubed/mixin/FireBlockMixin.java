@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.DisableEnvironmentalDamageUpgrade;
+import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.DisableFireDamageUpgrade;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FireBlock;
@@ -15,8 +15,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(FireBlock.class)
 public class FireBlockMixin {
 
+    /**
+     * @see DisableFireDamageUpgrade
+     */
     @Inject(method = "scheduledTick", at = @At("HEAD"), cancellable = true)
     private void disableFireTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        DisableEnvironmentalDamageUpgrade.INSTANCE.injectLavaBlock((Block) (Object) this, world, pos, ci);
+        DisableFireDamageUpgrade.INSTANCE.disableFireTick((Block) (Object) this, world, pos, ci);
     }
 }

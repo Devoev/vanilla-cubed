@@ -95,7 +95,7 @@
   "block.vanilla_cubed.beacon.gold2": "Nourishment",
   "block.vanilla_cubed.beacon.gold3": "Increase Minecart speed",
   "block.vanilla_cubed.beacon.gold4": "Disable armor and tool damage",
-  "block.vanilla_cubed.beacon.emerald1": "Disable environmental damage",
+  "block.vanilla_cubed.beacon.emerald1": "Disable environmental fire damage",
   "block.vanilla_cubed.beacon.emerald2": "Glowing Mobs",
   "block.vanilla_cubed.beacon.emerald3": "Disable mob griefing",
   "block.vanilla_cubed.beacon.emerald4": "Disable monster spawning",
