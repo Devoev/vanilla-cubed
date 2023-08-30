@@ -13,7 +13,7 @@ public class EndermanEntityPickUpBlockGoalMixin {
      * @see DisableMobGriefingUpgrade
      */
     @Inject(method = "canStart", at = @At("HEAD"), cancellable = true)
-    private void disableStart(CallbackInfoReturnable<Boolean> cir) {
+    private void disableEndermanBlockPickup(CallbackInfoReturnable<Boolean> cir) {
         EndermanEntityPickUpBlockGoalAccessor accessor = (EndermanEntityPickUpBlockGoalAccessor) this;
         DisableMobGriefingUpgrade.INSTANCE.disableEndermanBlockPickup(accessor.getEnderman().getPos(), cir);
     }

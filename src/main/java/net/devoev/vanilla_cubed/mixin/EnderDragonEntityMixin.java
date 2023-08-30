@@ -1,6 +1,7 @@
 package net.devoev.vanilla_cubed.mixin;
 
 import kotlin.random.Random;
+import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.DisableMobGriefingUpgrade;
 import net.devoev.vanilla_cubed.item.ModItems;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
@@ -14,6 +15,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -41,5 +43,14 @@ public class EnderDragonEntityMixin extends MobEntity {
 
         int amount = players.size() + Random.Default.nextInt(-1, 2);
         IntStream.rangeClosed(1, Math.max(amount, 1)).forEach(i -> dropItem(ModItems.INSTANCE.getDRAGON_SCALE()));
+    }
+
+    /**
+     * @see DisableMobGriefingUpgrade
+     */
+    @Inject(method = "destroyBlocks", at = @At("HEAD"), cancellable = true)
+    private void disableEnderDragonBlockDestruction(Box box, CallbackInfoReturnable<Boolean> cir) {
+        EnderDragonEntity entity = (EnderDragonEntity) (Object) this;
+        DisableMobGriefingUpgrade.INSTANCE.disableEnderDragonBlockDestruction(entity.getPos(), cir);
     }
 }

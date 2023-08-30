@@ -1,9 +1,7 @@
 package net.devoev.vanilla_cubed.block.entity.beacon_upgrade
 
-import net.devoev.vanilla_cubed.mixin.CreeperEntityMixin
-import net.devoev.vanilla_cubed.mixin.EndermanEntityPickUpBlockGoalMixin
-import net.devoev.vanilla_cubed.mixin.FireballEntityMixin
-import net.devoev.vanilla_cubed.mixin.WitherSkullEntityMixin
+import net.devoev.vanilla_cubed.mixin.*
+import net.minecraft.entity.boss.dragon.EnderDragonEntity
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.explosion.Explosion
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
@@ -17,6 +15,7 @@ object DisableMobGriefingUpgrade : ToggledUpgrade() {
      * Disables explosions by setting the destruction type to [Explosion.DestructionType.NONE].
      * @see CreeperEntityMixin.disableExplosion
      * @see WitherSkullEntityMixin.disableExplosion
+     * @see WitherEntityMixin.disableExplosion
      */
     fun disableExplosion(pos: Vec3d, type: Explosion.DestructionType): Explosion.DestructionType {
         return if (inRange(pos)) Explosion.DestructionType.NONE else type
@@ -31,11 +30,19 @@ object DisableMobGriefingUpgrade : ToggledUpgrade() {
     }
 
     /**
-     * Sets the carried block of the enderman to `null`.
-     * @see EndermanEntityPickUpBlockGoalMixin.disableStart
+     * Sets the return value of the enderman's pickup goal to `false`.
+     * @see EndermanEntityPickUpBlockGoalMixin.disableEndermanBlockPickup
      */
     fun disableEndermanBlockPickup(pos: Vec3d, cir: CallbackInfoReturnable<Boolean>) {
         if (inRange(pos)) cir.returnValue = false
+    }
+
+    /**
+     * Disables block destruction by the ender dragon by returning `true` in [EnderDragonEntity.destroyBlocks].
+     * @see EnderDragonEntityMixin.disableEnderDragonBlockDestruction
+     */
+    fun disableEnderDragonBlockDestruction(pos: Vec3d, cir: CallbackInfoReturnable<Boolean>) {
+        if (inRange(pos)) cir.returnValue = true
     }
 
     // TODO: Add more injections
