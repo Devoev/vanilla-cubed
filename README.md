@@ -36,6 +36,16 @@ Additionally, tridents can be upgraded just like tools and armor sets! Currently
 To improve the ranged attack of tridents, there is the new *Hurling* enchantment, that increases the damage of a thrown 
 trident.
 
+### Improved Beacons
+
+*Vanilla Cubed* adds a new tier system to beacons. Instead of Iron, Gold, Emerald and Diamond providing all the same upgrades, one must now choose which type of upgrade to pick. Each upgrade category has up to 4 upgrades. The upgrade categories are:
+- Iron: Building/ Mining
+- Gold: Utility
+- Emerald: Environmental
+- Diamond: Combat
+
+The beacon upgrades range from classic upgrades like status effects (e.g. jump boost) to upgrades that effect the world in itself (e.g. disabling mob griefing).
+
 ### Utility items
 - Enderite Powder: An item that teleports the player to their spawn location.
 - Gilded Books: Books that have a way higher enchantability than regular books.
@@ -45,7 +55,6 @@ trident.
 - Reworked Totems of Undying: Totems will activate from **any** inventory slot, so you don't have to waste the offhand slot
 
 ## TODO
-- Improved Beacons
 - Better Phantoms
 - More uses for Copper
 - Sculk Armor
