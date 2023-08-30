@@ -22,7 +22,7 @@ class ApplyBeneficialEffectBehavior(private val probability: Double,
     /**
      * The time in ticks that needs to be waited, until another effect can be applied.
      */
-    var LivingEntity.waitTime: Int
+    private var LivingEntity.waitTime: Int
         get() = waitTimeMap[this] ?: 0
         set(value) = waitTimeMap.set(this, value)
 

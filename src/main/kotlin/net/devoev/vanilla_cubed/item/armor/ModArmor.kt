@@ -1,7 +1,7 @@
 package net.devoev.vanilla_cubed.item.armor
 
 import net.devoev.vanilla_cubed.item.ModItemGroup
-import net.devoev.vanilla_cubed.item.behavior.ApplyBeneficialEffectBehavior
+import net.devoev.vanilla_cubed.item.behavior.HarmfulEffectProtectionBehavior
 import net.devoev.vanilla_cubed.item.behavior.MiningBonusBehavior
 import net.devoev.vanilla_cubed.item.toSettings
 import net.minecraft.item.ArmorItem
@@ -12,7 +12,7 @@ import net.minecraft.item.ArmorItem
 object ModArmor {
 
     val ANCIENT_GOLD = ArmorBuilder(ModArmorMaterials.ANCIENT_GOLD, ModItemGroup.VANILLA_CUBED.toSettings(),
-        inventoryTickBehavior = ApplyBeneficialEffectBehavior(5e-4, 1500..3000, 1..2)
+        inventoryTickBehavior = HarmfulEffectProtectionBehavior
     )
     val AMETHYST = ArmorBuilder(ModArmorMaterials.AMETHYST, ModItemGroup.VANILLA_CUBED.toSettings(),
         inventoryTickBehavior = MiningBonusBehavior
