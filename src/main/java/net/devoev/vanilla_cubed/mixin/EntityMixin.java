@@ -3,7 +3,6 @@ package net.devoev.vanilla_cubed.mixin;
 import net.devoev.vanilla_cubed.item.ItemKt;
 import net.devoev.vanilla_cubed.item.ItemStackKt;
 import net.devoev.vanilla_cubed.item.ModItems;
-import net.devoev.vanilla_cubed.item.behavior.NoGravityBehaviorKt;
 import net.devoev.vanilla_cubed.util.LivingEntityKt;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
@@ -112,23 +111,5 @@ public class EntityMixin {
                 );
             });
         }
-    }
-
-    /**
-     * @see NoGravityBehaviorKt
-     */
-    @Inject(method = "tick", at = @At("HEAD"))
-    private void setNoGravityEnderite(CallbackInfo info) {
-        if (((Object) this instanceof ItemEntity entity))
-            NoGravityBehaviorKt.setNoGravityOfEnderiteGear(entity);
-    }
-
-    /**
-     * @see NoGravityBehaviorKt
-     */
-    @Inject(method = "tick", at = @At("HEAD"))
-    private void setNoGravityMinedByEnderite(CallbackInfo info) {
-        if (((Object) this instanceof ItemEntity entity))
-            NoGravityBehaviorKt.setNoGravityOfMinedByEnderite(entity);
     }
 }

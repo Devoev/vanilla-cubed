@@ -3,6 +3,7 @@ package net.devoev.vanilla_cubed.item.behavior
 import net.devoev.vanilla_cubed.item.isEnderite
 import net.devoev.vanilla_cubed.item.minedByEnderite
 import net.devoev.vanilla_cubed.mixin.BlockMixin
+import net.devoev.vanilla_cubed.mixin.ItemEntityMixin
 import net.devoev.vanilla_cubed.tag.ModTagKeys.ENDERITE_ITEM
 import net.devoev.vanilla_cubed.util.math.times
 import net.minecraft.block.Block
@@ -52,6 +53,7 @@ fun setMinedByEnderiteOfDroppedStack(stack: ItemStack, cir: CallbackInfoReturnab
 
 /**
  * Removes the gravity of the enderite item [entity] by calling [ItemEntity.setNoGravity].
+ * @see ItemEntityMixin.setNoGravityEnderiteGear
  */
 fun setNoGravityOfEnderiteGear(entity: ItemEntity) {
     if (entity.stack.isIn(ENDERITE_ITEM))
@@ -61,6 +63,7 @@ fun setNoGravityOfEnderiteGear(entity: ItemEntity) {
 /**
  * Removes the gravity of an item [entity] mined with enderite tools by calling [ItemEntity.setNoGravity].
  * The NBT property [ItemStack.minedByEnderite] is then set to `false` again.
+ * @see ItemEntityMixin.setNoGravityMinedByEnderite
  */
 fun setNoGravityOfMinedByEnderite(entity: ItemEntity) {
     if (entity.stack.minedByEnderite) {

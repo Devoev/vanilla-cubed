@@ -19,6 +19,7 @@
     "FireballEntityMixin",
     "FireBlockMixin",
     "GrindstoneScreenHandlerMixin",
+    "ItemEntityMixin",
     "ItemMixin",
     "ItemSettingsAccessor",
     "ItemStackMixin",
