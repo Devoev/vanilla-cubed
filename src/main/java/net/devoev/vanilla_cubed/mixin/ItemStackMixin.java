@@ -13,11 +13,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ItemStackMixin {
 
     /**
-     * Prevents item damage if in range of a DisableGearDamageUpgrade,
-     * by modifying the return value of isDamageable.
+     * @see DisableGearDamageUpgrade
      */
     @Inject(method = "damage(ILnet/minecraft/util/math/random/Random;Lnet/minecraft/server/network/ServerPlayerEntity;)Z", at = @At("HEAD"), cancellable = true)
     private void preventItemDamage(int amount, Random random, ServerPlayerEntity player, CallbackInfoReturnable<Boolean> cir) {
-        DisableGearDamageUpgrade.INSTANCE.injectItemStack(player, cir);
+        DisableGearDamageUpgrade.INSTANCE.preventItemDamage(player, cir);
     }
 }

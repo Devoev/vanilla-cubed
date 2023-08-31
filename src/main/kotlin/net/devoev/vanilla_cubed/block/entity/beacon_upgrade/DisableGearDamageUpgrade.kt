@@ -2,6 +2,7 @@ package net.devoev.vanilla_cubed.block.entity.beacon_upgrade
 
 import net.devoev.vanilla_cubed.mixin.ItemStackMixin
 import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.item.ItemStack
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
 
 /**
@@ -10,9 +11,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
 object DisableGearDamageUpgrade : ToggledUpgrade() {
 
     /**
-     * Injection for [ItemStackMixin.preventItemDamage].
+     * Prevents item damage by returning `false` in [ItemStack.isDamageable].
+     * @see ItemStackMixin.preventItemDamage
      */
-    fun injectItemStack(player: PlayerEntity, cir: CallbackInfoReturnable<Boolean>) {
+    fun preventItemDamage(player: PlayerEntity, cir: CallbackInfoReturnable<Boolean>) {
         if (inRange(player.pos)) cir.returnValue = false
     }
 }
