@@ -3,7 +3,7 @@ package net.devoev.vanilla_cubed.mixin;
 import net.devoev.vanilla_cubed.item.ItemKt;
 import net.devoev.vanilla_cubed.item.ItemStackKt;
 import net.devoev.vanilla_cubed.item.ModItems;
-import net.devoev.vanilla_cubed.tag.ModTagKeys;
+import net.devoev.vanilla_cubed.item.behavior.NoGravityBehaviorKt;
 import net.devoev.vanilla_cubed.util.LivingEntityKt;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
@@ -12,13 +12,11 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -117,24 +115,20 @@ public class EntityMixin {
     }
 
     /**
-     * Removes the gravity of enderite items.
+     * @see NoGravityBehaviorKt
      */
     @Inject(method = "tick", at = @At("HEAD"))
     private void setNoGravityEnderite(CallbackInfo info) {
-        if (!((Object) this instanceof ItemEntity itemEntity)) return;
-        if (!itemEntity.getStack().isIn(ModTagKeys.INSTANCE.getENDERITE_ITEM())) return;
-        itemEntity.setNoGravity(true);
+        if (((Object) this instanceof ItemEntity entity))
+            NoGravityBehaviorKt.setNoGravityOfEnderiteGear(entity);
     }
 
     /**
-     * Removes the gravity of items mined with enderite tools.
+     * @see NoGravityBehaviorKt
      */
     @Inject(method = "tick", at = @At("HEAD"))
     private void setNoGravityMinedByEnderite(CallbackInfo info) {
-        if (!((Object) this instanceof ItemEntity itemEntity)) return;
-        if (!ItemStackKt.getMinedByEnderite(itemEntity.getStack())) return;
-        itemEntity.setNoGravity(true);
-        itemEntity.setVelocity(itemEntity.getVelocity().multiply(0.3));
-        ItemStackKt.setMinedByEnderite(itemEntity.getStack(), false);
+        if (((Object) this instanceof ItemEntity entity))
+            NoGravityBehaviorKt.setNoGravityOfMinedByEnderite(entity);
     }
 }
