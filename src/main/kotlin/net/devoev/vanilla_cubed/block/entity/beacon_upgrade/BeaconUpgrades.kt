@@ -84,7 +84,7 @@ object BeaconUpgrades {
             emeraldTierOf(1)
         ),
         BeaconUpgradeButtonData(
-            glowingUpgrade,
+            GlowingUpgrade,
             tooltipOf("emerald2"),
             textureOf("emerald2.png"),
             emeraldTierOf(2)
@@ -111,7 +111,7 @@ object BeaconUpgrades {
             diamondTierOf(1)
         ),
         BeaconUpgradeButtonData(
-            strengthenAlliedMobsUpgrade,
+            StrengthenAlliedMobsUpgrade,
             tooltipOf("diamond2"),
             textureOf("diamond2.png"),
             diamondTierOf(2)

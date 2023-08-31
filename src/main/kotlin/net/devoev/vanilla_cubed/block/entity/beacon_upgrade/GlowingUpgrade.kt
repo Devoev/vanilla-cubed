@@ -21,4 +21,4 @@ private val selectors: Map<EntityType<out LivingEntity>, Predicate<LivingEntity>
 /**
  * Makes all nearby mobs glowing.
  */
-val glowingUpgrade = statusEffectUpgradeOf(selectors, StatusEffects.GLOWING, 0)
+val GlowingUpgrade = statusEffectUpgradeOf(selectors, StatusEffects.GLOWING, 0)
