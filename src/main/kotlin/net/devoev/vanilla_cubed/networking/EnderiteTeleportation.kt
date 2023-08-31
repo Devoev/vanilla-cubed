@@ -4,7 +4,7 @@ import net.devoev.vanilla_cubed.entity.falling
 import net.devoev.vanilla_cubed.entity.view
 import net.devoev.vanilla_cubed.util.math.plus
 import net.devoev.vanilla_cubed.util.math.times
-import net.devoev.vanilla_cubed.util.wearsEnderite
+import net.devoev.vanilla_cubed.entity.wearsEnderite
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.PlayChannelHandler
 import net.minecraft.block.BlockState
 import net.minecraft.util.math.BlockPos

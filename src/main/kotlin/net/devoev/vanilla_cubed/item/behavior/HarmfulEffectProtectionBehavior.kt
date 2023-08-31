@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.item.behavior
 
-import net.devoev.vanilla_cubed.util.wearsFullArmor
+import net.devoev.vanilla_cubed.entity.wearsFullArmor
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.effect.StatusEffectCategory
 import net.minecraft.item.ArmorItem

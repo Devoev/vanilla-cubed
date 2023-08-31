@@ -1,9 +1,9 @@
 package net.devoev.vanilla_cubed.mixin;
 
 import net.devoev.vanilla_cubed.entity.ItemEntityKt;
+import net.devoev.vanilla_cubed.entity.LivingEntityKt;
 import net.devoev.vanilla_cubed.item.ItemKt;
 import net.devoev.vanilla_cubed.item.ItemStackKt;
-import net.devoev.vanilla_cubed.util.LivingEntityKt;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LightningEntity;
@@ -41,9 +41,10 @@ public class EntityMixin {
 
     /**
      * Full set of dragon scale armor negates all flying collision damage.
+     * TODO: Extract to behavior/upgrade
      */
     @Inject(method = "isInvulnerableTo", at = @At("HEAD"), cancellable = true)
-    private void isInvulnerableToFlyingDamage(DamageSource damageSource, CallbackInfoReturnable<Boolean> info) {
+    private void setInvulnerableToFlyingDamage(DamageSource damageSource, CallbackInfoReturnable<Boolean> info) {
         if (!((Object) this instanceof LivingEntity entity)) return;
         if (LivingEntityKt.wearsDragonScale(entity) && entity.isFallFlying()
                 && (damageSource.isFromFalling() || damageSource.equals(DamageSource.FLY_INTO_WALL)))
@@ -52,6 +53,7 @@ public class EntityMixin {
 
     /**
      * Full set of netherite armor grants regeneration and strength, when player is on fire.
+     * TODO: Extract to behavior/upgrade
      */
     @Inject(method = "baseTick", at = @At("HEAD"))
     private void applyEffectsWhenOnFire(CallbackInfo info) {
@@ -62,6 +64,9 @@ public class EntityMixin {
         entity.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 300, 1));
     }
 
+    /**
+     * TODO: Extract to behavior/upgrade
+     */
     @Inject(method = "baseTick", at = @At("HEAD"))
     private void demagnetizeNetherite(CallbackInfo info) {
         if (!((Object) this instanceof ItemEntity item)) return;

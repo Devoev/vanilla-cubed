@@ -3,7 +3,7 @@ package net.devoev.vanilla_cubed.item.behavior
 import net.devoev.vanilla_cubed.networking.Channels
 import net.devoev.vanilla_cubed.networking.writeVec3d
 import net.devoev.vanilla_cubed.util.math.times
-import net.devoev.vanilla_cubed.util.wearsEnderite
+import net.devoev.vanilla_cubed.entity.wearsEnderite
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
 import net.minecraft.entity.damage.DamageSource
