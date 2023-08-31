@@ -9,7 +9,9 @@ import net.minecraft.entity.mob.HostileEntity
 object DisableMonsterSpawningUpgrade : ToggledUpgrade() {
 
     /**
-     * Whether the spawn of this entity should be canceled by a beacon.
+     * Disables the spawn of the hostile [entity] by calling [Entity.discard].
      */
-    operator fun invoke(entity: Entity): Boolean = entity is HostileEntity && inRange(entity.pos)
+    fun disableMonsterSpawn(entity: Entity) {
+        if (entity is HostileEntity && inRange(entity.pos)) entity.discard()
+    }
 }

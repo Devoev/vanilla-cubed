@@ -15,7 +15,6 @@ public class ServerWorldMixin {
     private void disableMonsterSpawn(Entity entity, CallbackInfoReturnable<Boolean> cir) {
         // TODO: Overwrite ServerWorld.spawnEntity fun or ServerChunkManager.tickChunks -> SpawnHelper.spawn fun
         //  Disable ALL hostile mob spawning or just natural ones?
-        if (DisableMonsterSpawningUpgrade.INSTANCE.invoke(entity))
-            entity.discard();
+        DisableMonsterSpawningUpgrade.INSTANCE.disableMonsterSpawn(entity);
     }
 }
