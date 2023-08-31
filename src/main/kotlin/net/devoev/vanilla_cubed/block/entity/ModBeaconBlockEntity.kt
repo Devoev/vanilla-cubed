@@ -1,5 +1,6 @@
 package net.devoev.vanilla_cubed.block.entity
 
+import net.devoev.vanilla_cubed.block.ModBlocks
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.*
 import net.devoev.vanilla_cubed.client.gui.screen.ingame.BeaconUpgradeTier
 import net.devoev.vanilla_cubed.screen.*
@@ -63,6 +64,12 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         get() = upgrades.filterNotNull()
 
     val totalLevels: IntArray = intArrayOf(0,0,0,0)
+
+    /**
+     * Value between 1 and 2, depending on the number of base II blocks in the beacons base.
+     */
+    private var extendRange: Double = 1.0
+
     private val remainingLevels: IntArray
         get() {
             var res = totalLevels.toList()
@@ -81,7 +88,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
 
     val range: Box?
         get() = world?.run {Box(pos)
-            .expand(BeaconUpgradeTier.levelToTier(totalLevels.sum())*10.0 + 10)
+            .expand(BeaconUpgradeTier.levelToTier(totalLevels.sum())*10.0*extendRange + 10)
             .stretch(0.0, height.toDouble(), 0.0)
         }
 
@@ -203,12 +210,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
          * Checks whether the levels contain any other block than valid base blocks.
          */
         fun Map<Block, Int>.invalid(): Boolean {
-            return this.any {
-                it.key != Blocks.IRON_BLOCK
-                        && it.key != Blocks.GOLD_BLOCK
-                        && it.key != Blocks.EMERALD_BLOCK
-                        && it.key != Blocks.DIAMOND_BLOCK
-            }
+            return this.any { it.key !in BASE_BLOCKS_I && it.key !in BASE_BLOCKS_II }
         }
 
         // Clear old levels
@@ -217,15 +219,26 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
         totalLevels[2] = 0
         totalLevels[3] = 0
 
+        // Counters for level I and II
+        var levelI = 0
+        var levelII = 0
+
         // Set new levels
         val base = baseBlocks(world, pos)
         for (baseLevel in base) {
             if (baseLevel.invalid()) break
-            totalLevels[0] += baseLevel[Blocks.IRON_BLOCK] ?: 0
-            totalLevels[1] += baseLevel[Blocks.GOLD_BLOCK] ?: 0
-            totalLevels[2] += baseLevel[Blocks.EMERALD_BLOCK] ?: 0
-            totalLevels[3] += baseLevel[Blocks.DIAMOND_BLOCK] ?: 0
+
+            val baseI = baseLevel.filterKeys { it in BASE_BLOCKS_I }
+            val baseII = baseLevel.filterKeys { it in BASE_BLOCKS_II }
+            levelI += baseI.values.sum()
+            levelII += baseII.values.sum()
+
+            for ((block, idx) in BASE_BLOCKS) {
+                totalLevels[idx] += baseLevel[block] ?: 0
+            }
         }
+
+        extendRange = (levelI + levelII*2).toDouble() / (levelI + levelII)
     }
 
     /**
@@ -354,6 +367,32 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
     }
 
     companion object {
+
+        /**
+         * Map of level I block-idx pairs, that are valid for the beacon base.
+         */
+        val BASE_BLOCKS_I = mapOf(
+            Blocks.IRON_BLOCK to 0,
+            Blocks.GOLD_BLOCK to 1,
+            Blocks.EMERALD_BLOCK to 2,
+            Blocks.DIAMOND_BLOCK to 3,
+        )
+
+        /**
+         * Map of level II block-idx pairs, that are valid for the beacon base.
+         */
+        val BASE_BLOCKS_II = mapOf(
+            ModBlocks.ENDERITE_BLOCK to 0,
+            ModBlocks.ANCIENT_GOLD_BLOCK to 1,
+            Blocks.NETHERITE_BLOCK to 1,
+            ModBlocks.AMETHYST_CRYSTAL_BLOCK to 3,
+            ModBlocks.CHARGED_AMETHYST_CRYSTAL_BLOCK to 3,
+        )
+
+        /**
+         * Map of all block-idx pairs, that are valid for the beacon base.
+         */
+        val BASE_BLOCKS = BASE_BLOCKS_I + BASE_BLOCKS_II
 
         /**
          * Provides the [tick] function of a [ModBeaconBlockEntity].
