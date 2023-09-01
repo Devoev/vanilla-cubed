@@ -12,6 +12,9 @@ import net.minecraft.recipe.SpecialCraftingRecipe
 import net.minecraft.util.Identifier
 import net.minecraft.world.World
 
+/**
+ * Recipe for [ModItems.INFUSED_FIREWORK_ROCKET]. Creates an infused rocket of durations 1-3.
+ */
 class InfusedFireworkRocketRecipe(id: Identifier) : SpecialCraftingRecipe(id) {
     override fun matches(inventory: CraftingInventory, world: World): Boolean {
         val stacks = inventory.toList()
@@ -29,7 +32,7 @@ class InfusedFireworkRocketRecipe(id: Identifier) : SpecialCraftingRecipe(id) {
         return res
     }
 
-    override fun fits(width: Int, height: Int): Boolean = false
+    override fun fits(width: Int, height: Int): Boolean = width * height == 9
 
     override fun getOutput(): ItemStack = ItemStack(ModItems.INFUSED_FIREWORK_ROCKET)
 
