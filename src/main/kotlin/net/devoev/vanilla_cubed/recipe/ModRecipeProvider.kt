@@ -8,7 +8,7 @@ import java.util.function.Consumer
 
 class ModRecipeProvider(generator: FabricDataGenerator) : FabricRecipeProvider(generator) {
     override fun generateRecipes(exporter: Consumer<RecipeJsonProvider>?) {
-        println("Generating recipes!!!")
+        // TODO: Pick ID
         ComplexRecipeJsonBuilder.create(ModCraftingRecipes.INFUSED_FIREWORK_ROCKET).offerTo(exporter, "firework_rocket_infused_2")
     }
 }

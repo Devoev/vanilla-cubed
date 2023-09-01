@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 
 object VanillaCubedDataGeneration : DataGeneratorEntrypoint {
     override fun onInitializeDataGenerator(fabricDataGenerator: FabricDataGenerator) {
-        println("DATA GEN !!!")
         fabricDataGenerator.addProvider(::ModRecipeProvider)
     }
 }

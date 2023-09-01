@@ -11,13 +11,13 @@ import net.minecraft.world.World
 class InfusedFireworkRocketRecipe(id: Identifier) : SpecialCraftingRecipe(id) {
     override fun matches(inventory: CraftingInventory?, world: World?): Boolean {
         println(inventory)
-
+        // TODO: Implement
         return false
     }
 
     override fun craft(inventory: CraftingInventory?): ItemStack {
         println(inventory)
-
+        // TODO: Implement
         return output
     }
 
