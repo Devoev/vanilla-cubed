@@ -1,6 +1,8 @@
 package net.devoev.vanilla_cubed.item
 
 import net.minecraft.item.ArmorItem
+import net.minecraft.item.FireworkRocketItem.FIREWORKS_KEY
+import net.minecraft.item.FireworkRocketItem.FLIGHT_KEY
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.item.ToolMaterials
@@ -125,4 +127,18 @@ var ItemStack.infusionLvl: Int
     set(value) {
         if (!isOf(ModItems.INFUSED_FIREWORK_ROCKET)) error("$item must be a ${ModItems.INFUSED_FIREWORK_ROCKET}")
         orCreateNbt.putInt(INFUSION_LVL_KEY, value)
+    }
+
+/**
+ * The flight level of a [Items.FIREWORK_ROCKET].
+ */
+var ItemStack.fireworksFlight: Byte
+    get() {
+        return getSubNbt(FIREWORKS_KEY)?.getByte(FLIGHT_KEY)
+            ?: error("$item must be a ${ModItems.INFUSED_FIREWORK_ROCKET} or ${Items.FIREWORK_ROCKET}")
+    }
+    set(value) {
+        if (!isOf(ModItems.INFUSED_FIREWORK_ROCKET) && !isOf(Items.FIREWORK_ROCKET))
+            error("$item must be a ${ModItems.INFUSED_FIREWORK_ROCKET} or ${Items.FIREWORK_ROCKET}")
+        getOrCreateSubNbt(FIREWORKS_KEY).putByte(FLIGHT_KEY, value)
     }
