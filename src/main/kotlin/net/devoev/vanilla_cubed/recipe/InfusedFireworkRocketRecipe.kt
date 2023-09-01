@@ -21,7 +21,7 @@ class InfusedFireworkRocketRecipe(id: Identifier) : SpecialCraftingRecipe(id) {
         return output
     }
 
-    override fun fits(width: Int, height: Int): Boolean = width * height == 9
+    override fun fits(width: Int, height: Int): Boolean = false
 
     override fun getOutput(): ItemStack = ItemStack(ModItems.INFUSED_FIREWORK_ROCKET)
 

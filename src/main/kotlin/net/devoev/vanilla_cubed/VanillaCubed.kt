@@ -18,7 +18,7 @@ import net.minecraft.util.Identifier
 
 object VanillaCubed : ModInitializer {
 
-    const val MOD_ID = "vanilla_cubed"
+    private const val MOD_ID = "vanilla_cubed"
 
     override fun onInitialize() {
         ModItems.init()

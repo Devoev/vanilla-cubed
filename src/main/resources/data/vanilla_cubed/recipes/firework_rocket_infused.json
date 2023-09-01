@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RRR",
+    "RDR",
+    "RRR"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:firework_rocket"
+    },
+    "D": {
+      "item": "vanilla_cubed:dragon_scale_chunk_infused"
+    }
+  },
+  "result": {
+    "count": 8,
+    "item": "vanilla_cubed:firework_rocket_infused"
+  }
+}

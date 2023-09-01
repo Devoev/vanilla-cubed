@@ -7,7 +7,7 @@ import net.minecraft.util.registry.Registry
 
 object ModCraftingRecipes : RegistryManager<RecipeSerializer<*>>(Registry.RECIPE_SERIALIZER) {
 
-    val INFUSED_FIREWORK_ROCKET = create("infused_firework_rocket", SpecialRecipeSerializer(::InfusedFireworkRocketRecipe))
+    val INFUSED_FIREWORK_ROCKET = create("firework_rocket_infused", SpecialRecipeSerializer(::InfusedFireworkRocketRecipe))
 
-    // TODO: Add recipes to RecipeProvider
+    // TODO: Add recipes using dynamic data generation
 }
