@@ -29,6 +29,12 @@
         "adapter": "kotlin",
         "value": "net.devoev.vanilla_cubed.VanillaCubedClient"
       }
+    ],
+    "fabric-datagen": [
+      {
+        "adapter": "kotlin",
+        "value": "net.devoev.vanilla_cubed.VanillaCubedDataGeneration"
+      }
     ]
   },
   "mixins": [
