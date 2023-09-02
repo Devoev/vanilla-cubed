@@ -24,6 +24,12 @@ operator fun Inventory.iterator(): Iterator<ItemStack> = iterator {
 }
 
 /**
+ * Fetches the stack currently stored at the given slot.
+ * If the slot is empty, or is outside the bounds of this inventory, returns [ItemStack.EMPTY].
+ */
+operator fun Inventory.get(slot: Int): ItemStack = getStack(slot)
+
+/**
  * Returns this inventory as an [Iterable].
  */
 fun Inventory.asIterable(): Iterable<ItemStack> = Iterable { iterator() }

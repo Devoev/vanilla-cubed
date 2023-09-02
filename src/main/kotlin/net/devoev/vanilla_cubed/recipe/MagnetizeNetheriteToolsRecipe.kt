@@ -1,10 +1,15 @@
 package net.devoev.vanilla_cubed.recipe
 
 import com.google.gson.JsonObject
+import net.devoev.vanilla_cubed.inventory.get
 import net.devoev.vanilla_cubed.inventory.toList
+import net.devoev.vanilla_cubed.item.isNetherite
+import net.devoev.vanilla_cubed.item.magnetic
 import net.minecraft.block.Blocks
 import net.minecraft.inventory.Inventory
 import net.minecraft.item.ItemStack
+import net.minecraft.item.Items
+import net.minecraft.item.ToolItem
 import net.minecraft.network.PacketByteBuf
 import net.minecraft.recipe.Recipe
 import net.minecraft.recipe.RecipeSerializer
@@ -15,18 +20,22 @@ import net.minecraft.world.World
 /**
  * Recipe that magnetizes demagnetized netherite tools.
  *
- * TODO: Update implementation and create custom provider/ serializer
+ * TODO: Prevent Classcast Exception by subclassing SmithingRecipe
  */
 class MagnetizeNetheriteToolsRecipe(val identifier: Identifier) : Recipe<Inventory> {
 
     override fun matches(inventory: Inventory, world: World): Boolean {
-        println(inventory.toList())
-
-        return false
+        val (base, addition) = inventory.toList()
+        return base.item is ToolItem
+                && base.item.isNetherite()
+                && !base.magnetic
+                && addition.isOf(Items.NETHERITE_SCRAP)
     }
 
     override fun craft(inventory: Inventory): ItemStack {
-        TODO("Not yet implemented")
+        val res = inventory[0]
+        res.magnetic = true
+        return res
     }
 
     override fun fits(width: Int, height: Int): Boolean = width * height >= 2
