@@ -1,5 +1,6 @@
 package net.devoev.vanilla_cubed.recipe
 
+import net.devoev.vanilla_cubed.inventory.size
 import net.devoev.vanilla_cubed.inventory.toList
 import net.devoev.vanilla_cubed.item.ModItems
 import net.devoev.vanilla_cubed.item.fireworksFlight
@@ -16,6 +17,8 @@ import net.minecraft.world.World
  */
 class InfusedFireworkRocketRecipe(id: Identifier) : SpecialCraftingRecipe(id) {
     override fun matches(inventory: CraftingInventory, world: World): Boolean {
+        if (inventory.size != 9) return false
+
         val stacks = inventory.toList()
         val chunk = stacks[4]
         val rockets = stacks - chunk

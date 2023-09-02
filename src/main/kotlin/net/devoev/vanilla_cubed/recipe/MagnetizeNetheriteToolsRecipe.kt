@@ -5,24 +5,21 @@ import net.devoev.vanilla_cubed.inventory.get
 import net.devoev.vanilla_cubed.inventory.toList
 import net.devoev.vanilla_cubed.item.isNetherite
 import net.devoev.vanilla_cubed.item.magnetic
-import net.minecraft.block.Blocks
 import net.minecraft.inventory.Inventory
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.item.ToolItem
 import net.minecraft.network.PacketByteBuf
-import net.minecraft.recipe.Recipe
+import net.minecraft.recipe.Ingredient
 import net.minecraft.recipe.RecipeSerializer
-import net.minecraft.recipe.RecipeType
+import net.minecraft.recipe.SmithingRecipe
 import net.minecraft.util.Identifier
 import net.minecraft.world.World
 
 /**
- * Recipe that magnetizes demagnetized netherite tools.
- *
- * TODO: Prevent Classcast Exception by subclassing SmithingRecipe
+ * Recipe that magnetizes demagnetized netherite tools by combination with a [Items.NETHERITE_SCRAP].
  */
-class MagnetizeNetheriteToolsRecipe(val identifier: Identifier) : Recipe<Inventory> {
+class MagnetizeNetheriteToolsRecipe(id: Identifier) : SmithingRecipe(id, Ingredient.EMPTY, Ingredient.EMPTY, ItemStack.EMPTY) {
 
     override fun matches(inventory: Inventory, world: World): Boolean {
         val (base, addition) = inventory.toList()
@@ -32,23 +29,9 @@ class MagnetizeNetheriteToolsRecipe(val identifier: Identifier) : Recipe<Invento
                 && addition.isOf(Items.NETHERITE_SCRAP)
     }
 
-    override fun craft(inventory: Inventory): ItemStack {
-        val res = inventory[0]
-        res.magnetic = true
-        return res
-    }
-
-    override fun fits(width: Int, height: Int): Boolean = width * height >= 2
-
-    override fun getOutput(): ItemStack = ItemStack.EMPTY
-
-    override fun createIcon(): ItemStack = ItemStack(Blocks.SMITHING_TABLE)
-
-    override fun getId(): Identifier = identifier
+    override fun craft(inventory: Inventory): ItemStack = inventory[0].copy().apply { magnetic = true }
 
     override fun getSerializer(): RecipeSerializer<*> = ModCraftingRecipes.MAGNETIZE_NETHERITE_TOOLS
-
-    override fun getType(): RecipeType<*> = RecipeType.SMITHING
 
     class Serializer(private val factory: (Identifier) -> MagnetizeNetheriteToolsRecipe) : RecipeSerializer<MagnetizeNetheriteToolsRecipe> {
         override fun read(id: Identifier, json: JsonObject): MagnetizeNetheriteToolsRecipe = factory(id)
