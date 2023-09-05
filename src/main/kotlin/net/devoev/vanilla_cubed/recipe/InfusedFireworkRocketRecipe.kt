@@ -29,7 +29,7 @@ class InfusedFireworkRocketRecipe(id: Identifier) : SpecialCraftingRecipe(id) {
     }
 
     override fun craft(inventory: CraftingInventory): ItemStack {
-        val res = ItemStack(ModItems.INFUSED_FIREWORK_ROCKET)
+        val res = ItemStack(ModItems.INFUSED_FIREWORK_ROCKET,8)
         res.fireworksFlight = inventory.getStack(0).fireworksFlight
         return res
     }
