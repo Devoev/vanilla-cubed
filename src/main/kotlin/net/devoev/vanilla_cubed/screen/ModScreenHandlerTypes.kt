@@ -17,4 +17,4 @@ object ModScreenHandlerTypes : RegistryManager<ScreenHandlerType<out ScreenHandl
 /**
  * Creates a [ScreenHandlerType] from the given [factory].
  */
-fun screenHandlerTypeOf(factory: ScreenHandlerType.Factory<*>) = ScreenHandlerType(factory, FeatureFlags.VANILLA_FEATURES)
+fun <T : ScreenHandler> screenHandlerTypeOf(factory: ScreenHandlerType.Factory<T>) = ScreenHandlerType(factory, FeatureFlags.VANILLA_FEATURES)
