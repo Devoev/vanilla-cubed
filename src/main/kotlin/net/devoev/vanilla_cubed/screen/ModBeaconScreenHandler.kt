@@ -4,7 +4,7 @@ import net.devoev.vanilla_cubed.block.entity.ModBeaconBlockEntity
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrade
 import net.minecraft.block.Blocks
 import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.inventory.Inventory
+import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.screen.ArrayPropertyDelegate
 import net.minecraft.screen.PropertyDelegate
@@ -24,7 +24,7 @@ import net.minecraft.world.World
  */
 class ModBeaconScreenHandler(
     syncId: Int,
-    inventory: Inventory,
+    inventory: PlayerInventory,
     val propertyDelegate: PropertyDelegate,
     val context: ScreenHandlerContext
 ) : ScreenHandler(ModScreenHandlerTypes.MOD_BEACON, syncId) {
@@ -47,7 +47,7 @@ class ModBeaconScreenHandler(
     val remainingLevels: IntArray
         get() = propertyDelegate.remainingLevels
 
-    constructor(syncId: Int, inventory: Inventory) : this(
+    constructor(syncId: Int, inventory: PlayerInventory) : this(
         syncId,
         inventory,
         ArrayPropertyDelegate(UPGRADE_RANGE.last + 1),
@@ -67,7 +67,7 @@ class ModBeaconScreenHandler(
         }
     }
 
-    override fun transferSlot(player: PlayerEntity?, index: Int): ItemStack {
+    override fun quickMove(player: PlayerEntity?, index: Int): ItemStack {
         var itemStack = ItemStack.EMPTY
         val slot = slots[index]
         if (slot.hasStack()) {
