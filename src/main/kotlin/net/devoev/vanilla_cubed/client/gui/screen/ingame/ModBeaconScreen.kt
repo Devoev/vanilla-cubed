@@ -1,6 +1,5 @@
 package net.devoev.vanilla_cubed.client.gui.screen.ingame
 
-import com.mojang.blaze3d.systems.RenderSystem
 import net.devoev.vanilla_cubed.VanillaCubed
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrade
 import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades
@@ -13,12 +12,12 @@ import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs
+import net.minecraft.client.gui.DrawContext
 import net.minecraft.client.gui.screen.ingame.HandledScreen
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder
+import net.minecraft.client.gui.tooltip.Tooltip
 import net.minecraft.client.gui.widget.ClickableWidget
 import net.minecraft.client.gui.widget.PressableWidget
-import net.minecraft.client.render.GameRenderer
-import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.screen.ScreenHandler
@@ -93,34 +92,23 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         buttons.tick()
     }
 
-    override fun render(matrices: MatrixStack?, mouseX: Int, mouseY: Int, delta: Float) {
-        renderBackground(matrices)
-        super.render(matrices, mouseX, mouseY, delta)
-        drawMouseoverTooltip(matrices, mouseX, mouseY)
+    override fun render(context: DrawContext, mouseX: Int, mouseY: Int, delta: Float) {
+        renderBackground(context)
+        super.render(context, mouseX, mouseY, delta)
+        drawMouseoverTooltip(context, mouseX, mouseY)
     }
 
-    override fun drawForeground(matrices: MatrixStack?, mouseX: Int, mouseY: Int) {
-        for (button in buttons) {
-            if (!button.shouldRenderTooltip()) continue
-            button.renderTooltip(matrices, mouseX - x, mouseY - y)
-            break
-        }
+    override fun drawForeground(context: DrawContext, mouseX: Int, mouseY: Int) {
+
     }
 
-    override fun drawBackground(matrices: MatrixStack?, delta: Float, mouseX: Int, mouseY: Int) {
-        RenderSystem.setShader { GameRenderer.getPositionTexShader() }
-        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f)
-        RenderSystem.setShaderTexture(0, TEXTURE)
+    override fun drawBackground(context: DrawContext, delta: Float, mouseX: Int, mouseY: Int) {
         val i = (width - backgroundWidth) / 2
         val j = (height - backgroundHeight) / 2
-        drawTexture(matrices, i, j, 0, 0, backgroundWidth, backgroundHeight)
-//        itemRenderer.zOffset = 100.0f
-//        itemRenderer.renderInGuiWithOverrides(ItemStack(Items.NETHERITE_INGOT), i + 20, j + 109)
-//        itemRenderer.renderInGuiWithOverrides(ItemStack(Items.EMERALD), i + 41, j + 109)
-//        itemRenderer.renderInGuiWithOverrides(ItemStack(Items.DIAMOND), i + 41 + 22, j + 109)
-//        itemRenderer.renderInGuiWithOverrides(ItemStack(Items.GOLD_INGOT), i + 42 + 44, j + 109)
-//        itemRenderer.renderInGuiWithOverrides(ItemStack(Items.IRON_INGOT), i + 42 + 66, j + 109)
-//        itemRenderer.zOffset = 0.0f
+        context.drawTexture(TEXTURE, i, j, 0, 0, backgroundWidth, backgroundHeight)
+        context.matrices.push()
+//        context.matrices.translate(0f, 0f, 100f)
+//        context.matrices.pop()
     }
 
     companion object {
@@ -135,16 +123,6 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
     internal interface BeaconButtonWidget {
 
         /**
-         * Whether the tooltip of this button should be rendered.
-         */
-        fun shouldRenderTooltip(): Boolean
-
-        /**
-         * Renders the tooltip of this button.
-         */
-        fun renderTooltip(matrices: MatrixStack?, mouseX: Int, mouseY: Int)
-
-        /**
          * Ticks this button.
          * @param totalLevels The total block levels.
          * @param remainingLevels The remaining block levels.
@@ -156,7 +134,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
      * The abstract base class for all pressable beacon buttons at coordinates ([x], [y]) with a hover [tooltip].
      */
     @Environment(EnvType.CLIENT)
-    internal abstract inner class BaseButtonWidget(x: Int, y: Int, private val tooltip: Text)
+    internal abstract inner class BaseButtonWidget(x: Int, y: Int, tooltipText: Text)
         : PressableWidget(x, y, 22, 22, ScreenTexts.EMPTY), BeaconButtonWidget {
 
         /**
@@ -164,10 +142,14 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
          */
         abstract val pressed: Boolean
 
+        init {
+            tooltip = Tooltip.of(tooltipText)
+        }
+
         /**
          * Renders additional content like a sprite or texture on top.
          */
-        protected abstract fun renderExtra(matrices: MatrixStack?)
+        protected abstract fun renderExtra(context: DrawContext)
 
         /**
          * Updates the server side beacon by sending the required packets to the [ModBeaconScreenHandler].
@@ -177,11 +159,7 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
             ClientPlayNetworking.send(Channels.BEACON_BUTTON_UPDATE, packet)
         }
 
-        override fun renderButton(matrices: MatrixStack?, mouseX: Int, mouseY: Int, delta: Float) {
-            RenderSystem.setShader { GameRenderer.getPositionTexShader() }
-            RenderSystem.setShaderTexture(0, TEXTURE)
-            RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f)
-
+        override fun renderButton(context: DrawContext, mouseX: Int, mouseY: Int, delta: Float) {
             val u = if (!active) {
                 width * 2
             } else if (pressed) {
@@ -190,17 +168,11 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
                 width * 3
             } else 0
 
-            drawTexture(matrices, x, y, u, 219, width, height)
-            renderExtra(matrices)
+            context.drawTexture(TEXTURE, x, y, u, 219, width, height)
+            renderExtra(context)
         }
 
-        override fun shouldRenderTooltip(): Boolean = hovered
-
-        override fun renderTooltip(matrices: MatrixStack?, mouseX: Int, mouseY: Int) {
-            renderTooltip(matrices, tooltip, mouseX, mouseY)
-        }
-
-        override fun appendNarrations(builder: NarrationMessageBuilder?) = appendDefaultNarrations(builder)
+        override fun appendClickableNarrations(builder: NarrationMessageBuilder?) = appendDefaultNarrations(builder)
     }
 
 
@@ -235,9 +207,8 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         /**
          * Renders the 18x18 [texture] of this button.
          */
-        override fun renderExtra(matrices: MatrixStack?) {
-            RenderSystem.setShaderTexture(0, texture)
-            drawTexture(matrices, x + 2, y + 2, 0f, 0f, 18, 18, 18, 18)
+        override fun renderExtra(context: DrawContext) {
+            context.drawTexture(texture, x + 2, y + 2, 0f, 0f, 18, 18, 18, 18)
         }
 
         override fun onPress() {

@@ -6,7 +6,7 @@ import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades
 import net.minecraft.screen.PropertyDelegate
 
 /**
- * [ModBeaconBlockEntity.totalLevels] stored at indices [sTOTAL_LEVELS_RANGE].
+ * [ModBeaconBlockEntity.totalLevels] stored at indices [TOTAL_LEVELS_RANGE].
  */
 var PropertyDelegate.totalLevels: IntArray
     get() = TOTAL_LEVELS_RANGE.map { i -> get(i) }.toIntArray()

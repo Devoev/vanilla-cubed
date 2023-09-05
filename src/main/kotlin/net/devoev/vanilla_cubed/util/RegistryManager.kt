@@ -1,8 +1,8 @@
 package net.devoev.vanilla_cubed.util
 
 import net.devoev.vanilla_cubed.VanillaCubed
+import net.minecraft.registry.Registry
 import net.minecraft.util.Identifier
-import net.minecraft.util.registry.Registry
 
 /**
  * Manages pairs of [V]-[Identifier] which needs to be registered in a [Registry].

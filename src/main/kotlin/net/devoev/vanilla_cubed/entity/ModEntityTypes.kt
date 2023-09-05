@@ -7,9 +7,9 @@ import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.EntityType.EntityFactory
 import net.minecraft.entity.SpawnGroup
-import net.minecraft.util.registry.Registry
+import net.minecraft.registry.Registries
 
-object ModEntityTypes : RegistryManager<EntityType<out Entity>>(Registry.ENTITY_TYPE) {
+object ModEntityTypes : RegistryManager<EntityType<out Entity>>(Registries.ENTITY_TYPE) {
 
     val ENDERITE_TRIDENT = create("enderite_trident", ::ModTridentEntity)
     val NETHERITE_TRIDENT = create("netherite_trident", ::ModTridentEntity) { it.fireImmune() }

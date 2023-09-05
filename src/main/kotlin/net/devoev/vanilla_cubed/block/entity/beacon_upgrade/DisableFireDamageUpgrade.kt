@@ -17,12 +17,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo
 object DisableFireDamageUpgrade : ToggledUpgrade() {
 
     /**
-     * Disables fire tick by cancelling the [ServerWorld.createAndScheduleBlockTick] call.
+     * Disables fire tick by cancelling the [ServerWorld.scheduleBlockTick] call.
      * @see FireBlockMixin.disableFireTick
      */
     fun disableFireTick(block: Block, world: ServerWorld, pos: BlockPos, ci: CallbackInfo) {
         if (inRange(pos.toVec3d())) {
-            world.createAndScheduleBlockTick(pos, block, 30 + world.random.nextInt(10))
+            world.scheduleBlockTick(pos, block, 30 + world.random.nextInt(10))
             ci.cancel()
         }
     }

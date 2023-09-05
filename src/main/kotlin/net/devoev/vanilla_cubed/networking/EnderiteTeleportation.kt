@@ -2,9 +2,9 @@ package net.devoev.vanilla_cubed.networking
 
 import net.devoev.vanilla_cubed.entity.falling
 import net.devoev.vanilla_cubed.entity.view
+import net.devoev.vanilla_cubed.entity.wearsEnderite
 import net.devoev.vanilla_cubed.util.math.plus
 import net.devoev.vanilla_cubed.util.math.times
-import net.devoev.vanilla_cubed.entity.wearsEnderite
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.PlayChannelHandler
 import net.minecraft.block.BlockState
 import net.minecraft.util.math.BlockPos
@@ -33,7 +33,7 @@ val ENDERITE_TELEPORTATION = PlayChannelHandler { _, player, _, _, _ ->
 
         do {
             dest = pos + dir
-            state = world.getBlockState(BlockPos(dest.x, dest.y, dest.z))
+            state = world.getBlockState(BlockPos(dest.x.toInt(), dest.y.toInt(), dest.z.toInt()))
             dir *= 0.7
             if (dir.length() < 0.1) return@PlayChannelHandler
         } while (state.isOpaque)

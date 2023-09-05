@@ -12,13 +12,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
 object DisableMobGriefingUpgrade : ToggledUpgrade() {
 
     /**
-     * Disables explosions by setting the destruction type to [Explosion.DestructionType.NONE].
+     * Disables explosions by setting the destruction type to [Explosion.DestructionType.KEEP].
      * @see CreeperEntityMixin.disableExplosion
      * @see WitherSkullEntityMixin.disableExplosion
      * @see WitherEntityMixin.disableExplosion
      */
     fun disableExplosion(pos: Vec3d, type: Explosion.DestructionType): Explosion.DestructionType {
-        return if (inRange(pos)) Explosion.DestructionType.NONE else type
+        return if (inRange(pos)) Explosion.DestructionType.KEEP else type
     }
 
     /**

@@ -6,9 +6,9 @@ import net.minecraft.block.Block
 import net.minecraft.block.Blocks
 import net.minecraft.block.entity.BlockEntity
 import net.minecraft.block.entity.BlockEntityType
-import net.minecraft.util.registry.Registry
+import net.minecraft.registry.Registries
 
-object ModBlockEntityTypes : RegistryManager<BlockEntityType<out BlockEntity>>(Registry.BLOCK_ENTITY_TYPE) {
+object ModBlockEntityTypes : RegistryManager<BlockEntityType<out BlockEntity>>(Registries.BLOCK_ENTITY_TYPE) {
 
     val MOD_BEACON = create("mod_beacon", ::ModBeaconBlockEntity, Blocks.BEACON)
 

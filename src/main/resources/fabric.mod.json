@@ -41,10 +41,10 @@
     "vanilla_cubed.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.14.6",
+    "fabricloader": ">=0.14.22",
     "fabric": "*",
     "fabric-language-kotlin": "*",
-    "minecraft": "~1.19.2",
+    "minecraft": "~1.20.1",
     "java": ">=17"
   },
   "suggests": {

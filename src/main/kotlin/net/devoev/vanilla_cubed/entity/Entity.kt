@@ -1,9 +1,9 @@
 package net.devoev.vanilla_cubed.entity
 
 import net.minecraft.entity.Entity
+import net.minecraft.registry.RegistryKey
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
-import net.minecraft.util.registry.RegistryKey
 import net.minecraft.world.biome.Biome
 import net.minecraft.world.biome.BiomeKeys
 

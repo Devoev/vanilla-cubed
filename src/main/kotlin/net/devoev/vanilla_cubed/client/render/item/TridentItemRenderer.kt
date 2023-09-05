@@ -13,7 +13,7 @@ import net.minecraft.client.render.entity.model.EntityModelLayers
 import net.minecraft.client.render.entity.model.TridentEntityModel
 import net.minecraft.client.render.item.ItemRenderer
 import net.minecraft.client.render.model.BakedModel
-import net.minecraft.client.render.model.json.ModelTransformation
+import net.minecraft.client.render.model.json.ModelTransformationMode
 import net.minecraft.client.util.ModelIdentifier
 import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.item.ItemStack
@@ -26,6 +26,7 @@ class TridentItemRenderer(private val itemId: Identifier, private val texture: I
     DynamicItemRenderer, SimpleSynchronousResourceReloadListener {
 
     private val id: Identifier = Identifier(itemId.namespace, itemId.path + "_renderer")
+    private val modelId: Identifier = Identifier(itemId.namespace, itemId.path + "_in_inventory")
     private val modelLayer: EntityModelLayer = EntityModelLayers.TRIDENT
 
     private lateinit var itemRenderer: ItemRenderer
@@ -33,7 +34,7 @@ class TridentItemRenderer(private val itemId: Identifier, private val texture: I
     private lateinit var tridentItemModel: BakedModel
 
     /**
-     * Whether the lateinit vars are initialized.
+     * Whether the `lateinit` vars are initialized.
      */
     private val initialized get() = this::itemRenderer.isInitialized
             && this::tridentEntityModel.isInitialized
@@ -50,7 +51,7 @@ class TridentItemRenderer(private val itemId: Identifier, private val texture: I
         itemRenderer = client.itemRenderer
         tridentEntityModel = TridentEntityModel(client.entityModelLoader.getModelPart(modelLayer))
         tridentItemModel = client.bakedModelManager.getModel(
-            ModelIdentifier(itemId.toString() + "_in_inventory", "inventory")
+            ModelIdentifier(modelId, "inventory")
         )
     }
 
@@ -58,7 +59,7 @@ class TridentItemRenderer(private val itemId: Identifier, private val texture: I
 
     override fun render(
         stack: ItemStack,
-        renderMode: ModelTransformation.Mode,
+        renderMode: ModelTransformationMode,
         matrices: MatrixStack,
         vertexConsumers: VertexConsumerProvider,
         light: Int,
@@ -66,7 +67,7 @@ class TridentItemRenderer(private val itemId: Identifier, private val texture: I
     ) {
         init()
 
-        if (renderMode == ModelTransformation.Mode.GUI || renderMode == ModelTransformation.Mode.GROUND || renderMode == ModelTransformation.Mode.FIXED) {
+        if (renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED) {
             matrices.pop()
             matrices.push()
             itemRenderer.renderItem(

@@ -8,26 +8,32 @@ import net.minecraft.inventory.Inventory
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.item.ToolItem
-import net.minecraft.recipe.Ingredient
 import net.minecraft.recipe.RecipeSerializer
 import net.minecraft.recipe.SmithingRecipe
+import net.minecraft.registry.DynamicRegistryManager
 import net.minecraft.util.Identifier
 import net.minecraft.world.World
 
 /**
  * Recipe that magnetizes demagnetized netherite tools by combination with a [Items.NETHERITE_SCRAP].
  */
-class MagnetizeNetheriteToolsRecipe(id: Identifier) : SmithingRecipe(id, Ingredient.EMPTY, Ingredient.EMPTY, ItemStack.EMPTY) {
+class MagnetizeNetheriteToolsRecipe(private val id: Identifier) : SmithingRecipe {
 
     override fun matches(inventory: Inventory, world: World): Boolean {
-        val (base, addition) = inventory.toList()
-        return base.item is ToolItem
-                && base.item.isNetherite()
-                && !base.magnetic
-                && addition.isOf(Items.NETHERITE_SCRAP)
+        val (template, base, addition) = inventory.toList()
+        return testTemplate(template) && testBase(base) && testAddition(addition)
     }
 
-    override fun craft(inventory: Inventory): ItemStack = inventory[0].copy().apply { magnetic = true }
+    override fun craft(inventory: Inventory, registryManager: DynamicRegistryManager): ItemStack = inventory[0].copy().apply { magnetic = true }
+
+    override fun getOutput(registryManager: DynamicRegistryManager?): ItemStack = ItemStack.EMPTY
+
+    override fun getId(): Identifier = id
 
     override fun getSerializer(): RecipeSerializer<*> = ModCraftingRecipes.MAGNETIZE_NETHERITE_TOOLS
+    override fun testTemplate(stack: ItemStack): Boolean = stack.isEmpty
+
+    override fun testBase(stack: ItemStack): Boolean = stack.item is ToolItem && stack.item.isNetherite() && !stack.magnetic
+
+    override fun testAddition(stack: ItemStack): Boolean = stack.isOf(Items.NETHERITE_SCRAP)
 }
