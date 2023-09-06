@@ -1,7 +1,5 @@
 package net.devoev.vanilla_cubed.recipe
 
-import net.devoev.vanilla_cubed.inventory.get
-import net.devoev.vanilla_cubed.inventory.toList
 import net.devoev.vanilla_cubed.item.isNetherite
 import net.devoev.vanilla_cubed.item.magnetic
 import net.minecraft.inventory.Inventory
@@ -20,11 +18,11 @@ import net.minecraft.world.World
 class MagnetizeNetheriteToolsRecipe(private val id: Identifier) : SmithingRecipe {
 
     override fun matches(inventory: Inventory, world: World): Boolean {
-        val (template, base, addition) = inventory.toList()
-        return testTemplate(template) && testBase(base) && testAddition(addition)
+        return testTemplate(inventory.template) && testBase(inventory.base) && testAddition(inventory.addition)
     }
 
-    override fun craft(inventory: Inventory, registryManager: DynamicRegistryManager): ItemStack = inventory[0].copy().apply { magnetic = true }
+    override fun craft(inventory: Inventory, registryManager: DynamicRegistryManager): ItemStack
+        = inventory.base.copy().apply { magnetic = true }
 
     override fun getOutput(registryManager: DynamicRegistryManager?): ItemStack = ItemStack.EMPTY
 
@@ -36,4 +34,13 @@ class MagnetizeNetheriteToolsRecipe(private val id: Identifier) : SmithingRecipe
     override fun testBase(stack: ItemStack): Boolean = stack.item is ToolItem && stack.item.isNetherite() && !stack.magnetic
 
     override fun testAddition(stack: ItemStack): Boolean = stack.isOf(Items.NETHERITE_SCRAP)
+
+    private val Inventory.template: ItemStack
+        get() = getStack(0)
+
+    private val Inventory.base: ItemStack
+        get() = getStack(1)
+
+    private val Inventory.addition: ItemStack
+        get() = getStack(2)
 }
