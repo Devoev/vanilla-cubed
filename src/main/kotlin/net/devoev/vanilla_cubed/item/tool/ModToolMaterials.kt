@@ -15,13 +15,13 @@ enum class ModToolMaterials(
     private val miningSpeed: Float,
     private val attackDamage: Float,
     private val enchantability: Int,
-    private val repairIngredient: Ingredient
+    private val repairIngredient: Lazy<Ingredient>
 ) : ToolMaterial {
 
-    AMETHYST(miningLevel = 4, miningSpeed = 11F, repairItem = ModItems.CHARGED_AMETHYST_CRYSTAL),
-    ANCIENT_GOLD(miningLevel = 4, miningSpeed = 10F, enchantability = 50, repairItem = ModItems.ANCIENT_GOLD_INGOT),
-    ENDERITE(miningLevel = 4, attackDamage = 4F, miningSpeed = 9F, enchantability = 15, itemDurability = 2031, repairItem = ModItems.ENDERITE_INGOT),
-    DRAGON_SCALE(miningLevel = 4, repairItem = ModItems.INFUSED_DRAGON_SCALE);
+    AMETHYST(miningLevel = 4, miningSpeed = 11F, repairItem = { ModItems.CHARGED_AMETHYST_CRYSTAL }),
+    ANCIENT_GOLD(miningLevel = 4, miningSpeed = 10F, enchantability = 50, repairItem = { ModItems.ANCIENT_GOLD_INGOT }),
+    ENDERITE(miningLevel = 4, attackDamage = 4F, miningSpeed = 9F, enchantability = 15, itemDurability = 2031, repairItem = { ModItems.ENDERITE_INGOT }),
+    DRAGON_SCALE(miningLevel = 4, repairItem = { ModItems.INFUSED_DRAGON_SCALE });
 
     /**
      * Constructs a new [ToolMaterial]. Default values are the stats of [ToolMaterials.DIAMOND].
@@ -31,8 +31,8 @@ enum class ModToolMaterials(
                 miningSpeed: Float = 8F,
                 attackDamage: Float = 3F,
                 enchantability: Int = 10,
-                repairItem: Item)
-            : this(miningLevel, itemDurability, miningSpeed, attackDamage, enchantability, Ingredient.ofItems(repairItem))
+                repairItem: () -> Item)
+            : this(miningLevel, itemDurability, miningSpeed, attackDamage, enchantability, lazy { Ingredient.ofItems(repairItem()) })
 
     override fun getDurability(): Int = itemDurability
 
@@ -44,5 +44,5 @@ enum class ModToolMaterials(
 
     override fun getEnchantability(): Int = enchantability
 
-    override fun getRepairIngredient(): Ingredient = repairIngredient
+    override fun getRepairIngredient(): Ingredient = repairIngredient.value
 }
