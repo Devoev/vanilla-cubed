@@ -9,6 +9,11 @@
 
   "item.vanilla_cubed.netherite_trident": "Netherite Trident",
 
+  "upgrade.vanilla_cubed.ancient_gold_upgrade": "Ancient Gold Upgrade",
+  "item.vanilla_cubed.smithing_template.ancient_gold_upgrade.applies_to": "Diamond Equipment",
+  "item.vanilla_cubed.smithing_template.ancient_gold_upgrade.ingredients": "Ancient Gold Ingot",
+  "item.vanilla_cubed.smithing_template.ancient_gold_upgrade.base_slot_description": "Add diamond armor, weapon, or tool",
+  "item.vanilla_cubed.smithing_template.ancient_gold_upgrade.additions_slot_description": "Add Ancient Gold Ingot",
   "item.vanilla_cubed.gilded_cluster": "Gilded Cluster",
   "item.vanilla_cubed.ancient_gold_ingot": "Ancient Gold Ingot",
   "block.vanilla_cubed.ancient_gold_block": "Block of Ancient Gold",

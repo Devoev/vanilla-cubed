@@ -26,6 +26,8 @@ object ModItems : RegistryManager<Item>(Registries.ITEM) {
     val ANCIENT_GOLD_INGOT = create("ancient_gold_ingot", Item(FabricItemSettings()))
     val ANCIENT_GOLD_BLOCK = create("ancient_gold_block", BlockItem(ModBlocks.ANCIENT_GOLD_BLOCK, FabricItemSettings()))
     val GILDED_BOOK = create("gilded_book", GildedBook())
+    val ANCIENT_GOLD_UPGRADE_SMITHING_TEMPLATE = create("ancient_gold_upgrade_smithing_template", ancientGoldUpgrade)
+
 
     val ANCIENT_GOLD_SWORD = create("ancient_gold_sword", ModTools.ANCIENT_GOLD.sword)
     val ANCIENT_GOLD_SHOVEL = create("ancient_gold_shovel", ModTools.ANCIENT_GOLD.shovel)

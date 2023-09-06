@@ -7,7 +7,7 @@
     "item": "vanilla_cubed:ancient_gold_ingot"
   },
   "template": {
-    "item": "minecraft:netherite_upgrade_smithing_template"
+    "item": "vanilla_cubed:ancient_gold_upgrade_smithing_template"
   },
   "result": {
     "item": "vanilla_cubed:ancient_gold_helmet"

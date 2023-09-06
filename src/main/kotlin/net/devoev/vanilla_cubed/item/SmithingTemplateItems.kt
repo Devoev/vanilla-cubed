@@ -60,7 +60,7 @@ private fun ingredientsTextOf(name: String) = Text.translatable(
 private fun titleTextOf(name: String) = Text.translatable(
     Util.createTranslationKey(
         "upgrade",
-        VanillaCubed.id("netherite_upgrade")
+        VanillaCubed.id("${name}_upgrade")
     )
 ).formatted(Formatting.GRAY)
 
@@ -97,7 +97,7 @@ private fun upgradeOf(name: String) = SmithingTemplateItem(
     listOf(EMPTY_SLOT_INGOT_TEXTURE), // TODO: Choose different textures
 )
 
-val amethystUpgrade: SmithingTemplateItem = upgradeOf("amethyst")
+//val amethystUpgrade: SmithingTemplateItem = upgradeOf("amethyst")
 val ancientGoldUpgrade: SmithingTemplateItem = upgradeOf("ancient_gold")
-val enderiteUpgrade: SmithingTemplateItem = upgradeOf("enderite")
-val dragonScaleUpgrade: SmithingTemplateItem = upgradeOf("dragon_scale")
+//val enderiteUpgrade: SmithingTemplateItem = upgradeOf("enderite")
+//val dragonScaleUpgrade: SmithingTemplateItem = upgradeOf("dragon_scale")
