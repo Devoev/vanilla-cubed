@@ -10,21 +10,21 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
 import net.minecraft.item.ToolMaterials
-import net.minecraft.util.registry.Registry
+import net.minecraft.registry.Registries
 
 /**
  * All modded items.
  */
-object ModItems : RegistryManager<Item>(Registry.ITEM) {
+object ModItems : RegistryManager<Item>(Registries.ITEM) {
 
     //Tridents
-    val ELDER_GUARDIAN_SHARD = create("elder_guardian_shard", Item(ModItemGroup.VANILLA_CUBED.toSettings()))
-    val NETHERITE_TRIDENT = create("netherite_trident", ModTridentItem(::NetheriteTridentEntity, ToolMaterials.NETHERITE, FabricItemSettings().maxDamage(324).group(ModItemGroup.VANILLA_CUBED).fireproof()))
+    val ELDER_GUARDIAN_SHARD = create("elder_guardian_shard", Item(FabricItemSettings()))
+    val NETHERITE_TRIDENT = create("netherite_trident", ModTridentItem(::NetheriteTridentEntity, ToolMaterials.NETHERITE, FabricItemSettings().maxDamage(324).fireproof()))
 
     //Ancient Gold
-    val GILDED_CLUSTER = create("gilded_cluster", Item(ModItemGroup.VANILLA_CUBED.toSettings()))
-    val ANCIENT_GOLD_INGOT = create("ancient_gold_ingot", Item(ModItemGroup.VANILLA_CUBED.toSettings()))
-    val ANCIENT_GOLD_BLOCK = create("ancient_gold_block", BlockItem(ModBlocks.ANCIENT_GOLD_BLOCK, ModItemGroup.VANILLA_CUBED.toSettings()))
+    val GILDED_CLUSTER = create("gilded_cluster", Item(FabricItemSettings()))
+    val ANCIENT_GOLD_INGOT = create("ancient_gold_ingot", Item(FabricItemSettings()))
+    val ANCIENT_GOLD_BLOCK = create("ancient_gold_block", BlockItem(ModBlocks.ANCIENT_GOLD_BLOCK, FabricItemSettings()))
     val GILDED_BOOK = create("gilded_book", GildedBook())
 
     val ANCIENT_GOLD_SWORD = create("ancient_gold_sword", ModTools.ANCIENT_GOLD.sword)
@@ -39,10 +39,10 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
     val ANCIENT_GOLD_BOOTS = create("ancient_gold_boots", ModArmor.ANCIENT_GOLD.boots)
 
     //Amethyst
-    val AMETHYST_CRYSTAL = create("amethyst_crystal", Item(ModItemGroup.VANILLA_CUBED.toSettings()))
-    val CHARGED_AMETHYST_CRYSTAL = create("amethyst_crystal_charged", Item(ModItemGroup.VANILLA_CUBED.toSettings()))
-    val AMETHYST_CRYSTAL_BLOCK = create("amethyst_crystal_block", BlockItem(ModBlocks.AMETHYST_CRYSTAL_BLOCK, ModItemGroup.VANILLA_CUBED.toSettings()))
-    val CHARGED_AMETHYST_CRYSTAL_BLOCK = create("amethyst_crystal_block_charged", BlockItem(ModBlocks.CHARGED_AMETHYST_CRYSTAL_BLOCK, ModItemGroup.VANILLA_CUBED.toSettings()))
+    val AMETHYST_CRYSTAL = create("amethyst_crystal", Item(FabricItemSettings()))
+    val CHARGED_AMETHYST_CRYSTAL = create("amethyst_crystal_charged", Item(FabricItemSettings()))
+    val AMETHYST_CRYSTAL_BLOCK = create("amethyst_crystal_block", BlockItem(ModBlocks.AMETHYST_CRYSTAL_BLOCK, FabricItemSettings()))
+    val CHARGED_AMETHYST_CRYSTAL_BLOCK = create("amethyst_crystal_block_charged", BlockItem(ModBlocks.CHARGED_AMETHYST_CRYSTAL_BLOCK, FabricItemSettings()))
     val AMETHYST_COMPASS = create("amethyst_compass", AmethystCompass())
 
     val AMETHYST_SWORD = create("amethyst_sword", ModTools.AMETHYST.sword)
@@ -57,10 +57,10 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
     val AMETHYST_BOOTS = create("amethyst_boots", ModArmor.AMETHYST.boots)
 
     //Enderite
-    val ENDERITE_ORE = create("enderite_ore", BlockItem(ModBlocks.ENDERITE_ORE, ModItemGroup.VANILLA_CUBED.toSettings()))
-    val ENDERITE_BLOCK = create("enderite_block", BlockItem(ModBlocks.ENDERITE_BLOCK, ModItemGroup.VANILLA_CUBED.toSettings()))
-    val ENDERITE_SHARD = create("enderite_shard", Item(ModItemGroup.VANILLA_CUBED.toSettings()))
-    val ENDERITE_INGOT = create("enderite_ingot", Item(ModItemGroup.VANILLA_CUBED.toSettings()))
+    val ENDERITE_ORE = create("enderite_ore", BlockItem(ModBlocks.ENDERITE_ORE, FabricItemSettings()))
+    val ENDERITE_BLOCK = create("enderite_block", BlockItem(ModBlocks.ENDERITE_BLOCK, FabricItemSettings()))
+    val ENDERITE_SHARD = create("enderite_shard", Item(FabricItemSettings()))
+    val ENDERITE_INGOT = create("enderite_ingot", Item(FabricItemSettings()))
     val ENDERITE_POWDER = create("enderite_powder", EnderitePowder())
 
     val ENDERITE_SWORD = create("enderite_sword", ModTools.ENDERITE.sword)
@@ -77,8 +77,8 @@ object ModItems : RegistryManager<Item>(Registry.ITEM) {
 
     //Dragon Scale
     val DRAGON_SCALE = create("dragon_scale", DragonScale())
-    val INFUSED_DRAGON_SCALE = create("dragon_scale_infused", Item(ModItemGroup.VANILLA_CUBED.toSettings()))
-    val INFUSED_DRAGON_SCALE_CHUNK = create("dragon_scale_chunk_infused", Item(ModItemGroup.VANILLA_CUBED.toSettings()))
+    val INFUSED_DRAGON_SCALE = create("dragon_scale_infused", Item(FabricItemSettings()))
+    val INFUSED_DRAGON_SCALE_CHUNK = create("dragon_scale_chunk_infused", Item(FabricItemSettings()))
     val INFUSED_FIREWORK_ROCKET = create("firework_rocket_infused", InfusedFireworkRocket())
 
     val DRAGON_SCALE_SWORD = create("dragon_scale_sword", ModTools.DRAGON_SCALE.sword)

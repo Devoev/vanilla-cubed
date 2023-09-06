@@ -1,7 +1,7 @@
 package net.devoev.vanilla_cubed.item.armor
 
 import net.devoev.vanilla_cubed.item.ModItems
-import net.minecraft.entity.EquipmentSlot
+import net.minecraft.item.ArmorItem
 import net.minecraft.item.ArmorMaterial
 import net.minecraft.item.ArmorMaterials
 import net.minecraft.item.Item
@@ -41,9 +41,9 @@ enum class ModArmorMaterials(
                 repairItem: Item)
         : this(name, durabilityMultiplier, protectionAmounts, enchantability, equipSound, toughness, knockbackResistance, Ingredient.ofItems(repairItem))
 
-    override fun getDurability(slot: EquipmentSlot): Int = BASE_DURABILITY[slot.entitySlotId] * durabilityMultiplier
+    override fun getDurability(type: ArmorItem.Type): Int = BASE_DURABILITY[type.equipmentSlot.entitySlotId] * durabilityMultiplier
 
-    override fun getProtectionAmount(slot: EquipmentSlot): Int = protectionAmounts[slot.entitySlotId]
+    override fun getProtection(type: ArmorItem.Type): Int = protectionAmounts[type.equipmentSlot.entitySlotId]
 
     override fun getEnchantability(): Int = enchantability
 

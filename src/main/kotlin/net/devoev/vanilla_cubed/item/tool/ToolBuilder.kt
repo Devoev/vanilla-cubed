@@ -4,6 +4,7 @@ import net.devoev.vanilla_cubed.item.behavior.*
 import net.devoev.vanilla_cubed.item.tool.data.ToolDataSet
 import net.devoev.vanilla_cubed.item.tool.data.ToolDataSet.Companion.BASE_ATTACK_DAMAGE
 import net.devoev.vanilla_cubed.item.tool.data.ToolDataSet.Companion.BASE_ATTACK_SPEED
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.item.*
 import net.minecraft.item.Item.Settings
 
@@ -16,7 +17,7 @@ open class ToolBuilder(protected val data: ToolDataSet, protected val behaviors:
         material: ToolMaterial,
         attackDamageAmounts: List<Float> = BASE_ATTACK_DAMAGE,
         attackSpeedAmounts: List<Float> = BASE_ATTACK_SPEED,
-        settings: Settings,
+        settings: Settings = FabricItemSettings(),
         inventoryTickBehavior: InventoryTickBehavior<Item> = INVENTORY_TICK_DEFAULT,
         postHitBehavior: PostHitBehavior<Item> = POST_HIT_DEFAULT,
         postMineBehavior: PostMineBehavior<Item> = POST_MINE_DEFAULT,

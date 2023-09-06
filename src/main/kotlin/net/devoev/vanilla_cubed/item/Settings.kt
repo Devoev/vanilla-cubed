@@ -13,7 +13,6 @@ fun Item.Settings.copy(): FabricItemSettings {
         .maxCount(maxCount)
         .maxDamage(maxDamage)
         .recipeRemainder(recipeRemainder())
-        .group(group)
         .rarity(rarity)
         .food(food)
         .let { if (fireproof) it.fireproof() else it }

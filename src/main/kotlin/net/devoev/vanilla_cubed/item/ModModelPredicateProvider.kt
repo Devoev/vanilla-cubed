@@ -5,8 +5,8 @@ import net.devoev.vanilla_cubed.util.SetInitializer
 import net.devoev.vanilla_cubed.util.math.toFloat
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
+import net.minecraft.client.item.ClampedModelPredicateProvider
 import net.minecraft.client.item.ModelPredicateProviderRegistry
-import net.minecraft.client.item.UnclampedModelPredicateProvider
 import net.minecraft.item.Item
 import net.minecraft.item.Items
 import net.minecraft.util.Identifier
@@ -22,10 +22,10 @@ object ModModelPredicateProvider : SetInitializer<ModelPredicate>() {
         create(ModItems.INFUSED_FIREWORK_ROCKET, "infusion_lvl", INFUSION_LVL_PREDICATE_PROVIDER)
     }
 
-    fun create(item: Item, predicateName: String, predicateProvider: UnclampedModelPredicateProvider)
+    fun create(item: Item, predicateName: String, predicateProvider: ClampedModelPredicateProvider)
         = create(Triple(item, Identifier(predicateName), predicateProvider))
 
     override fun init() = forEach { ModelPredicateProviderRegistry.register(it.first, it.second, it.third) }
 }
 
-typealias ModelPredicate = Triple<Item, Identifier, UnclampedModelPredicateProvider>
+typealias ModelPredicate = Triple<Item, Identifier, ClampedModelPredicateProvider>

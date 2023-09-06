@@ -3,6 +3,7 @@ package net.devoev.vanilla_cubed.item
 import net.devoev.vanilla_cubed.entity.falling
 import net.devoev.vanilla_cubed.util.math.toVec3d
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityStatuses
 import net.minecraft.entity.effect.StatusEffectInstance
@@ -21,7 +22,7 @@ import net.minecraft.world.TeleportTarget
 import net.minecraft.world.World
 import kotlin.jvm.optionals.getOrNull
 
-class EnderitePowder : Item(ModItemGroup.VANILLA_CUBED.toSettings()) {
+class EnderitePowder : Item(FabricItemSettings()) {
 
     override fun use(world: World?, user: PlayerEntity?, hand: Hand?): TypedActionResult<ItemStack> {
         val stack = user?.getStackInHand(hand)
@@ -63,10 +64,9 @@ class EnderitePowder : Item(ModItemGroup.VANILLA_CUBED.toSettings()) {
     /**
      * Returns the teleport target for the given [user].
      */
-    @OptIn(ExperimentalStdlibApi::class)
     private fun teleportTarget(user: ServerPlayerEntity, world: ServerWorld): TeleportTarget {
         val pos = user.spawnPointPosition ?: world.spawnPos
-        var vec = PlayerEntity.findRespawnPosition(world, pos, user.limbAngle, false, user.isAlive).getOrNull()
+        var vec = PlayerEntity.findRespawnPosition(world, pos, user.spawnAngle, false, user.isAlive).getOrNull()
 
         if (vec == null) vec = world.spawnPos.toVec3d()
         return TeleportTarget(vec, Vec3d.ZERO, user.bodyYaw, user.pitch)

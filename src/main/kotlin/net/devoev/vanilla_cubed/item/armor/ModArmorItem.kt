@@ -1,17 +1,19 @@
 package net.devoev.vanilla_cubed.item.armor
 
-import net.devoev.vanilla_cubed.item.behavior.*
+import net.devoev.vanilla_cubed.item.behavior.Behaviors
+import net.devoev.vanilla_cubed.item.behavior.InventoryTickParams
+import net.devoev.vanilla_cubed.item.behavior.PostHitParams
+import net.devoev.vanilla_cubed.item.behavior.PostMineParams
 import net.minecraft.block.BlockState
 import net.minecraft.entity.Entity
-import net.minecraft.entity.EquipmentSlot
 import net.minecraft.entity.LivingEntity
 import net.minecraft.item.ArmorItem
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-open class ModArmorItem(data: ArmorData, slot: EquipmentSlot, behaviors: Behaviors<ArmorItem>)
-    : ArmorItem(data.material, slot, data.settings), Behaviors<ArmorItem> by behaviors {
+open class ModArmorItem(data: ArmorData, type: Type, behaviors: Behaviors<ArmorItem>)
+    : ArmorItem(data.material, type, data.settings), Behaviors<ArmorItem> by behaviors {
 
     override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
         inventoryTickBehavior(this, InventoryTickParams(stack, world, entity, slot, selected))
