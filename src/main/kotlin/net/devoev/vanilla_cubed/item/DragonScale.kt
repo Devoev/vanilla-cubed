@@ -1,5 +1,6 @@
 package net.devoev.vanilla_cubed.item
 
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.entity.AreaEffectCloudEntity
 import net.minecraft.entity.boss.dragon.EnderDragonEntity
 import net.minecraft.entity.player.PlayerEntity
@@ -14,7 +15,7 @@ import net.minecraft.util.TypedActionResult
 import net.minecraft.world.World
 import net.minecraft.world.event.GameEvent
 
-class DragonScale : Item(ModItemGroup.VANILLA_CUBED.toSettings()) {
+class DragonScale : Item(FabricItemSettings()) {
 
     /**
      * A dragon scale can be infused when right-clicked on a dragon breath.
@@ -29,7 +30,7 @@ class DragonScale : Item(ModItemGroup.VANILLA_CUBED.toSettings()) {
             return TypedActionResult.pass(stack)
 
         val areaEffectCloudEntity = list[0] as AreaEffectCloudEntity
-        areaEffectCloudEntity.radius = areaEffectCloudEntity.radius - 0.5f
+        areaEffectCloudEntity.radius -= 0.5f
         world.playSound(null, user.x, user.y, user.z,
             SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.NEUTRAL, 1.0f, 1.0f)
         world.emitGameEvent(user, GameEvent.FLUID_PICKUP, user.blockPos)
