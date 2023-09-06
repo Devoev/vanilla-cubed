@@ -12,13 +12,20 @@ import net.minecraft.text.Text
  */
 object ModItemGroup : RegistryManager<ItemGroup>(Registries.ITEM_GROUP) {
 
-    val VANILLA_CUBED: ItemGroup = create("vanilla_cubed", ItemStack(ModItems.GILDED_BOOK))
+    val VANILLA_CUBED: ItemGroup = create("vanilla_cubed", ItemStack(ModItems.GILDED_BOOK), ModItems.values.map { ItemStack(it) })
 
     /**
      * Creates a new modded [ItemGroup].
      */
-    private fun create(name: String, icon: ItemStack): ItemGroup = FabricItemGroup.builder()
-        .icon { icon }
-        .displayName(Text.translatable("itemGroup.vanilla_cubed.$name"))
-        .build()
+    private fun create(name: String, icon: ItemStack, items: Collection<ItemStack> = listOf()): ItemGroup
+        = create(name, itemGroupOf(name, icon, items))
 }
+
+/**
+ * Creates a [ItemGroup] of the display name `"itemGroup.vanilla_cubed.$[name]"`.
+ */
+private fun itemGroupOf(name: String, icon: ItemStack, items: Collection<ItemStack>): ItemGroup = FabricItemGroup.builder()
+    .displayName(Text.translatable("itemGroup.vanilla_cubed.$name"))
+    .icon { icon }
+    .entries { _, entries -> entries.addAll(items) }
+    .build()

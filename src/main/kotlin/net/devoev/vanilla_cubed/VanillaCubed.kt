@@ -6,6 +6,7 @@ import net.devoev.vanilla_cubed.client.gui.screen.ingame.ModScreens
 import net.devoev.vanilla_cubed.enchantment.ModEnchantments
 import net.devoev.vanilla_cubed.entity.ModEntityTypes
 import net.devoev.vanilla_cubed.entity.effect.ModStatusEffects
+import net.devoev.vanilla_cubed.item.ModItemGroup
 import net.devoev.vanilla_cubed.item.ModItems
 import net.devoev.vanilla_cubed.loot.ModLootTables
 import net.devoev.vanilla_cubed.networking.ModServerPlayNetworking
@@ -19,6 +20,7 @@ object VanillaCubed : ModInitializer {
     private const val MOD_ID = "vanilla_cubed"
 
     override fun onInitialize() {
+        ModItemGroup.init()
         ModItems.init()
         ModBlocks.init()
         ModEnchantments.init()
