@@ -1,10 +1,13 @@
 {
-  "type": "minecraft:smithing",
+  "type": "minecraft:smithing_transform",
   "base": {
     "item": "minecraft:diamond_sword"
   },
   "addition": {
     "item": "vanilla_cubed:amethyst_crystal_charged"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
   },
   "result": {
     "item": "vanilla_cubed:amethyst_sword"
