@@ -19,7 +19,7 @@ public class PlayerEntityMixin {
      */
     @ModifyVariable(method = "dropItem(Lnet/minecraft/item/ItemStack;ZZ)Lnet/minecraft/entity/ItemEntity;", at = @At("STORE"), ordinal = 0)
     private ItemEntity setDroppedByPlayer(ItemEntity itemEntity) {
-        if (itemEntity.world.isClient) return itemEntity;
+        if (itemEntity.getWorld().isClient) return itemEntity;
         ItemEntityKt.setDroppedByPlayer(itemEntity, true);
         return itemEntity;
     }

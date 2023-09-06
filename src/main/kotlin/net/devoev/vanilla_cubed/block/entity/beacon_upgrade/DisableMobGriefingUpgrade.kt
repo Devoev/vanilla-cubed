@@ -16,6 +16,7 @@ object DisableMobGriefingUpgrade : ToggledUpgrade() {
      * @see CreeperEntityMixin.disableExplosion
      * @see WitherSkullEntityMixin.disableExplosion
      * @see WitherEntityMixin.disableExplosion
+     * TODO: Fix mixins!
      */
     fun disableExplosion(pos: Vec3d, type: Explosion.DestructionType): Explosion.DestructionType {
         return if (inRange(pos)) Explosion.DestructionType.KEEP else type

@@ -35,7 +35,7 @@ public class EnderDragonEntityMixin extends MobEntity {
         if (ticksSinceDeath != 150) return;
 
         Box box = new Box(getBlockPos());
-        List<PlayerEntity> players = world.getEntitiesByClass(
+        List<PlayerEntity> players = getWorld().getEntitiesByClass(
                 PlayerEntity.class,
                 box.expand(128D),
                 EntityPredicates.EXCEPT_SPECTATOR

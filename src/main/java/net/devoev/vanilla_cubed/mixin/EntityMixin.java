@@ -9,6 +9,7 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
@@ -47,7 +48,7 @@ public class EntityMixin {
     private void setInvulnerableToFlyingDamage(DamageSource damageSource, CallbackInfoReturnable<Boolean> info) {
         if (!((Object) this instanceof LivingEntity entity)) return;
         if (LivingEntityKt.wearsDragonScale(entity) && entity.isFallFlying()
-                && (damageSource.isFromFalling() || damageSource.equals(DamageSource.FLY_INTO_WALL)))
+                && (damageSource.isOf(DamageTypes.FALL) || damageSource.isOf(DamageTypes.FLY_INTO_WALL))) // TODO: Correct type checking?
             info.setReturnValue(true);
     }
 
@@ -74,8 +75,8 @@ public class EntityMixin {
         if (!ItemKt.isNetherite(stack.getItem()) || !ItemStackKt.getMagnetic(stack) || !item.isInLava()) return;
 
         ItemStackKt.setMagnetic(stack, false);
-        if (!item.world.isClient) {
-            item.world.playSound(null,
+        if (!item.getWorld().isClient) {
+            item.getWorld().playSound(null,
                     item.getBlockPos(),
                     SoundEvents.BLOCK_FIRE_EXTINGUISH,
                     SoundCategory.AMBIENT,
@@ -85,7 +86,7 @@ public class EntityMixin {
         }
         else {
             IntStream.rangeClosed(1,5).forEach(i -> {
-                item.world.addParticle(ParticleTypes.LAVA,
+                item.getWorld().addParticle(ParticleTypes.LAVA,
                         item.getX(),
                         item.getY(),
                         item.getZ(),
