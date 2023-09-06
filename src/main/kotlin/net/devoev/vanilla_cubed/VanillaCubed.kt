@@ -10,8 +10,6 @@ import net.devoev.vanilla_cubed.item.ModItems
 import net.devoev.vanilla_cubed.loot.ModLootTables
 import net.devoev.vanilla_cubed.networking.ModServerPlayNetworking
 import net.devoev.vanilla_cubed.recipe.ModCraftingRecipes
-import net.devoev.vanilla_cubed.world.feature.ModConfiguredFeatures
-import net.devoev.vanilla_cubed.world.feature.ModPlacedFeatures
 import net.devoev.vanilla_cubed.world.gen.ModWorldGeneration
 import net.fabricmc.api.ModInitializer
 import net.minecraft.util.Identifier
@@ -27,8 +25,9 @@ object VanillaCubed : ModInitializer {
         ModStatusEffects.init()
         ModLootTables.init()
         ModCraftingRecipes.init()
-        ModConfiguredFeatures.init()
-        ModPlacedFeatures.init()
+        // TODO: Make configured and placed features a json file
+//        ModConfiguredFeatures.init()
+//        ModPlacedFeatures.init()
         ModWorldGeneration.init()
         ModEntityTypes.init()
         ModBlockEntityTypes.init()
