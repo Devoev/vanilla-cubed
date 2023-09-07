@@ -46,6 +46,8 @@ object ModItems : RegistryManager<Item>(Registries.ITEM) {
     val AMETHYST_CRYSTAL_BLOCK = create("amethyst_crystal_block", BlockItem(ModBlocks.AMETHYST_CRYSTAL_BLOCK, FabricItemSettings()))
     val CHARGED_AMETHYST_CRYSTAL_BLOCK = create("amethyst_crystal_block_charged", BlockItem(ModBlocks.CHARGED_AMETHYST_CRYSTAL_BLOCK, FabricItemSettings()))
     val AMETHYST_COMPASS = create("amethyst_compass", AmethystCompass())
+    val AMETHYST_UPGRADE_SMITHING_TEMPLATE = create("amethyst_upgrade_smithing_template", amethystUpgrade)
+
 
     val AMETHYST_SWORD = create("amethyst_sword", ModTools.AMETHYST.sword)
     val AMETHYST_SHOVEL = create("amethyst_shovel", ModTools.AMETHYST.shovel)
@@ -64,6 +66,8 @@ object ModItems : RegistryManager<Item>(Registries.ITEM) {
     val ENDERITE_SHARD = create("enderite_shard", Item(FabricItemSettings()))
     val ENDERITE_INGOT = create("enderite_ingot", Item(FabricItemSettings()))
     val ENDERITE_POWDER = create("enderite_powder", EnderitePowder())
+    val ENDERITE_UPGRADE_SMITHING_TEMPLATE = create("enderite_upgrade_smithing_template", enderiteUpgrade)
+
 
     val ENDERITE_SWORD = create("enderite_sword", ModTools.ENDERITE.sword)
     val ENDERITE_SHOVEL = create("enderite_shovel", ModTools.ENDERITE.shovel)
@@ -82,6 +86,8 @@ object ModItems : RegistryManager<Item>(Registries.ITEM) {
     val INFUSED_DRAGON_SCALE = create("dragon_scale_infused", Item(FabricItemSettings()))
     val INFUSED_DRAGON_SCALE_CHUNK = create("dragon_scale_chunk_infused", Item(FabricItemSettings()))
     val INFUSED_FIREWORK_ROCKET = create("firework_rocket_infused", InfusedFireworkRocket())
+    val DRAGON_SCALE_UPGRADE_SMITHING_TEMPLATE = create("dragon_scale_upgrade_smithing_template", dragonScaleUpgrade)
+
 
     val DRAGON_SCALE_SWORD = create("dragon_scale_sword", ModTools.DRAGON_SCALE.sword)
     val DRAGON_SCALE_SHOVEL = create("dragon_scale_shovel", ModTools.DRAGON_SCALE.shovel)
