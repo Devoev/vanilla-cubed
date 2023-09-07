@@ -7,7 +7,7 @@
     "item": "vanilla_cubed:amethyst_crystal_charged"
   },
   "template": {
-    "item": "minecraft:netherite_upgrade_smithing_template"
+    "item": "vanilla_cubed:amethyst_upgrade_smithing_template"
   },
   "result": {
     "item": "vanilla_cubed:amethyst_boots"

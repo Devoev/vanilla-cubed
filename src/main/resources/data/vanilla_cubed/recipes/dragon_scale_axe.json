@@ -1,10 +1,13 @@
 {
-  "type": "minecraft:smithing",
+  "type": "minecraft:smithing_transform",
   "base": {
     "item": "minecraft:diamond_axe"
   },
   "addition": {
     "item": "vanilla_cubed:dragon_scale_infused"
+  },
+  "template": {
+    "item": "vanilla_cubed:dragon_scale_upgrade_smithing_template"
   },
   "result": {
     "item": "vanilla_cubed:dragon_scale_axe"
