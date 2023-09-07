@@ -87,7 +87,7 @@ object ModItems : RegistryManager<Item>(Registries.ITEM) {
     val INFUSED_DRAGON_SCALE_CHUNK = create("dragon_scale_chunk_infused", Item(FabricItemSettings()))
     val INFUSED_FIREWORK_ROCKET = create("firework_rocket_infused", InfusedFireworkRocket())
     val DRAGON_SCALE_UPGRADE_SMITHING_TEMPLATE = create("dragon_scale_upgrade_smithing_template", dragonScaleUpgrade)
-
+    val ELYTRA_UPGRADE_SMITHING_TEMPLATE = create("elytra_upgrade_smithing_template", elytraUpgrade)
 
     val DRAGON_SCALE_SWORD = create("dragon_scale_sword", ModTools.DRAGON_SCALE.sword)
     val DRAGON_SCALE_SHOVEL = create("dragon_scale_shovel", ModTools.DRAGON_SCALE.shovel)

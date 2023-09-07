@@ -7,7 +7,7 @@
     "item": "minecraft:elytra"
   },
   "template": {
-    "item": "vanilla_cubed:dragon_scale_upgrade_smithing_template"
+    "item": "vanilla_cubed:elytra_upgrade_smithing_template"
   },
   "result": {
     "item": "vanilla_cubed:dragon_scale_chestplate_winged"

@@ -1,6 +1,7 @@
 package net.devoev.vanilla_cubed.item
 
 import net.devoev.vanilla_cubed.VanillaCubed
+import net.minecraft.item.Items
 import net.minecraft.item.SmithingTemplateItem
 import net.minecraft.text.Text
 import net.minecraft.util.Formatting
@@ -20,6 +21,7 @@ private val EMPTY_SLOT_PICKAXE_TEXTURE = Identifier("item/empty_slot_pickaxe")
 private val EMPTY_SLOT_INGOT_TEXTURE = Identifier("item/empty_slot_ingot")
 private val EMPTY_SLOT_AMETHYST_CRYSTAL_TEXTURE = VanillaCubed.id("item/empty_slot_amethyst_crystal")
 private val EMPTY_SLOT_DRAGON_SCALE_TEXTURE = VanillaCubed.id("item/empty_slot_dragon_scale")
+private val EMPTY_SLOT_ELYTRA_TEXTURE = VanillaCubed.id("item/empty_slot_elytra")
 
 /**
  * List of all empty textures for the base slot.
@@ -74,3 +76,8 @@ val enderiteUpgrade: SmithingTemplateItem = upgradeOf("enderite", EMPTY_SLOT_ING
  * Smithing template upgrade for [dragon scales][ModItems.INFUSED_DRAGON_SCALE].
  */
 val dragonScaleUpgrade: SmithingTemplateItem = upgradeOf("dragon_scale", EMPTY_SLOT_DRAGON_SCALE_TEXTURE)
+
+/**
+ * Smithing template upgrade for combining the [ModItems.WINGED_DRAGON_SCALE_CHESTPLATE] with an [Items.ELYTRA].
+ */
+val elytraUpgrade: SmithingTemplateItem = upgradeOf("elytra", EMPTY_SLOT_ELYTRA_TEXTURE)
