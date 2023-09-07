@@ -24,9 +24,9 @@ private val EMPTY_SLOT_DRAGON_SCALE_TEXTURE = VanillaCubed.id("item/empty_slot_d
 private val EMPTY_SLOT_ELYTRA_TEXTURE = VanillaCubed.id("item/empty_slot_elytra")
 
 /**
- * List of all empty textures for the base slot.
+ * List of all empty gear textures for the base slot.
  */
-private val emptyBaseSlotTextures = listOf(
+private val emptySlotGearTextures = listOf(
     EMPTY_ARMOR_SLOT_HELMET_TEXTURE,
     EMPTY_ARMOR_SLOT_CHESTPLATE_TEXTURE,
     EMPTY_ARMOR_SLOT_LEGGINGS_TEXTURE,
@@ -47,37 +47,37 @@ private fun translatableTextOf(type: String, name: String)
 /**
  * Creates a [SmithingTemplateItem] for the upgrade of the given [name].
  */
-private fun upgradeOf(name: String, emptySlotTexture: Identifier) = SmithingTemplateItem(
+private fun upgradeOf(name: String, emptyBaseSlotTextures: List<Identifier>, emptyAdditionsSlotTexture: Identifier) = SmithingTemplateItem(
     translatableTextOf("item", "smithing_template.${name}_upgrade.applies_to").formatted(Formatting.BLUE),
     translatableTextOf("item", "smithing_template.${name}_upgrade.ingredients").formatted(Formatting.BLUE),
     translatableTextOf("upgrade", "${name}_upgrade").formatted(Formatting.GRAY),
     translatableTextOf("item", "smithing_template.${name}_upgrade.base_slot_description"),
     translatableTextOf("item", "smithing_template.${name}_upgrade.additions_slot_description"),
     emptyBaseSlotTextures,
-    listOf(emptySlotTexture),
+    listOf(emptyAdditionsSlotTexture),
 )
 
 /**
  * Smithing template upgrade for [amethyst crystals][ModItems.CHARGED_AMETHYST_CRYSTAL].
  */
-val amethystUpgrade: SmithingTemplateItem = upgradeOf("amethyst", EMPTY_SLOT_AMETHYST_CRYSTAL_TEXTURE)
+val amethystUpgrade: SmithingTemplateItem = upgradeOf("amethyst", emptySlotGearTextures, EMPTY_SLOT_AMETHYST_CRYSTAL_TEXTURE)
 
 /**
  * Smithing template upgrade for [ancient gold ingots][ModItems.ANCIENT_GOLD_INGOT].
  */
-val ancientGoldUpgrade: SmithingTemplateItem = upgradeOf("ancient_gold", EMPTY_SLOT_INGOT_TEXTURE)
+val ancientGoldUpgrade: SmithingTemplateItem = upgradeOf("ancient_gold", emptySlotGearTextures, EMPTY_SLOT_INGOT_TEXTURE)
 
 /**
  * Smithing template upgrade for [enderite ingots][ModItems.ENDERITE_INGOT].
  */
-val enderiteUpgrade: SmithingTemplateItem = upgradeOf("enderite", EMPTY_SLOT_INGOT_TEXTURE)
+val enderiteUpgrade: SmithingTemplateItem = upgradeOf("enderite", emptySlotGearTextures, EMPTY_SLOT_INGOT_TEXTURE)
 
 /**
  * Smithing template upgrade for [dragon scales][ModItems.INFUSED_DRAGON_SCALE].
  */
-val dragonScaleUpgrade: SmithingTemplateItem = upgradeOf("dragon_scale", EMPTY_SLOT_DRAGON_SCALE_TEXTURE)
+val dragonScaleUpgrade: SmithingTemplateItem = upgradeOf("dragon_scale", emptySlotGearTextures, EMPTY_SLOT_DRAGON_SCALE_TEXTURE)
 
 /**
  * Smithing template upgrade for combining the [ModItems.WINGED_DRAGON_SCALE_CHESTPLATE] with an [Items.ELYTRA].
  */
-val elytraUpgrade: SmithingTemplateItem = upgradeOf("elytra", EMPTY_SLOT_ELYTRA_TEXTURE)
+val elytraUpgrade: SmithingTemplateItem = upgradeOf("elytra", listOf(EMPTY_ARMOR_SLOT_CHESTPLATE_TEXTURE), EMPTY_SLOT_ELYTRA_TEXTURE)
