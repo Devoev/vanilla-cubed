@@ -35,69 +35,40 @@ private val emptyBaseSlotTextures = listOf(
 )
 
 /**
- * Creates the `appliesTo` text for an upgrade of the given [name].
+ * Creates a translatable text of the given [type] and [name] under the [VanillaCubed.id] namespace.
  */
-private fun appliesToTextOf(name: String) = Text.translatable(
-    Util.createTranslationKey(
-        "item",
-        VanillaCubed.id("smithing_template.${name}_upgrade.applies_to")
-    )
-).formatted(Formatting.BLUE)
-
-/**
- * Creates the `ingredients` text for an upgrade of the given [name].
- */
-private fun ingredientsTextOf(name: String) = Text.translatable(
-    Util.createTranslationKey(
-        "item",
-        VanillaCubed.id("smithing_template.${name}_upgrade.ingredients")
-    )
-).formatted(Formatting.BLUE)
-
-/**
- * Creates the `title` text for an upgrade of the given [name].
- */
-private fun titleTextOf(name: String) = Text.translatable(
-    Util.createTranslationKey(
-        "upgrade",
-        VanillaCubed.id("${name}_upgrade")
-    )
-).formatted(Formatting.GRAY)
-
-/**
- * Creates the `baseSlotDescription` text for an upgrade of the given [name].
- */
-private fun baseSlotDescriptionTextOf(name: String) = Text.translatable(
-    Util.createTranslationKey(
-        "item",
-        VanillaCubed.id("smithing_template.${name}_upgrade.base_slot_description")
-    )
-)
-
-/**
- * Creates the `additionsSlotDescription` text for an upgrade of the given [name].
- */
-private fun additionsSlotDescriptionTextOf(name: String) = Text.translatable(
-    Util.createTranslationKey(
-        "item",
-        VanillaCubed.id("smithing_template.${name}_upgrade.additions_slot_description")
-    )
-)
+private fun translatableTextOf(type: String, name: String)
+    = Text.translatable(Util.createTranslationKey(type, VanillaCubed.id(name)))
 
 /**
  * Creates a [SmithingTemplateItem] for the upgrade of the given [name].
  */
 private fun upgradeOf(name: String) = SmithingTemplateItem(
-    appliesToTextOf(name),
-    ingredientsTextOf(name),
-    titleTextOf(name),
-    baseSlotDescriptionTextOf(name),
-    additionsSlotDescriptionTextOf(name),
+    translatableTextOf("item", "smithing_template.${name}_upgrade.applies_to").formatted(Formatting.BLUE),
+    translatableTextOf("item", "smithing_template.${name}_upgrade.ingredients").formatted(Formatting.BLUE),
+    translatableTextOf("upgrade", "${name}_upgrade").formatted(Formatting.GRAY),
+    translatableTextOf("item", "smithing_template.${name}_upgrade.base_slot_description"),
+    translatableTextOf("item", "smithing_template.${name}_upgrade.additions_slot_description"),
     emptyBaseSlotTextures,
     listOf(EMPTY_SLOT_INGOT_TEXTURE), // TODO: Choose different textures
 )
 
+/**
+ * Smithing template upgrade for [amethyst crystals][ModItems.CHARGED_AMETHYST_CRYSTAL].
+ */
 val amethystUpgrade: SmithingTemplateItem = upgradeOf("amethyst")
+
+/**
+ * Smithing template upgrade for [ancient gold ingots][ModItems.ANCIENT_GOLD_INGOT].
+ */
 val ancientGoldUpgrade: SmithingTemplateItem = upgradeOf("ancient_gold")
+
+/**
+ * Smithing template upgrade for [enderite ingots][ModItems.ENDERITE_INGOT].
+ */
 val enderiteUpgrade: SmithingTemplateItem = upgradeOf("enderite")
+
+/**
+ * Smithing template upgrade for [dragon scales][ModItems.INFUSED_DRAGON_SCALE].
+ */
 val dragonScaleUpgrade: SmithingTemplateItem = upgradeOf("dragon_scale")
