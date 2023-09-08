@@ -3,10 +3,7 @@ package net.devoev.vanilla_cubed.loot
 import net.devoev.vanilla_cubed.item.ModItems
 import net.devoev.vanilla_cubed.util.MapInitializer
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents
-import net.minecraft.item.Items
 import net.minecraft.loot.LootPool
-import net.minecraft.loot.entry.ItemEntry
-import net.minecraft.loot.provider.number.ConstantLootNumberProvider
 import net.minecraft.util.Identifier
 
 /**
@@ -14,30 +11,36 @@ import net.minecraft.util.Identifier
  */
 object ModLootTables : MapInitializer<Identifier, LootPool.Builder>() {
 
-    init {
-        this["entities/elder_guardian"] = LootPool.builder()
-            .rolls(ConstantLootNumberProvider.create(1F))
-            .with(ItemEntry.builder(ModItems.ELDER_GUARDIAN_SHARD))
-
-        this["chests/bastion_hoglin_stable"] = LootPool.builder()
-            .rolls(ConstantLootNumberProvider.create(1f))
-            .with(ItemEntry.builder(Items.AIR).weight(9))
-            .with(ItemEntry.builder(ModItems.ANCIENT_GOLD_UPGRADE_SMITHING_TEMPLATE))
-
-        this["chests/bastion_bridge"] = LootPool.builder()
-            .rolls(ConstantLootNumberProvider.create(1f))
-            .with(ItemEntry.builder(Items.AIR).weight(9))
-            .with(ItemEntry.builder(ModItems.ANCIENT_GOLD_UPGRADE_SMITHING_TEMPLATE))
-
-        this["chests/bastion_other"] = LootPool.builder()
-            .rolls(ConstantLootNumberProvider.create(1f))
-            .with(ItemEntry.builder(Items.AIR).weight(9))
-            .with(ItemEntry.builder(ModItems.ANCIENT_GOLD_UPGRADE_SMITHING_TEMPLATE))
-
-        this["chests/bastion_treasure"] = LootPool.builder()
-            .rolls(ConstantLootNumberProvider.create(1f))
-            .with(ItemEntry.builder(ModItems.ANCIENT_GOLD_UPGRADE_SMITHING_TEMPLATE))
+    val ELDER_GUARDIAN = create("entities/elder_guardian") {
+        constantRolls(1f)
+        with(ModItems.ELDER_GUARDIAN_SHARD)
     }
+
+    val BASTION_TREASURE = create("chests/bastion_treasure") {
+        constantRolls(1f)
+        with(ModItems.ANCIENT_GOLD_UPGRADE_SMITHING_TEMPLATE)
+    }
+
+    val BASTION_HOGLIN_STABLE = create("chests/bastion_hoglin_stable") {
+        constantRolls(1f)
+        withEmpty(9)
+        with(ModItems.ANCIENT_GOLD_UPGRADE_SMITHING_TEMPLATE)
+    }
+
+    val BASTION_BRIDGE = create("chests/bastion_bridge", BASTION_HOGLIN_STABLE)
+
+    val BASTION_OTHER = create("chests/bastion_other", BASTION_HOGLIN_STABLE)
+
+    /**
+     * Creates a new entry of the given [builder] under the id specified by [name].
+     * Uses the `minecraft` namespace for the id.
+     */
+    fun create(name: String, builder: LootPool.Builder) = create(Identifier("minecraft", name), builder)
+
+    /**
+     * Creates a new entry of using the given [builderAction].
+     */
+    fun create(name: String, builderAction: LootPool.Builder.() -> Unit) = create(name, buildLootPool(builderAction))
 
     /**
      * Adds the given [builder] to this. Uses the `minecraft` namespace for the id.
