@@ -1,4 +1,4 @@
-package net.devoev.vanilla_cubed.world.feature
+package net.devoev.vanilla_cubed.world.gen.feature
 
 import net.devoev.vanilla_cubed.VanillaCubed
 import net.devoev.vanilla_cubed.util.MapInitializer
@@ -18,7 +18,7 @@ import java.util.function.Predicate
 object ModPlacedFeatures : MapInitializer<Identifier, PlacedFeatureData>() {
 
     init {
-        create("enderite_ore", BiomeSelectors.foundInTheEnd(), GenerationStep.Feature.UNDERGROUND_ORES)
+        createEndOreFeature("enderite_ore")
     }
 
     /**
@@ -32,6 +32,11 @@ object ModPlacedFeatures : MapInitializer<Identifier, PlacedFeatureData>() {
         val id = VanillaCubed.id(name)
         ModPlacedFeatures[id] = Triple(biomeSelectors, step, placedFeatureKeyOf(id))
     }
+
+    /**
+     * Creates a new placed feature of a [GenerationStep.Feature.UNDERGROUND_ORES] that generates in the end.
+     */
+    fun createEndOreFeature(name: String) = create(name, BiomeSelectors.foundInTheEnd(), GenerationStep.Feature.UNDERGROUND_ORES)
 
     override fun init() {
         ModPlacedFeatures.forEach { _, data ->

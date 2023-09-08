@@ -11,7 +11,7 @@ import net.devoev.vanilla_cubed.item.ModItems
 import net.devoev.vanilla_cubed.loot.ModLootTables
 import net.devoev.vanilla_cubed.networking.ModServerPlayNetworking
 import net.devoev.vanilla_cubed.recipe.ModCraftingRecipes
-import net.devoev.vanilla_cubed.world.feature.ModPlacedFeatures
+import net.devoev.vanilla_cubed.world.gen.feature.ModPlacedFeatures
 import net.devoev.vanilla_cubed.world.gen.ModWorldGeneration
 import net.fabricmc.api.ModInitializer
 import net.minecraft.util.Identifier
