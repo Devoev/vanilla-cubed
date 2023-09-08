@@ -36,7 +36,7 @@ object ModPlacedFeatures : MapInitializer<Identifier, PlacedFeatureData>() {
     /**
      * Creates a new placed feature of a [GenerationStep.Feature.UNDERGROUND_ORES] that generates in the end.
      */
-    fun createEndOreFeature(name: String) = create(name, BiomeSelectors.foundInTheEnd(), GenerationStep.Feature.UNDERGROUND_ORES)
+    private fun createEndOreFeature(name: String) = create(name, BiomeSelectors.foundInTheEnd(), GenerationStep.Feature.UNDERGROUND_ORES)
 
     override fun init() {
         ModPlacedFeatures.forEach { _, data ->
