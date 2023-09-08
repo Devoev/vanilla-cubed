@@ -7,7 +7,6 @@
     "BeaconBlockMixin",
     "BlockMixin",
     "BoatEntityMixin",
-    "CreeperEntityMixin",
     "EnchantmentHelperMixin",
     "EnchantmentScreenHandlerMixin",
     "EnderDragonEntityMixin",
@@ -35,8 +34,6 @@
     "StatusEffectMixin",
     "TridentEntityAccessor",
     "TridentEntityMixin",
-    "WitherEntityMixin",
-    "WitherSkullEntityMixin",
     "WorldMixin"
   ],
   "client": [],
