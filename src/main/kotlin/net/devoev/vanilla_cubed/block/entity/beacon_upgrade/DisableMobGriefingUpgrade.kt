@@ -1,9 +1,14 @@
 package net.devoev.vanilla_cubed.block.entity.beacon_upgrade
 
-import net.devoev.vanilla_cubed.mixin.*
+import net.devoev.vanilla_cubed.mixin.EnderDragonEntityMixin
+import net.devoev.vanilla_cubed.mixin.EndermanEntityPickUpBlockGoalMixin
+import net.devoev.vanilla_cubed.mixin.FireballEntityMixin
+import net.devoev.vanilla_cubed.mixin.WorldMixin
 import net.minecraft.entity.boss.dragon.EnderDragonEntity
 import net.minecraft.util.math.Vec3d
+import net.minecraft.world.World.ExplosionSourceType
 import net.minecraft.world.explosion.Explosion
+import net.minecraft.world.explosion.Explosion.DestructionType
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
 
 /**
@@ -13,20 +18,18 @@ object DisableMobGriefingUpgrade : ToggledUpgrade() {
 
     /**
      * Disables explosions by setting the destruction type to [Explosion.DestructionType.KEEP].
-     * @see CreeperEntityMixin.disableExplosion
-     * @see WitherSkullEntityMixin.disableExplosion
-     * @see WitherEntityMixin.disableExplosion
-     * TODO: Fix mixins!
+     * @see WorldMixin.disableExplosion
      */
-    fun disableExplosion(pos: Vec3d, type: Explosion.DestructionType): Explosion.DestructionType {
-        return if (inRange(pos)) Explosion.DestructionType.KEEP else type
+    fun disableFire(type: DestructionType, x: Double, y: Double, z: Double, explosionSourceType: ExplosionSourceType): DestructionType {
+        return if (explosionSourceType == ExplosionSourceType.MOB && inRange(Vec3d(x,y,z))) DestructionType.KEEP
+        else type
     }
 
     /**
-     * Disables the fireball explosion by updating the local [bl] variable.
-     * @see FireballEntityMixin.disableExplosion
+     * Disables the fireball explosion fire by updating the local [bl] variable.
+     * @see FireballEntityMixin.disableFire
      */
-    fun disableExplosion(pos: Vec3d, bl: Boolean): Boolean {
+    fun disableFire(pos: Vec3d, bl: Boolean): Boolean {
         return bl && !inRange(pos)
     }
 

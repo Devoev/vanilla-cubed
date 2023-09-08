@@ -36,7 +36,8 @@
     "TridentEntityAccessor",
     "TridentEntityMixin",
     "WitherEntityMixin",
-    "WitherSkullEntityMixin"
+    "WitherSkullEntityMixin",
+    "WorldMixin"
   ],
   "client": [],
   "injectors": {

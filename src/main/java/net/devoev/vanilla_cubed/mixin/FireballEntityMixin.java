@@ -14,8 +14,8 @@ public class FireballEntityMixin {
      */
     @SuppressWarnings("All")
     @ModifyVariable(method = "onCollision", at = @At(value = "STORE"), ordinal = 0)
-    private boolean disableExplosion(boolean bl) {
+    private boolean disableFire(boolean bl) {
         FireballEntity entity = (FireballEntity)(Object)this;
-        return DisableMobGriefingUpgrade.INSTANCE.disableExplosion(entity.getPos(), bl);
+        return DisableMobGriefingUpgrade.INSTANCE.disableFire(entity.getPos(), bl);
     }
 }
