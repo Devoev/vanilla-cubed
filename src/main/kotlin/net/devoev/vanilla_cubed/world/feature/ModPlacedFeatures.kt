@@ -1,40 +1,48 @@
-//package net.devoev.vanilla_cubed.world.feature
-//
-//import net.devoev.vanilla_cubed.util.RegistryManager
-//import net.minecraft.util.registry.BuiltinRegistries
-//import net.minecraft.util.registry.RegistryEntry
-//import net.minecraft.world.gen.YOffset
-//import net.minecraft.world.gen.feature.ConfiguredFeature
-//import net.minecraft.world.gen.feature.OrePlacedFeatures
-//import net.minecraft.world.gen.feature.PlacedFeature
-//import net.minecraft.world.gen.placementmodifier.*
-//
-///**
-// * All placed features.
-// */
-//object ModPlacedFeatures : RegistryManager<PlacedFeature>(BuiltinRegistries.PLACED_FEATURE) {
-//
-//    val ENDERITE_ORE = create("enderite_ore", ModConfiguredFeatures.ENDERITE_ORE,
-//        ORE.modifiersWithCount(7, HeightRangePlacementModifier.uniform(YOffset.aboveBottom(0), YOffset.aboveBottom(70))))
-//
-//    /**
-//     * Creates a [PlacedFeature] for ores.
-//     */
-//    private fun create(name: String, feature: ConfiguredFeature<*,*>, modifiers: List<PlacementModifier>)
-//        = create(name, PlacedFeature(RegistryEntry.of(feature) , modifiers))
-//
-//    /**
-//     * Helper methods for [OrePlacedFeatures].
-//     */
-//    object ORE {
-//        private fun modifiers(countModifier: PlacementModifier, heightModifier: PlacementModifier): List<PlacementModifier>
-//                = listOf(countModifier, SquarePlacementModifier.of(), heightModifier, BiomePlacementModifier.of())
-//
-//        /**
-//         * @param count The amount of generated clusters.
-//         */
-//        fun modifiersWithCount(count: Int, heightModifier: PlacementModifier) = modifiers(CountPlacementModifier.of(count), heightModifier)
-//
-//        fun modifiersWithRarity(chance: Int, heightModifier: PlacementModifier) = modifiers(RarityFilterPlacementModifier.of(chance), heightModifier)
-//    }
-//}
+package net.devoev.vanilla_cubed.world.feature
+
+import net.devoev.vanilla_cubed.VanillaCubed
+import net.devoev.vanilla_cubed.util.MapInitializer
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors
+import net.minecraft.registry.RegistryKey
+import net.minecraft.registry.RegistryKeys
+import net.minecraft.util.Identifier
+import net.minecraft.world.gen.GenerationStep
+import net.minecraft.world.gen.feature.PlacedFeature
+import java.util.function.Predicate
+
+/**
+ * All placed features.
+ */
+object ModPlacedFeatures : MapInitializer<Identifier, PlacedFeatureData>() {
+
+    init {
+        create("enderite_ore", BiomeSelectors.foundInTheEnd(), GenerationStep.Feature.UNDERGROUND_ORES)
+    }
+
+    /**
+     * Creates a new entry for the given [biomeSelectors] and [step] under the [name].
+     */
+    fun create(
+        name: String,
+        biomeSelectors: Predicate<BiomeSelectionContext>,
+        step: GenerationStep.Feature
+    ) {
+        val id = VanillaCubed.id(name)
+        ModPlacedFeatures[id] = Triple(biomeSelectors, step, placedFeatureKeyOf(id))
+    }
+
+    override fun init() {
+        ModPlacedFeatures.forEach { _, data ->
+            BiomeModifications.addFeature(data.first, data.second, data.third)
+        }
+    }
+}
+
+typealias PlacedFeatureData = Triple<Predicate<BiomeSelectionContext>, GenerationStep.Feature, RegistryKey<PlacedFeature>>
+
+/**
+ * Creates a [RegistryKeys.PLACED_FEATURE] for the given [id].
+ */
+private fun placedFeatureKeyOf(id: Identifier) = RegistryKey.of(RegistryKeys.PLACED_FEATURE, id)

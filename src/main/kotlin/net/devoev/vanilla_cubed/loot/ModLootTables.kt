@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.loot.v2.LootTableEvents
 import net.minecraft.loot.LootPool
 import net.minecraft.loot.entry.ItemEntry
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider
-import net.minecraft.loot.provider.number.UniformLootNumberProvider
 import net.minecraft.util.Identifier
 
 /**
@@ -21,7 +20,7 @@ object ModLootTables : MapInitializer<Identifier, LootPool.Builder>() {
     }
 
     /**
-     * Adds the given [builder] to this. Uses the "minecraft" namespace for the id.
+     * Adds the given [builder] to this. Uses the `minecraft` namespace for the id.
      */
     operator fun set(name: String, builder: LootPool.Builder) = set(Identifier("minecraft", name), builder)
 
