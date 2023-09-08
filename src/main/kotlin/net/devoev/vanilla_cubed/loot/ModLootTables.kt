@@ -3,6 +3,7 @@ package net.devoev.vanilla_cubed.loot
 import net.devoev.vanilla_cubed.item.ModItems
 import net.devoev.vanilla_cubed.util.MapInitializer
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents
+import net.minecraft.item.Items
 import net.minecraft.loot.LootPool
 import net.minecraft.loot.entry.ItemEntry
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider
@@ -17,6 +18,25 @@ object ModLootTables : MapInitializer<Identifier, LootPool.Builder>() {
         this["entities/elder_guardian"] = LootPool.builder()
             .rolls(ConstantLootNumberProvider.create(1F))
             .with(ItemEntry.builder(ModItems.ELDER_GUARDIAN_SHARD))
+
+        this["chests/bastion_hoglin_stable"] = LootPool.builder()
+            .rolls(ConstantLootNumberProvider.create(1f))
+            .with(ItemEntry.builder(Items.AIR).weight(9))
+            .with(ItemEntry.builder(ModItems.ANCIENT_GOLD_UPGRADE_SMITHING_TEMPLATE))
+
+        this["chests/bastion_bridge"] = LootPool.builder()
+            .rolls(ConstantLootNumberProvider.create(1f))
+            .with(ItemEntry.builder(Items.AIR).weight(9))
+            .with(ItemEntry.builder(ModItems.ANCIENT_GOLD_UPGRADE_SMITHING_TEMPLATE))
+
+        this["chests/bastion_other"] = LootPool.builder()
+            .rolls(ConstantLootNumberProvider.create(1f))
+            .with(ItemEntry.builder(Items.AIR).weight(9))
+            .with(ItemEntry.builder(ModItems.ANCIENT_GOLD_UPGRADE_SMITHING_TEMPLATE))
+
+        this["chests/bastion_treasure"] = LootPool.builder()
+            .rolls(ConstantLootNumberProvider.create(1f))
+            .with(ItemEntry.builder(ModItems.ANCIENT_GOLD_UPGRADE_SMITHING_TEMPLATE))
     }
 
     /**
