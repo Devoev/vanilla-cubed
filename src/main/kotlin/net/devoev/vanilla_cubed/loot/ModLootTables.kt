@@ -33,9 +33,10 @@ object ModLootTables : MapInitializer<Identifier, LootPool.Builder>() {
 
     val END_CITY_TREASURE = create("chests/end_city_treasure") {
         constantRolls(1f)
-        withEmpty(8)
+        withEmpty(7)
         with(ModItems.ENDERITE_UPGRADE_SMITHING_TEMPLATE)
         with(ModItems.DRAGON_SCALE_UPGRADE_SMITHING_TEMPLATE)
+        with(ModItems.ELYTRA_UPGRADE_SMITHING_TEMPLATE)
     }
 
     val SIMPLE_DUNGEON = create("chests/simple_dungeon") {
