@@ -1,4 +1,4 @@
-package net.devoev.vanilla_cubed.item.behavior
+package net.devoev.vanilla_cubed.item.modifier
 
 import net.devoev.vanilla_cubed.entity.inCave
 import net.devoev.vanilla_cubed.item.armor.ModArmor
@@ -10,7 +10,7 @@ import net.minecraft.item.ArmorItem
  * Applies useful [effects][StatusEffectInstance] when underground.
  * @see ModArmor.AMETHYST
  */
-val MiningBonusBehavior: InventoryTickBehavior<ArmorItem> = ApplyArmorStatusEffectBehavior(StatusEffects.HASTE, 300)
-    .andThen(ApplyArmorStatusEffectBehavior(StatusEffects.NIGHT_VISION, 300))
-    .andThen(ApplyArmorStatusEffectBehavior(StatusEffects.SPEED, 300))
+val MiningBonusBehavior: InventoryTickModifier<ArmorItem> = ArmorStatusEffectModifier(StatusEffects.HASTE, 300)
+    .andThen(ArmorStatusEffectModifier(StatusEffects.NIGHT_VISION, 300))
+    .andThen(ArmorStatusEffectModifier(StatusEffects.SPEED, 300))
     .runIf { params -> params.entity?.inCave ?: false }

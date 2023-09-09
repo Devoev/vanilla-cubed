@@ -3,9 +3,9 @@ package net.devoev.vanilla_cubed.mixin;
 import net.devoev.vanilla_cubed.entity.ItemEntityKt;
 import net.devoev.vanilla_cubed.item.ItemKt;
 import net.devoev.vanilla_cubed.item.ItemStackKt;
-import net.devoev.vanilla_cubed.item.behavior.BehaviorModifier;
-import net.devoev.vanilla_cubed.item.behavior.InventoryTickParams;
-import net.devoev.vanilla_cubed.item.behavior.MagneticBehavior;
+import net.devoev.vanilla_cubed.item.modifier.ItemModifier;
+import net.devoev.vanilla_cubed.item.modifier.InventoryTickParams;
+import net.devoev.vanilla_cubed.item.modifier.MagneticItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ArmorItem;
@@ -25,8 +25,8 @@ import java.util.Objects;
 @Mixin(Item.class)
 public class ItemMixin {
 
-    private final BehaviorModifier<Item, InventoryTickParams> modifier =
-            new MagneticBehavior(5.5, 0.4, item -> !ItemEntityKt.getDroppedByPlayer(item))
+    private final ItemModifier<Item, InventoryTickParams> modifier =
+            new MagneticItem(5.5, 0.4, item -> !ItemEntityKt.getDroppedByPlayer(item))
                     .runIf(params -> ItemStackKt.getMagnetic(Objects.requireNonNull(params.getStack())));
 
     /**

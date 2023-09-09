@@ -1,4 +1,4 @@
-package net.devoev.vanilla_cubed.item.behavior
+package net.devoev.vanilla_cubed.item.modifier
 
 import net.devoev.vanilla_cubed.item.isEnderite
 import net.devoev.vanilla_cubed.item.minedByEnderite
@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
 /**
  * Removes gravity from the loot of killed targets.
  */
-val NoGravityBehavior = PostHitBehavior<Item> { _, params ->
+val NoGravityBehavior = PostHitModifier<Item> { _, params ->
     if (params.target != null && params.target.isDead && !params.target.world.isClient)
         removeGravity(params.target.pos, params.target.world)
 }

@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.item.tool
 
-import net.devoev.vanilla_cubed.item.behavior.*
+import net.devoev.vanilla_cubed.item.modifier.*
 import net.devoev.vanilla_cubed.item.tool.data.ToolDataSet.Companion.BASE_ATTACK_DAMAGE
 import net.devoev.vanilla_cubed.item.tool.data.ToolDataSet.Companion.BASE_ATTACK_SPEED
 import net.devoev.vanilla_cubed.item.tool.data.TridentToolDataSet
@@ -26,12 +26,12 @@ open class TridentToolBuilder(data: TridentToolDataSet,
         attackSpeedAmounts: List<Float> = BASE_ATTACK_SPEED,
         settings: Item.Settings = FabricItemSettings(),
         entityProvider: (World, LivingEntity, ItemStack) -> TridentEntity,
-        inventoryTickBehavior: InventoryTickBehavior<Item> = INVENTORY_TICK_DEFAULT,
-        postHitBehavior: PostHitBehavior<Item> = POST_HIT_DEFAULT,
-        postMineBehavior: PostMineBehavior<Item> = POST_MINE_DEFAULT
+        inventoryTickModifier: InventoryTickModifier<Item> = INVENTORY_TICK_DEFAULT,
+        postHitModifier: PostHitModifier<Item> = POST_HIT_DEFAULT,
+        postMineModifier: PostMineModifier<Item> = POST_MINE_DEFAULT
     ) : this(
         TridentToolDataSet.of(material, attackDamageAmounts, attackSpeedAmounts, settings),
-        DataBehaviors(inventoryTickBehavior, postHitBehavior, postMineBehavior),
+        DataBehaviors(inventoryTickModifier, postHitModifier, postMineModifier),
         entityProvider
     )
 

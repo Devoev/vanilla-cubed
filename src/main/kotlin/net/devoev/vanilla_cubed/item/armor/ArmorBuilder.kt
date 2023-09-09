@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.item.armor
 
-import net.devoev.vanilla_cubed.item.behavior.*
+import net.devoev.vanilla_cubed.item.modifier.*
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.item.ArmorItem
 import net.minecraft.item.ArmorMaterial
@@ -17,11 +17,11 @@ open class ArmorBuilder(
     constructor(
         material: ArmorMaterial,
         settings: Settings = FabricItemSettings(),
-        inventoryTickBehavior: InventoryTickBehavior<ArmorItem> = INVENTORY_TICK_DEFAULT,
-        postHitBehavior: PostHitBehavior<ArmorItem> = POST_HIT_DEFAULT,
-        postMineBehavior: PostMineBehavior<ArmorItem> = POST_MINE_DEFAULT
+        inventoryTickModifier: InventoryTickModifier<ArmorItem> = INVENTORY_TICK_DEFAULT,
+        postHitModifier: PostHitModifier<ArmorItem> = POST_HIT_DEFAULT,
+        postMineModifier: PostMineModifier<ArmorItem> = POST_MINE_DEFAULT
     ) : this(ArmorData(material, settings),
-        DataBehaviors(inventoryTickBehavior, postHitBehavior, postMineBehavior))
+        DataBehaviors(inventoryTickModifier, postHitModifier, postMineModifier))
 
     open val helmet: ArmorItem get() = buildArmorItem(ArmorItem.Type.HELMET)
     open val chestplate: ArmorItem get() = buildArmorItem(ArmorItem.Type.CHESTPLATE)

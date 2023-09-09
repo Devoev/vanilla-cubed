@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.item.tool
 
-import net.devoev.vanilla_cubed.item.behavior.*
+import net.devoev.vanilla_cubed.item.modifier.*
 import net.devoev.vanilla_cubed.item.tool.data.ToolData
 import net.devoev.vanilla_cubed.util.math.toFloat
 import net.minecraft.block.BlockState
@@ -52,17 +52,17 @@ class ModTridentItem(private val entityProvider: (World, LivingEntity, ItemStack
     override fun getUseAction(stack: ItemStack?): UseAction = UseAction.SPEAR
 
     override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
-        inventoryTickBehavior(this, InventoryTickParams(stack, world, entity, slot, selected))
+        inventoryTickModifier(this, InventoryTickParams(stack, world, entity, slot, selected))
         super.inventoryTick(stack, world, entity, slot, selected)
     }
 
     override fun postHit(stack: ItemStack?, target: LivingEntity?, attacker: LivingEntity?): Boolean {
-        postHitBehavior(this, PostHitParams(stack, target, attacker))
+        postHitModifier(this, PostHitParams(stack, target, attacker))
         return super.postHit(stack, target, attacker)
     }
 
     override fun postMine(stack: ItemStack?, world: World?, state: BlockState?, pos: BlockPos?, miner: LivingEntity?): Boolean {
-        postMineBehavior(this, PostMineParams(stack, world, state, pos, miner))
+        postMineModifier(this, PostMineParams(stack, world, state, pos, miner))
         return super.postMine(stack, world, state, pos, miner)
     }
 

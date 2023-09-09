@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.item.armor
 
-import net.devoev.vanilla_cubed.item.behavior.*
+import net.devoev.vanilla_cubed.item.modifier.*
 import net.fabricmc.fabric.api.entity.event.v1.FabricElytraItem
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.item.ArmorItem
@@ -16,11 +16,11 @@ open class ElytraArmorBuilder(data: ArmorData, behaviors: Behaviors<ArmorItem>) 
     constructor(
         material: ArmorMaterial,
         settings: Item.Settings = FabricItemSettings(),
-        inventoryTickBehavior: InventoryTickBehavior<ArmorItem> = INVENTORY_TICK_DEFAULT,
-        postHitBehavior: PostHitBehavior<ArmorItem> = POST_HIT_DEFAULT
+        inventoryTickModifier: InventoryTickModifier<ArmorItem> = INVENTORY_TICK_DEFAULT,
+        postHitModifier: PostHitModifier<ArmorItem> = POST_HIT_DEFAULT
     ) : this(
         ArmorData(material, settings),
-        DataBehaviors(inventoryTickBehavior, postHitBehavior)
+        DataBehaviors(inventoryTickModifier, postHitModifier)
     )
 
     open val elytra: ArmorItem = object : ModArmorItem(data, Type.CHESTPLATE, behaviors), FabricElytraItem {}

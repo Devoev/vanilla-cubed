@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.item.behavior.NoGravityBehaviorKt;
+import net.devoev.vanilla_cubed.item.modifier.NoGravityBehaviorKt;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;

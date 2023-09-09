@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.item.tool
 
-import net.devoev.vanilla_cubed.item.behavior.*
+import net.devoev.vanilla_cubed.item.modifier.*
 import net.devoev.vanilla_cubed.item.tool.data.ToolDataSet
 import net.devoev.vanilla_cubed.item.tool.data.ToolDataSet.Companion.BASE_ATTACK_DAMAGE
 import net.devoev.vanilla_cubed.item.tool.data.ToolDataSet.Companion.BASE_ATTACK_SPEED
@@ -18,12 +18,12 @@ open class ToolBuilder(protected val data: ToolDataSet, protected val behaviors:
         attackDamageAmounts: List<Float> = BASE_ATTACK_DAMAGE,
         attackSpeedAmounts: List<Float> = BASE_ATTACK_SPEED,
         settings: Settings = FabricItemSettings(),
-        inventoryTickBehavior: InventoryTickBehavior<Item> = INVENTORY_TICK_DEFAULT,
-        postHitBehavior: PostHitBehavior<Item> = POST_HIT_DEFAULT,
-        postMineBehavior: PostMineBehavior<Item> = POST_MINE_DEFAULT,
+        inventoryTickModifier: InventoryTickModifier<Item> = INVENTORY_TICK_DEFAULT,
+        postHitModifier: PostHitModifier<Item> = POST_HIT_DEFAULT,
+        postMineModifier: PostMineModifier<Item> = POST_MINE_DEFAULT,
     ) : this(
         ToolDataSet.of(material, attackDamageAmounts, attackSpeedAmounts, settings),
-        DataBehaviors(inventoryTickBehavior, postHitBehavior, postMineBehavior)
+        DataBehaviors(inventoryTickModifier, postHitModifier, postMineModifier)
     )
 
     open val sword: SwordItem get() = ModSwordItem(data.sword, behaviors)

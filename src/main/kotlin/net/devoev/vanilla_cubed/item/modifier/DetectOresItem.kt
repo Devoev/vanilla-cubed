@@ -1,4 +1,4 @@
-package net.devoev.vanilla_cubed.item.behavior
+package net.devoev.vanilla_cubed.item.modifier
 
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags.ORES
 import net.minecraft.item.Item
@@ -11,7 +11,7 @@ import kotlin.math.sqrt
 /**
  * Detects nearby ores in the given [rangeXZ] and plays a sound.
  */
-class DetectOresBehavior(private val rangeXZ: Int, private val rangeY: Int) : PostMineBehavior<Item> {
+class DetectOresItem(private val rangeXZ: Int, private val rangeY: Int) : PostMineModifier<Item> {
 
     @OptIn(ExperimentalStdlibApi::class)
     override fun accept(item: Item, params: PostMineParams) {

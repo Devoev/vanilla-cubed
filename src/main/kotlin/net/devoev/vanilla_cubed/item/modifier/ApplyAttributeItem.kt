@@ -1,4 +1,4 @@
-package net.devoev.vanilla_cubed.item.behavior
+package net.devoev.vanilla_cubed.item.modifier
 
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.attribute.EntityAttribute
@@ -7,11 +7,11 @@ import net.minecraft.entity.attribute.EntityAttributeModifier
 import net.minecraft.item.Item
 
 /**
- * An [InventoryTickBehavior] that applies the [modifier] to the [attribute] of the entity holding the specified item.
+ * An [InventoryTickModifier] that applies the [modifier] to the [attribute] of the entity holding the specified item.
  */
 @Deprecated("Apply status effects instead of attributes manually", replaceWith = ReplaceWith("ApplyToolStatusEffectBehavior"))
-class ApplyAttributeBehavior(val attribute: EntityAttribute, val modifier: EntityAttributeModifier)
-    : InventoryTickBehavior<Item> {
+class ApplyAttributeItem(val attribute: EntityAttribute, val modifier: EntityAttributeModifier)
+    : InventoryTickModifier<Item> {
 
     override fun accept(item: Item, params: InventoryTickParams) {
         if (params.world!!.isClient) return
@@ -36,7 +36,7 @@ class ApplyAttributeBehavior(val attribute: EntityAttribute, val modifier: Entit
         val item = entity.getStackInHand(entity.activeHand).item
         if (item !is Behaviors<*>) return false
 
-        val behavior = item.inventoryTickBehavior
-        return behavior is ApplyAttributeBehavior && behavior.attribute == attribute
+        val behavior = item.inventoryTickModifier
+        return behavior is ApplyAttributeItem && behavior.attribute == attribute
     }
 }

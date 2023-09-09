@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.item.behavior.NoGravityBehaviorKt;
+import net.devoev.vanilla_cubed.item.modifier.NoGravityBehaviorKt;
 import net.minecraft.entity.ItemEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

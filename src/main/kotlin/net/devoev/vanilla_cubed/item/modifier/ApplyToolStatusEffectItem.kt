@@ -1,4 +1,4 @@
-package net.devoev.vanilla_cubed.item.behavior
+package net.devoev.vanilla_cubed.item.modifier
 
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.effect.StatusEffect
@@ -8,9 +8,9 @@ import net.minecraft.item.Item
 /**
  * Applies the [effect] to the player holding the item.
  */
-class ApplyToolStatusEffectBehavior(private val effect: StatusEffect,
-                                    private val duration: Int = 0,
-                                    private val amplifier: Int = 0) : InventoryTickBehavior<Item> {
+class ApplyToolStatusEffectItem(private val effect: StatusEffect,
+                                private val duration: Int = 0,
+                                private val amplifier: Int = 0) : InventoryTickModifier<Item> {
 
     override fun accept(item: Item, params: InventoryTickParams) {
         if (params.world!!.isClient) return

@@ -1,4 +1,4 @@
-package net.devoev.vanilla_cubed.item.behavior
+package net.devoev.vanilla_cubed.item.modifier
 
 import net.devoev.vanilla_cubed.entity.effect.StatusEffectHelper
 import net.devoev.vanilla_cubed.item.armor.ModArmor
@@ -13,9 +13,9 @@ import kotlin.random.Random
  * with the given [probability] each tick.
  * @see ModArmor.ANCIENT_GOLD
  */
-class ApplyBeneficialEffectBehavior(private val probability: Double,
-                                    private val durationRange: IntRange,
-                                    private val amplifierRange: IntRange) : InventoryTickBehavior<ArmorItem> {
+class ApplyBeneficialEffectItem(private val probability: Double,
+                                private val durationRange: IntRange,
+                                private val amplifierRange: IntRange) : InventoryTickModifier<ArmorItem> {
 
     private val waitTimeMap = mutableMapOf<LivingEntity, Int>()
 

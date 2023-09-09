@@ -1,9 +1,9 @@
 package net.devoev.vanilla_cubed.mixin;
 
 import net.devoev.vanilla_cubed.item.ItemKt;
-import net.devoev.vanilla_cubed.item.behavior.ApplyAttributeBehavior;
-import net.devoev.vanilla_cubed.item.behavior.BehaviorModifier;
-import net.devoev.vanilla_cubed.item.behavior.Behaviors;
+import net.devoev.vanilla_cubed.item.modifier.ApplyAttributeItem;
+import net.devoev.vanilla_cubed.item.modifier.ItemModifier;
+import net.devoev.vanilla_cubed.item.modifier.Behaviors;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -93,8 +93,8 @@ public class PlayerInventoryMixin {
         Item item = inventory.getMainHandStack().getItem();
         if (!(item instanceof Behaviors<?> tool)) return;
 
-        BehaviorModifier<?,?> behavior = tool.getInventoryTickBehavior();
-        if (!(behavior instanceof ApplyAttributeBehavior attributeBehavior)) return;
+        ItemModifier<?,?> behavior = tool.getInventoryTickModifier();
+        if (!(behavior instanceof ApplyAttributeItem attributeBehavior)) return;
 
         EntityAttribute attribute = attributeBehavior.getAttribute();
         EntityAttributeModifier modifier = attributeBehavior.getModifier();

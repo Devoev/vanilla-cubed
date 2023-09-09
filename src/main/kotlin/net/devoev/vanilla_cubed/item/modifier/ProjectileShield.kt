@@ -1,4 +1,4 @@
-package net.devoev.vanilla_cubed.item.behavior
+package net.devoev.vanilla_cubed.item.modifier
 
 import net.devoev.vanilla_cubed.entity.wearsEnderite
 import net.devoev.vanilla_cubed.networking.Channels

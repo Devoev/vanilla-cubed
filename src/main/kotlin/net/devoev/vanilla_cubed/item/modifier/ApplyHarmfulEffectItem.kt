@@ -1,4 +1,4 @@
-package net.devoev.vanilla_cubed.item.behavior
+package net.devoev.vanilla_cubed.item.modifier
 
 import net.devoev.vanilla_cubed.entity.effect.StatusEffectHelper
 import net.devoev.vanilla_cubed.item.tool.ModTools
@@ -12,9 +12,9 @@ import kotlin.random.Random
  * Applies a random harmful [StatusEffectInstance] to a target with a given [probability].
  * @see ModTools.ANCIENT_GOLD
  */
-class ApplyHarmfulEffectBehavior(private val probability: Double,
-                                 private val durationRange: IntRange,
-                                 private val amplifierRange: IntRange) : PostHitBehavior<Item> {
+class ApplyHarmfulEffectItem(private val probability: Double,
+                             private val durationRange: IntRange,
+                             private val amplifierRange: IntRange) : PostHitModifier<Item> {
 
     override fun accept(item: Item, params: PostHitParams) {
         if (params.attacker!!.world.isClient) return

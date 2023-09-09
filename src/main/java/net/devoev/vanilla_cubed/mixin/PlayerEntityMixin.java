@@ -1,7 +1,7 @@
 package net.devoev.vanilla_cubed.mixin;
 
 import net.devoev.vanilla_cubed.entity.ItemEntityKt;
-import net.devoev.vanilla_cubed.item.behavior.ProjectileShieldKt;
+import net.devoev.vanilla_cubed.item.modifier.ProjectileShieldKt;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;

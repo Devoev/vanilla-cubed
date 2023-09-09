@@ -1,6 +1,5 @@
-package net.devoev.vanilla_cubed.item.behavior
+package net.devoev.vanilla_cubed.item.modifier
 
-import net.devoev.vanilla_cubed.entity.addVelocity
 import net.devoev.vanilla_cubed.util.math.minus
 import net.devoev.vanilla_cubed.util.math.times
 import net.minecraft.entity.Entity
@@ -20,10 +19,10 @@ import kotlin.math.sqrt
  * The speed of attraction is determined by the [speed] parameter.
  * Only items that fulfill the [predicate] get attracted.
  */
-class MagneticBehavior(private val range: Double,
-                       private val speed: Double,
-                       private val predicate: Predicate<ItemEntity> = Predicate { true })
-    : InventoryTickBehavior<Item> {
+class MagneticItem(private val range: Double,
+                   private val speed: Double,
+                   private val predicate: Predicate<ItemEntity> = Predicate { true })
+    : InventoryTickModifier<Item> {
 
     override fun accept(item: Item, params: InventoryTickParams) {
         if (params.selected && !params.world!!.isClient) params.entity?.attractItems(range, speed)
