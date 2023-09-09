@@ -31,6 +31,21 @@ object ModLootTables : MapInitializer<Identifier, LootPool.Builder>() {
 
     val BASTION_OTHER = create("chests/bastion_other", BASTION_HOGLIN_STABLE)
 
+    val END_CITY_TREASURE = create("chests/end_city_treasure") {
+        constantRolls(1f)
+        withEmpty(8)
+        with(ModItems.ENDERITE_UPGRADE_SMITHING_TEMPLATE)
+        with(ModItems.DRAGON_SCALE_UPGRADE_SMITHING_TEMPLATE)
+    }
+
+    val SIMPLE_DUNGEON = create("chests/simple_dungeon") {
+        constantRolls(1f)
+        withEmpty(4)
+        with(ModItems.AMETHYST_UPGRADE_SMITHING_TEMPLATE)
+    }
+
+    val ABANDONED_MINESHAFT = create("abandoned_mineshaft", SIMPLE_DUNGEON)
+
     /**
      * Creates a new entry of the given [builder] under the id specified by [name].
      * Uses the `minecraft` namespace for the id.
