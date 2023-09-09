@@ -1,7 +1,7 @@
 package net.devoev.vanilla_cubed.mixin;
 
 import kotlin.random.Random;
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.DisableMobGriefingUpgrade;
+import net.devoev.vanilla_cubed.block.entity.beacon.upgrades.DisableMobGriefingUpgrade;
 import net.devoev.vanilla_cubed.item.ModItems;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;

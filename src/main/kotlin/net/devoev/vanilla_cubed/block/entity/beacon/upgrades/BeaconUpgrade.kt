@@ -1,4 +1,4 @@
-package net.devoev.vanilla_cubed.block.entity.beacon_upgrade
+package net.devoev.vanilla_cubed.block.entity.beacon.upgrades
 
 import net.devoev.vanilla_cubed.block.entity.ModBeaconBlockEntity
 import net.minecraft.block.BlockState
@@ -7,7 +7,8 @@ import net.minecraft.world.World
 
 
 /**
- * A beacon upgrade stage. Modifies the [ModBeaconBlockEntity.tick] function by injecting the [invoke] method.
+ * A beacon upgrade stage. Modifies the [ModBeaconBlockEntity.tick] function by injecting
+ * the [activate], [deactivate] and [tick] methods.
  */
 interface BeaconUpgrade {
 
@@ -26,6 +27,9 @@ interface BeaconUpgrade {
      */
     fun ModBeaconBlockEntity.tick(world: World, pos: BlockPos, state: BlockState)
 
+    /**
+     * Calls [tick] on the given [blockEntity].
+     */
     operator fun invoke(world: World, pos: BlockPos, state: BlockState, blockEntity: ModBeaconBlockEntity)
         = blockEntity.tick(world, pos, state)
 
@@ -48,13 +52,5 @@ interface BeaconUpgrade {
             tick(world, blockPos, blockState)
             after(world, blockPos, blockState, this)
         }
-    }
-
-    companion object {
-
-        /**
-         * The default [BeaconUpgrade] that does nothing.
-         */
-        val EMPTY = tickUpgrade { _, _, _ ->  }
     }
 }

@@ -1,7 +1,7 @@
 package net.devoev.vanilla_cubed.networking
 
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrade
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades
+import net.devoev.vanilla_cubed.block.entity.beacon.upgrades.BeaconUpgrade
+import net.devoev.vanilla_cubed.block.entity.beacon.BeaconUpgrades
 import net.devoev.vanilla_cubed.util.math.Vec3d
 import net.minecraft.network.PacketByteBuf
 import net.minecraft.util.math.Vec3d

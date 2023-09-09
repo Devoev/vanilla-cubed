@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.DisableGearDamageUpgrade;
+import net.devoev.vanilla_cubed.block.entity.beacon.upgrades.DisableGearDamageUpgrade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.random.Random;

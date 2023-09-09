@@ -1,7 +1,7 @@
-package net.devoev.vanilla_cubed.client.gui.screen.ingame
+package net.devoev.vanilla_cubed.block.entity.beacon
 
-import net.devoev.vanilla_cubed.VanillaCubed
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrade
+import net.devoev.vanilla_cubed.block.entity.beacon.upgrades.BeaconUpgrade
+import net.devoev.vanilla_cubed.client.gui.screen.ingame.ModBeaconScreen
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 
@@ -16,11 +16,4 @@ data class BeaconUpgradeButtonData(
     val tooltip: Text,
     val texture: Identifier,
     val tier: BeaconUpgradeTier
-) {
-    companion object {
-        /**
-         * Empty [BeaconUpgradeButtonData].
-         */
-        val EMPTY = BeaconUpgradeButtonData(BeaconUpgrade.EMPTY, Text.empty(), VanillaCubed.id(""), BeaconUpgradeTier.EMPTY)
-    }
-}
+)

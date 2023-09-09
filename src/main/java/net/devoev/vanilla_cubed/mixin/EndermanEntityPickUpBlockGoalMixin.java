@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.DisableMobGriefingUpgrade;
+import net.devoev.vanilla_cubed.block.entity.beacon.upgrades.DisableMobGriefingUpgrade;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

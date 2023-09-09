@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.DisableMobGriefingUpgrade;
+import net.devoev.vanilla_cubed.block.entity.beacon.upgrades.DisableMobGriefingUpgrade;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.world.World;

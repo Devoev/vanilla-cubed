@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.DisableMonsterSpawningUpgrade;
+import net.devoev.vanilla_cubed.block.entity.beacon.upgrades.DisableMonsterSpawningUpgrade;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;

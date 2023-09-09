@@ -1,6 +1,6 @@
-package net.devoev.vanilla_cubed.block.entity.beacon_upgrade
+package net.devoev.vanilla_cubed.block.entity.beacon.upgrades
 
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.IncreaseXPDropUpgrade.INCREASE_XP
+import net.devoev.vanilla_cubed.block.entity.beacon.upgrades.IncreaseXPDropUpgrade.INCREASE_XP
 import net.minecraft.util.math.Vec3d
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
 

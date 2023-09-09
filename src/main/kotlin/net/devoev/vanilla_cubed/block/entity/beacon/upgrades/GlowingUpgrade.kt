@@ -1,4 +1,4 @@
-package net.devoev.vanilla_cubed.block.entity.beacon_upgrade
+package net.devoev.vanilla_cubed.block.entity.beacon.upgrades
 
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.LivingEntity

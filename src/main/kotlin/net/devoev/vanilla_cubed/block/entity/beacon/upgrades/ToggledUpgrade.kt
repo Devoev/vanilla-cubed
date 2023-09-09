@@ -1,4 +1,4 @@
-package net.devoev.vanilla_cubed.block.entity.beacon_upgrade
+package net.devoev.vanilla_cubed.block.entity.beacon.upgrades
 
 import net.devoev.vanilla_cubed.block.entity.ModBeaconBlockEntity
 import net.minecraft.block.BlockState

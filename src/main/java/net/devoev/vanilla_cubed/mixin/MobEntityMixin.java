@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.IncreaseXPDropUpgrade;
+import net.devoev.vanilla_cubed.block.entity.beacon.upgrades.IncreaseXPDropUpgrade;
 import net.minecraft.entity.mob.MobEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

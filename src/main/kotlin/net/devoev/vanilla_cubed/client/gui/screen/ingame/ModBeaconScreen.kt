@@ -1,9 +1,11 @@
 package net.devoev.vanilla_cubed.client.gui.screen.ingame
 
 import net.devoev.vanilla_cubed.VanillaCubed
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrade
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.idx
+import net.devoev.vanilla_cubed.block.entity.beacon.BeaconUpgradeButtonData
+import net.devoev.vanilla_cubed.block.entity.beacon.BeaconUpgradeTier
+import net.devoev.vanilla_cubed.block.entity.beacon.BeaconUpgrades
+import net.devoev.vanilla_cubed.block.entity.beacon.idx
+import net.devoev.vanilla_cubed.block.entity.beacon.upgrades.BeaconUpgrade
 import net.devoev.vanilla_cubed.networking.Channels
 import net.devoev.vanilla_cubed.networking.writeBeaconUpgrades
 import net.devoev.vanilla_cubed.screen.ModBeaconScreenHandler
@@ -191,7 +193,8 @@ class ModBeaconScreen(handler: ModBeaconScreenHandler, inventory: PlayerInventor
         private val upgrade: BeaconUpgrade,
         tooltip: Text,
         private val texture: Identifier,
-        private val tier: BeaconUpgradeTier) : BaseButtonWidget(x, y, tooltip) {
+        private val tier: BeaconUpgradeTier
+    ) : BaseButtonWidget(x, y, tooltip) {
 
         constructor(x: Int, y: Int, data: BeaconUpgradeButtonData) : this(x, y, data.upgrade, data.tooltip, data.texture, data.tier)
 

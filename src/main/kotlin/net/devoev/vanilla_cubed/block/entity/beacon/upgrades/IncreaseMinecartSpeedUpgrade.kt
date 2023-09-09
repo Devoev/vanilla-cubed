@@ -1,6 +1,6 @@
-package net.devoev.vanilla_cubed.block.entity.beacon_upgrade
+package net.devoev.vanilla_cubed.block.entity.beacon.upgrades
 
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.IncreaseMinecartSpeedUpgrade.INCREASE_RANGE
+import net.devoev.vanilla_cubed.block.entity.beacon.upgrades.IncreaseMinecartSpeedUpgrade.INCREASE_RANGE
 import net.devoev.vanilla_cubed.block.enums.isCurved
 import net.devoev.vanilla_cubed.mixin.AbstractMinecartEntityMixin
 import net.devoev.vanilla_cubed.util.math.toVec3d

@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.DisableFireDamageUpgrade;
+import net.devoev.vanilla_cubed.block.entity.beacon.upgrades.DisableFireDamageUpgrade;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FireBlock;

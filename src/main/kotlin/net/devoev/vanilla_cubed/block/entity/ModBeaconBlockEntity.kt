@@ -1,8 +1,8 @@
 package net.devoev.vanilla_cubed.block.entity
 
 import net.devoev.vanilla_cubed.block.ModBlocks
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.*
-import net.devoev.vanilla_cubed.client.gui.screen.ingame.BeaconUpgradeTier
+import net.devoev.vanilla_cubed.block.entity.beacon.*
+import net.devoev.vanilla_cubed.block.entity.beacon.upgrades.BeaconUpgrade
 import net.devoev.vanilla_cubed.screen.*
 import net.devoev.vanilla_cubed.util.math.boxOf
 import net.minecraft.advancement.criterion.Criteria

@@ -1,8 +1,8 @@
 package net.devoev.vanilla_cubed.screen
 
 import net.devoev.vanilla_cubed.block.entity.ModBeaconBlockEntity
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrade
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades
+import net.devoev.vanilla_cubed.block.entity.beacon.upgrades.BeaconUpgrade
+import net.devoev.vanilla_cubed.block.entity.beacon.BeaconUpgrades
 import net.minecraft.screen.PropertyDelegate
 
 /**

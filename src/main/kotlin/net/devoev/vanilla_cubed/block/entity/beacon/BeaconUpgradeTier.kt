@@ -1,4 +1,4 @@
-package net.devoev.vanilla_cubed.client.gui.screen.ingame
+package net.devoev.vanilla_cubed.block.entity.beacon
 
 /**
  * A beacon upgrade tier of a given [value] and [type].
@@ -20,7 +20,7 @@ data class BeaconUpgradeTier(val value: Int, val type: Type) {
      * @return True, if [levels] are high enough.
      */
     fun checkLevel(levels: IntArray): Boolean {
-        return if (type==Type.NONE) true
+        return if (type== Type.NONE) true
         else checkLevel(levels[type.idx])
     }
 

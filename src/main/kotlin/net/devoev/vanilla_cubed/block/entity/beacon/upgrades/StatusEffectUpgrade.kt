@@ -1,6 +1,6 @@
-package net.devoev.vanilla_cubed.block.entity.beacon_upgrade
+package net.devoev.vanilla_cubed.block.entity.beacon.upgrades
 
-import net.devoev.vanilla_cubed.client.gui.screen.ingame.BeaconUpgradeTier
+import net.devoev.vanilla_cubed.block.entity.beacon.BeaconUpgradeTier
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.effect.StatusEffect

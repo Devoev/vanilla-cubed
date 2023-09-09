@@ -1,11 +1,11 @@
-package net.devoev.vanilla_cubed.block.entity.beacon_upgrade
+package net.devoev.vanilla_cubed.block.entity.beacon
 
 import net.devoev.vanilla_cubed.VanillaCubed
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades.DIAMOND
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades.EMERALD
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades.GOLD
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.BeaconUpgrades.IRON
-import net.devoev.vanilla_cubed.client.gui.screen.ingame.*
+import net.devoev.vanilla_cubed.block.entity.beacon.BeaconUpgrades.DIAMOND
+import net.devoev.vanilla_cubed.block.entity.beacon.BeaconUpgrades.EMERALD
+import net.devoev.vanilla_cubed.block.entity.beacon.BeaconUpgrades.GOLD
+import net.devoev.vanilla_cubed.block.entity.beacon.BeaconUpgrades.IRON
+import net.devoev.vanilla_cubed.block.entity.beacon.upgrades.*
 import net.devoev.vanilla_cubed.entity.effect.ModStatusEffects
 import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.text.Text

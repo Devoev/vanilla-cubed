@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.block.entity.beacon_upgrade.DisableFireDamageUpgrade;
+import net.devoev.vanilla_cubed.block.entity.beacon.upgrades.DisableFireDamageUpgrade;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.LavaFluid;
 import net.minecraft.util.math.BlockPos;
