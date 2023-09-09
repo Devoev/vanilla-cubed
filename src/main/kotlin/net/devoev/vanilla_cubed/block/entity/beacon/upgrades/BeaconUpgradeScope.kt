@@ -12,21 +12,17 @@ class BeaconUpgradeScope {
     private var activateDelegate: (ModBeaconBlockEntity) -> Unit = { }
     private var deactivateDelegate: (ModBeaconBlockEntity) -> Unit = { }
     private var tickDelegate: ModBeaconBlockEntity.(World, BlockPos, BlockState) -> Unit = { _, _, _ -> }
-    val upgrade: BeaconUpgrade
-        get() = object : BeaconUpgrade {
-            override fun activate(blockEntity: ModBeaconBlockEntity) {
-                activateDelegate(blockEntity)
-            }
 
-            override fun deactivate(blockEntity: ModBeaconBlockEntity) {
-                deactivateDelegate(blockEntity)
-            }
+    /**
+     * Builds the upgrade.
+     */
+    fun buildUpgrade(): BeaconUpgrade = object : BeaconUpgrade {
+        override fun activate(blockEntity: ModBeaconBlockEntity) = activateDelegate(blockEntity)
 
-            override fun ModBeaconBlockEntity.tick(world: World, pos: BlockPos, state: BlockState) {
-                tickDelegate(world, pos, state)
-            }
+        override fun deactivate(blockEntity: ModBeaconBlockEntity) = deactivateDelegate(blockEntity)
 
-        }
+        override fun ModBeaconBlockEntity.tick(world: World, pos: BlockPos, state: BlockState) = tickDelegate(world, pos, state)
+    }
 
     /**
      * Sets [BeaconUpgrade.activate].
@@ -56,7 +52,7 @@ class BeaconUpgradeScope {
 fun beaconUpgrade(block: BeaconUpgradeScope.() -> Unit): BeaconUpgrade {
     with(BeaconUpgradeScope()) {
         block()
-        return upgrade
+        return buildUpgrade()
     }
 }
 
