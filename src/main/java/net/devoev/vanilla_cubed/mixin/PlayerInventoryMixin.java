@@ -3,7 +3,7 @@ package net.devoev.vanilla_cubed.mixin;
 import net.devoev.vanilla_cubed.item.ItemKt;
 import net.devoev.vanilla_cubed.item.modifier.ApplyAttributeItem;
 import net.devoev.vanilla_cubed.item.modifier.ItemModifier;
-import net.devoev.vanilla_cubed.item.modifier.Behaviors;
+import net.devoev.vanilla_cubed.item.modifier.ItemModifiers;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -91,9 +91,9 @@ public class PlayerInventoryMixin {
     private void removeAttributeModifiersOnDrop(boolean entireStack, CallbackInfoReturnable<ItemStack> info) {
         PlayerInventory inventory = (PlayerInventory) (Object) this;
         Item item = inventory.getMainHandStack().getItem();
-        if (!(item instanceof Behaviors<?> tool)) return;
+        if (!(item instanceof ItemModifiers<?> tool)) return;
 
-        ItemModifier<?,?> behavior = tool.getInventoryTickModifier();
+        ItemModifier<?,?> behavior = tool.getInventoryTick();
         if (!(behavior instanceof ApplyAttributeItem attributeBehavior)) return;
 
         EntityAttribute attribute = attributeBehavior.getAttribute();

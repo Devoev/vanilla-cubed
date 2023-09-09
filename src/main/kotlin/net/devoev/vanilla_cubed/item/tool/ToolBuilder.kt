@@ -11,7 +11,7 @@ import net.minecraft.item.Item.Settings
 /**
  * Builds all 5 [tools][ToolItem] for the given [data].
  */
-open class ToolBuilder(protected val data: ToolDataSet, protected val behaviors: Behaviors<Item>) {
+open class ToolBuilder(protected val data: ToolDataSet, protected val itemModifiers: ItemModifiers<Item>) {
 
     constructor(
         material: ToolMaterial,
@@ -26,11 +26,11 @@ open class ToolBuilder(protected val data: ToolDataSet, protected val behaviors:
         DataBehaviors(inventoryTickModifier, postHitModifier, postMineModifier)
     )
 
-    open val sword: SwordItem get() = ModSwordItem(data.sword, behaviors)
-    open val shovel: ShovelItem get() = ModShovelItem(data.shovel, behaviors)
-    open val pickaxe: PickaxeItem get() = ModPickaxeItem(data.pickaxe, behaviors)
-    open val axe: AxeItem get() = ModAxeItem(data.axe, behaviors)
-    open val hoe: HoeItem get() = ModHoeItem(data.hoe, behaviors)
+    open val sword: SwordItem get() = ModSwordItem(data.sword, itemModifiers)
+    open val shovel: ShovelItem get() = ModShovelItem(data.shovel, itemModifiers)
+    open val pickaxe: PickaxeItem get() = ModPickaxeItem(data.pickaxe, itemModifiers)
+    open val axe: AxeItem get() = ModAxeItem(data.axe, itemModifiers)
+    open val hoe: HoeItem get() = ModHoeItem(data.hoe, itemModifiers)
 
     operator fun component1() = sword
     operator fun component2() = shovel

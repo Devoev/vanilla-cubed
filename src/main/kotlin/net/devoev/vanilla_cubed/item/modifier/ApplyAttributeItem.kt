@@ -34,9 +34,9 @@ class ApplyAttributeItem(val attribute: EntityAttribute, val modifier: EntityAtt
      */
     private fun selectedSameModifier(entity: LivingEntity, attribute: EntityAttribute): Boolean {
         val item = entity.getStackInHand(entity.activeHand).item
-        if (item !is Behaviors<*>) return false
+        if (item !is ItemModifiers<*>) return false
 
-        val behavior = item.inventoryTickModifier
+        val behavior = item.inventoryTick
         return behavior is ApplyAttributeItem && behavior.attribute == attribute
     }
 }

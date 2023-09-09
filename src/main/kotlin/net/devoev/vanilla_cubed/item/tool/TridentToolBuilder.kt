@@ -16,9 +16,9 @@ import net.minecraft.world.World
  * A [ToolBuilder] that also constructs a [ModTridentItem].
  */
 open class TridentToolBuilder(data: TridentToolDataSet,
-                              behaviors: Behaviors<Item>,
+                              itemModifiers: ItemModifiers<Item>,
                               entityProvider: (World, LivingEntity, ItemStack) -> TridentEntity)
-    : ToolBuilder(data, behaviors) {
+    : ToolBuilder(data, itemModifiers) {
 
     constructor(
         material: ToolMaterial,
@@ -35,7 +35,7 @@ open class TridentToolBuilder(data: TridentToolDataSet,
         entityProvider
     )
 
-    open val trident = ModTridentItem(entityProvider, data.trident.material, data.trident.settings, behaviors)
+    open val trident = ModTridentItem(entityProvider, data.trident.material, data.trident.settings, itemModifiers)
 
     operator fun component6() = trident
 }

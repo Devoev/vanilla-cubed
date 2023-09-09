@@ -1,29 +1,33 @@
 package net.devoev.vanilla_cubed.item.armor
 
-import net.devoev.vanilla_cubed.item.modifier.*
+import net.devoev.vanilla_cubed.item.modifier.ItemModifier
 import net.fabricmc.fabric.api.entity.event.v1.FabricElytraItem
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.item.ArmorItem
 import net.minecraft.item.ArmorMaterial
-import net.minecraft.item.Item
 
 /**
- * An [ArmorBuilder] that also constructs a [FabricElytraItem] for the chestplate slot.
+ * Collection of all 4 armor items and an elytra.
  */
-open class ElytraArmorBuilder(data: ArmorData, behaviors: Behaviors<ArmorItem>) :
-    ArmorBuilder(data, behaviors) {
+data class ElytraArmorItems(
+    val helmet: ArmorItem,
+    val chestplate: ArmorItem,
+    val leggings: ArmorItem,
+    val boots: ArmorItem,
+    val elytra: ArmorItem
+)
 
-    constructor(
-        material: ArmorMaterial,
-        settings: Item.Settings = FabricItemSettings(),
-        inventoryTickModifier: InventoryTickModifier<ArmorItem> = INVENTORY_TICK_DEFAULT,
-        postHitModifier: PostHitModifier<ArmorItem> = POST_HIT_DEFAULT
-    ) : this(
-        ArmorData(material, settings),
-        DataBehaviors(inventoryTickModifier, postHitModifier)
-    )
-
-    open val elytra: ArmorItem = object : ModArmorItem(data, Type.CHESTPLATE, behaviors), FabricElytraItem {}
-
-    operator fun component5() = elytra
+/**
+ * Builds all 4 armor items and an elytra for the given [data].
+ */
+fun buildElytraArmor(data: ArmorData<ArmorItem>): ElytraArmorItems {
+    val armor = buildArmor(data)
+    val elytra = object : ModArmorItem(data, Type.CHESTPLATE), FabricElytraItem {}
+    return ElytraArmorItems(armor.helmet, armor.chestplate, armor.leggings, armor.boots, elytra)
 }
+
+/**
+ * Builds all 4 armor items and an elytra for the given [material] and [modifiers].
+ */
+fun buildElytraArmor(material: ArmorMaterial, vararg modifiers: ItemModifier<ArmorItem>)
+    = buildElytraArmor(ArmorData(material, FabricItemSettings(), modifiers.toSet()))

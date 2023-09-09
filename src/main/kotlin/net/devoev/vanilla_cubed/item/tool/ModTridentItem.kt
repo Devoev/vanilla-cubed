@@ -32,8 +32,8 @@ import kotlin.math.sqrt
  * @param entityProvider A function that creates the corresponding [TridentEntity].
  */
 class ModTridentItem(private val entityProvider: (World, LivingEntity, ItemStack) -> TridentEntity,
-                     data: ToolData<Number?, Number?>, behaviors: Behaviors<Item>)
-    : TridentItem(data.settings), ToolMaterialItem, Behaviors<Item> by behaviors {
+                     data: ToolData<Number?, Number?>, private val modifiers: ItemModifiers<Item>)
+    : TridentItem(data.settings), ToolMaterialItem {
 
     init {
         if (maxDamage == 0) error("$maxDamage must be greater than 0!")
@@ -44,8 +44,8 @@ class ModTridentItem(private val entityProvider: (World, LivingEntity, ItemStack
         entityProvider: (World, LivingEntity, ItemStack) -> TridentEntity,
         material: ToolMaterial,
         settings: Settings,
-        behaviors: Behaviors<Item> = DataBehaviors()
-    ) : this(entityProvider, ToolData(material, null, null, settings), behaviors)
+        itemModifiers: ItemModifiers<Item> = DataBehaviors()
+    ) : this(entityProvider, ToolData(material, null, null, settings), itemModifiers)
 
     override val material: ToolMaterial = data.material
 

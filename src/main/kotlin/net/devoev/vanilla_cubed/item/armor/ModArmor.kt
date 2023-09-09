@@ -5,16 +5,12 @@ import net.devoev.vanilla_cubed.item.modifier.MiningBonusBehavior
 import net.minecraft.item.ArmorItem
 
 /**
- * All used [modded armor items][ArmorItem] built using an [ArmorBuilder].
+ * All used [modded armor items][ArmorItem].
  */
 object ModArmor {
 
-    val ANCIENT_GOLD = ArmorBuilder(ModArmorMaterials.ANCIENT_GOLD,
-        inventoryTickModifier = HarmfulEffectProtectionBehavior
-    )
-    val AMETHYST = ArmorBuilder(ModArmorMaterials.AMETHYST,
-        inventoryTickModifier = MiningBonusBehavior
-    )
-    val ENDERITE = ArmorBuilder(ModArmorMaterials.ENDERITE)
-    val DRAGON_SCALE = ElytraArmorBuilder(ModArmorMaterials.DRAGON_SCALE)
+    val ANCIENT_GOLD = buildArmor(ModArmorMaterials.ANCIENT_GOLD, HarmfulEffectProtectionBehavior)
+    val AMETHYST = buildArmor(ModArmorMaterials.AMETHYST, MiningBonusBehavior)
+    val ENDERITE = buildArmor(ModArmorMaterials.ENDERITE)
+    val DRAGON_SCALE = buildElytraArmor(ModArmorMaterials.DRAGON_SCALE)
 }
