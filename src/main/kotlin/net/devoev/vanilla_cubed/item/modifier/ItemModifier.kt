@@ -34,7 +34,7 @@ interface ItemModifier<T : Item> {
      * Modified post mine.
      */
     fun postMine(item: T, stack: ItemStack, world: World, state: BlockState, pos: BlockPos, miner: LivingEntity)
-        = item.postMine(stack, world, state, pos, miner)
+        = item.modifyPostMine(stack, world, state, pos, miner)
 
     /**
      * @see Item.postHit
@@ -45,7 +45,7 @@ interface ItemModifier<T : Item> {
      * Modified post hit.
      */
     fun postHit(item: T, stack: ItemStack, target: LivingEntity, attacker: LivingEntity)
-        = item.postHit(stack, target, attacker)
+        = item.modifyPostHit(stack, target, attacker)
 
     /**
      * Creates a conditional [ItemModifier], that runs this function if [predicate] evaluates to true.
