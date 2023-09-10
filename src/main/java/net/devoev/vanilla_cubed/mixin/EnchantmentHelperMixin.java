@@ -1,7 +1,7 @@
 package net.devoev.vanilla_cubed.mixin;
 
 import net.devoev.vanilla_cubed.item.GildedBookKt;
-import net.devoev.vanilla_cubed.item.ItemKt;
+import net.devoev.vanilla_cubed.item.modifier.TreasureEnchantingModifierKt;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentLevelEntry;
 import net.minecraft.item.ItemStack;
@@ -23,18 +23,17 @@ public class EnchantmentHelperMixin {
     /**
      * Sets the treasureAllowed parameter to true, if the item is made of ancient gold.
      */
-    @ModifyVariable(method = "generateEnchantments", at = @At("HEAD"))
-    private static boolean allowTreasureEnchantments(boolean treasureAllowed, Random random, ItemStack stack) {
-        return ItemKt.isAncientGold(stack.getItem()) || treasureAllowed;
+    @ModifyVariable(method = "generateEnchantments", at = @At("HEAD"), argsOnly = true)
+    private static boolean generateTreasureEnchantments(boolean treasureAllowed, Random random, ItemStack stack) {
+        return TreasureEnchantingModifierKt.generateTreasureEnchantments(treasureAllowed, stack);
     }
 
     /**
      * Filters out the curses, if the item is made of ancient gold.
      */
     @Inject(method = "generateEnchantments", at = @At("RETURN"), cancellable = true)
-    private static void removeCurses(Random random, ItemStack stack, int level, boolean treasureAllowed, CallbackInfoReturnable<List<EnchantmentLevelEntry>> info) {
-        if (ItemKt.isAncientGold(stack.getItem()))
-            info.setReturnValue(info.getReturnValue().stream().filter(entry -> !entry.enchantment.isCursed()).toList());
+    private static void generateNoCurses(Random random, ItemStack stack, int level, boolean treasureAllowed, CallbackInfoReturnable<List<EnchantmentLevelEntry>> cir) {
+        TreasureEnchantingModifierKt.generateNoCurses(stack, cir);
     }
 
     /**
