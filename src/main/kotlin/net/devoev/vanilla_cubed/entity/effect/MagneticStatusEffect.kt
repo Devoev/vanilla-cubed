@@ -17,17 +17,15 @@ import kotlin.math.sqrt
 
 /**
  * Attracts all items in [range] to the player.
- * The speed of attraction is determined by the [speedModifier] parameter.
  * Only items that fulfill the [predicate] get attracted.
- * TODO: Add level increase for range and speed.
  */
-class MagneticStatusEffect internal constructor(
-    private val range: Double,
-    private val speedModifier: Double,
-    private val predicate: Predicate<ItemEntity> = Predicate { true }
-) : ModStatusEffect(StatusEffectCategory.BENEFICIAL, 1) {
+class MagneticStatusEffect internal constructor(private val predicate: Predicate<ItemEntity> = Predicate { true })
+    : ModStatusEffect(StatusEffectCategory.BENEFICIAL, 0x5a575a) {
 
     override fun applyUpdateEffect(entity: LivingEntity, amplifier: Int) {
+        val range = range(amplifier)
+        val speed = speed(amplifier)
+
         with(entity) {
             val items = world.getEntitiesByType(
                 EntityType.ITEM,
@@ -39,7 +37,7 @@ class MagneticStatusEffect internal constructor(
             for (item in items) {
                 item.setPickupDelay(0)
                 val vec = Vec3d(x, y + standingEyeHeight/2, z) - Vec3d(item.x, item.y, item.z)
-                val velocity = (1 - vec.length() / maxDistance).pow(2) * speedModifier
+                val velocity = (1 - vec.length() / maxDistance).pow(2) * speed
                 item.addVelocity(vec.normalize() * velocity)
                 item.move(MovementType.SELF, item.velocity)
             }
@@ -47,9 +45,19 @@ class MagneticStatusEffect internal constructor(
     }
 
     override fun canApplyUpdateEffect(duration: Int, amplifier: Int): Boolean = true
+
+    /**
+     * Calculates the range in dependence of the [amplifier].
+     */
+    private fun range(amplifier: Int) = 3.5 + 2*amplifier
+
+    /**
+     * Calculates the speed in dependence of the [amplifier].
+     */
+    private fun speed(amplifier: Int) = 0.2 * (amplifier + 1)
 }
 
 /**
- * The default [MagneticStatusEffect] of range `5.5` and speed `0.4` that doesn't attract items droppped by the player.
+ * The default [MagneticStatusEffect] that doesn't attract items dropped by the player.
  */
-val DefaultMagneticStatusEffect = MagneticStatusEffect(5.5, 0.4) { !it.droppedByPlayer }
+val DefaultMagneticStatusEffect = MagneticStatusEffect { !it.droppedByPlayer }
