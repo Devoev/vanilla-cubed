@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
 
 /**
  * Replaces the beacon block entity in [BeaconBlock.createBlockEntity] with the modded beacon block entity.
+ * @see BeaconBlockMixin.createModBeaconBlockEntity
  */
 fun createModBeaconBlockEntity(pos: BlockPos, state: BlockState, cir: CallbackInfoReturnable<BlockEntity>) {
     cir.returnValue = ModBeaconBlockEntity(pos, state)
@@ -25,7 +26,7 @@ fun createModBeaconBlockEntity(pos: BlockPos, state: BlockState, cir: CallbackIn
 
 /**
  * Replaces the ticker function in [BeaconBlock.getTicker] with the modded beacons ticker.
- * @see BeaconBlockMixin
+ * @see BeaconBlockMixin.modTicker
  */
 fun <T : BlockEntity> modTicker(type: BlockEntityType<T>, cir: CallbackInfoReturnable<BlockEntityTicker<T>>) {
     cir.returnValue = ModBeaconBlockEntity.ticker(type)

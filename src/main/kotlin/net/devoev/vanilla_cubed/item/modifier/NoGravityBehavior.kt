@@ -44,7 +44,7 @@ private fun removeGravity(pos: Vec3d, world: World) {
 
 /**
  * Sets the [ItemStack.minedByEnderite] NBT value of block drops in [Block.getDroppedStacks] to `true`, if mined with enderite tools.
- * @see BlockMixin
+ * @see BlockMixin.setMinedByEnderiteOfDroppedStack
  */
 fun setMinedByEnderiteOfDroppedStack(stack: ItemStack, cir: CallbackInfoReturnable<List<ItemStack>>) {
     if (stack.item.isEnderite())

@@ -27,7 +27,7 @@ public class BeaconBlockMixin {
      * @see BeaconBlockKt
      */
     @Inject(method = "createBlockEntity", at = @At("HEAD"), cancellable = true)
-    private void useModdedBeaconEntity(BlockPos pos, BlockState state, CallbackInfoReturnable<BlockEntity> info) {
+    private void createModBeaconBlockEntity(BlockPos pos, BlockState state, CallbackInfoReturnable<BlockEntity> info) {
         BeaconBlockKt.createModBeaconBlockEntity(pos, state, info);
     }
 
