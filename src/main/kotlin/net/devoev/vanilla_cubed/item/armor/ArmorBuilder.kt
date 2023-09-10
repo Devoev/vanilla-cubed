@@ -18,7 +18,7 @@ data class ArmorItems(
 /**
  * Builds all 4 armor items for the given [data].
  */
-fun buildArmor(data: ArmorData<ArmorItem>): ArmorItems {
+fun buildArmor(data: ArmorData): ArmorItems {
 
     fun buildArmorItem(type: ArmorItem.Type)
         = ModArmorItem(if (type == ArmorItem.Type.HELMET) data else data.withoutModifiers() , type)

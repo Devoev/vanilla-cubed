@@ -1,41 +1,40 @@
 package net.devoev.vanilla_cubed.item.tool
 
 import net.devoev.vanilla_cubed.item.modifier.*
-import net.devoev.vanilla_cubed.item.tool.data.ToolDataSet.Companion.BASE_ATTACK_DAMAGE
-import net.devoev.vanilla_cubed.item.tool.data.ToolDataSet.Companion.BASE_ATTACK_SPEED
-import net.devoev.vanilla_cubed.item.tool.data.TridentToolDataSet
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
-import net.minecraft.entity.LivingEntity
-import net.minecraft.entity.projectile.TridentEntity
-import net.minecraft.item.Item
-import net.minecraft.item.ItemStack
-import net.minecraft.item.ToolMaterial
-import net.minecraft.world.World
+import net.minecraft.item.*
 
 /**
- * A [ToolBuilder] that also constructs a [ModTridentItem].
+ * Collection of all 5 tool items and a trident.
  */
-open class TridentToolBuilder(data: TridentToolDataSet,
-                              itemModifiers: ItemModifiers<Item>,
-                              entityProvider: (World, LivingEntity, ItemStack) -> TridentEntity)
-    : ToolBuilder(data, itemModifiers) {
+data class TridentToolItems(
+    val sword: SwordItem,
+    val shovel: ShovelItem,
+    val pickaxe: PickaxeItem,
+    val axe: AxeItem,
+    val hoe: HoeItem,
+    val trident: TridentItem
+)
 
-    constructor(
-        material: ToolMaterial,
-        attackDamageAmounts: List<Float> = BASE_ATTACK_DAMAGE,
-        attackSpeedAmounts: List<Float> = BASE_ATTACK_SPEED,
-        settings: Item.Settings = FabricItemSettings(),
-        entityProvider: (World, LivingEntity, ItemStack) -> TridentEntity,
-        inventoryTickModifier: InventoryTickModifier<Item> = INVENTORY_TICK_DEFAULT,
-        postHitModifier: PostHitModifier<Item> = POST_HIT_DEFAULT,
-        postMineModifier: PostMineModifier<Item> = POST_MINE_DEFAULT
-    ) : this(
-        TridentToolDataSet.of(material, attackDamageAmounts, attackSpeedAmounts, settings),
-        DataBehaviors(inventoryTickModifier, postHitModifier, postMineModifier),
-        entityProvider
+/**
+ * Builds all 5 tools and a trident for the given parameters.
+ */
+fun buildTridentTools(
+    material: ToolMaterial,
+    attackDamageAmounts: List<Float> = BASE_ATTACK_DAMAGE,
+    attackSpeedAmounts: List<Float> = BASE_ATTACK_SPEED,
+    settings: Item.Settings = FabricItemSettings(),
+    entityProvider: EntityProvider,
+    modifiers: ItemModifiers<Item>
+): TridentToolItems {
+    val tools = buildTools(material, attackDamageAmounts, attackSpeedAmounts, settings, modifiers)
+    val tridentData = TridentToolData(material, settings, entityProvider, modifiers).withDurability(material.durability)
+    return TridentToolItems(
+        tools.sword,
+        tools.shovel,
+        tools.pickaxe,
+        tools.axe,
+        tools.hoe,
+        ModTridentItem(tridentData)
     )
-
-    open val trident = ModTridentItem(entityProvider, data.trident.material, data.trident.settings, itemModifiers)
-
-    operator fun component6() = trident
 }

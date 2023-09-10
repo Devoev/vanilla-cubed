@@ -3,19 +3,18 @@ package net.devoev.vanilla_cubed.item.armor
 import net.devoev.vanilla_cubed.item.modifier.ItemModifiers
 import net.minecraft.item.ArmorItem
 import net.minecraft.item.ArmorMaterial
-import net.minecraft.item.Item
 import net.minecraft.item.Item.Settings
 
 /**
  * Data needed for the creation of a set of [armor][ArmorItem].
  */
-data class ArmorData<T : Item> (
+data class ArmorData (
     val material: ArmorMaterial,
     val settings: Settings,
-    val modifiers: ItemModifiers<T>
+    val modifiers: ItemModifiers<ArmorItem>
 ) {
     /**
      * Returns this armor data with an empty [modifiers] list.
      */
-    fun withoutModifiers() = ArmorData<T>(material, settings, listOf())
+    fun withoutModifiers() = ArmorData(material, settings, listOf())
 }

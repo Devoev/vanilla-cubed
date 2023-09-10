@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-open class ModArmorItem(private val data: ArmorData<ArmorItem>, type: Type)
+open class ModArmorItem(private val data: ArmorData, type: Type)
     : ArmorItem(data.material, type, data.settings) {
 
     override fun inventoryTick(stack: ItemStack, world: World, entity: Entity, slot: Int, selected: Boolean) {

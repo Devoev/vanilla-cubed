@@ -20,7 +20,7 @@ data class ElytraArmorItems(
 /**
  * Builds all 4 armor items and an elytra for the given [data].
  */
-fun buildElytraArmor(data: ArmorData<ArmorItem>): ElytraArmorItems {
+fun buildElytraArmor(data: ArmorData): ElytraArmorItems {
     val armor = buildArmor(data)
     val elytra = object : ModArmorItem(data, Type.CHESTPLATE), FabricElytraItem {}
     return ElytraArmorItems(armor.helmet, armor.chestplate, armor.leggings, armor.boots, elytra)

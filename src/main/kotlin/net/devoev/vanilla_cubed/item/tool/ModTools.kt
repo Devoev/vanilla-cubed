@@ -2,11 +2,7 @@ package net.devoev.vanilla_cubed.item.tool
 
 import net.devoev.vanilla_cubed.entity.effect.ModStatusEffects
 import net.devoev.vanilla_cubed.entity.projectile.EnderiteTridentEntity
-import net.devoev.vanilla_cubed.item.modifier.ApplyHarmfulEffectItem
-import net.devoev.vanilla_cubed.item.modifier.ApplyToolStatusEffectItem
-import net.devoev.vanilla_cubed.item.modifier.DetectOresItem
-import net.devoev.vanilla_cubed.item.modifier.NoGravityBehavior
-import net.devoev.vanilla_cubed.item.tool.data.ToolDataSet.Companion.BASE_ATTACK_SPEED
+import net.devoev.vanilla_cubed.item.modifier.*
 import net.minecraft.item.ToolItem
 
 /**
@@ -14,25 +10,25 @@ import net.minecraft.item.ToolItem
  */
 object ModTools {
 
-    val ANCIENT_GOLD = ToolBuilder(
+    val ANCIENT_GOLD = buildTools(
         material = ModToolMaterials.ANCIENT_GOLD,
-        postHitModifier = ApplyHarmfulEffectItem(0.3, 100..200, 0..2)
+        modifiers = listOf(ApplyHarmfulEffectItem(0.3, 100..200, 0..2))
     )
 
-    val AMETHYST = ToolBuilder(
+    val AMETHYST = buildTools(
         material = ModToolMaterials.AMETHYST,
         attackSpeedAmounts = BASE_ATTACK_SPEED.map { it + 0.4F },
-        postMineModifier = DetectOresItem(3, 1)
+        modifiers = listOf(DetectOresItem(3, 1))
     )
 
-    val ENDERITE = TridentToolBuilder(
+    val ENDERITE = buildTridentTools(
         material = ModToolMaterials.ENDERITE,
-        postHitModifier = NoGravityBehavior,
-        entityProvider = ::EnderiteTridentEntity
+        entityProvider = ::EnderiteTridentEntity,
+        modifiers = listOf(NoGravityBehavior)
     )
 
-    val DRAGON_SCALE = ToolBuilder(
+    val DRAGON_SCALE = buildTools(
         material = ModToolMaterials.DRAGON_SCALE,
-        inventoryTickModifier = ApplyToolStatusEffectItem(ModStatusEffects.REACH, amplifier = 1)
+        modifiers = listOf(toolStatusEffectModifierOf(ModStatusEffects.REACH, amplifier = 1))
     )
 }

@@ -1,7 +1,8 @@
 package net.devoev.vanilla_cubed.item.tool
 
-import net.devoev.vanilla_cubed.item.modifier.*
-import net.devoev.vanilla_cubed.item.tool.data.ToolData
+import net.devoev.vanilla_cubed.item.modifier.inventoryTick
+import net.devoev.vanilla_cubed.item.modifier.postHit
+import net.devoev.vanilla_cubed.item.modifier.postMine
 import net.devoev.vanilla_cubed.util.math.toFloat
 import net.minecraft.block.BlockState
 import net.minecraft.client.item.ClampedModelPredicateProvider
@@ -11,8 +12,6 @@ import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.MovementType
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.projectile.PersistentProjectileEntity
-import net.minecraft.entity.projectile.TridentEntity
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.ToolMaterial
 import net.minecraft.item.TridentItem
@@ -29,40 +28,31 @@ import kotlin.math.sqrt
 
 /**
  * A custom [TridentItem].
- * @param entityProvider A function that creates the corresponding [TridentEntity].
  */
-class ModTridentItem(private val entityProvider: (World, LivingEntity, ItemStack) -> TridentEntity,
-                     data: ToolData<Number?, Number?>, private val modifiers: ItemModifiers<Item>)
+class ModTridentItem(private val data: TridentToolData)
     : TridentItem(data.settings), ToolMaterialItem {
 
     init {
-        if (maxDamage == 0) error("$maxDamage must be greater than 0!")
+        require(maxDamage > 0) { "$maxDamage must be greater than 0!" }
         data.settings.maxDamageIfAbsent((data.material.durability * 0.16).toInt())
     }
-
-    constructor(
-        entityProvider: (World, LivingEntity, ItemStack) -> TridentEntity,
-        material: ToolMaterial,
-        settings: Settings,
-        itemModifiers: ItemModifiers<Item> = DataBehaviors()
-    ) : this(entityProvider, ToolData(material, null, null, settings), itemModifiers)
 
     override val material: ToolMaterial = data.material
 
     override fun getUseAction(stack: ItemStack?): UseAction = UseAction.SPEAR
 
-    override fun inventoryTick(stack: ItemStack?, world: World?, entity: Entity?, slot: Int, selected: Boolean) {
-        inventoryTickModifier(this, InventoryTickParams(stack, world, entity, slot, selected))
+    override fun inventoryTick(stack: ItemStack, world: World, entity: Entity, slot: Int, selected: Boolean) {
+        data.modifiers.inventoryTick(this, stack, world, entity, slot, selected)
         super.inventoryTick(stack, world, entity, slot, selected)
     }
 
-    override fun postHit(stack: ItemStack?, target: LivingEntity?, attacker: LivingEntity?): Boolean {
-        postHitModifier(this, PostHitParams(stack, target, attacker))
+    override fun postHit(stack: ItemStack, target: LivingEntity, attacker: LivingEntity): Boolean {
+        data.modifiers.postHit(this, stack, target, attacker)
         return super.postHit(stack, target, attacker)
     }
 
-    override fun postMine(stack: ItemStack?, world: World?, state: BlockState?, pos: BlockPos?, miner: LivingEntity?): Boolean {
-        postMineModifier(this, PostMineParams(stack, world, state, pos, miner))
+    override fun postMine(stack: ItemStack, world: World, state: BlockState, pos: BlockPos, miner: LivingEntity): Boolean {
+        data.modifiers.postMine(this, stack, world, state, pos, miner)
         return super.postMine(stack, world, state, pos, miner)
     }
 
@@ -76,7 +66,7 @@ class ModTridentItem(private val entityProvider: (World, LivingEntity, ItemStack
         if (!world.isClient) {
             stack.damage(1, user) { it.sendToolBreakStatus(user.activeHand) }
             if (j == 0) {
-                val tridentEntity = entityProvider(world, user, stack)
+                val tridentEntity = data.entityProvider(world, user, stack)
                 tridentEntity.setVelocity(user, user.pitch, user.yaw, 0f, 2f, 1f)
                 if (user.abilities.creativeMode)
                     tridentEntity.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY
