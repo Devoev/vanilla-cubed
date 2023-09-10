@@ -7,9 +7,11 @@ import net.minecraft.entity.EntityType
 import net.minecraft.entity.ItemEntity
 import net.minecraft.entity.MovementType
 import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
 import net.minecraft.predicate.entity.EntityPredicates
 import net.minecraft.util.math.Box
 import net.minecraft.util.math.Vec3d
+import net.minecraft.world.World
 import java.util.function.Predicate
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -24,8 +26,8 @@ class MagneticItem(private val range: Double,
                    private val predicate: Predicate<ItemEntity> = Predicate { true })
     : InventoryTickModifier<Item> {
 
-    override fun accept(item: Item, params: InventoryTickParams) {
-        if (params.selected && !params.world!!.isClient) params.entity?.attractItems(range, speed)
+    override fun Item.modifyInventoryTick(stack: ItemStack, world: World, entity: Entity, slot: Int, selected: Boolean) {
+        if (selected && !world.isClient) entity.attractItems(range, speed)
     }
 
     /**

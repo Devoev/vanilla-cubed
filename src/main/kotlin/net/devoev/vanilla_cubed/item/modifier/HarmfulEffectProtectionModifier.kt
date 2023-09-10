@@ -1,6 +1,7 @@
 package net.devoev.vanilla_cubed.item.modifier
 
 import net.devoev.vanilla_cubed.entity.wearsFullArmor
+import net.devoev.vanilla_cubed.item.armor.ModArmor
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.effect.StatusEffectCategory
 import net.minecraft.item.ArmorItem
@@ -10,12 +11,11 @@ import net.minecraft.sound.SoundEvents
 
 /**
  * Protects the wearer from harmful status effects.
+ * @see ModArmor.ANCIENT_GOLD
  */
-val HarmfulEffectProtectionBehavior = InventoryTickModifier<ArmorItem> { item, params ->
+val HarmfulEffectProtectionBehavior = InventoryTickModifier<ArmorItem> {stack, world, entity, _, _ ->
 
-    val (stack,world,entity,_,_) = params
-
-    if (world == null || entity !is LivingEntity || !entity.wearsFullArmor(item.material) || !entity.armorItems.contains(stack))
+    if (entity !is LivingEntity || !entity.wearsFullArmor(material) || !entity.armorItems.contains(stack))
         return@InventoryTickModifier
 
     entity.statusEffects
