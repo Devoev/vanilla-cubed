@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.item.modifier.NoGravityBehaviorKt;
+import net.devoev.vanilla_cubed.item.modifier.NoGravityModifierKt;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -20,10 +20,10 @@ import java.util.List;
 public class BlockMixin {
 
     /**
-     * @see NoGravityBehaviorKt
+     * @see NoGravityModifierKt
      */
     @Inject(method = "getDroppedStacks(Lnet/minecraft/block/BlockState;Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/entity/BlockEntity;Lnet/minecraft/entity/Entity;Lnet/minecraft/item/ItemStack;)Ljava/util/List;", at = @At("RETURN"))
     private static void setMinedByEnderiteOfDroppedStack(BlockState state, ServerWorld world, BlockPos pos, @Nullable BlockEntity blockEntity, @Nullable Entity entity, ItemStack stack, CallbackInfoReturnable<List<ItemStack>> cir) {
-        NoGravityBehaviorKt.setMinedByEnderiteOfDroppedStack(stack, cir);
+        NoGravityModifierKt.setMinedByEnderiteOfDroppedStack(stack, cir);
     }
 }

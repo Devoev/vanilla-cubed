@@ -2,7 +2,7 @@ package net.devoev.vanilla_cubed.item.tool
 
 import net.devoev.vanilla_cubed.entity.effect.ModStatusEffects
 import net.devoev.vanilla_cubed.entity.projectile.EnderiteTridentEntity
-import net.devoev.vanilla_cubed.item.modifier.NoGravityBehavior
+import net.devoev.vanilla_cubed.item.modifier.NoGravityModifier
 import net.devoev.vanilla_cubed.item.modifier.detectOresModifierOf
 import net.devoev.vanilla_cubed.item.modifier.harmfulEffectOnHitModifierOf
 import net.devoev.vanilla_cubed.item.modifier.toolStatusEffectModifierOf
@@ -27,7 +27,7 @@ object ModTools {
     val ENDERITE = buildTridentTools(
         material = ModToolMaterials.ENDERITE,
         entityProvider = ::EnderiteTridentEntity,
-        modifiers = listOf(NoGravityBehavior)
+        modifiers = listOf(NoGravityModifier)
     )
 
     val DRAGON_SCALE = buildTools(

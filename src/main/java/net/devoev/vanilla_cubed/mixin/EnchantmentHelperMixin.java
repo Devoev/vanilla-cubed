@@ -1,7 +1,7 @@
 package net.devoev.vanilla_cubed.mixin;
 
+import net.devoev.vanilla_cubed.item.GildedBookKt;
 import net.devoev.vanilla_cubed.item.ItemKt;
-import net.devoev.vanilla_cubed.item.ModItems;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentLevelEntry;
 import net.minecraft.item.ItemStack;
@@ -38,10 +38,10 @@ public class EnchantmentHelperMixin {
     }
 
     /**
-     * Allows gilded books to be enchanted, by setting the local bl variable to true.
+     * @see GildedBookKt
      */
     @ModifyVariable(method = "getPossibleEntries", at = @At("STORE"), ordinal = 1)
-    private static boolean allowGildedBooks(boolean bl, int power, ItemStack stack) {
-        return stack.isOf(ModItems.INSTANCE.getGILDED_BOOK()) || bl;
+    private static boolean addGildedBookEntry(boolean bl, int power, ItemStack stack) {
+        return GildedBookKt.addGildedBookEntry(bl, stack);
     }
 }

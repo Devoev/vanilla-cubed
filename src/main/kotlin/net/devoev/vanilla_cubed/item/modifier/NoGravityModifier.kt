@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
 /**
  * Removes gravity from the loot of killed targets.
  */
-val NoGravityBehavior = PostHitModifier<Item> { _, target, _ ->
+val NoGravityModifier = PostHitModifier<Item> { _, target, _ ->
     if (target.isDead && !target.world.isClient)
         removeGravity(target.pos, target.world)
 }
