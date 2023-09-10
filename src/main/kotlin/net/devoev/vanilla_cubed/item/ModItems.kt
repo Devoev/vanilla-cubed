@@ -19,7 +19,7 @@ object ModItems : RegistryManager<Item>(Registries.ITEM) {
 
     //Tridents
     val ELDER_GUARDIAN_SHARD = create("elder_guardian_shard", Item(FabricItemSettings()))
-    val NETHERITE_TRIDENT = create("netherite_trident", ModTridentItem(::NetheriteTridentEntity, ToolMaterials.NETHERITE, FabricItemSettings().maxDamage(324).fireproof()))
+    val NETHERITE_TRIDENT = create("netherite_trident", ModTridentItem(ToolMaterials.NETHERITE, FabricItemSettings().maxDamage(324).fireproof(), ::NetheriteTridentEntity))
 
     //Ancient Gold
     val GILDED_CLUSTER = create("gilded_cluster", Item(FabricItemSettings()))

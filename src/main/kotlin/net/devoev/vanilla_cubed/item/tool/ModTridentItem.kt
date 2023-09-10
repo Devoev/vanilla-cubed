@@ -1,5 +1,6 @@
 package net.devoev.vanilla_cubed.item.tool
 
+import net.devoev.vanilla_cubed.item.modifier.ItemModifier
 import net.devoev.vanilla_cubed.item.modifier.inventoryTick
 import net.devoev.vanilla_cubed.item.modifier.postHit
 import net.devoev.vanilla_cubed.item.modifier.postMine
@@ -12,6 +13,7 @@ import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.MovementType
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.projectile.PersistentProjectileEntity
+import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.ToolMaterial
 import net.minecraft.item.TridentItem
@@ -36,6 +38,9 @@ class ModTridentItem(private val data: TridentToolData)
         require(maxDamage > 0) { "$maxDamage must be greater than 0!" }
         data.settings.maxDamageIfAbsent((data.material.durability * 0.16).toInt())
     }
+
+    constructor(material: ToolMaterial, settings: Settings, entityProvider: EntityProvider, vararg modifiers: ItemModifier<Item>)
+            : this(TridentToolData(material, settings, entityProvider, modifiers.toSet()))
 
     override val material: ToolMaterial = data.material
 
