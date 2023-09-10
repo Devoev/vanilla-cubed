@@ -7,7 +7,7 @@ import net.minecraft.entity.effect.StatusEffectCategory
 /**
  * Increases the [reach distance][ReachEntityAttributes.REACH] attribute by `1` per level.
  */
-val reachStatusEffect = attributeStatusEffectOf(
+val ReachStatusEffect = attributeStatusEffectOf(
     StatusEffectCategory.BENEFICIAL,
     0xEF6E35,
     ReachEntityAttributes.REACH,
