@@ -1,7 +1,7 @@
 package net.devoev.vanilla_cubed.item.armor
 
 import net.devoev.vanilla_cubed.item.modifier.HarmfulEffectProtectionBehavior
-import net.devoev.vanilla_cubed.item.modifier.MiningBonusBehavior
+import net.devoev.vanilla_cubed.item.modifier.MiningBonusModifier
 import net.minecraft.item.ArmorItem
 
 /**
@@ -10,7 +10,7 @@ import net.minecraft.item.ArmorItem
 object ModArmor {
 
     val ANCIENT_GOLD = buildArmor(ModArmorMaterials.ANCIENT_GOLD, HarmfulEffectProtectionBehavior)
-    val AMETHYST = buildArmor(ModArmorMaterials.AMETHYST, MiningBonusBehavior)
+    val AMETHYST = buildArmor(ModArmorMaterials.AMETHYST, MiningBonusModifier)
     val ENDERITE = buildArmor(ModArmorMaterials.ENDERITE)
     val DRAGON_SCALE = buildElytraArmor(ModArmorMaterials.DRAGON_SCALE)
 }
