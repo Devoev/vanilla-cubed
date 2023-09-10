@@ -1,23 +1,15 @@
 package net.devoev.vanilla_cubed.mixin;
 
 import net.devoev.vanilla_cubed.item.ItemKt;
-import net.devoev.vanilla_cubed.item.modifier.ApplyAttributeItem;
-import net.devoev.vanilla_cubed.item.modifier.ItemModifier;
-import net.devoev.vanilla_cubed.item.modifier.ItemModifiers;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ArmorItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -82,25 +74,5 @@ public class PlayerInventoryMixin {
         if (savedItems.size() + autoSavedItems.size() >= inventory.main.size()) return;
         autoSavedItems.add(stack);
         inventory.removeOne(stack);
-    }
-
-    /**
-     * Removes the attribute modifiers of a AttributeToolItem when it gets dropped.
-     */
-    @Inject(method = "dropSelectedItem", at = @At("HEAD"))
-    private void removeAttributeModifiersOnDrop(boolean entireStack, CallbackInfoReturnable<ItemStack> info) {
-        PlayerInventory inventory = (PlayerInventory) (Object) this;
-        Item item = inventory.getMainHandStack().getItem();
-        if (!(item instanceof ItemModifiers<?> tool)) return;
-
-        ItemModifier<?,?> behavior = tool.getInventoryTick();
-        if (!(behavior instanceof ApplyAttributeItem attributeBehavior)) return;
-
-        EntityAttribute attribute = attributeBehavior.getAttribute();
-        EntityAttributeModifier modifier = attributeBehavior.getModifier();
-        EntityAttributeInstance instance = inventory.player.getAttributeInstance(attribute);
-
-        if (instance != null && instance.hasModifier(modifier))
-            instance.removeModifier(modifier);
     }
 }
