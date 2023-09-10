@@ -8,7 +8,6 @@ import net.minecraft.resource.featuretoggle.FeatureFlags
 import net.minecraft.screen.ScreenHandler
 import net.minecraft.screen.ScreenHandlerType
 
-@Environment(EnvType.CLIENT)
 object ModScreenHandlerTypes : RegistryManager<ScreenHandlerType<out ScreenHandler>>(Registries.SCREEN_HANDLER) {
 
     val MOD_BEACON = create("mod_beacon", screenHandlerTypeOf(::ModBeaconScreenHandler))

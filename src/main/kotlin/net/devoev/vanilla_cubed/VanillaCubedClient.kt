@@ -1,6 +1,7 @@
 package net.devoev.vanilla_cubed
 
 import net.devoev.vanilla_cubed.client.event.ModClientTickEvents
+import net.devoev.vanilla_cubed.client.gui.screen.ingame.ModScreens
 import net.devoev.vanilla_cubed.client.render.entity.ModBlockEntityRenderer
 import net.devoev.vanilla_cubed.client.render.entity.ModEntityRenderer
 import net.devoev.vanilla_cubed.client.render.entity.feature.ModLivingEntityFeatureRenderer
@@ -10,7 +11,6 @@ import net.devoev.vanilla_cubed.client.render.item.ModItemRenderer
 import net.devoev.vanilla_cubed.item.ModModelPredicateProvider
 import net.devoev.vanilla_cubed.networking.ModClientPlayNetworking
 import net.devoev.vanilla_cubed.resource.ModResourceReloadListeners
-import net.devoev.vanilla_cubed.screen.ModScreenHandlerTypes
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
@@ -29,6 +29,6 @@ object VanillaCubedClient : ClientModInitializer {
         ModLivingEntityFeatureRenderer.init()
         ModClientTickEvents.init()
         ModClientPlayNetworking.init()
-        ModScreenHandlerTypes.init()
+        ModScreens.init()
     }
 }

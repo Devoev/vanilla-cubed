@@ -2,6 +2,8 @@ package net.devoev.vanilla_cubed.client.gui.screen.ingame
 
 import net.devoev.vanilla_cubed.screen.ModScreenHandlerTypes
 import net.devoev.vanilla_cubed.util.MapInitializer
+import net.fabricmc.api.EnvType
+import net.fabricmc.api.Environment
 import net.minecraft.client.gui.screen.ingame.HandledScreen
 import net.minecraft.client.gui.screen.ingame.HandledScreens
 import net.minecraft.entity.player.PlayerInventory
@@ -9,9 +11,7 @@ import net.minecraft.screen.ScreenHandler
 import net.minecraft.screen.ScreenHandlerType
 import net.minecraft.text.Text
 
-/**
- * TODO: Fix generic type arguments.
- */
+@Environment(EnvType.CLIENT)
 object ModScreens : MapInitializer<ScreenHandlerType<out ScreenHandler>, (ScreenHandler, PlayerInventory, Text) -> HandledScreen<ScreenHandler>>() {
 
     init {
