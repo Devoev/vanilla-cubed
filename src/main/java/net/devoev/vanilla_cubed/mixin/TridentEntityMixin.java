@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.enchantment.HurlingEnchantment;
+import net.devoev.vanilla_cubed.enchantment.HurlingEnchantmentKt;
 import net.minecraft.entity.projectile.TridentEntity;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,10 +15,10 @@ public class TridentEntityMixin {
     private ItemStack tridentStack;
 
     /**
-     * Applies the force enchantment when a trident hits an entity.
+     * @see HurlingEnchantmentKt
      */
     @ModifyVariable(method = "onEntityHit", at = @At(value = "STORE"), ordinal = 0)
-    private float applyHurlingEnchantment(float f) {
-        return f + HurlingEnchantment.INSTANCE.damage(tridentStack);
+    private float hurlingOnEntityHit(float f) {
+        return HurlingEnchantmentKt.hurlingOnEntityHit(f, tridentStack);
     }
 }

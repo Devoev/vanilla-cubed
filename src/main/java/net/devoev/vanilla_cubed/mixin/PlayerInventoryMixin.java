@@ -19,6 +19,8 @@ import java.util.Map;
 @Mixin(PlayerInventory.class)
 public class PlayerInventoryMixin {
 
+    // TODO: Implement soulbound in seperate file
+    //  test for multiple players
     private final Map<EquipmentSlot, ItemStack> savedEquipment = new HashMap<>();
     private final Map<Integer, ItemStack> savedItems = new HashMap<>();
     private final List<ItemStack> autoSavedItems = new ArrayList<>();

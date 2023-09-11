@@ -12,9 +12,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(StatusEffect.class)
 public class StatusEffectMixin {
 
+    /**
+     * @see StatusEffectKt
+     */
     @Inject(method = "onApplied", at=@At("RETURN"))
     private void applyHealthBoost(LivingEntity entity, AttributeContainer attributes, int amplifier, CallbackInfo ci) {
         StatusEffect effect = (StatusEffect) (Object) this;
-        StatusEffectKt.injectHealthBoost(effect, entity);
+        StatusEffectKt.applyHealthBoost(effect, entity);
     }
 }

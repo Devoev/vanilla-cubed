@@ -1,9 +1,12 @@
 package net.devoev.vanilla_cubed.enchantment
 
+import net.devoev.vanilla_cubed.enchantment.HurlingEnchantment.damage
+import net.devoev.vanilla_cubed.mixin.TridentEntityMixin
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.enchantment.EnchantmentTarget
 import net.minecraft.entity.EquipmentSlot
+import net.minecraft.entity.projectile.TridentEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.item.TridentItem
 
@@ -32,4 +35,13 @@ object HurlingEnchantment : Enchantment(Rarity.UNCOMMON, EnchantmentTarget.TRIDE
      * The level of this enchantment the given [stack] has.
      */
     private fun level(stack: ItemStack): Int = EnchantmentHelper.getLevel(ModEnchantments.HURLING, stack)
+}
+
+/**
+ * Applies the force enchantment when a trident hits an entity
+ * by modifying the local [f] variable in [TridentEntity.onEntityHit].
+ * @see TridentEntityMixin.hurlingOnEntityHit
+ */
+fun hurlingOnEntityHit(f: Float, tridentStack: ItemStack): Float {
+    return f + damage(tridentStack)
 }

@@ -10,7 +10,7 @@ import net.minecraft.entity.effect.StatusEffects
  *
  * @see StatusEffectMixin.applyHealthBoost
  */
-fun injectHealthBoost(effect: StatusEffect, entity: LivingEntity) {
+fun applyHealthBoost(effect: StatusEffect, entity: LivingEntity) {
     if (effect == StatusEffects.HEALTH_BOOST) {
         entity.health += entity.maxHealth - 20
     }

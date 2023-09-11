@@ -10,6 +10,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ServerPlayerEntity.class)
 public class ServerPlayerEntityMixin {
 
+    // TODO: Implement soulbound in seperate file
+    //  test for multiple players
+
     /**
      * Copies the inventory of a player after death. Used for enderite soulbound ability.
      */
