@@ -1,11 +1,8 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.item.ItemKt;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
+import net.devoev.vanilla_cubed.item.modifier.TreasureEnchantingModifierKt;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -16,12 +13,12 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(ExperienceOrbEntity.class)
 public class ExperienceOrbEntityMixin {
 
+
     /**
-     * Changes the repair amount of mending gear to be higher, when the item is made of ancient gold.
+     * @see TreasureEnchantingModifierKt
      */
     @ModifyVariable(method = "repairPlayerGears", at = @At(value = "STORE"), ordinal = 1)
-    private int repairFasterWithAncientGold(int i, PlayerEntity player) {
-        ItemStack stack = EnchantmentHelper.chooseEquipmentWith(Enchantments.MENDING, player, ItemStack::isDamaged).getValue();
-        return ItemKt.isAncientGold(stack.getItem()) ? 2*i : i;
+    private int repairPlayersGearFaster(int i, PlayerEntity player) {
+        return TreasureEnchantingModifierKt.repairPlayersGearFaster(i, player);
     }
 }
