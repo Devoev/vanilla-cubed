@@ -1,6 +1,6 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.entity.ItemEntityKt;
+import net.devoev.vanilla_cubed.item.AmethystCrystalKt;
 import net.devoev.vanilla_cubed.item.modifier.DragonFlightModifierKt;
 import net.devoev.vanilla_cubed.item.modifier.MagneticModifierKt;
 import net.minecraft.entity.Entity;
@@ -22,12 +22,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class EntityMixin {
 
     /**
-     * @see ItemEntityKt
+     * @see AmethystCrystalKt
      */
     @Inject(method = "onStruckByLightning", at = @At("HEAD"))
     private void chargeAmethystCrystal(ServerWorld world, LightningEntity lightning, CallbackInfo info) {
         if (((Object) this instanceof ItemEntity item))
-            ItemEntityKt.chargeAmethystCrystalItems(item);
+            AmethystCrystalKt.chargeAmethystCrystalItems(item);
     }
 
     /**
