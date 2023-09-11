@@ -1,9 +1,8 @@
 package net.devoev.vanilla_cubed.mixin;
 
-import net.devoev.vanilla_cubed.item.ItemKt;
+import net.devoev.vanilla_cubed.item.modifier.PreventEndermanAggressionModifierKt;
 import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -20,7 +19,6 @@ public class EndermanEntityMixin {
      */
     @Inject(method = "isPlayerStaring", at = @At("HEAD"), cancellable = true)
     private void notStaringWhenWearingEnderite(PlayerEntity player, CallbackInfoReturnable<Boolean> info) {
-        for (ItemStack stack : player.getArmorItems())
-            if (ItemKt.isEnderite(stack.getItem())) info.setReturnValue(false);
+        PreventEndermanAggressionModifierKt.preventEndermanAggression(player, info);
     }
 }
