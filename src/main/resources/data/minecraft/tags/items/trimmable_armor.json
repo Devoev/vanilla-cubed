@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "vanilla_cubed:ancient_gold_helmet",
+    "vanilla_cubed:ancient_gold_chestplate",
+    "vanilla_cubed:ancient_gold_leggings",
+    "vanilla_cubed:ancient_gold_boots",
+    "vanilla_cubed:amethyst_helmet",
+    "vanilla_cubed:amethyst_chestplate",
+    "vanilla_cubed:amethyst_leggings",
+    "vanilla_cubed:amethyst_boots",
+    "vanilla_cubed:enderite_helmet",
+    "vanilla_cubed:enderite_chestplate",
+    "vanilla_cubed:enderite_leggings",
+    "vanilla_cubed:enderite_boots",
+    "vanilla_cubed:dragon_scale_helmet",
+    "vanilla_cubed:dragon_scale_chestplate",
+    "vanilla_cubed:dragon_scale_chestplate_winged",
+    "vanilla_cubed:dragon_scale_leggings",
+    "vanilla_cubed:dragon_scale_boots"
+  ]
+}

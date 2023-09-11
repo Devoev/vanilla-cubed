@@ -1,0 +1,9 @@
+{
+  "asset_name": "enderite",
+  "description": {
+    "color": "#116152",
+    "translate": "trim_material.vanilla_cubed.enderite"
+  },
+  "ingredient": "vanilla_cubed:enderite_ingot",
+  "item_model_index": 0.9
+}
