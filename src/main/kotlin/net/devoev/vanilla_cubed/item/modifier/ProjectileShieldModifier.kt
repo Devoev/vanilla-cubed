@@ -1,6 +1,7 @@
 package net.devoev.vanilla_cubed.item.modifier
 
 import net.devoev.vanilla_cubed.entity.wearsEnderite
+import net.devoev.vanilla_cubed.mixin.PlayerEntityMixin
 import net.devoev.vanilla_cubed.networking.Channels
 import net.devoev.vanilla_cubed.networking.writeVec3d
 import net.devoev.vanilla_cubed.util.math.times
@@ -11,16 +12,27 @@ import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.sound.SoundCategory
 import net.minecraft.sound.SoundEvents
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
 import kotlin.random.Random
+
+
+/**
+ * Stops projectiles from hitting the player if he wears full enderite armor.
+ * @see PlayerEntityMixin.protectFromProjectiles
+ */
+fun protectFromProjectiles(player: PlayerEntity, source: DamageSource, cir: CallbackInfoReturnable<Boolean>) {
+    if (player.wearsEnderite() && protectFromProjectiles(player, source, 0.5)) {
+        cir.returnValue = false
+    }
+}
 
 /**
  * Protects the [player] from incoming projectiles, by reflecting them.
  * @param p The probability of deflecting the projectile.
- * @return True, if the projectile could successfully be deflected.
+ * @return `true`, if the projectile could successfully be deflected.
  */
-fun protectFromProjectiles(player: PlayerEntity, source: DamageSource, p: Double): Boolean {
-    if (!player.wearsEnderite()
-        || !source.isIndirect // TODO: isIndirect == isProjectile ??
+private fun protectFromProjectiles(player: PlayerEntity, source: DamageSource, p: Double): Boolean {
+    if (!source.isIndirect // TODO: isIndirect == isProjectile ??
         || player.world.isClient
         || Random.nextDouble(1.0) > p
         ) return false
