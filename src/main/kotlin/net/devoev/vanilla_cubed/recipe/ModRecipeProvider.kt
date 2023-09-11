@@ -8,7 +8,7 @@ import net.minecraft.data.server.recipe.RecipeJsonProvider
 import net.minecraft.recipe.SpecialRecipeSerializer
 import java.util.function.Consumer
 
-class ModRecipeProvider(generator: FabricDataOutput) : FabricRecipeProvider(generator) {
+class ModRecipeProvider(output: FabricDataOutput) : FabricRecipeProvider(output) {
 
     override fun generate(exporter: Consumer<RecipeJsonProvider>) {
         with(exporter) {

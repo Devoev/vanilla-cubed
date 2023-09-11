@@ -51,6 +51,7 @@ enum class ModArmorMaterials(
 
     override fun getRepairIngredient(): Ingredient = repairIngredient.value
 
+    //TODO: Put under vanilla cubed namespace
     override fun getName(): String = materialName
 
     override fun getToughness(): Float = toughness
