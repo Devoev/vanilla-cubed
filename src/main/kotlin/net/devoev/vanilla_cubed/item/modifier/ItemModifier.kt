@@ -50,7 +50,7 @@ interface ItemModifier<T : Item> {
     /**
      * Creates a conditional [ItemModifier], that runs this function if [predicate] evaluates to true.
      */
-    fun runIf(predicate: Predicate<T>): ItemModifier<T> = buildItemModifier {
+    infix fun runIf(predicate: Predicate<T>): ItemModifier<T> = buildItemModifier {
         inventoryTick { stack, world, entity, slot, selected ->
             if (predicate.test(this))
                 inventoryTick(this, stack, world, entity, slot, selected)
