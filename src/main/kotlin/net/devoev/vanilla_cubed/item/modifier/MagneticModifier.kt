@@ -16,8 +16,6 @@ import net.minecraft.sound.SoundCategory
 import net.minecraft.sound.SoundEvents
 import net.minecraft.world.World
 
-// TODO: Fix demagnetizing
-
 /**
  * Applies the [ModStatusEffects.MAGNETIC] effect to players holding the item.
  * Only applies if [ItemStack.magnetic] is `true`.
