@@ -2,8 +2,6 @@
   "replace": false,
   "values": [
     "vanilla_cubed:ancient_gold_ingot",
-    "vanilla_cubed:amethyst_crystal",
-    "vanilla_cubed:enderite_ingot",
-    "vanilla_cubed:dragon_scale"
+    "vanilla_cubed:enderite_ingot"
   ]
 }

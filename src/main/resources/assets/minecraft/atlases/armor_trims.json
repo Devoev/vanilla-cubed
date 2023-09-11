@@ -39,7 +39,8 @@
             ],
             "palette_key": "trims/color_palettes/trim_palette",
             "permutations": {
-                "enderite": "trims/color_palettes/enderite"
+                "enderite": "trims/color_palettes/enderite",
+                "ancient_gold": "trims/color_palettes/ancient_gold"
             }
         }
     ]

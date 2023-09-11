@@ -5,5 +5,8 @@
     "translate": "trim_material.vanilla_cubed.enderite"
   },
   "ingredient": "vanilla_cubed:enderite_ingot",
-  "item_model_index": 0.9
+  "item_model_index": 0.9,
+  "override_armor_materials": {
+    "netherite": "enderite_darker"
+  }
 }
