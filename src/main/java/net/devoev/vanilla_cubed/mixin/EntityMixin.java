@@ -2,8 +2,7 @@ package net.devoev.vanilla_cubed.mixin;
 
 import net.devoev.vanilla_cubed.entity.ItemEntityKt;
 import net.devoev.vanilla_cubed.entity.LivingEntityKt;
-import net.devoev.vanilla_cubed.item.ItemKt;
-import net.devoev.vanilla_cubed.item.ItemStackKt;
+import net.devoev.vanilla_cubed.item.modifier.MagneticModifierKt;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LightningEntity;
@@ -12,18 +11,12 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.stream.IntStream;
 
 /**
  * A mixin for the amethyst crystal.
@@ -66,35 +59,12 @@ public class EntityMixin {
     }
 
     /**
-     * TODO: Extract to behavior/upgrade
+     * @see MagneticModifierKt
      */
     @Inject(method = "baseTick", at = @At("HEAD"))
-    private void demagnetizeNetherite(CallbackInfo info) {
-        if (!((Object) this instanceof ItemEntity item)) return;
-        ItemStack stack = item.getStack();
-        if (!ItemKt.isNetherite(stack.getItem()) || !ItemStackKt.getMagnetic(stack) || !item.isInLava()) return;
-
-        ItemStackKt.setMagnetic(stack, false);
-        if (!item.getWorld().isClient) {
-            item.getWorld().playSound(null,
-                    item.getBlockPos(),
-                    SoundEvents.BLOCK_FIRE_EXTINGUISH,
-                    SoundCategory.AMBIENT,
-                    10f,
-                    1f
-            );
-        }
-        else {
-            IntStream.rangeClosed(1,5).forEach(i -> {
-                item.getWorld().addParticle(ParticleTypes.LAVA,
-                        item.getX(),
-                        item.getY(),
-                        item.getZ(),
-                        1,
-                        1,
-                        1
-                );
-            });
+    private void demagnetize(CallbackInfo info) {
+        if ((Object) this instanceof ItemEntity item) {
+            MagneticModifierKt.demagnetize(item);
         }
     }
 }

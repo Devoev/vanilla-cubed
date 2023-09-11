@@ -50,7 +50,22 @@ interface ItemModifier<T : Item> {
     /**
      * Creates a conditional [ItemModifier], that runs this function if [predicate] evaluates to true.
      */
-    fun runIf(predicate: Predicate<Any>): ItemModifier<T> = TODO()
+    fun runIf(predicate: Predicate<T>): ItemModifier<T> = buildItemModifier {
+        inventoryTick { stack, world, entity, slot, selected ->
+            if (predicate.test(this))
+                inventoryTick(this, stack, world, entity, slot, selected)
+        }
+
+        postMine { stack, world, state, pos, miner ->
+            if (predicate.test(this))
+                postMine(this, stack, world, state, pos, miner)
+        }
+
+        postHit { stack, target, attacker ->
+            if (predicate.test(this))
+                postHit(this, stack, target, attacker)
+        }
+    }
 
     fun andThen(after: ItemModifier<T>): ItemModifier<T> = buildItemModifier {
         inventoryTick { stack, world, entity, slot, selected ->

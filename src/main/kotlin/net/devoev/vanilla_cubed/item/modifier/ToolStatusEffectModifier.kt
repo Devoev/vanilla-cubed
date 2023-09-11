@@ -9,7 +9,7 @@ import net.minecraft.item.Item
  * A [ItemModifier] that applies the given [effect] to the player holding the tool.
  */
 fun toolStatusEffectModifierOf(effect: StatusEffect, duration: Int = 0, amplifier: Int = 0)
-    = inventoryTickModifier<Item> { stack, world, entity, _, selected ->
+    = InventoryTickModifier<Item> { stack, world, entity, _, selected ->
 
     if (!world.isClient && selected && entity is LivingEntity && entity.offHandStack != stack) {
         entity.addStatusEffect(StatusEffectInstance(effect, duration, amplifier, false, false))
