@@ -3,7 +3,7 @@ package net.devoev.vanilla_cubed.item.tool
 import net.devoev.vanilla_cubed.entity.effect.ModStatusEffects
 import net.devoev.vanilla_cubed.entity.projectile.EnderiteTridentEntity
 import net.devoev.vanilla_cubed.item.modifier.NoGravityModifier
-import net.devoev.vanilla_cubed.item.modifier.detectOresModifierOf
+import net.devoev.vanilla_cubed.item.modifier.VeinMiningModifier
 import net.devoev.vanilla_cubed.item.modifier.harmfulEffectOnHitModifierOf
 import net.devoev.vanilla_cubed.item.modifier.toolStatusEffectModifierOf
 import net.minecraft.item.ToolItem
@@ -21,7 +21,7 @@ object ModTools {
     val AMETHYST = buildTools(
         material = ModToolMaterials.AMETHYST,
         attackSpeedAmounts = BASE_ATTACK_SPEED.map { it + 0.4F },
-        modifiers = listOf(detectOresModifierOf(3, 1))
+        modifiers = listOf(VeinMiningModifier)
     )
 
     val ENDERITE = buildTridentTools(
