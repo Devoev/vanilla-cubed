@@ -1,5 +1,6 @@
 package net.devoev.vanilla_cubed.mixin;
 
+import net.devoev.vanilla_cubed.item.modifier.BerserkModifierKt;
 import net.devoev.vanilla_cubed.item.modifier.MagneticModifierKt;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
@@ -19,5 +20,13 @@ public class ItemMixin {
     @Inject(method = "inventoryTick", at = @At("HEAD"))
     private void setMagneticModifierToNetherite(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo ci) {
         MagneticModifierKt.setMagneticModifierToNetherite(stack, world, entity, slot, selected);
+    }
+
+    /**
+     * @see BerserkModifierKt
+     */
+    @Inject(method = "inventoryTick", at = @At("HEAD"))
+    private void setBerserkModifierToNetherite(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo ci) {
+        BerserkModifierKt.setBerserkModifierToNetherite(stack, world, entity, slot, selected);
     }
 }

@@ -67,7 +67,10 @@ interface ItemModifier<T : Item> {
         }
     }
 
-    fun andThen(after: ItemModifier<T>): ItemModifier<T> = buildItemModifier {
+    /**
+     * Creates a sequence of modifiers that first runs this and then [after].
+     */
+    infix fun andThen(after: ItemModifier<T>): ItemModifier<T> = buildItemModifier {
         inventoryTick { stack, world, entity, slot, selected ->
             inventoryTick(this, stack, world, entity, slot, selected)
             after.inventoryTick(this, stack, world, entity, slot, selected)

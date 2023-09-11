@@ -21,9 +21,19 @@ fun interface InventoryTickModifier<T : Item> : ItemModifier<T> {
     override fun T.modifyPostMine(stack: ItemStack, world: World, state: BlockState, pos: BlockPos, miner: LivingEntity) = Unit
 
     /**
+     * Creates a sequence of modifiers that first runs this and then [after].
+     */
+    infix fun andThen(after: InventoryTickModifier<T>): InventoryTickModifier<T> {
+        return InventoryTickModifier { stack, world, entity, slot, selected ->
+            inventoryTick(this, stack, world, entity, slot, selected)
+            after.inventoryTick(this, stack, world, entity, slot, selected)
+        }
+    }
+
+    /**
      * Creates a conditional [InventoryTickModifier], that runs this function if [predicate] evaluates to true.
      */
-    fun runIf(predicate: (item: T, stack: ItemStack, world: World, entity: Entity, slot: Int, selected: Boolean) -> Boolean): InventoryTickModifier<T> {
+    infix fun runIf(predicate: (item: T, stack: ItemStack, world: World, entity: Entity, slot: Int, selected: Boolean) -> Boolean): InventoryTickModifier<T> {
         return InventoryTickModifier { stack, world, entity, slot, selected ->
             if (predicate(this, stack, world, entity, slot, selected))
                 inventoryTick(this, stack, world, entity, slot, selected)
