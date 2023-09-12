@@ -4,6 +4,7 @@ import net.devoev.vanilla_cubed.item.modifier.ItemModifiers
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.item.*
 import net.minecraft.item.Item.Settings
+import net.minecraft.text.Text
 
 /**
  * Collection of all 5 tool items.
@@ -24,9 +25,10 @@ fun buildTools(
     attackDamageAmounts: List<Float> = BASE_ATTACK_DAMAGE,
     attackSpeedAmounts: List<Float> = BASE_ATTACK_SPEED,
     settings: Settings = FabricItemSettings(),
-    modifiers: ItemModifiers<Item>
+    modifiers: ItemModifiers<Item> = emptyList(),
+    tooltips: Collection<List<Text>> = emptyList()
 ): ToolItems {
-    val data = toolDataOf(material, attackDamageAmounts, attackSpeedAmounts, settings, modifiers)
+    val data = toolDataOf(material, attackDamageAmounts, attackSpeedAmounts, settings, modifiers, tooltips.flatten())
     return ToolItems(
         ModSwordItem(data[0]),
         ModShovelItem(data[1]),

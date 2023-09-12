@@ -1,8 +1,9 @@
 package net.devoev.vanilla_cubed.item.tool
 
-import net.devoev.vanilla_cubed.item.modifier.*
+import net.devoev.vanilla_cubed.item.modifier.ItemModifiers
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.item.*
+import net.minecraft.text.Text
 
 /**
  * Collection of all 5 tool items and a trident.
@@ -25,9 +26,10 @@ fun buildTridentTools(
     attackSpeedAmounts: List<Float> = BASE_ATTACK_SPEED,
     settings: Item.Settings = FabricItemSettings(),
     entityProvider: EntityProvider,
-    modifiers: ItemModifiers<Item>
+    modifiers: ItemModifiers<Item> = emptyList(),
+    tooltips: Collection<List<Text>> = emptyList()
 ): TridentToolItems {
-    val tools = buildTools(material, attackDamageAmounts, attackSpeedAmounts, settings, modifiers)
+    val tools = buildTools(material, attackDamageAmounts, attackSpeedAmounts, settings, modifiers, tooltips)
     val tridentData = TridentToolData(material, settings, entityProvider, modifiers).withDurability(material.durability)
     return TridentToolItems(
         tools.sword,

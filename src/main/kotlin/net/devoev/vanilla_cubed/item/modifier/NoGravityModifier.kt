@@ -5,6 +5,7 @@ import net.devoev.vanilla_cubed.item.minedByEnderite
 import net.devoev.vanilla_cubed.mixin.BlockMixin
 import net.devoev.vanilla_cubed.mixin.ItemEntityMixin
 import net.devoev.vanilla_cubed.tag.ModTagKeys.ENDERITE_ITEM
+import net.devoev.vanilla_cubed.text.translatableTextOf
 import net.devoev.vanilla_cubed.util.math.times
 import net.minecraft.block.Block
 import net.minecraft.entity.EntityType
@@ -12,6 +13,8 @@ import net.minecraft.entity.ItemEntity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.predicate.entity.EntityPredicates
+import net.minecraft.text.Text
+import net.minecraft.util.Formatting
 import net.minecraft.util.math.Box
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
@@ -24,6 +27,8 @@ val NoGravityModifier = PostHitModifier<Item> { _, target, _ ->
     if (target.isDead && !target.world.isClient)
         removeGravity(target.pos, target.world)
 }
+
+val NO_GRAVITY_TEXT: Text = translatableTextOf("modifier", "no_gravity").formatted(Formatting.BLUE)
 
 /**
  * Removes the gravity from all items that just spawned inside a small region around the given [pos].

@@ -4,9 +4,11 @@ import net.devoev.vanilla_cubed.item.modifier.inventoryTick
 import net.devoev.vanilla_cubed.item.modifier.postHit
 import net.devoev.vanilla_cubed.item.modifier.postMine
 import net.minecraft.block.BlockState
+import net.minecraft.client.item.TooltipContext
 import net.minecraft.entity.Entity
 import net.minecraft.entity.LivingEntity
 import net.minecraft.item.*
+import net.minecraft.text.Text
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
@@ -28,6 +30,11 @@ open class ModSwordItem(private val data: ToolData)
         data.modifiers.postMine(this, stack, world, state, pos, miner)
         return super.postMine(stack, world, state, pos, miner)
     }
+
+    override fun appendTooltip(stack: ItemStack, world: World?, tooltip: MutableList<Text>, context: TooltipContext) {
+        super.appendTooltip(stack, world, tooltip, context)
+        data.appendTooltips(tooltip)
+    }
 }
 
 open class ModShovelItem(private val data: ToolData)
@@ -46,6 +53,11 @@ open class ModShovelItem(private val data: ToolData)
     override fun postMine(stack: ItemStack, world: World, state: BlockState, pos: BlockPos, miner: LivingEntity): Boolean {
         data.modifiers.postMine(this, stack, world, state, pos, miner)
         return super.postMine(stack, world, state, pos, miner)
+    }
+
+    override fun appendTooltip(stack: ItemStack, world: World?, tooltip: MutableList<Text>, context: TooltipContext) {
+        super.appendTooltip(stack, world, tooltip, context)
+        data.appendTooltips(tooltip)
     }
 }
 
@@ -66,6 +78,11 @@ open class ModPickaxeItem(private val data: ToolData)
         data.modifiers.postMine(this, stack, world, state, pos, miner)
         return super.postMine(stack, world, state, pos, miner)
     }
+
+    override fun appendTooltip(stack: ItemStack, world: World?, tooltip: MutableList<Text>, context: TooltipContext) {
+        super.appendTooltip(stack, world, tooltip, context)
+        data.appendTooltips(tooltip)
+    }
 }
 
 open class ModAxeItem(private val data: ToolData)
@@ -85,6 +102,11 @@ open class ModAxeItem(private val data: ToolData)
         data.modifiers.postMine(this, stack, world, state, pos, miner)
         return super.postMine(stack, world, state, pos, miner)
     }
+
+    override fun appendTooltip(stack: ItemStack, world: World?, tooltip: MutableList<Text>, context: TooltipContext) {
+        super.appendTooltip(stack, world, tooltip, context)
+        data.appendTooltips(tooltip)
+    }
 }
 
 open class ModHoeItem(private val data: ToolData)
@@ -103,5 +125,10 @@ open class ModHoeItem(private val data: ToolData)
     override fun postMine(stack: ItemStack, world: World, state: BlockState, pos: BlockPos, miner: LivingEntity): Boolean {
         data.modifiers.postMine(this, stack, world, state, pos, miner)
         return super.postMine(stack, world, state, pos, miner)
+    }
+
+    override fun appendTooltip(stack: ItemStack, world: World?, tooltip: MutableList<Text>, context: TooltipContext) {
+        super.appendTooltip(stack, world, tooltip, context)
+        data.appendTooltips(tooltip)
     }
 }

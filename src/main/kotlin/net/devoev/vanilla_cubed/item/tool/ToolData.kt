@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.item.Item
 import net.minecraft.item.ToolItem
 import net.minecraft.item.ToolMaterial
+import net.minecraft.text.Text
 
 /**
  * Data needed for the creation of a [ToolItem].
@@ -14,8 +15,17 @@ data class ToolData(
     val attackDamage: Float,
     val attackSpeed: Float,
     val settings: Item.Settings,
-    val modifiers: ItemModifiers<Item>
-)
+    val modifiers: ItemModifiers<Item>,
+    val tooltips: List<Text>
+) {
+
+    /**
+     * Appends the [tooltips] to the given [tooltip].
+     */
+    fun appendTooltips(tooltip: MutableList<Text>) {
+        tooltip.addAll(tooltips)
+    }
+}
 
 /**
  * The base attack damage values for sword, shovel, pickaxe, axe and hoe.
@@ -35,7 +45,8 @@ fun toolDataOf(
     attackDamageAmounts: List<Float> = BASE_ATTACK_DAMAGE,
     attackSpeedAmounts: List<Float> = BASE_ATTACK_SPEED,
     settings: Item.Settings = FabricItemSettings(),
-    modifiers: ItemModifiers<Item>
+    modifiers: ItemModifiers<Item>,
+    tooltips: List<Text>
 ): List<ToolData> {
-    return (0..4).map { ToolData(material, attackDamageAmounts[it], attackSpeedAmounts[it], settings, modifiers) }
+    return (0..4).map { ToolData(material, attackDamageAmounts[it], attackSpeedAmounts[it], settings, modifiers, tooltips) }
 }

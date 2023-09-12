@@ -1,10 +1,13 @@
 package net.devoev.vanilla_cubed.item.modifier
 
 import net.devoev.vanilla_cubed.item.tool.ModTools
+import net.devoev.vanilla_cubed.text.translatableTextOf
 import net.minecraft.entity.EquipmentSlot
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.Item
 import net.minecraft.stat.Stats
+import net.minecraft.text.Text
+import net.minecraft.util.Formatting
 import net.minecraft.util.math.BlockPos
 
 /**
@@ -37,3 +40,5 @@ val VeinMiningModifier = PostMineModifier<Item> { stack, world, state, pos, mine
     }
     miner.incrementStat(Stats.USED.getOrCreateStat(stack.item))
 }
+
+val VEIN_MINING_TEXT: Text = translatableTextOf("modifier", "vein_mining").formatted(Formatting.BLUE)

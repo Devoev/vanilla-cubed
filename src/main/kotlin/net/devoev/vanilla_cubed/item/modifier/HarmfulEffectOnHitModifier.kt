@@ -2,10 +2,13 @@ package net.devoev.vanilla_cubed.item.modifier
 
 import net.devoev.vanilla_cubed.entity.effect.StatusEffectHelper
 import net.devoev.vanilla_cubed.item.tool.ModTools
+import net.devoev.vanilla_cubed.text.translatableTextOf
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.item.Item
 import net.minecraft.sound.SoundCategory
 import net.minecraft.sound.SoundEvents
+import net.minecraft.text.Text
+import net.minecraft.util.Formatting
 import kotlin.random.Random
 
 /**
@@ -29,3 +32,5 @@ fun harmfulEffectOnHitModifierOf(probability: Double, durationRange: IntRange, a
         0f
     )
 }
+
+val HARMFUL_EFFECT_ON_HIT_TEXT: Text = translatableTextOf("modifier", "harmful_effects_on_hit").formatted(Formatting.BLUE)
