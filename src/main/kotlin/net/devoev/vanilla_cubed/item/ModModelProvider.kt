@@ -2,28 +2,63 @@ package net.devoev.vanilla_cubed.item
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import net.devoev.vanilla_cubed.block.ModBlocks
 import net.devoev.vanilla_cubed.data.client.MOD_TRIM_MATERIALS
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider
+import net.minecraft.block.Block
 import net.minecraft.data.client.*
-import net.minecraft.item.ArmorItem
-import net.minecraft.item.ArmorMaterial
-import net.minecraft.item.ArmorMaterials
-import net.minecraft.item.ToolItem
+import net.minecraft.item.*
 import net.minecraft.util.Identifier
 
 class ModModelProvider(output: FabricDataOutput) : FabricModelProvider(output) {
 
     override fun generateBlockStateModels(blockStateModelGenerator: BlockStateModelGenerator) {
-
+        with(blockStateModelGenerator) {
+            with(ModBlocks) {
+                createCubeAll(
+                    AMETHYST_CRYSTAL_BLOCK,
+                    CHARGED_AMETHYST_CRYSTAL_BLOCK,
+                    ANCIENT_GOLD_BLOCK,
+                    ENDERITE_BLOCK,
+                    ENDERITE_ORE
+                )
+            }
+        }
     }
 
     override fun generateItemModels(itemModelGenerator: ItemModelGenerator) {
         with(itemModelGenerator) {
-            createArmor(ModItems.armorItems)
-            createTools(ModItems.toolItems)
+            with(ModItems) {
+                createArmor(armorItems)
+                createTools(toolItems)
+                createGenerated(
+                    ELDER_GUARDIAN_SHARD,
+                    GILDED_CLUSTER,
+                    ANCIENT_GOLD_INGOT,
+                    GILDED_BOOK,
+                    ANCIENT_GOLD_UPGRADE_SMITHING_TEMPLATE,
+                    AMETHYST_CRYSTAL,
+                    CHARGED_AMETHYST_CRYSTAL,
+                    AMETHYST_UPGRADE_SMITHING_TEMPLATE,
+                    ENDERITE_SHARD,
+                    ENDERITE_INGOT,
+                    ENDERITE_POWDER,
+                    ENDERITE_UPGRADE_SMITHING_TEMPLATE,
+                    DRAGON_SCALE,
+                    INFUSED_DRAGON_SCALE,
+                    INFUSED_DRAGON_SCALE_CHUNK,
+                    DRAGON_SCALE_UPGRADE_SMITHING_TEMPLATE,
+                    ELYTRA_UPGRADE_SMITHING_TEMPLATE
+                )
+            }
         }
     }
+
+    /**
+     * Registers the given [items] under the [model].
+     */
+    private fun ItemModelGenerator.create(items: Collection<Item>, model: Model) = items.forEach { register(it, model) }
 
     /**
      * Creates models and registers the given [armorItems].
@@ -34,8 +69,19 @@ class ModModelProvider(output: FabricDataOutput) : FabricModelProvider(output) {
     /**
      * Registers the given [toolItems] under [Models.HANDHELD].
      */
-    private fun ItemModelGenerator.createTools(toolItems: Collection<ToolItem>)
-        = toolItems.forEach { register(it, Models.HANDHELD) }
+    private fun ItemModelGenerator.createTools(toolItems: Collection<ToolItem>) = create(toolItems, Models.HANDHELD)
+
+    /**
+     * Registers the given [items] under [Models.GENERATED].
+     */
+    @Suppress("SameParameterValue")
+    private fun ItemModelGenerator.createGenerated(vararg items: Item) = create(items.toSet(), Models.GENERATED)
+
+    /**
+     * Registers the given [blocks] under `cube_all`.
+     */
+    @Suppress("SameParameterValue")
+    private fun BlockStateModelGenerator.createCubeAll(vararg blocks: Block) = blocks.forEach(::registerSimpleCubeAll)
 
     /**
      * Registers the given [armor] and makes it compatible with all [MOD_TRIM_MATERIALS].
