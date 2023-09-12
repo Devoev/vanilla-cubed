@@ -9,6 +9,7 @@ import net.minecraft.data.client.*
 import net.minecraft.item.ArmorItem
 import net.minecraft.item.ArmorMaterial
 import net.minecraft.item.ArmorMaterials
+import net.minecraft.item.ToolItem
 import net.minecraft.util.Identifier
 
 class ModModelProvider(output: FabricDataOutput) : FabricModelProvider(output) {
@@ -20,6 +21,7 @@ class ModModelProvider(output: FabricDataOutput) : FabricModelProvider(output) {
     override fun generateItemModels(itemModelGenerator: ItemModelGenerator) {
         with(itemModelGenerator) {
             createArmor(ModItems.armorItems)
+            createTools(ModItems.toolItems)
         }
     }
 
@@ -28,6 +30,12 @@ class ModModelProvider(output: FabricDataOutput) : FabricModelProvider(output) {
      */
     private fun ItemModelGenerator.createArmor(armorItems: Collection<ArmorItem>)
         = armorItems.forEach { registerArmor(it) } // TODO: Replace with createArmorItem
+
+    /**
+     * Registers the given [toolItems] under [Models.HANDHELD].
+     */
+    private fun ItemModelGenerator.createTools(toolItems: Collection<ToolItem>)
+        = toolItems.forEach { register(it, Models.HANDHELD) }
 
     /**
      * Registers the given [armor] and makes it compatible with all [MOD_TRIM_MATERIALS].

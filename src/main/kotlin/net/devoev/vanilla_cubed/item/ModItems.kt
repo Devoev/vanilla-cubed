@@ -7,10 +7,7 @@ import net.devoev.vanilla_cubed.item.tool.ModTools
 import net.devoev.vanilla_cubed.item.tool.ModTridentItem
 import net.devoev.vanilla_cubed.util.RegistryManager
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
-import net.minecraft.item.ArmorItem
-import net.minecraft.item.BlockItem
-import net.minecraft.item.Item
-import net.minecraft.item.ToolMaterials
+import net.minecraft.item.*
 import net.minecraft.registry.Registries
 
 /**
@@ -108,3 +105,9 @@ object ModItems : RegistryManager<Item>(Registries.ITEM) {
  */
 val ModItems.armorItems: List<ArmorItem>
     get() = values.filterIsInstance<ArmorItem>()
+
+/**
+ * List of all modded [tool items][ToolItem].
+ */
+val ModItems.toolItems: List<ToolItem>
+    get() = values.filterIsInstance<ToolItem>()
