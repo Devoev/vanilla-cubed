@@ -4,10 +4,12 @@ import net.devoev.vanilla_cubed.item.modifier.inventoryTick
 import net.devoev.vanilla_cubed.item.modifier.postHit
 import net.devoev.vanilla_cubed.item.modifier.postMine
 import net.minecraft.block.BlockState
+import net.minecraft.client.item.TooltipContext
 import net.minecraft.entity.Entity
 import net.minecraft.entity.LivingEntity
 import net.minecraft.item.ArmorItem
 import net.minecraft.item.ItemStack
+import net.minecraft.text.Text
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
@@ -27,5 +29,10 @@ open class ModArmorItem(private val data: ArmorData, type: Type)
     override fun postMine(stack: ItemStack, world: World, state: BlockState, pos: BlockPos, miner: LivingEntity): Boolean {
         data.modifiers.postMine(this, stack, world, state, pos, miner)
         return super.postMine(stack, world, state, pos, miner)
+    }
+
+    override fun appendTooltip(stack: ItemStack, world: World?, tooltip: MutableList<Text>, context: TooltipContext) {
+        super.appendTooltip(stack, world, tooltip, context)
+        data.appendTooltips(tooltip)
     }
 }

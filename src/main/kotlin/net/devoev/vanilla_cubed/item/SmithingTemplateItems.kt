@@ -1,12 +1,11 @@
 package net.devoev.vanilla_cubed.item
 
 import net.devoev.vanilla_cubed.VanillaCubed
+import net.devoev.vanilla_cubed.text.translatableTextOf
 import net.minecraft.item.Items
 import net.minecraft.item.SmithingTemplateItem
-import net.minecraft.text.Text
 import net.minecraft.util.Formatting
 import net.minecraft.util.Identifier
-import net.minecraft.util.Util
 
 
 private val EMPTY_ARMOR_SLOT_HELMET_TEXTURE = Identifier("item/empty_armor_slot_helmet")
@@ -38,11 +37,6 @@ private val emptySlotGearTextures = listOf(
     EMPTY_SLOT_PICKAXE_TEXTURE,
 )
 
-/**
- * Creates a translatable text of the given [type] and [name] under the [VanillaCubed.id] namespace.
- */
-private fun translatableTextOf(type: String, name: String)
-    = Text.translatable(Util.createTranslationKey(type, VanillaCubed.id(name)))
 
 /**
  * Creates a [SmithingTemplateItem] for the upgrade of the given [name].

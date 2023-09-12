@@ -1,10 +1,11 @@
 package net.devoev.vanilla_cubed.item.armor
 
-import net.devoev.vanilla_cubed.item.modifier.ItemModifier
+import net.devoev.vanilla_cubed.item.modifier.ItemModifiers
 import net.fabricmc.fabric.api.entity.event.v1.FabricElytraItem
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.item.ArmorItem
 import net.minecraft.item.ArmorMaterial
+import net.minecraft.text.Text
 
 /**
  * Collection of all 4 armor items and an elytra.
@@ -29,5 +30,5 @@ fun buildElytraArmor(data: ArmorData): ElytraArmorItems {
 /**
  * Builds all 4 armor items and an elytra for the given [material] and [modifiers].
  */
-fun buildElytraArmor(material: ArmorMaterial, vararg modifiers: ItemModifier<ArmorItem>)
-    = buildElytraArmor(ArmorData(material, FabricItemSettings(), modifiers.toSet()))
+fun buildElytraArmor(material: ArmorMaterial, modifiers: ItemModifiers<ArmorItem> = emptyList(), tooltips: List<Text> = emptyList())
+    = buildElytraArmor(ArmorData(material, FabricItemSettings(), modifiers, tooltips))

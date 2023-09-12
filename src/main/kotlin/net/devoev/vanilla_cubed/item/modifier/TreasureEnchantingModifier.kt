@@ -2,12 +2,15 @@ package net.devoev.vanilla_cubed.item.modifier
 
 import net.devoev.vanilla_cubed.item.isAncientGold
 import net.devoev.vanilla_cubed.mixin.ExperienceOrbEntityMixin
+import net.devoev.vanilla_cubed.text.translatableTextOf
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.enchantment.EnchantmentLevelEntry
 import net.minecraft.enchantment.Enchantments
 import net.minecraft.entity.ExperienceOrbEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.ItemStack
+import net.minecraft.text.Text
+import net.minecraft.util.Formatting
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
 
 // TODO: Add modifier that doesn't explicitly depend on ancient gold
@@ -37,3 +40,5 @@ fun repairPlayersGearFaster(i: Int, player: PlayerEntity): Int {
     val stack = EnchantmentHelper.chooseEquipmentWith(Enchantments.MENDING, player) { it.isDamaged }?.value
     return if (stack?.item?.isAncientGold() == true) 2*i else i
 }
+
+val TREASURE_ENCHANTING_TEXT: Text = translatableTextOf("modifier", "treasure_enchanting").formatted(Formatting.BLUE)

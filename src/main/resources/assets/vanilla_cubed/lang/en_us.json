@@ -7,6 +7,11 @@
   "item.vanilla_cubed.elder_guardian_shard": "Elder Guardian Shard",
   "enchantment.vanilla_cubed.hurling": "Hurling",
 
+  "modifier.vanilla_cubed.when_full_armor_tooltip": "When Full Armor",
+  "modifier.vanilla_cubed.modifier_tooltip": "Modifier",
+  "modifier.vanilla_cubed.protection_from_harmful_effects": "Protection from harmful effects",
+  "modifier.vanilla_cubed.treasure_enchanting": "Treasure Enchanting",
+
   "item.vanilla_cubed.netherite_trident": "Netherite Trident",
 
   "upgrade.vanilla_cubed.ancient_gold_upgrade": "Ancient Gold Upgrade",
