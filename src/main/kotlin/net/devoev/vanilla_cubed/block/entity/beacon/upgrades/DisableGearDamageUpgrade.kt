@@ -14,7 +14,7 @@ object DisableGearDamageUpgrade : ToggledUpgrade() {
      * Prevents item damage by returning `false` in [ItemStack.isDamageable].
      * @see ItemStackMixin.preventItemDamage
      */
-    fun preventItemDamage(player: PlayerEntity, cir: CallbackInfoReturnable<Boolean>) {
-        if (inRange(player.pos)) cir.returnValue = false
+    fun preventItemDamage(player: PlayerEntity?, cir: CallbackInfoReturnable<Boolean>) {
+        if (player != null && inRange(player.pos)) cir.returnValue = false
     }
 }
