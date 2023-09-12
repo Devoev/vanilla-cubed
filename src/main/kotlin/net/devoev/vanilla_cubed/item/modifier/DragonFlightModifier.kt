@@ -2,9 +2,12 @@ package net.devoev.vanilla_cubed.item.modifier
 
 import net.devoev.vanilla_cubed.entity.wearsDragonScale
 import net.devoev.vanilla_cubed.mixin.EntityMixin
+import net.devoev.vanilla_cubed.text.translatableTextOf
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.damage.DamageSource
 import net.minecraft.entity.damage.DamageTypes
+import net.minecraft.text.Text
+import net.minecraft.util.Formatting
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
 
 /**
@@ -20,3 +23,5 @@ fun setInvulnerableToFlyingDamage(entity: LivingEntity, damageSource: DamageSour
         cir.returnValue = true
     }
 }
+
+val DRAGON_FLIGHT_TEXT: Text = translatableTextOf("modifier", "dragon_flight").formatted(Formatting.BLUE)

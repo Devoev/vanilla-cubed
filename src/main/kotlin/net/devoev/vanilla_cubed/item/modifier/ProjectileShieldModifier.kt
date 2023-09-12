@@ -4,6 +4,7 @@ import net.devoev.vanilla_cubed.entity.wearsEnderite
 import net.devoev.vanilla_cubed.mixin.PlayerEntityMixin
 import net.devoev.vanilla_cubed.networking.Channels
 import net.devoev.vanilla_cubed.networking.writeVec3d
+import net.devoev.vanilla_cubed.text.translatableTextOf
 import net.devoev.vanilla_cubed.util.math.times
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
@@ -12,6 +13,8 @@ import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.sound.SoundCategory
 import net.minecraft.sound.SoundEvents
+import net.minecraft.text.Text
+import net.minecraft.util.Formatting
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
 import kotlin.random.Random
 
@@ -59,3 +62,5 @@ private fun protectFromProjectiles(player: PlayerEntity, source: DamageSource, p
     }
     return true
 }
+
+val PROJECTILE_SHIELD_TEXT: Text = translatableTextOf("modifier", "projectile_shield").formatted(Formatting.BLUE)

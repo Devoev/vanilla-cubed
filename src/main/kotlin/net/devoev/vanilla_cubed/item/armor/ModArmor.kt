@@ -9,12 +9,25 @@ import net.minecraft.item.ArmorItem
 object ModArmor {
 
     val ANCIENT_GOLD = buildArmor(
-        ModArmorMaterials.ANCIENT_GOLD,
-        listOf(HarmfulEffectProtectionModifier),
+        material = ModArmorMaterials.ANCIENT_GOLD,
+        modifiers = listOf(HarmfulEffectProtectionModifier),
         whenFullArmorTextOf(HARMFUL_EFFECT_PROTECTION_TEXT),
         modifierTextOf(TREASURE_ENCHANTING_TEXT)
     )
-    val AMETHYST = buildArmor(ModArmorMaterials.AMETHYST, listOf(MiningBonusModifier))
-    val ENDERITE = buildArmor(ModArmorMaterials.ENDERITE)
-    val DRAGON_SCALE = buildElytraArmor(ModArmorMaterials.DRAGON_SCALE)
+    val AMETHYST = buildArmor(
+        material = ModArmorMaterials.AMETHYST,
+        modifiers = listOf(MiningBonusModifier),
+        whenFullArmorTextOf(MINING_BONUS_TEXT)
+    )
+    val ENDERITE = buildArmor(
+        material = ModArmorMaterials.ENDERITE,
+        modifiers = emptyList(),
+        whenFullArmorTextOf(PROJECTILE_SHIELD_TEXT),
+        modifierTextOf(SOULBOUND_TEXT)
+    )
+    val DRAGON_SCALE = buildElytraArmor(
+        material = ModArmorMaterials.DRAGON_SCALE,
+        modifiers = emptyList(),
+        whenFullArmorTextOf(DRAGON_FLIGHT_TEXT)
+    )
 }
