@@ -14,8 +14,14 @@ class ModItemTagProvider(output: FabricDataOutput, completableFuture: Completabl
     : FabricTagProvider.ItemTagProvider(output, completableFuture) {
 
     override fun configure(arg: RegistryWrapper.WrapperLookup) {
+        // TODO: Fix trim material
+//        create(ItemTags.TRIM_MATERIALS) {
+//            add(ModItems.ANCIENT_GOLD_INGOT)
+//            add(ModItems.ENDERITE_INGOT)
+//        }
+
         create(ItemTags.TRIMMABLE_ARMOR) {
-            add(*ModItems.values.filterIsInstance<ArmorItem>().toTypedArray())
+            add(*ModItems.values.filterIsInstance<ArmorItem>().toTypedArray()) // TODO: Add armor property to ModItems
         }
     }
 
