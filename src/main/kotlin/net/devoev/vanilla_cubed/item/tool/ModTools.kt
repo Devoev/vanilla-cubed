@@ -14,7 +14,7 @@ object ModTools {
     val ANCIENT_GOLD = buildTools(
         material = ModToolMaterials.ANCIENT_GOLD,
         modifiers = listOf(harmfulEffectOnHitModifierOf(0.1, 100..200, 0..2)),
-        tooltips = listOf(modifierTextOf(HARMFUL_EFFECT_ON_HIT_TEXT))
+        tooltips = listOf(modifierTextOf(TREASURE_ENCHANTING_TEXT, HARMFUL_EFFECT_ON_HIT_TEXT))
     )
 
     val AMETHYST = buildTridentTools(
@@ -29,11 +29,12 @@ object ModTools {
         material = ModToolMaterials.ENDERITE,
         entityProvider = ::EnderiteTridentEntity,
         modifiers = listOf(NoGravityModifier),
-        tooltips = listOf(modifierTextOf(NO_GRAVITY_TEXT))
+        tooltips = listOf(modifierTextOf(NO_GRAVITY_TEXT, SOULBOUND_TEXT))
     )
 
     val DRAGON_SCALE = buildTools(
         material = ModToolMaterials.DRAGON_SCALE,
-        modifiers = listOf(toolStatusEffectModifierOf(ModStatusEffects.REACH, amplifier = 1))
+        modifiers = listOf(toolStatusEffectModifierOf(ModStatusEffects.REACH, amplifier = 1)),
+        tooltips = listOf(whenInHandTextOf(toolStatusEffectTextOf(ModStatusEffects.REACH)))
     )
 }

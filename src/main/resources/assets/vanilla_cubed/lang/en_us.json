@@ -8,6 +8,7 @@
   "enchantment.vanilla_cubed.hurling": "Hurling",
 
   "modifier.vanilla_cubed.when_full_armor_tooltip": "When full Armor",
+  "modifier.vanilla_cubed.when_in_hand_tooltip": "When in Hand",
   "modifier.vanilla_cubed.modifier_tooltip": "Modifier",
   "modifier.vanilla_cubed.protection_from_harmful_effects": "Protection from harmful Effects",
   "modifier.vanilla_cubed.harmful_effects_on_hit": "Apply Harmful Effects on Hit",

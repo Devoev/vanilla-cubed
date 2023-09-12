@@ -12,6 +12,11 @@ import net.minecraft.util.Formatting
 private val WHEN_FULL_ARMOR_TEXT: MutableText = translatableTextOf("modifier", "when_full_armor_tooltip").formatted(Formatting.GRAY)
 
 /**
+ * Tooltip for modifiers, that give an effect if held in the hand.
+ */
+private val WHEN_IN_HAND_TEXT: MutableText = translatableTextOf("modifier", "when_in_hand_tooltip").formatted(Formatting.GRAY)
+
+/**
  * Tooltip for modifiers that give passive effects for each item.
  */
 private val MODIFIER_TEXT: MutableText = translatableTextOf("modifier", "modifier_tooltip").formatted(Formatting.GRAY)
@@ -25,11 +30,16 @@ fun subTextOf(text: Text, vararg subtexts: Text): List<Text> {
 }
 
 /**
- * Creates the "when full armor" tooltip text for the given [text].
+ * Creates the "when full armor" tooltip text for the given [texts].
  */
-fun whenFullArmorTextOf(text: Text) = subTextOf(WHEN_FULL_ARMOR_TEXT, text)
+fun whenFullArmorTextOf(vararg texts: Text) = subTextOf(WHEN_FULL_ARMOR_TEXT, *texts)
 
 /**
- * Creates the "modifier" tooltip text for the given [text].
+ * Creates the "when in hand" tooltip text for the given [texts].
  */
-fun modifierTextOf(text: Text) = subTextOf(MODIFIER_TEXT, text)
+fun whenInHandTextOf(vararg texts: Text) = subTextOf(WHEN_IN_HAND_TEXT, *texts)
+
+/**
+ * Creates the "modifier" tooltip text for the given [texts].
+ */
+fun modifierTextOf(vararg texts: Text) = subTextOf(MODIFIER_TEXT, *texts)
