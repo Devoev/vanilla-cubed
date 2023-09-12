@@ -15,6 +15,7 @@ object ModItemRenderer : MapInitializer<ItemConvertible, DynamicItemRenderer>() 
     init {
         this[ModItems.ENDERITE_TRIDENT] = ModResourceReloadListeners.ENDERITE_TRIDENT
         this[ModItems.NETHERITE_TRIDENT] = ModResourceReloadListeners.NETHERITE_TRIDENT
+        this[ModItems.AMETHYST_TRIDENT] = ModResourceReloadListeners.AMETHYST_TRIDENT
     }
 
     override fun init() = forEach { BuiltinItemRendererRegistry.INSTANCE.register(it.key, it.value) }

@@ -1,8 +1,8 @@
 package net.devoev.vanilla_cubed.entity.projectile
 
 import net.devoev.vanilla_cubed.entity.ModEntityTypes
-import net.devoev.vanilla_cubed.item.magnetic
 import net.devoev.vanilla_cubed.item.isNetherite
+import net.devoev.vanilla_cubed.item.magnetic
 import net.devoev.vanilla_cubed.util.math.Vec3d
 import net.devoev.vanilla_cubed.util.math.minus
 import net.devoev.vanilla_cubed.util.math.plus
@@ -14,6 +14,9 @@ import net.minecraft.predicate.entity.EntityPredicates
 import net.minecraft.util.math.Box
 import net.minecraft.world.World
 
+/**
+ * A trident made out of netherite. A thrown netherite trident attracts item entities.
+ */
 class NetheriteTridentEntity(world: World, owner: LivingEntity, stack: ItemStack)
     : ModTridentEntity(world, owner, stack, ModEntityTypes.NETHERITE_TRIDENT) {
 

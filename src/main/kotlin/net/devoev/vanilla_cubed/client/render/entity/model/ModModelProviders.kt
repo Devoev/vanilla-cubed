@@ -19,6 +19,11 @@ object ModModelProviders : SetInitializer<ExtraModelProvider>() {
         create(ExtraModelProvider { _, out -> out.accept(
             ModItems.NETHERITE_TRIDENT.model("_in_inventory", "inventory")
         ) })
+
+        // TODO: Fix deprecated
+        create(ExtraModelProvider { _, out -> out.accept(
+            ModItems.AMETHYST_TRIDENT.model("_in_inventory", "inventory")
+        ) })
     }
 
     override fun init() = forEach { ModelLoadingRegistry.INSTANCE.registerModelProvider(it) }

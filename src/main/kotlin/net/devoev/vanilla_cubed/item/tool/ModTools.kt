@@ -1,6 +1,7 @@
 package net.devoev.vanilla_cubed.item.tool
 
 import net.devoev.vanilla_cubed.entity.effect.ModStatusEffects
+import net.devoev.vanilla_cubed.entity.projectile.AmethystTridentEntity
 import net.devoev.vanilla_cubed.entity.projectile.EnderiteTridentEntity
 import net.devoev.vanilla_cubed.item.modifier.NoGravityModifier
 import net.devoev.vanilla_cubed.item.modifier.VeinMiningModifier
@@ -18,8 +19,9 @@ object ModTools {
         modifiers = listOf(harmfulEffectOnHitModifierOf(0.3, 100..200, 0..2))
     )
 
-    val AMETHYST = buildTools(
+    val AMETHYST = buildTridentTools(
         material = ModToolMaterials.AMETHYST,
+        entityProvider = ::AmethystTridentEntity,
         attackSpeedAmounts = BASE_ATTACK_SPEED.map { it + 0.4F },
         modifiers = listOf(VeinMiningModifier)
     )

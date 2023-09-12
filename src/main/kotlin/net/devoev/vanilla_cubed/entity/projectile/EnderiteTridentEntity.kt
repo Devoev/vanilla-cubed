@@ -11,6 +11,9 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.math.Box
 import net.minecraft.world.World
 
+/**
+ * A trident made out of enderite. A thrown enderite trident has auto aim.
+ */
 class EnderiteTridentEntity(world: World, owner: LivingEntity, stack: ItemStack)
     : ModTridentEntity(world, owner, stack, ModEntityTypes.ENDERITE_TRIDENT) {
 

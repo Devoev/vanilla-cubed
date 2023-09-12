@@ -21,6 +21,9 @@ object ModResourceReloadListeners : SetInitializer<IdentifiableResourceReloadLis
     val NETHERITE_TRIDENT = create(TridentItemRenderer(
         ModItems.NETHERITE_TRIDENT.id, ModEntityTypes.NETHERITE_TRIDENT.texture
     ))
+    val AMETHYST_TRIDENT = create(TridentItemRenderer(
+        ModItems.AMETHYST_TRIDENT.id, ModEntityTypes.AMETHYST_TRIDENT.texture
+    ))
 
     override fun init() = forEach { ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(it) }
 }

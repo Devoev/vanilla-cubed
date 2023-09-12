@@ -26,7 +26,6 @@ object ModItems : RegistryManager<Item>(Registries.ITEM) {
     val GILDED_BOOK = create("gilded_book", GildedBook())
     val ANCIENT_GOLD_UPGRADE_SMITHING_TEMPLATE = create("ancient_gold_upgrade_smithing_template", ancientGoldUpgrade)
 
-
     val ANCIENT_GOLD_SWORD = create("ancient_gold_sword", ModTools.ANCIENT_GOLD.sword)
     val ANCIENT_GOLD_SHOVEL = create("ancient_gold_shovel", ModTools.ANCIENT_GOLD.shovel)
     val ANCIENT_GOLD_PICKAXE = create("ancient_gold_pickaxe", ModTools.ANCIENT_GOLD.pickaxe)
@@ -46,12 +45,12 @@ object ModItems : RegistryManager<Item>(Registries.ITEM) {
     val AMETHYST_COMPASS = create("amethyst_compass", AmethystCompass())
     val AMETHYST_UPGRADE_SMITHING_TEMPLATE = create("amethyst_upgrade_smithing_template", amethystUpgrade)
 
-
     val AMETHYST_SWORD = create("amethyst_sword", ModTools.AMETHYST.sword)
     val AMETHYST_SHOVEL = create("amethyst_shovel", ModTools.AMETHYST.shovel)
     val AMETHYST_PICKAXE = create("amethyst_pickaxe", ModTools.AMETHYST.pickaxe)
     val AMETHYST_AXE = create("amethyst_axe", ModTools.AMETHYST.axe)
     val AMETHYST_HOE = create("amethyst_hoe", ModTools.AMETHYST.hoe)
+    val AMETHYST_TRIDENT = create("amethyst_trident", ModTools.AMETHYST.trident)
 
     val AMETHYST_HELMET = create("amethyst_helmet", ModArmor.AMETHYST.helmet)
     val AMETHYST_CHESTPLATE = create("amethyst_chestplate", ModArmor.AMETHYST.chestplate)
@@ -65,7 +64,6 @@ object ModItems : RegistryManager<Item>(Registries.ITEM) {
     val ENDERITE_INGOT = create("enderite_ingot", Item(FabricItemSettings()))
     val ENDERITE_POWDER = create("enderite_powder", EnderitePowder())
     val ENDERITE_UPGRADE_SMITHING_TEMPLATE = create("enderite_upgrade_smithing_template", enderiteUpgrade)
-
 
     val ENDERITE_SWORD = create("enderite_sword", ModTools.ENDERITE.sword)
     val ENDERITE_SHOVEL = create("enderite_shovel", ModTools.ENDERITE.shovel)

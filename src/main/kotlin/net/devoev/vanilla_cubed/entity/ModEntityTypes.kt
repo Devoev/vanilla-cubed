@@ -13,9 +13,10 @@ object ModEntityTypes : RegistryManager<EntityType<out Entity>>(Registries.ENTIT
 
     val ENDERITE_TRIDENT = create("enderite_trident", ::ModTridentEntity)
     val NETHERITE_TRIDENT = create("netherite_trident", ::ModTridentEntity) { it.fireImmune() }
+    val AMETHYST_TRIDENT = create("amethyst_trident", ::ModTridentEntity)
 
     fun <T : Entity> create(name: String, factory: EntityFactory<T>,
-                            block: (FabricEntityTypeBuilder<T>) -> FabricEntityTypeBuilder<T> = {builder -> builder})
+                            block: (FabricEntityTypeBuilder<T>) -> FabricEntityTypeBuilder<T> = { it })
         = create(name, entityTypeFrom(factory, block))
 
     /**

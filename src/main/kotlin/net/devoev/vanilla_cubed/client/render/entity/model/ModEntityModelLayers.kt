@@ -23,6 +23,7 @@ object ModEntityModelLayers : MapInitializer<EntityModelLayer, TexturedModelData
         this[ModItems.WINGED_DRAGON_SCALE_CHESTPLATE.id] = { ElytraEntityModel.getTexturedModelData() }
         this[ModItems.ENDERITE_TRIDENT.id] = { TridentEntityModel.getTexturedModelData() }
         this[ModItems.NETHERITE_TRIDENT.id] = { TridentEntityModel.getTexturedModelData() }
+        this[ModItems.AMETHYST_TRIDENT.id] = { TridentEntityModel.getTexturedModelData() }
     }
 
     operator fun set(name: String, provider: TexturedModelDataProvider) = put(EntityModelLayer(VanillaCubed.id(name), name), provider)
