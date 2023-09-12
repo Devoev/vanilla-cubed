@@ -10,6 +10,9 @@ abstract class SetInitializer<T> : MutableSet<T> by mutableSetOf() {
      */
     abstract fun init()
 
+    /**
+     * Adds the given [value] to the set and returns it.
+     */
     protected fun <E : T> create(value: E): E {
         add(value)
         return value

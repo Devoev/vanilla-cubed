@@ -5,26 +5,25 @@ import net.devoev.vanilla_cubed.item.model
 import net.devoev.vanilla_cubed.util.SetInitializer
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
-import net.fabricmc.fabric.api.client.model.ExtraModelProvider
-import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry
+import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin
 
 @Environment(EnvType.CLIENT)
-object ModModelProviders : SetInitializer<ExtraModelProvider>() {
+object ModModelProviders : SetInitializer<ModelLoadingPlugin>() {
 
     init {
-        create(ExtraModelProvider { _, out -> out.accept(
-            ModItems.ENDERITE_TRIDENT.model("_in_inventory", "inventory")
-        ) })
-
-        create(ExtraModelProvider { _, out -> out.accept(
-            ModItems.NETHERITE_TRIDENT.model("_in_inventory", "inventory")
-        ) })
-
-        // TODO: Fix deprecated
-        create(ExtraModelProvider { _, out -> out.accept(
-            ModItems.AMETHYST_TRIDENT.model("_in_inventory", "inventory")
-        ) })
+        create {
+            addModels(
+                ModItems.NETHERITE_TRIDENT.model("_in_inventory", "inventory"),
+                ModItems.ENDERITE_TRIDENT.model("_in_inventory", "inventory"),
+                ModItems.AMETHYST_TRIDENT.model("_in_inventory", "inventory")
+            )
+        }
     }
 
-    override fun init() = forEach { ModelLoadingRegistry.INSTANCE.registerModelProvider(it) }
+    /**
+     * Creates a new [ModelLoadingPlugin] and performs the [contextAction] on it.
+     */
+    fun create(contextAction: ModelLoadingPlugin.Context.() -> Unit) = create(ModelLoadingPlugin(contextAction))
+
+    override fun init() = forEach(ModelLoadingPlugin::register)
 }
