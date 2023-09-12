@@ -1,13 +1,14 @@
 package net.devoev.vanilla_cubed.item
 
 import net.devoev.vanilla_cubed.block.ModBlocks
-import net.devoev.vanilla_cubed.entity.projectile.NetheriteTridentEntity
 import net.devoev.vanilla_cubed.item.armor.ModArmor
 import net.devoev.vanilla_cubed.item.tool.ModTools
-import net.devoev.vanilla_cubed.item.tool.ModTridentItem
 import net.devoev.vanilla_cubed.util.RegistryManager
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
-import net.minecraft.item.*
+import net.minecraft.item.ArmorItem
+import net.minecraft.item.BlockItem
+import net.minecraft.item.Item
+import net.minecraft.item.ToolItem
 import net.minecraft.registry.Registries
 
 /**
@@ -17,7 +18,7 @@ object ModItems : RegistryManager<Item>(Registries.ITEM) {
 
     //Tridents
     val ELDER_GUARDIAN_SHARD = create("elder_guardian_shard", Item(FabricItemSettings()))
-    val NETHERITE_TRIDENT = create("netherite_trident", ModTridentItem(ToolMaterials.NETHERITE, FabricItemSettings().maxDamage(324).fireproof(), ::NetheriteTridentEntity))
+    val NETHERITE_TRIDENT = create("netherite_trident", ModTools.NETHERITE_TRIDENT)
 
     //Ancient Gold
     val GILDED_CLUSTER = create("gilded_cluster", Item(FabricItemSettings()))

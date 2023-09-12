@@ -27,10 +27,11 @@ fun buildTridentTools(
     settings: Item.Settings = FabricItemSettings(),
     entityProvider: EntityProvider,
     modifiers: ItemModifiers<Item> = emptyList(),
-    tooltips: Collection<List<Text>> = emptyList()
+    tooltips: Collection<List<Text>> = emptyList(),
+    tridentTooltips: Collection<List<Text>> = emptyList()
 ): TridentToolItems {
     val tools = buildTools(material, attackDamageAmounts, attackSpeedAmounts, settings, modifiers, tooltips)
-    val tridentData = TridentToolData(material, settings, entityProvider, modifiers).withDurability(material.durability)
+    val tridentData = TridentToolData(material, settings, entityProvider, modifiers, tridentTooltips.flatten()).withDurability(material.durability)
     return TridentToolItems(
         tools.sword,
         tools.shovel,

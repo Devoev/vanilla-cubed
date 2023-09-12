@@ -1,12 +1,13 @@
 package net.devoev.vanilla_cubed.item.tool
 
-import net.devoev.vanilla_cubed.item.modifier.ItemModifier
+import net.devoev.vanilla_cubed.item.modifier.ItemModifiers
 import net.devoev.vanilla_cubed.item.modifier.inventoryTick
 import net.devoev.vanilla_cubed.item.modifier.postHit
 import net.devoev.vanilla_cubed.item.modifier.postMine
 import net.devoev.vanilla_cubed.util.math.toFloat
 import net.minecraft.block.BlockState
 import net.minecraft.client.item.ClampedModelPredicateProvider
+import net.minecraft.client.item.TooltipContext
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.Entity
 import net.minecraft.entity.LivingEntity
@@ -20,6 +21,7 @@ import net.minecraft.item.TridentItem
 import net.minecraft.sound.SoundCategory
 import net.minecraft.sound.SoundEvents
 import net.minecraft.stat.Stats
+import net.minecraft.text.Text
 import net.minecraft.util.UseAction
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
@@ -39,8 +41,13 @@ class ModTridentItem(private val data: TridentToolData)
         data.settings.maxDamageIfAbsent((data.material.durability * 0.16).toInt())
     }
 
-    constructor(material: ToolMaterial, settings: Settings, entityProvider: EntityProvider, vararg modifiers: ItemModifier<Item>)
-            : this(TridentToolData(material, settings, entityProvider, modifiers.toSet()))
+    constructor(
+        material: ToolMaterial,
+        settings: Settings,
+        entityProvider: EntityProvider,
+        modifiers: ItemModifiers<Item> = emptyList(),
+        tooltips: Collection<List<Text>> = emptyList())
+            : this(TridentToolData(material, settings, entityProvider, modifiers, tooltips.flatten()))
 
     override val material: ToolMaterial = data.material
 
@@ -59,6 +66,11 @@ class ModTridentItem(private val data: TridentToolData)
     override fun postMine(stack: ItemStack, world: World, state: BlockState, pos: BlockPos, miner: LivingEntity): Boolean {
         data.modifiers.postMine(this, stack, world, state, pos, miner)
         return super.postMine(stack, world, state, pos, miner)
+    }
+
+    override fun appendTooltip(stack: ItemStack, world: World?, tooltip: MutableList<Text>, context: TooltipContext) {
+        super.appendTooltip(stack, world, tooltip, context)
+        data.appendTooltips(tooltip)
     }
 
     override fun onStoppedUsing(stack: ItemStack?, world: World?, user: LivingEntity?, remainingUseTicks: Int) {

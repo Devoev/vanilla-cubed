@@ -1,6 +1,7 @@
 package net.devoev.vanilla_cubed.entity.projectile
 
 import net.devoev.vanilla_cubed.entity.ModEntityTypes
+import net.devoev.vanilla_cubed.text.translatableTextOf
 import net.devoev.vanilla_cubed.util.math.Vec3d
 import net.devoev.vanilla_cubed.util.math.minus
 import net.devoev.vanilla_cubed.util.math.plus
@@ -8,6 +9,8 @@ import net.devoev.vanilla_cubed.util.math.times
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.passive.TameableEntity
 import net.minecraft.item.ItemStack
+import net.minecraft.text.Text
+import net.minecraft.util.Formatting
 import net.minecraft.util.math.Box
 import net.minecraft.world.World
 
@@ -38,3 +41,5 @@ class EnderiteTridentEntity(world: World, owner: LivingEntity, stack: ItemStack)
         velocity = interpolationVec * velocity.length()
     }
 }
+
+val AIM_ASSIST_TEXT: Text = translatableTextOf("modifier", "aim_assist").formatted(Formatting.BLUE)

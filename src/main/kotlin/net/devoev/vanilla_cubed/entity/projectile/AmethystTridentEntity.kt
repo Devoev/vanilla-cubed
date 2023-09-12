@@ -1,10 +1,13 @@
 package net.devoev.vanilla_cubed.entity.projectile
 
 import net.devoev.vanilla_cubed.entity.ModEntityTypes
+import net.devoev.vanilla_cubed.text.translatableTextOf
 import net.minecraft.entity.EquipmentSlot
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.ItemStack
+import net.minecraft.text.Text
+import net.minecraft.util.Formatting
 import net.minecraft.util.hit.BlockHitResult
 import net.minecraft.world.World
 
@@ -41,3 +44,5 @@ class AmethystTridentEntity(world: World, owner: LivingEntity, stack: ItemStack)
         }
     }
 }
+
+val BREAK_BLOCK_TEXT: Text = translatableTextOf("modifier", "break_block").formatted(Formatting.BLUE)

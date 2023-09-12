@@ -8,6 +8,7 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.ToolMaterial
 import net.minecraft.item.TridentItem
+import net.minecraft.text.Text
 import net.minecraft.world.World
 
 /**
@@ -18,6 +19,7 @@ data class TridentToolData(
     val settings: Item.Settings,
     val entityProvider: EntityProvider,
     val modifiers: ItemModifiers<Item>,
+    val tooltips: List<Text>
 ) {
 
     /**
@@ -25,6 +27,13 @@ data class TridentToolData(
      */
     fun withDurability(durability: Int): TridentToolData {
         return copy(settings = settings.copy().maxDamageIfAbsent((durability * 0.16).toInt()))
+    }
+
+    /**
+     * Appends the [tooltips] to the given [tooltip].
+     */
+    fun appendTooltips(tooltip: MutableList<Text>) {
+        tooltip.addAll(tooltips)
     }
 }
 
