@@ -1,9 +1,9 @@
 package net.devoev.vanilla_cubed.tag
 
 import net.devoev.vanilla_cubed.item.ModItems
+import net.devoev.vanilla_cubed.item.armorItems
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider
-import net.minecraft.item.ArmorItem
 import net.minecraft.item.Item
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.ItemTags
@@ -21,7 +21,7 @@ class ModItemTagProvider(output: FabricDataOutput, completableFuture: Completabl
 //        }
 
         create(ItemTags.TRIMMABLE_ARMOR) {
-            add(*ModItems.values.filterIsInstance<ArmorItem>().toTypedArray()) // TODO: Add armor property to ModItems
+            add(ModItems.armorItems)
         }
     }
 
@@ -32,3 +32,8 @@ class ModItemTagProvider(output: FabricDataOutput, completableFuture: Completabl
         getOrCreateTagBuilder(tagKey).builderAction()
     }
 }
+
+/**
+ * Adds the given [elements] to the tag.
+ */
+fun <T> FabricTagProvider<T>.FabricTagBuilder.add(elements: Collection<T>) = elements.forEach(::add)

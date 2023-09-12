@@ -1,5 +1,6 @@
 package net.devoev.vanilla_cubed.item.armor
 
+import net.devoev.vanilla_cubed.VanillaCubed
 import net.devoev.vanilla_cubed.item.ModItems
 import net.minecraft.item.ArmorItem
 import net.minecraft.item.ArmorMaterial
@@ -51,8 +52,7 @@ enum class ModArmorMaterials(
 
     override fun getRepairIngredient(): Ingredient = repairIngredient.value
 
-    //TODO: Put under vanilla cubed namespace
-    override fun getName(): String = materialName
+    override fun getName(): String = "${VanillaCubed.MOD_ID}:$materialName"
 
     override fun getToughness(): Float = toughness
 

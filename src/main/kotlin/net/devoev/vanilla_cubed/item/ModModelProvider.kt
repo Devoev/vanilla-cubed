@@ -19,7 +19,7 @@ class ModModelProvider(output: FabricDataOutput) : FabricModelProvider(output) {
 
     override fun generateItemModels(itemModelGenerator: ItemModelGenerator) {
         with(itemModelGenerator) {
-            createArmor(ModItems.values.filterIsInstance<ArmorItem>())
+            createArmor(ModItems.armorItems)
         }
     }
 

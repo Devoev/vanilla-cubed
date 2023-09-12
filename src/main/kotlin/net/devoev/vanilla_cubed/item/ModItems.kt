@@ -7,6 +7,7 @@ import net.devoev.vanilla_cubed.item.tool.ModTools
 import net.devoev.vanilla_cubed.item.tool.ModTridentItem
 import net.devoev.vanilla_cubed.util.RegistryManager
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
+import net.minecraft.item.ArmorItem
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
 import net.minecraft.item.ToolMaterials
@@ -101,3 +102,9 @@ object ModItems : RegistryManager<Item>(Registries.ITEM) {
     val DRAGON_SCALE_BOOTS = create("dragon_scale_boots", ModArmor.DRAGON_SCALE.boots)
     val WINGED_DRAGON_SCALE_CHESTPLATE = create("dragon_scale_chestplate_winged", ModArmor.DRAGON_SCALE.elytra)
 }
+
+/**
+ * List of all modded [armor items][ArmorItem].
+ */
+val ModItems.armorItems: List<ArmorItem>
+    get() = values.filterIsInstance<ArmorItem>()
