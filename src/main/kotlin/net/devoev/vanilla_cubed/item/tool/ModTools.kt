@@ -35,6 +35,6 @@ object ModTools {
     val DRAGON_SCALE = buildTools(
         material = ModToolMaterials.DRAGON_SCALE,
         modifiers = listOf(toolStatusEffectModifierOf(ModStatusEffects.REACH, amplifier = 1)),
-        tooltips = listOf(whenInHandTextOf(toolStatusEffectTextOf(ModStatusEffects.REACH)))
+        tooltips = listOf(whenInHandTextOf(toolStatusEffectTextOf(ModStatusEffects.REACH, "II")))
     )
 }

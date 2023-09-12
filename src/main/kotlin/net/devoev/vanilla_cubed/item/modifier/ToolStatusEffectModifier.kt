@@ -4,6 +4,7 @@ import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.effect.StatusEffect
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.item.Item
+import net.minecraft.screen.ScreenTexts
 import net.minecraft.text.Text
 import net.minecraft.util.Formatting
 
@@ -20,6 +21,11 @@ fun toolStatusEffectModifierOf(effect: StatusEffect, duration: Int = 0, amplifie
 
 /**
  * Creates the tooltip text for the given [effect].
- * // TODO Fix translation key
+ * @param amplifierText The amplifier as a roman numeral.
  */
-fun toolStatusEffectTextOf(effect: StatusEffect): Text = Text.translatable(effect.translationKey).formatted(Formatting.DARK_PURPLE)
+fun toolStatusEffectTextOf(effect: StatusEffect, amplifierText: String): Text {
+    return Text.translatable(effect.translationKey)
+        .append(ScreenTexts.space())
+        .append(amplifierText)
+        .formatted(Formatting.DARK_PURPLE)
+}

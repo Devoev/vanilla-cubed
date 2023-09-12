@@ -4,12 +4,19 @@ import net.minecraft.entity.attribute.EntityAttribute
 import net.minecraft.entity.attribute.EntityAttributeModifier
 import net.minecraft.entity.effect.StatusEffect
 import net.minecraft.entity.effect.StatusEffectCategory
+import net.minecraft.util.Util
 import net.minecraft.util.math.MathHelper
 
 /**
  * A modded [StatusEffect].
  */
-open class ModStatusEffect(category: StatusEffectCategory, color: Int) : StatusEffect(category, color)
+open class ModStatusEffect(category: StatusEffectCategory, color: Int) : StatusEffect(category, color) {
+
+    override fun loadTranslationKey(): String {
+        super.loadTranslationKey()
+        return Util.createTranslationKey("effect", ModStatusEffects[this]);
+    }
+}
 
 /**
  * Creates a [StatusEffect] that modifies the given entity [attribute].
