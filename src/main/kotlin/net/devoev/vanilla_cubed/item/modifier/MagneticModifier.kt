@@ -14,6 +14,7 @@ import net.minecraft.item.ToolMaterials
 import net.minecraft.particle.ParticleTypes
 import net.minecraft.sound.SoundCategory
 import net.minecraft.sound.SoundEvents
+import net.minecraft.text.Text
 import net.minecraft.world.World
 
 /**
@@ -23,6 +24,8 @@ import net.minecraft.world.World
  */
 val MagneticModifier = toolStatusEffectModifierOf(ModStatusEffects.MAGNETIC, 1, 1)
     .runIf { _, stack, _, _, _, _ -> stack.magnetic }
+
+val MAGNETIC_TEXT: Text = toolStatusEffectTextOf(ModStatusEffects.MAGNETIC, "II")
 
 /**
  * Injects the [MagneticModifier] into netherite tools.
