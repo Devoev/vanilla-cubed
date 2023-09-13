@@ -4,57 +4,18 @@
 
 <p align="center">
     <font size=5>
-        A vanilla+ style mod, that improves already existing features of the game and expands them through new 
-        mechanics!
+        A vanilla+ style mod, that improves already existing features of the game and expands them by adding new mechanics!
     </font>
 </p>
 
 
 ## Features
 
-### New gear and improved Smithing Table
+### Smithing Table Improvements
+The smithing table gets more uses with 4 new types of diamond upgrades - Amethyst, Ancient Gold, Enderite and Dragon Scale! Each type gives the player unique effects, making each of the upgrades unique. The default Netherite Upgrade also receives some changes. Tridents can also be upgraded.
 
-Currently, the smithing table doesn't have too much use-cases in the vanilla game. It's main purpose is to upgrade 
-diamond gear to netherite. *Vanilla cubed* solves this issue, by adding new types of gear, that can be crafted using 
-the upgrade mechanics of the smithing table. The new types of gear are:
-- Ancient gold
-- Amethyst
-- Enderite
-- Dragon Scale
+### New Beacon Tier System
+The Beacon tier system gets replaced with a new system, that gives iron, gold, emerald and diamond individual upgrades. Each material represents an upgrade category, providing 4 different upgrades each.
 
-Each type of armor and each toolset has an advantage over the over ones, so there's no best one! Additionally, most gear
-sets have special effects like increased attack range.
-
-### Improved Tridents
-
-Tridents are obtained as a random drop from a Drowned. Because this mechanic is not that great, *Vanilla Cubed* improves 
-this. Tridents can be crafted using *Elder Guardian Shards*, which are obtained as a drop from Elder Guardians. 
-Additionally, tridents can be upgraded just like tools and armor sets! Currently there are 2 trident upgrades:
-- Enderite
-- Netherite
-
-To improve the ranged attack of tridents, there is the new *Hurling* enchantment, that increases the damage of a thrown 
-trident.
-
-### Improved Beacons
-
-*Vanilla Cubed* adds a new tier system to beacons. Instead of Iron, Gold, Emerald and Diamond providing all the same upgrades, one must now choose which type of upgrade to pick. Each upgrade category has up to 4 upgrades. The upgrade categories are:
-- Iron: Building/ Mining
-- Gold: Utility
-- Emerald: Environmental
-- Diamond: Combat
-
-The beacon upgrades range from classic upgrades like status effects (e.g. jump boost) to upgrades that effect the world in itself (e.g. disabling mob griefing).
-
-### Utility items
-- Enderite Powder: An item that teleports the player to their spawn location.
-- Gilded Books: Books that have a way higher enchantability than regular books.
-- Amethyst Compass: A compass that points towards the nearest structure.
-
-### Small Tweaks
-- Reworked Totems of Undying: Totems will activate from **any** inventory slot, so you don't have to waste the offhand slot
-
-## TODO
-- Better Phantoms
-- More uses for Copper
-- Sculk Armor
+### Utility
+New utility items like gilded books, Enchantments like the Hurling Enchantment and status effects like Reach also get added. Existing features like tridents receive some small overhauls.
