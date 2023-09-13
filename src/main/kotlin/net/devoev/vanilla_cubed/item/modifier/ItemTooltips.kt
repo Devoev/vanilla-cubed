@@ -17,6 +17,16 @@ private val WHEN_FULL_ARMOR_TEXT: MutableText = translatableTextOf("modifier", "
 private val WHEN_IN_HAND_TEXT: MutableText = translatableTextOf("modifier", "when_in_hand_tooltip").formatted(Formatting.GRAY)
 
 /**
+ * Tooltip for modifiers, that give an effect if player is on fire.
+ */
+private val WHEN_ON_FIRE_TEXT: MutableText = translatableTextOf("modifier", "when_on_fire_tooltip").formatted(Formatting.GRAY)
+
+/**
+ * Tooltip for modifiers, that give an effect if player is underground.
+ */
+private val WHEN_UNDERGROUND_TEXT: MutableText = translatableTextOf("modifier", "when_underground_tooltip").formatted(Formatting.GRAY)
+
+/**
  * Tooltip for modifiers that give passive effects for each item.
  */
 private val MODIFIER_TEXT: MutableText = translatableTextOf("modifier", "modifier_tooltip").formatted(Formatting.GRAY)
@@ -39,6 +49,16 @@ fun whenFullArmorTextOf(vararg texts: Text) = subTextOf(WHEN_FULL_ARMOR_TEXT, *t
  * Creates the "when in hand" tooltip text for the given [texts].
  */
 fun whenInHandTextOf(vararg texts: Text) = subTextOf(WHEN_IN_HAND_TEXT, *texts)
+
+/**
+ * Creates the "when on fire" tooltip text for the given [texts].
+ */
+fun whenOnFireTextOf(vararg texts: Text) = subTextOf(WHEN_ON_FIRE_TEXT, *texts)
+
+/**
+ * Creates the "when underground" tooltip text for the given [texts].
+ */
+fun whenUndergroundTextOf(vararg texts: Text) = subTextOf(WHEN_UNDERGROUND_TEXT, *texts)
 
 /**
  * Creates the "modifier" tooltip text for the given [texts].

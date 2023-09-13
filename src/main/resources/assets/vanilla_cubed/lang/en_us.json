@@ -9,6 +9,8 @@
 
   "modifier.vanilla_cubed.when_full_armor_tooltip": "When full Armor",
   "modifier.vanilla_cubed.when_in_hand_tooltip": "When in Hand",
+  "modifier.vanilla_cubed.when_on_fire_tooltip": "When full Armor and on Fire",
+  "modifier.vanilla_cubed.when_underground_tooltip": "When full armor and underground",
   "modifier.vanilla_cubed.modifier_tooltip": "Modifier",
   "modifier.vanilla_cubed.burn_resistant": "Burn resistant",
   "modifier.vanilla_cubed.attract_items": "Attract Items",

@@ -18,7 +18,7 @@ class NourishmentStatusEffect : ModStatusEffect(StatusEffectCategory.BENEFICIAL,
     }
 
     override fun canApplyUpdateEffect(duration: Int, amplifier: Int): Boolean {
-        val i = 50 shr amplifier
+        val i = 150 shr amplifier
         return i <= 0 || duration % i == 0
     }
 
