@@ -23,10 +23,11 @@ private val MODIFIER_TEXT: MutableText = translatableTextOf("modifier", "modifie
 
 /**
  * Creates a list of a [text] and the [subtexts].
+ * Appends a [ScreenTexts.EMPTY] above.
  */
 fun subTextOf(text: Text, vararg subtexts: Text): List<Text> {
-    return listOf(text.copy().append(":")) +
-    subtexts.map { ScreenTexts.space().append(it) }
+    return listOf(ScreenTexts.EMPTY, text.copy().append(":")) +
+            subtexts.map { ScreenTexts.space().append(it) }
 }
 
 /**

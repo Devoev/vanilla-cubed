@@ -32,8 +32,8 @@ open class ModSwordItem(private val data: ToolData)
     }
 
     override fun appendTooltip(stack: ItemStack, world: World?, tooltip: MutableList<Text>, context: TooltipContext) {
-        super.appendTooltip(stack, world, tooltip, context)
         data.appendTooltips(tooltip)
+        super.appendTooltip(stack, world, tooltip, context)
     }
 }
 
@@ -56,8 +56,8 @@ open class ModShovelItem(private val data: ToolData)
     }
 
     override fun appendTooltip(stack: ItemStack, world: World?, tooltip: MutableList<Text>, context: TooltipContext) {
-        super.appendTooltip(stack, world, tooltip, context)
         data.appendTooltips(tooltip)
+        super.appendTooltip(stack, world, tooltip, context)
     }
 }
 
@@ -80,8 +80,8 @@ open class ModPickaxeItem(private val data: ToolData)
     }
 
     override fun appendTooltip(stack: ItemStack, world: World?, tooltip: MutableList<Text>, context: TooltipContext) {
-        super.appendTooltip(stack, world, tooltip, context)
         data.appendTooltips(tooltip)
+        super.appendTooltip(stack, world, tooltip, context)
     }
 }
 
@@ -104,8 +104,8 @@ open class ModAxeItem(private val data: ToolData)
     }
 
     override fun appendTooltip(stack: ItemStack, world: World?, tooltip: MutableList<Text>, context: TooltipContext) {
-        super.appendTooltip(stack, world, tooltip, context)
         data.appendTooltips(tooltip)
+        super.appendTooltip(stack, world, tooltip, context)
     }
 }
 
@@ -128,7 +128,7 @@ open class ModHoeItem(private val data: ToolData)
     }
 
     override fun appendTooltip(stack: ItemStack, world: World?, tooltip: MutableList<Text>, context: TooltipContext) {
-        super.appendTooltip(stack, world, tooltip, context)
         data.appendTooltips(tooltip)
+        super.appendTooltip(stack, world, tooltip, context)
     }
 }

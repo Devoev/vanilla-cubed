@@ -32,7 +32,7 @@ open class ModArmorItem(private val data: ArmorData, type: Type)
     }
 
     override fun appendTooltip(stack: ItemStack, world: World?, tooltip: MutableList<Text>, context: TooltipContext) {
-        super.appendTooltip(stack, world, tooltip, context)
         data.appendTooltips(tooltip)
+        super.appendTooltip(stack, world, tooltip, context)
     }
 }
