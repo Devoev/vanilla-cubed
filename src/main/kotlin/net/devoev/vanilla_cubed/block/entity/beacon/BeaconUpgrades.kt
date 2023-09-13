@@ -117,7 +117,7 @@ object BeaconUpgrades {
             diamondTierOf(2)
         ),
         BeaconUpgradeButtonData(
-            playerStatusEffectUpgradeOf(StatusEffects.REGENERATION) andThen playerStatusEffectUpgradeOf(StatusEffects.HEALTH_BOOST, 4),
+            playerStatusEffectUpgradeOf(StatusEffects.HEALTH_BOOST, 4),
             tooltipOf("diamond3"),
             textureOf("diamond3.png"),
             diamondTierOf(3)

@@ -23,7 +23,7 @@ fun toolStatusEffectModifierOf(effect: StatusEffect, duration: Int = 0, amplifie
  * Creates the tooltip text for the given [effect].
  * @param amplifierText The amplifier as a roman numeral.
  */
-fun toolStatusEffectTextOf(effect: StatusEffect, amplifierText: String): Text {
+fun toolStatusEffectTextOf(effect: StatusEffect, amplifierText: String = ""): Text {
     return Text.translatable(effect.translationKey)
         .append(ScreenTexts.space())
         .append(amplifierText)

@@ -17,7 +17,7 @@ object ModArmor {
     val AMETHYST = buildArmor(
         material = ModArmorMaterials.AMETHYST,
         modifiers = listOf(MiningBonusModifier),
-        whenFullArmorTextOf(MINING_BONUS_TEXT)
+        whenUndergroundTextOf(*MINING_BONUS_TEXTS)
     )
     val ENDERITE = buildArmor(
         material = ModArmorMaterials.ENDERITE,
