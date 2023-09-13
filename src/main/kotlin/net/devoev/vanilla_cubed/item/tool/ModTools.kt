@@ -45,6 +45,6 @@ object ModTools {
         material = ToolMaterials.NETHERITE,
         settings = FabricItemSettings().maxDamage(324).fireproof(),
         entityProvider = ::NetheriteTridentEntity,
-        tooltips = listOf(modifierTextOf(ATTRACT_ITEMS_TEXT))
+        tooltips = listOf(modifierTextOf(BURN_RESISTANT_TEXT), modifierTextOf(ATTRACT_ITEMS_TEXT))
     )
 }
