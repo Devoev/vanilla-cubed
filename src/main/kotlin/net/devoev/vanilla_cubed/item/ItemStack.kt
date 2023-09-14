@@ -1,11 +1,15 @@
 package net.devoev.vanilla_cubed.item
 
+import net.devoev.vanilla_cubed.mixin.ItemStackMixin
 import net.minecraft.item.ArmorItem
 import net.minecraft.item.FireworkRocketItem.FIREWORKS_KEY
 import net.minecraft.item.FireworkRocketItem.FLIGHT_KEY
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.item.ToolMaterials
+import net.minecraft.nbt.NbtList
+import net.minecraft.screen.ScreenTexts
+import net.minecraft.text.Text
 import net.minecraft.util.math.BlockPos
 
 /**
@@ -142,3 +146,13 @@ var ItemStack.fireworksFlight: Byte
             error("$item must be a ${ModItems.INFUSED_FIREWORK_ROCKET} or ${Items.FIREWORK_ROCKET}")
         getOrCreateSubNbt(FIREWORKS_KEY).putByte(FLIGHT_KEY, value)
     }
+
+/**
+ * Appends a [ScreenTexts.EMPTY] tooltip at the top of the enchantments tooltip in [ItemStack.appendEnchantments].
+ * @see ItemStackMixin.appendEnchantmentsSpace
+ */
+fun appendEnchantmentsSpace(tooltip: MutableList<Text>, enchantments: NbtList) {
+    if (enchantments.isNotEmpty() && tooltip.isNotEmpty()) {
+        tooltip += ScreenTexts.EMPTY
+    }
+}

@@ -33,34 +33,35 @@ private val MODIFIER_TEXT: MutableText = translatableTextOf("modifier", "modifie
 
 /**
  * Creates a list of a [text] and the [subtexts].
- * Appends a [ScreenTexts.EMPTY] above.
+ * @param addSeparator Whether to add a [ScreenTexts.EMPTY] above.
  */
-fun subTextOf(text: Text, vararg subtexts: Text): List<Text> {
-    return listOf(ScreenTexts.EMPTY, text.copy().append(":")) +
+fun subTextOf(text: Text, addSeparator: Boolean = false, vararg subtexts: Text): List<Text> {
+    return (if (addSeparator) listOf(ScreenTexts.EMPTY) else emptyList<Text>()) +
+            text.copy().append(":") +
             subtexts.map { ScreenTexts.space().append(it) }
 }
 
 /**
  * Creates the "when full armor" tooltip text for the given [texts].
  */
-fun whenFullArmorTextOf(vararg texts: Text) = subTextOf(WHEN_FULL_ARMOR_TEXT, *texts)
+fun whenFullArmorTextOf(addSeparator: Boolean, vararg texts: Text) = subTextOf(WHEN_FULL_ARMOR_TEXT, addSeparator, *texts)
 
 /**
  * Creates the "when in hand" tooltip text for the given [texts].
  */
-fun whenInHandTextOf(vararg texts: Text) = subTextOf(WHEN_IN_HAND_TEXT, *texts)
+fun whenInHandTextOf(addSeparator: Boolean, vararg texts: Text) = subTextOf(WHEN_IN_HAND_TEXT, addSeparator, *texts)
 
 /**
  * Creates the "when on fire" tooltip text for the given [texts].
  */
-fun whenOnFireTextOf(vararg texts: Text) = subTextOf(WHEN_ON_FIRE_TEXT, *texts)
+fun whenOnFireTextOf(addSeparator: Boolean, vararg texts: Text) = subTextOf(WHEN_ON_FIRE_TEXT, addSeparator, *texts)
 
 /**
  * Creates the "when underground" tooltip text for the given [texts].
  */
-fun whenUndergroundTextOf(vararg texts: Text) = subTextOf(WHEN_UNDERGROUND_TEXT, *texts)
+fun whenUndergroundTextOf(addSeparator: Boolean, vararg texts: Text) = subTextOf(WHEN_UNDERGROUND_TEXT, addSeparator, *texts)
 
 /**
  * Creates the "modifier" tooltip text for the given [texts].
  */
-fun modifierTextOf(vararg texts: Text) = subTextOf(MODIFIER_TEXT, *texts)
+fun modifierTextOf(addSeparator: Boolean, vararg texts: Text) = subTextOf(MODIFIER_TEXT, addSeparator, *texts)

@@ -19,13 +19,13 @@ fun appendModifierTooltipToNetherite(stack: ItemStack, tooltip: MutableList<Text
 
     when (stack.item) {
         is ToolItem -> {
-            tooltip += modifierTextOf(BURN_RESISTANT_TEXT)
+            tooltip += modifierTextOf(false, BURN_RESISTANT_TEXT)
             if (stack.magnetic)
-                tooltip += whenInHandTextOf(MAGNETIC_TEXT)
+                tooltip += whenInHandTextOf(true, MAGNETIC_TEXT)
         }
         is ArmorItem -> {
-            tooltip += modifierTextOf(BURN_RESISTANT_TEXT)
-            tooltip += whenOnFireTextOf(BERSERK_TEXT)
+            tooltip += modifierTextOf(false, BURN_RESISTANT_TEXT)
+            tooltip += whenOnFireTextOf(true, BERSERK_TEXT)
         }
     }
 }

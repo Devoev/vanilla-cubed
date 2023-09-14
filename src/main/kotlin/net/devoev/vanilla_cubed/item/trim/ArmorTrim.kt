@@ -13,7 +13,7 @@ import net.minecraft.text.Text
  * @see ArmorTrimMixin.appendTooltipSpace
  */
 fun appendTooltipSpace(stack: ItemStack, registryManager: DynamicRegistryManager, tooltip: MutableList<Text>) {
-    if (ArmorTrim.getTrim(registryManager, stack).isPresent) {
+    if (ArmorTrim.getTrim(registryManager, stack).isPresent && tooltip.isNotEmpty()) {
         tooltip += ScreenTexts.EMPTY
     }
 }
