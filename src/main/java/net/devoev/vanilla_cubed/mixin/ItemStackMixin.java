@@ -31,7 +31,7 @@ public class ItemStackMixin {
      * @see ItemStackKt
      */
     @Inject(method = "appendEnchantments", at = @At("HEAD"))
-    private static void appendEnchantmentsSpace(List<Text> tooltip, NbtList enchantments, CallbackInfo ci) {
-        ItemStackKt.appendEnchantmentsSpace(tooltip, enchantments);
+    private static void appendEnchantmentsTooltipSeparator(List<Text> tooltip, NbtList enchantments, CallbackInfo ci) {
+        ItemStackKt.appendEnchantmentsTooltipSeparator(tooltip, enchantments);
     }
 }

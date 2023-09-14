@@ -19,7 +19,7 @@ public class ArmorTrimMixin {
      * @see ArmorTrimKt
      */
     @Inject(method = "appendTooltip", at = @At("HEAD"))
-    private static void appendTooltipSpace(ItemStack stack, DynamicRegistryManager registryManager, List<Text> tooltip, CallbackInfo ci) {
-        ArmorTrimKt.appendTooltipSpace(stack, registryManager, tooltip);
+    private static void appendTooltipSeparator(ItemStack stack, DynamicRegistryManager registryManager, List<Text> tooltip, CallbackInfo ci) {
+        ArmorTrimKt.appendTooltipSeparator(stack, registryManager, tooltip);
     }
 }

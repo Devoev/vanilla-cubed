@@ -149,10 +149,10 @@ var ItemStack.fireworksFlight: Byte
 
 /**
  * Appends a [ScreenTexts.EMPTY] tooltip at the top of the enchantments tooltip in [ItemStack.appendEnchantments].
- * @see ItemStackMixin.appendEnchantmentsSpace
+ * @see ItemStackMixin.appendEnchantmentsTooltipSeparator
  */
-fun appendEnchantmentsSpace(tooltip: MutableList<Text>, enchantments: NbtList) {
-    if (enchantments.isNotEmpty() && tooltip.isNotEmpty()) {
+fun appendEnchantmentsTooltipSeparator(tooltip: MutableList<Text>, enchantments: NbtList) {
+    if (enchantments.isNotEmpty() && tooltip.size > 1) {
         tooltip += ScreenTexts.EMPTY
     }
 }

@@ -10,10 +10,10 @@ import net.minecraft.text.Text
 
 /**
  * Appends a [ScreenTexts.EMPTY] tooltip at the top of the armor trim tooltip in [ArmorTrim.appendTooltip].
- * @see ArmorTrimMixin.appendTooltipSpace
+ * @see ArmorTrimMixin.appendTooltipSeparator
  */
-fun appendTooltipSpace(stack: ItemStack, registryManager: DynamicRegistryManager, tooltip: MutableList<Text>) {
-    if (ArmorTrim.getTrim(registryManager, stack).isPresent && tooltip.isNotEmpty()) {
+fun appendTooltipSeparator(stack: ItemStack, registryManager: DynamicRegistryManager, tooltip: MutableList<Text>) {
+    if (ArmorTrim.getTrim(registryManager, stack).isPresent && tooltip.size > 1) {
         tooltip += ScreenTexts.EMPTY
     }
 }
