@@ -1,6 +1,9 @@
 package net.devoev.vanilla_cubed.item.armor
 
 import net.devoev.vanilla_cubed.item.modifier.*
+import net.devoev.vanilla_cubed.item.modifierTextOf
+import net.devoev.vanilla_cubed.item.whenFullArmorTextOf
+import net.devoev.vanilla_cubed.item.whenUndergroundTextOf
 import net.minecraft.item.ArmorItem
 
 /**

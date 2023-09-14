@@ -3,6 +3,8 @@ package net.devoev.vanilla_cubed.item.tool
 import net.devoev.vanilla_cubed.entity.effect.ModStatusEffects
 import net.devoev.vanilla_cubed.entity.projectile.*
 import net.devoev.vanilla_cubed.item.modifier.*
+import net.devoev.vanilla_cubed.item.modifierTextOf
+import net.devoev.vanilla_cubed.item.whenInHandTextOf
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.item.ToolItem
 import net.minecraft.item.ToolMaterials
