@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "base": {
+    "item": "minecraft:trident"
+  },
+  "addition": {
+    "item": "vanilla_cubed:amethyst_crystal_charged"
+  },
+  "template": {
+    "item": "vanilla_cubed:amethyst_upgrade_smithing_template"
+  },
+  "result": {
+    "item": "vanilla_cubed:amethyst_trident"
+  }
+}
