@@ -1,7 +1,6 @@
 package net.devoev.vanilla_cubed.item.modifier
 
-import net.devoev.vanilla_cubed.item.isNetherite
-import net.devoev.vanilla_cubed.item.magnetic
+import net.devoev.vanilla_cubed.item.*
 import net.devoev.vanilla_cubed.mixin.ItemMixin
 import net.devoev.vanilla_cubed.text.translatableTextOf
 import net.minecraft.item.ArmorItem

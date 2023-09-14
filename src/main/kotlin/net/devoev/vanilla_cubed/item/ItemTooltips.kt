@@ -1,4 +1,4 @@
-package net.devoev.vanilla_cubed.item.modifier
+package net.devoev.vanilla_cubed.item
 
 import net.devoev.vanilla_cubed.text.translatableTextOf
 import net.minecraft.screen.ScreenTexts
