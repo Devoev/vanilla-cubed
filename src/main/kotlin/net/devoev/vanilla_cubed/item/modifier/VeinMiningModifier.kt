@@ -20,11 +20,14 @@ val VeinMiningModifier = PostMineModifier<Item> { stack, world, state, pos, mine
     val block = blockState.block
 
     // Only mine block above if
+    // - player is sneaking
     // - tool is suitable for the block
     // - block is maximally 25% harder than the original one
     if (miner !is PlayerEntity
+        || miner.isSneaking
         || !stack.isSuitableFor(blockState)
-        || state.block.hardness < blockState.block.hardness * 0.75) return@PostMineModifier
+        || state.block.hardness < blockState.block.hardness * 0.75
+    ) return@PostMineModifier
 
 
     // Break block
