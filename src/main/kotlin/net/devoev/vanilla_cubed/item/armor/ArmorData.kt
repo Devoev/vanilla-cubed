@@ -1,5 +1,6 @@
 package net.devoev.vanilla_cubed.item.armor
 
+import net.devoev.vanilla_cubed.item.copy
 import net.devoev.vanilla_cubed.item.modifier.ItemModifiers
 import net.minecraft.item.ArmorItem
 import net.minecraft.item.ArmorMaterial
@@ -15,10 +16,24 @@ data class ArmorData (
     val modifiers: ItemModifiers<ArmorItem>,
     val tooltips: List<Text>
 ) {
+
     /**
-     * Returns this armor data with an empty [modifiers] list.
+     * Creates a copy of this armor data with an empty [modifiers] list.
      */
-    fun withoutModifiers() = ArmorData(material, settings, listOf(), tooltips)
+    fun copyWithoutModifiers() = copyWithSettings(tooltips = listOf())
+
+    /**
+     * Creates a [copy] of this data class.
+     * The default value of [settings] is a copy of the original one.
+     */
+    fun copyWithSettings(
+        material: ArmorMaterial = this.material,
+        settings: Settings = this.settings.copy(),
+        modifiers: ItemModifiers<ArmorItem> = this.modifiers,
+        tooltips: List<Text> = this.tooltips
+    ): ArmorData {
+        return ArmorData(material, settings, modifiers, tooltips)
+    }
 
     /**
      * Appends the [tooltips] to the given [tooltip].

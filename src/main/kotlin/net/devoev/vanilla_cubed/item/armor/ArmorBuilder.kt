@@ -22,7 +22,7 @@ data class ArmorItems(
 fun buildArmor(data: ArmorData): ArmorItems {
 
     fun buildArmorItem(type: ArmorItem.Type)
-        = ModArmorItem(if (type == ArmorItem.Type.HELMET) data else data.withoutModifiers() , type)
+        = ModArmorItem(if (type == ArmorItem.Type.HELMET) data.copyWithSettings() else data.copyWithoutModifiers(), type)
 
     return ArmorItems(
         buildArmorItem(ArmorItem.Type.HELMET),
