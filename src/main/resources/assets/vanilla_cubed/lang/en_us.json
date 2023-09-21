@@ -140,6 +140,9 @@
   "item.minecraft.lingering_potion.effect.magnetism": "Lingering Potion of Magnetism",
   "item.minecraft.lingering_potion.effect.long_magnetism": "Lingering Potion of Magnetism",
   "item.minecraft.lingering_potion.effect.strong_magnetism": "Lingering Potion of Magnetism",
+  "item.minecraft.tipped_arrow.effect.magnetism": "Arrow of Magnetism",
+  "item.minecraft.tipped_arrow.effect.long_magnetism": "Arrow of Magnetism",
+  "item.minecraft.tipped_arrow.effect.strong_magnetism": "Arrow of Magnetism",
 
   "block.vanilla_cubed.beacon": "Beacon",
   "block.vanilla_cubed.beacon.iron1": "Night Vision",

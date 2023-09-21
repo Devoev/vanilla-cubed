@@ -140,6 +140,9 @@
   "item.minecraft.lingering_potion.effect.magnetism": "Verweiltrank des Magnetismus",
   "item.minecraft.lingering_potion.effect.long_magnetism": "Verweiltrank des Magnetismus",
   "item.minecraft.lingering_potion.effect.strong_magnetism": "Verweiltrank des Magnetismus",
+  "item.minecraft.tipped_arrow.effect.magnetism": "Pfeil des Magnetismus",
+  "item.minecraft.tipped_arrow.effect.long_magnetism": "Pfeil des Magnetismus",
+  "item.minecraft.tipped_arrow.effect.strong_magnetism": "Pfeil des Magnetismus",
 
   "block.vanilla_cubed.beacon": "Leuchtfeuer",
   "block.vanilla_cubed.beacon.iron1": "Nachtsicht",
