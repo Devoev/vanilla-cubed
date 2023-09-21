@@ -27,9 +27,9 @@ fun harmfulEffectOnHitModifierOf(probability: Double, durationRange: IntRange, a
         null,
         target.blockPos,
         SoundEvents.ENTITY_SPLASH_POTION_BREAK,
-        SoundCategory.PLAYERS,
-        5f,
-        0f
+        SoundCategory.NEUTRAL,
+        1f,
+        Random.nextFloat() * 0.1f + 0.9f,
     )
 }
 
