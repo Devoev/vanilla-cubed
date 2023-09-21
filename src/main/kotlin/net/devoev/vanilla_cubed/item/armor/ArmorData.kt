@@ -20,7 +20,7 @@ data class ArmorData (
     /**
      * Creates a copy of this armor data with an empty [modifiers] list.
      */
-    fun copyWithoutModifiers() = copyWithSettings(tooltips = listOf())
+    fun copyWithoutModifiers() = copyWithSettings(modifiers = listOf())
 
     /**
      * Creates a [copy] of this data class.
