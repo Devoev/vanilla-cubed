@@ -9,6 +9,8 @@ import net.devoev.vanilla_cubed.item.ModItemGroup
 import net.devoev.vanilla_cubed.item.ModItems
 import net.devoev.vanilla_cubed.loot.ModLootTables
 import net.devoev.vanilla_cubed.networking.ModServerPlayNetworking
+import net.devoev.vanilla_cubed.potion.ModPotions
+import net.devoev.vanilla_cubed.recipe.ModBrewingRecipes
 import net.devoev.vanilla_cubed.recipe.ModCraftingRecipes
 import net.devoev.vanilla_cubed.screen.ModScreenHandlerTypes
 import net.devoev.vanilla_cubed.world.gen.ModWorldGeneration
@@ -26,8 +28,10 @@ object VanillaCubed : ModInitializer {
         ModBlocks.init()
         ModEnchantments.init()
         ModStatusEffects.init()
+        ModPotions.init()
         ModLootTables.init()
         ModCraftingRecipes.init()
+        ModBrewingRecipes
         ModPlacedFeatures.init()
         ModWorldGeneration.init()
         ModEntityTypes.init()

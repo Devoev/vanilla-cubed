@@ -134,6 +134,16 @@
   "effect.vanilla_cubed.nourishment": "Nourishment",
   "effect.vanilla_cubed.magnetic": "Magnetic",
 
+  "item.minecraft.potion.effect.magnetism": "Potion of Magnetism",
+  "item.minecraft.potion.effect.long_magnetism": "Potion of Magnetism",
+  "item.minecraft.potion.effect.strong_magnetism": "Potion of Magnetism",
+  "item.minecraft.splash_potion.effect.magnetism": "Splash Potion of Magnetism",
+  "item.minecraft.splash_potion.effect.long_magnetism": "Splash Potion of Magnetism",
+  "item.minecraft.splash_potion.effect.strong_magnetism": "Splash Potion of Magnetism",
+  "item.minecraft.lingering_potion.effect.magnetism": "Lingering Potion of Magnetism",
+  "item.minecraft.lingering_potion.effect.long_magnetism": "Lingering Potion of Magnetism",
+  "item.minecraft.lingering_potion.effect.strong_magnetism": "Lingering Potion of Magnetism",
+
   "block.vanilla_cubed.beacon": "Beacon",
   "block.vanilla_cubed.beacon.iron1": "Night Vision",
   "block.vanilla_cubed.beacon.iron2": "Jump Boost II",
