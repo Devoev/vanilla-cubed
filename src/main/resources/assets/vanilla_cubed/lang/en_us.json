@@ -160,5 +160,10 @@
   "block.vanilla_cubed.beacon.diamond1": "Strength + Resistance",
   "block.vanilla_cubed.beacon.diamond2": "Strengthen allied mobs",
   "block.vanilla_cubed.beacon.diamond3": "Health Boost V",
-  "block.vanilla_cubed.beacon.diamond4": "Increase XP drop"
+  "block.vanilla_cubed.beacon.diamond4": "Increase XP drop",
+
+  "text.autoconfig.vanilla_cubed.option.modifyTotemMechanics": "Modify Totem of Undying Mechanics",
+  "text.autoconfig.vanilla_cubed.option.elderGuardianShardDrop": "Enable Elder Guardian Shard Drop",
+  "text.autoconfig.vanilla_cubed.option.overrideBeaconMechanics": "Override Beacon Mechanics",
+  "text.autoconfig.vanilla_cubed.option.modifyNetherite": "Modify Netherite Armor and Tools"
 }

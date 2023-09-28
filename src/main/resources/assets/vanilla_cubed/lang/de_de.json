@@ -160,5 +160,10 @@
   "block.vanilla_cubed.beacon.diamond1": "Stärke + Resistenz",
   "block.vanilla_cubed.beacon.diamond2": "Stärke verbündete Kreaturen",
   "block.vanilla_cubed.beacon.diamond3": "Extraenergie V",
-  "block.vanilla_cubed.beacon.diamond4": "Erhöhe Erfahrungspunkte"
+  "block.vanilla_cubed.beacon.diamond4": "Erhöhe Erfahrungspunkte",
+
+  "text.autoconfig.vanilla_cubed.option.modifyTotemMechanics": "Modifiziere Totem der Unsterblichkeit Mechaniken",
+  "text.autoconfig.vanilla_cubed.option.elderGuardianShardDrop": "Aktiviere Großer Wächter Scherbe Drop",
+  "text.autoconfig.vanilla_cubed.option.overrideBeaconMechanics": "Überschreibe Leuchtfeuer Mechaniken",
+  "text.autoconfig.vanilla_cubed.option.modifyNetherite": "Modifiziere Netherit Rüstung und Werkzeuge"
 }
