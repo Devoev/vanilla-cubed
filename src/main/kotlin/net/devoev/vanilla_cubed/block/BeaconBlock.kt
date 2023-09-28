@@ -1,6 +1,7 @@
 package net.devoev.vanilla_cubed.block
 
 import net.devoev.vanilla_cubed.block.entity.ModBeaconBlockEntity
+import net.devoev.vanilla_cubed.config.ModConfig
 import net.devoev.vanilla_cubed.mixin.BeaconBlockMixin
 import net.minecraft.block.BeaconBlock
 import net.minecraft.block.BlockState
@@ -21,7 +22,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
  * @see BeaconBlockMixin.createModBeaconBlockEntity
  */
 fun createModBeaconBlockEntity(pos: BlockPos, state: BlockState, cir: CallbackInfoReturnable<BlockEntity>) {
-    cir.returnValue = ModBeaconBlockEntity(pos, state)
+    if (ModConfig.config.overrideBeaconMechanics) {
+        cir.returnValue = ModBeaconBlockEntity(pos, state)
+    }
 }
 
 /**
@@ -29,7 +32,9 @@ fun createModBeaconBlockEntity(pos: BlockPos, state: BlockState, cir: CallbackIn
  * @see BeaconBlockMixin.modTicker
  */
 fun <T : BlockEntity> modTicker(type: BlockEntityType<T>, cir: CallbackInfoReturnable<BlockEntityTicker<T>>) {
-    cir.returnValue = ModBeaconBlockEntity.ticker(type)
+    if (ModConfig.config.overrideBeaconMechanics) {
+        cir.returnValue = ModBeaconBlockEntity.ticker(type)
+    }
 }
 
 /**
@@ -37,6 +42,9 @@ fun <T : BlockEntity> modTicker(type: BlockEntityType<T>, cir: CallbackInfoRetur
  * @see BeaconBlockMixin.useModBeaconBlockEntity
  */
 fun useModBeaconBlockEntity(world: World, pos: BlockPos, player: PlayerEntity, cir: CallbackInfoReturnable<ActionResult>) {
+    if (!ModConfig.config.overrideBeaconMechanics)
+        return
+
     if (world.isClient) {
         cir.returnValue = ActionResult.SUCCESS
         return
@@ -55,6 +63,9 @@ fun useModBeaconBlockEntity(world: World, pos: BlockPos, player: PlayerEntity, c
  * @see BeaconBlockMixin.placeModBeaconBlockEntity
  */
 fun placeModBeaconBlockEntity(world: World, pos: BlockPos, stack: ItemStack, ci: CallbackInfo) {
+    if (!ModConfig.config.overrideBeaconMechanics)
+        return
+
     if (stack.hasCustomName()) {
         (world.getBlockEntity(pos) as? ModBeaconBlockEntity)?.let {
             it.customName = stack.name
