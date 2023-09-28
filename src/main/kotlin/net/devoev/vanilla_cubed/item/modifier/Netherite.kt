@@ -1,5 +1,6 @@
 package net.devoev.vanilla_cubed.item.modifier
 
+import net.devoev.vanilla_cubed.config.ModConfig
 import net.devoev.vanilla_cubed.item.*
 import net.devoev.vanilla_cubed.mixin.ItemMixin
 import net.devoev.vanilla_cubed.text.translatableTextOf
@@ -15,7 +16,8 @@ import net.minecraft.util.Formatting
  * @see ItemMixin
  */
 fun appendModifierTooltipToNetherite(stack: ItemStack, tooltip: MutableList<Text>) {
-    if (!stack.item.isNetherite()) return
+    if (!ModConfig.config.modifyNetherite || !stack.item.isNetherite())
+        return
 
     when (stack.item) {
         is ToolItem -> {

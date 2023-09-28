@@ -1,5 +1,6 @@
 package net.devoev.vanilla_cubed.item.modifier
 
+import net.devoev.vanilla_cubed.config.ModConfig
 import net.devoev.vanilla_cubed.entity.effect.ModStatusEffects
 import net.devoev.vanilla_cubed.item.isMadeOf
 import net.devoev.vanilla_cubed.item.isNetherite
@@ -32,6 +33,9 @@ val MAGNETIC_TEXT: Text = toolStatusEffectTextOf(ModStatusEffects.MAGNETIC, "II"
  * @see ItemMixin.setMagneticModifierToNetherite
  */
 fun setMagneticModifierToNetherite(stack: ItemStack, world: World, entity: Entity, slot: Int, selected: Boolean) {
+    if (!ModConfig.config.modifyNetherite)
+        return
+
     if (stack.item.isMadeOf(ToolMaterials.NETHERITE) && entity is LivingEntity) {
         MagneticModifier.inventoryTick(stack.item, stack, world, entity, slot, selected || entity.offHandStack == stack)
     }

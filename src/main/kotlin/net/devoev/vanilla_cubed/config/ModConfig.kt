@@ -9,9 +9,9 @@ import me.shedaniel.autoconfig.serializer.GsonConfigSerializer
 class ModConfig : ConfigData {
 
     /**
-     * Whether to override the vanilla totem mechanics.
+     * Whether to modify the vanilla totem mechanics.
      */
-    var overrideTotemMechanics = true
+    var modifyTotemMechanics = true
 
     /**
      * Whether Elder Guardians should drop Elder Guardian Shards
@@ -22,6 +22,11 @@ class ModConfig : ConfigData {
      * Whether the vanilla Beacons should be replaced with the modded version.
      */
     var overrideBeaconMechanics = true
+
+    /**
+     * Whether to modify Netherite tools and armor.
+     */
+    var modifyNetherite = true
 
     companion object {
 

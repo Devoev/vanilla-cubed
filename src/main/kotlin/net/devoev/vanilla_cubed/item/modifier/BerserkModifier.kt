@@ -1,5 +1,6 @@
 package net.devoev.vanilla_cubed.item.modifier
 
+import net.devoev.vanilla_cubed.config.ModConfig
 import net.devoev.vanilla_cubed.item.isNetherite
 import net.devoev.vanilla_cubed.mixin.ItemMixin
 import net.minecraft.entity.Entity
@@ -26,6 +27,9 @@ val BERSERK_TEXT: Text = toolStatusEffectTextOf(StatusEffects.STRENGTH, "II")
  * @see ItemMixin.setBerserkModifierToNetherite
  */
 fun setBerserkModifierToNetherite(stack: ItemStack, world: World, entity: Entity, slot: Int, selected: Boolean) {
+    if (!ModConfig.config.modifyNetherite)
+        return
+
     if (stack.item.isNetherite() && stack.item is ArmorItem) {
         BerserkModifier.inventoryTick(stack.item as ArmorItem, stack, world, entity, slot, selected)
     }
