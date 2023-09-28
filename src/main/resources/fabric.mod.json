@@ -35,6 +35,12 @@
         "adapter": "kotlin",
         "value": "net.devoev.vanilla_cubed.VanillaCubedDataGeneration"
       }
+    ],
+    "modmenu": [
+      {
+        "adapter": "kotlin",
+        "value": "net.devoev.vanilla_cubed.VanillaCubedModMenu"
+      }
     ]
   },
   "mixins": [

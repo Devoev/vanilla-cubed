@@ -55,6 +55,8 @@ dependencies {
     include modImplementation("com.jamieswhiteshirt:reach-entity-attributes:${project.reach_entity_attribute_version}")
 
     modApi "me.shedaniel.cloth:cloth-config-fabric:11.1.106"
+
+    modApi "com.terraformersmc:modmenu:7.1.0"
 }
 
 processResources {
