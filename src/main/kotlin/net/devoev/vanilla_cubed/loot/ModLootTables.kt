@@ -1,5 +1,6 @@
 package net.devoev.vanilla_cubed.loot
 
+import net.devoev.vanilla_cubed.config.ModConfig
 import net.devoev.vanilla_cubed.item.ModItems
 import net.devoev.vanilla_cubed.util.MapInitializer
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents
@@ -12,8 +13,10 @@ import net.minecraft.util.Identifier
 object ModLootTables : MapInitializer<Identifier, LootPool.Builder>() {
 
     val ELDER_GUARDIAN = create("entities/elder_guardian") {
-        constantRolls(1f)
-        with(ModItems.ELDER_GUARDIAN_SHARD)
+        if (ModConfig.config.elderGuardianShardDrop) {
+            constantRolls(1f)
+            with(ModItems.ELDER_GUARDIAN_SHARD)
+        }
     }
 
     val BASTION_TREASURE = create("chests/bastion_treasure") {
