@@ -2,6 +2,7 @@ package net.devoev.vanilla_cubed
 
 import net.devoev.vanilla_cubed.block.ModBlocks
 import net.devoev.vanilla_cubed.block.entity.ModBlockEntityTypes
+import net.devoev.vanilla_cubed.config.ModConfig
 import net.devoev.vanilla_cubed.enchantment.ModEnchantments
 import net.devoev.vanilla_cubed.entity.ModEntityTypes
 import net.devoev.vanilla_cubed.entity.effect.ModStatusEffects
@@ -23,6 +24,7 @@ object VanillaCubed : ModInitializer {
     const val MOD_ID = "vanilla_cubed"
 
     override fun onInitialize() {
+        ModConfig.init()
         ModItemGroup.init()
         ModItems.init()
         ModBlocks.init()
