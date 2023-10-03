@@ -22,7 +22,12 @@ val HarmfulEffectProtectionModifier = InventoryTickModifier<ArmorItem> { stack, 
         return@InventoryTickModifier
 
     entity.statusEffects
-        .filter { it.effectType.category == StatusEffectCategory.HARMFUL }
+        .filter {
+            it.effectType.category == StatusEffectCategory.HARMFUL
+                    && !it.isInfinite
+                    && it.shouldShowIcon()
+                    && it.shouldShowParticles()
+        }
         .forEach {
             if (!world.isClient) {
                 entity.removeStatusEffect(it.effectType)
