@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
 
 class GildedBook : BookItem(FabricItemSettings()) {
 
-    override fun getEnchantability(): Int = 25
+    override fun getEnchantability(): Int = 50
 }
 
 /**
