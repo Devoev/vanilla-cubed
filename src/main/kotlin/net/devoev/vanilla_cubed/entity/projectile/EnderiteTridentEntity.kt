@@ -36,7 +36,7 @@ class EnderiteTridentEntity(world: World, owner: LivingEntity, stack: ItemStack)
         ) { it != this.owner && !(it is TameableEntity && it.isTamed) }
 
         val target = entities.maxByOrNull { (it.pos - pos).normalize() * velocity.normalize() } ?: return
-        val targetVec = (target.pos - pos).normalize()
+        val targetVec = (target.pos + Vec3d(0.0, 0.5, 0.0) - pos).normalize()
         if (targetVec * velocity.normalize() < min) return
 
         val interpolationVec = velocity.normalize() * (1 - interpolationFactor) + targetVec * interpolationFactor
