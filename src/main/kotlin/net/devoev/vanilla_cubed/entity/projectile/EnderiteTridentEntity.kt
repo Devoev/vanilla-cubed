@@ -1,6 +1,7 @@
 package net.devoev.vanilla_cubed.entity.projectile
 
 import net.devoev.vanilla_cubed.entity.ModEntityTypes
+import net.devoev.vanilla_cubed.item.modifier.removeGravity
 import net.devoev.vanilla_cubed.text.translatableTextOf
 import net.devoev.vanilla_cubed.util.math.Vec3d
 import net.devoev.vanilla_cubed.util.math.minus
@@ -11,6 +12,7 @@ import net.minecraft.entity.passive.TameableEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.text.Text
 import net.minecraft.util.Formatting
+import net.minecraft.util.hit.EntityHitResult
 import net.minecraft.util.math.Box
 import net.minecraft.world.World
 
@@ -40,6 +42,14 @@ class EnderiteTridentEntity(world: World, owner: LivingEntity, stack: ItemStack)
         val interpolationVec = velocity.normalize() * (1 - interpolationFactor) + targetVec * interpolationFactor
         velocity = interpolationVec * velocity.length()
     }
+
+    override fun onEntityHit(entityHitResult: EntityHitResult) {
+        super.onEntityHit(entityHitResult)
+        val target = entityHitResult.entity
+        if (!target.isAlive && !target.world.isClient)
+            removeGravity(target.pos, target.world)
+    }
+
 }
 
 val AIM_ASSIST_TEXT: Text = translatableTextOf("modifier", "aim_assist").formatted(Formatting.BLUE)

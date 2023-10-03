@@ -33,7 +33,7 @@ val NO_GRAVITY_TEXT: Text = translatableTextOf("modifier", "no_gravity").formatt
 /**
  * Removes the gravity from all items that just spawned inside a small region around the given [pos].
  */
-private fun removeGravity(pos: Vec3d, world: World) {
+fun removeGravity(pos: Vec3d, world: World) {
     pos.run {
         val delta = 0.1
         world.getEntitiesByType(
