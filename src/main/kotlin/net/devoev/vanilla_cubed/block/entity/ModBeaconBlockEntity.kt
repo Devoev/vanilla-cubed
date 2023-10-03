@@ -168,7 +168,7 @@ class ModBeaconBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBl
             boxOf(pos.x, pos.y, pos.z, pos.x, (pos.y - 4), pos.z).expand(10.0, 5.0, 10.0)
         )
         for (player in players) {
-            Criteria.CONSTRUCT_BEACON.trigger(player, totalLevels.sum()) // TODO: Update level
+            Criteria.CONSTRUCT_BEACON.trigger(player, BeaconUpgradeTier.levelToTier(totalLevels.sum()))
         }
     }
 
