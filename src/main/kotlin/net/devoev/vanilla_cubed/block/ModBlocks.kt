@@ -1,18 +1,21 @@
 package net.devoev.vanilla_cubed.block
 
 import net.devoev.vanilla_cubed.util.RegistryManager
-import net.fabricmc.fabric.api.`object`.builder.v1.block.FabricBlockSettings
+import net.minecraft.block.AbstractBlock.Settings
 import net.minecraft.block.Block
 import net.minecraft.block.ExperienceDroppingBlock
 import net.minecraft.block.MapColor
 import net.minecraft.registry.Registries
 import net.minecraft.sound.BlockSoundGroup
+import net.minecraft.util.math.intprovider.UniformIntProvider
 
 object ModBlocks : RegistryManager<Block>(Registries.BLOCK) {
 
     // Enderite
     val ENDERITE_ORE = create("enderite_ore",
-        ExperienceDroppingBlock(FabricBlockSettings.create()
+        ExperienceDroppingBlock(
+            UniformIntProvider.create(3, 7),
+            Settings.create()
             .mapColor(MapColor.PALE_YELLOW)
             .requiresTool()
             .strength(15.0f, 6.0f)
@@ -21,7 +24,7 @@ object ModBlocks : RegistryManager<Block>(Registries.BLOCK) {
     )
 
     val ENDERITE_BLOCK = create("enderite_block",
-        Block(FabricBlockSettings.create()
+        Block(Settings.create()
             .mapColor(MapColor.DARK_AQUA)
             .requiresTool()
             .strength(50.0f, 1200.0f)
@@ -31,7 +34,7 @@ object ModBlocks : RegistryManager<Block>(Registries.BLOCK) {
 
     // Ancient gold
     val ANCIENT_GOLD_BLOCK = create("ancient_gold_block",
-        Block(FabricBlockSettings.create()
+        Block(Settings.create()
             .mapColor(MapColor.GOLD)
             .requiresTool()
             .strength(3f, 6f)
@@ -41,7 +44,7 @@ object ModBlocks : RegistryManager<Block>(Registries.BLOCK) {
 
     // Amethyst
     val AMETHYST_CRYSTAL_BLOCK = create("amethyst_crystal_block",
-        Block(FabricBlockSettings.create()
+        Block(Settings.create()
             .mapColor(MapColor.PURPLE)
             .requiresTool()
             .strength(5f, 6f)
@@ -50,7 +53,7 @@ object ModBlocks : RegistryManager<Block>(Registries.BLOCK) {
     )
 
     val CHARGED_AMETHYST_CRYSTAL_BLOCK = create("amethyst_crystal_block_charged",
-        Block(FabricBlockSettings.create()
+        Block(Settings.create()
             .mapColor(MapColor.PURPLE)
             .requiresTool()
             .strength(5f, 6f)

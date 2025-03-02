@@ -4,11 +4,12 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import net.devoev.vanilla_cubed.block.ModBlocks
 import net.devoev.vanilla_cubed.data.client.MOD_TRIM_MATERIALS
+import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider
 import net.minecraft.block.Block
-import net.minecraft.data.client.*
+import net.minecraft.client.data.*
 import net.minecraft.item.*
+import net.minecraft.item.equipment.ArmorMaterials
 import net.minecraft.util.Identifier
 
 class ModModelProvider(output: FabricDataOutput) : FabricModelProvider(output) {
@@ -92,7 +93,7 @@ class ModModelProvider(output: FabricDataOutput) : FabricModelProvider(output) {
         val identifier = ModelIds.getItemModelId(armor)
         val identifier2 = TextureMap.getId(armor)
         val identifier3 = TextureMap.getSubId(armor, "_overlay")
-
+        
         if (armor.material == ArmorMaterials.LEATHER) {
             Models.GENERATED_TWO_LAYERS.upload(identifier, TextureMap.layered(identifier2, identifier3), this.writer) { id, textures ->
                 this.createModArmorJson(id, textures, armor.material)

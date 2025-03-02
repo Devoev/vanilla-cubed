@@ -39,6 +39,6 @@ object IncreaseMinecartSpeedUpgrade : ToggledUpgrade() {
     }
 
     override fun inRange(pos: Vec3d) =  activeRanges.values
-            .map { it.expand(INCREASE_RANGE*it.xLength, 0.0, INCREASE_RANGE*it.zLength) }
+            .map { it.expand(INCREASE_RANGE*it.lengthX, 0.0, INCREASE_RANGE*it.lengthZ) }
             .any { pos in it }
 }

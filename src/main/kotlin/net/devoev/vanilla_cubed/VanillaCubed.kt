@@ -45,6 +45,6 @@ object VanillaCubed : ModInitializer {
     /**
      * Returns an [Identifier] for the given [name].
      */
-    fun id(name: String): Identifier = Identifier(MOD_ID, name)
+    fun id(name: String): Identifier = Identifier.of(MOD_ID, name)
 }
 

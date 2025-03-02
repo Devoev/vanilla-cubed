@@ -6,6 +6,7 @@ import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.effect.StatusEffect
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.registry.entry.RegistryEntry
 import java.util.function.Predicate
 
 /**
@@ -16,7 +17,7 @@ import java.util.function.Predicate
  */
 class StatusEffectUpgrade<out T : LivingEntity>(
     private val entityType: EntityType<out T>,
-    private val effect: StatusEffect,
+    private val effect: RegistryEntry<StatusEffect>,
     private val amplifier: Int,
     private val predicate: Predicate<T>
 ) : BeaconUpgrade by tickUpgrade({ world, _, _ ->
@@ -32,7 +33,7 @@ class StatusEffectUpgrade<out T : LivingEntity>(
 /**
  * Creates a [StatusEffectUpgrade] that applies to non spectating players.
  */
-fun playerStatusEffectUpgradeOf(effect: StatusEffect, amplifier: Int = 0)
+fun playerStatusEffectUpgradeOf(effect: RegistryEntry<StatusEffect>, amplifier: Int = 0)
     = StatusEffectUpgrade<PlayerEntity>(EntityType.PLAYER, effect, amplifier) { !it.isSpectator }
 
 /**
@@ -40,7 +41,7 @@ fun playerStatusEffectUpgradeOf(effect: StatusEffect, amplifier: Int = 0)
  */
 fun <T : LivingEntity> statusEffectUpgradeOf(
     selectors: Map<EntityType<out T>, Predicate<T>>,
-    effect: StatusEffect,
+    effect: RegistryEntry<StatusEffect>,
     amplifier: Int
 ): BeaconUpgrade {
     return selectors
