@@ -26,8 +26,6 @@ val Entity.inCave: Boolean get() {
     return (caveBiome || underground) && blockOverhead
 }
 
-fun Entity.addVelocity(vec: Vec3d) = addVelocity(vec.x, vec.y, vec.z)
-
 /**
  * Returns true, if the entity is falling.
  */
