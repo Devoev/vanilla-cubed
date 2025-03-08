@@ -30,11 +30,23 @@ class AmethystCompass : Item(FabricItemSettings().maxDamage(25)) {
 
         if (world !is ServerWorld || user == null || stack == null || !stack.charged) return TypedActionResult.pass(stack)
 
+        val oldTarget = stack.targetPos
         generateTargetPos(world, user, stack)
-        user.itemCooldownManager[this] = 100
-        if (stack.charged) stack.damage(1, user) {}
-        if (stack.charged) world.playSound(null, user.blockPos, SoundEvents.BLOCK_AMETHYST_BLOCK_FALL, SoundCategory.PLAYERS, 35f, 3f)
-        else world.playSound(null, user.blockPos, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.PLAYERS, 0.5f, -1f)
+
+        if (stack.targetPos == null) {
+            world.playSound(null, user.blockPos, SoundEvents.BLOCK_AMETHYST_BLOCK_BREAK, SoundCategory.PLAYERS, 20f, -20f)
+            return TypedActionResult.pass(stack)
+        }
+
+        // Only damage the stack, if at least 2 damage is left and a new target is found
+        if (stack.charged && oldTarget != stack.targetPos) stack.damage(1, user) {}
+
+        if (stack.charged) {
+            user.itemCooldownManager[this] = 100
+            world.playSound(null, user.blockPos, SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.PLAYERS, 35f, 1f)
+        } else {
+            world.playSound(null, user.blockPos, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.PLAYERS, 0.5f, -1f)
+        }
 
         return TypedActionResult.success(stack, world.isClient)
     }

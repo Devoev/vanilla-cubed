@@ -76,7 +76,7 @@ var ItemStack.targetPos: BlockPos?
 
     set(value) {
         if (!isOf(ModItems.AMETHYST_COMPASS)) error("$item must be an ${ModItems.AMETHYST_COMPASS}")
-        nbt?.putIntArray(AMETHYST_COMPASS_TARGET_POS_KEY, if (value != null) listOf(value.x, value.y, value.z) else null)
+        if (value != null) nbt?.putIntArray(AMETHYST_COMPASS_TARGET_POS_KEY, listOf(value.x, value.y, value.z))
     }
 
 /**
