@@ -14,7 +14,7 @@ class ModConfig : ConfigData {
     var modifyTotemMechanics = true
 
     /**
-     * Whether Elder Guardians should drop Elder Guardian Shards
+     * Whether Elder Guardians should drop Elder Guardian Shards.
      */
     var elderGuardianShardDrop = true
 

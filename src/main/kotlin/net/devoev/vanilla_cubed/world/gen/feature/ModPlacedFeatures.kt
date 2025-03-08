@@ -13,8 +13,9 @@ import net.minecraft.world.gen.feature.PlacedFeature
 import java.util.function.Predicate
 
 /**
- * All placed features.
+ * All modded placed features.
  */
+@Suppress("unused")
 object ModPlacedFeatures : MapInitializer<Identifier, PlacedFeatureData>() {
 
     init {

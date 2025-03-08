@@ -5,6 +5,10 @@ import net.minecraft.item.Items
 import net.minecraft.potion.Potions
 import net.minecraft.recipe.BrewingRecipeRegistry
 
+/**
+ * All modded brewing recipes.
+ */
+@Suppress("unused")
 object ModBrewingRecipes {
     init {
         BrewingRecipeRegistry.registerPotionRecipe(Potions.AWKWARD, Items.NETHERITE_SCRAP, ModPotions.MAGNETIC)

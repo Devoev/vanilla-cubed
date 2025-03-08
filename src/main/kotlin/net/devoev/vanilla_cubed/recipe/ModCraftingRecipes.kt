@@ -5,6 +5,10 @@ import net.minecraft.recipe.RecipeSerializer
 import net.minecraft.recipe.SpecialRecipeSerializer
 import net.minecraft.registry.Registries
 
+/**
+ * All modded crafting recipes.
+ */
+@Suppress("unused")
 object ModCraftingRecipes : RegistryManager<RecipeSerializer<*>>(Registries.RECIPE_SERIALIZER) {
 
     val INFUSED_FIREWORK_ROCKET = create("firework_rocket_infused", SpecialRecipeSerializer(::InfusedFireworkRocketRecipe))

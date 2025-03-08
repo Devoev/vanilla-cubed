@@ -10,6 +10,7 @@ import net.minecraft.text.Text
 /**
  * All modded item groups.
  */
+@Suppress("unused")
 object ModItemGroup : RegistryManager<ItemGroup>(Registries.ITEM_GROUP) {
 
     val VANILLA_CUBED: ItemGroup = create("vanilla_cubed", ItemStack(ModItems.GILDED_BOOK), ModItems.values.map { ItemStack(it) })

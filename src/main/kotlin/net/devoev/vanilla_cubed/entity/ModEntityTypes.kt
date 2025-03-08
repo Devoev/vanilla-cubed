@@ -9,6 +9,10 @@ import net.minecraft.entity.EntityType.EntityFactory
 import net.minecraft.entity.SpawnGroup
 import net.minecraft.registry.Registries
 
+/**
+ * All modded entity types.
+ */
+@Suppress("unused")
 object ModEntityTypes : RegistryManager<EntityType<out Entity>>(Registries.ENTITY_TYPE) {
 
     val ENDERITE_TRIDENT = create("enderite_trident", ::ModTridentEntity)

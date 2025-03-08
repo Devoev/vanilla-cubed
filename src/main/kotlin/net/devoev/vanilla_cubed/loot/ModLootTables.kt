@@ -8,8 +8,9 @@ import net.minecraft.loot.LootPool
 import net.minecraft.util.Identifier
 
 /**
- * An object for initializing a custom loot table.
+ * All modded loot tables.
  */
+@Suppress("unused")
 object ModLootTables : MapInitializer<Identifier, LootPool.Builder>() {
 
     val ELDER_GUARDIAN = create("entities/elder_guardian") {

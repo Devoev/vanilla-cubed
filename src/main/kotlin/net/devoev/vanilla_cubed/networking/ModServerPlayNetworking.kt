@@ -5,6 +5,9 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.PlayChannelHandler
 import net.minecraft.util.Identifier
 
+/**
+ * All modded server networking receivers.
+ */
 object ModServerPlayNetworking : MapInitializer<Identifier, PlayChannelHandler>() {
 
     init {

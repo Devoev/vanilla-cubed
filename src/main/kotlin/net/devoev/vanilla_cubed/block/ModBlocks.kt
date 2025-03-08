@@ -8,6 +8,10 @@ import net.minecraft.block.MapColor
 import net.minecraft.registry.Registries
 import net.minecraft.sound.BlockSoundGroup
 
+/**
+ * All modded blocks
+ */
+@Suppress("unused")
 object ModBlocks : RegistryManager<Block>(Registries.BLOCK) {
 
     // Enderite

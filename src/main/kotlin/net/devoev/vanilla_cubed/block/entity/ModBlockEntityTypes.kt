@@ -8,6 +8,10 @@ import net.minecraft.block.entity.BlockEntity
 import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.registry.Registries
 
+/**
+ * All modded block entity types
+ */
+@Suppress("unused")
 object ModBlockEntityTypes : RegistryManager<BlockEntityType<out BlockEntity>>(Registries.BLOCK_ENTITY_TYPE) {
 
     val MOD_BEACON = create("mod_beacon", ::ModBeaconBlockEntity, Blocks.BEACON)

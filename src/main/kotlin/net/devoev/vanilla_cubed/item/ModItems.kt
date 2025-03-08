@@ -14,6 +14,7 @@ import net.minecraft.registry.Registries
 /**
  * All modded items.
  */
+@Suppress("unused")
 object ModItems : RegistryManager<Item>(Registries.ITEM) {
 
     //Tridents
